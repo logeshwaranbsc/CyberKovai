@@ -46,7 +46,7 @@ $pageTitle = isset($pageTitle) ? $pageTitle . ' | ' . SITE_NAME : SITE_NAME . ' 
                 $currentScript = basename($_SERVER['PHP_SELF']);
                 foreach ($navLinks as $url => $label):
                     if ($url === '#contact') continue;
-                    $isActive = ($currentScript === $url) || ($url === 'index.php' && $currentScript === 'index.php') || ($url === 'about.php' && $currentScript === 'about.php');
+                    $isActive = ($currentScript === $url);
                 ?>
                     <a href="<?= sanitize_out($url) ?>" class="<?= $isActive ? 'active' : '' ?>"><?= sanitize_out($label) ?></a>
                 <?php endforeach; ?>

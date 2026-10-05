@@ -13,12 +13,9 @@ define('SITE_LOCATION', 'Coimbatore, Tamil Nadu, India');
 
 // Navigation Links
 $navLinks = [
-    'index.php'          => 'Home',
-    'about.php'          => 'About',
-    'index.php#services' => 'Services',
-    '#media'             => 'Media',
-    '#careers'           => 'Careers',
-    '#contact'           => 'Contact'
+    'index.php' => 'Home',
+    'about.php' => 'About',
+    '#contact'  => 'Contact'
 ];
 
 // Focus Categories (Corporate Intelligence)

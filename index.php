@@ -41,8 +41,9 @@ include_once __DIR__ . '/includes/header.php';
                             <span>➔</span>
                         </a>
 
-                        <a href="#services" class="btn outline-btn">
-                            Explore Our Services
+                        <a href="cyber-intelligence.php" class="btn outline-btn">
+                            Explore Cyber Intelligence
+                            <span>➔</span>
                         </a>
 
                     </div>

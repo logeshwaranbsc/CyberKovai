@@ -663,3 +663,346 @@ if (contactForm && formResponse) {
 })();
 
 
+/* =========================================
+   CYBER INTELLIGENCE — SCROLL REVEAL
+========================================= */
+
+(function ciRevealObserver() {
+    const els = document.querySelectorAll('.ci-reveal');
+    if (!els.length) return;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) {
+        els.forEach(el => el.classList.add('ci-visible'));
+        return;
+    }
+
+    const obs = new IntersectionObserver(entries => {
+        entries.forEach((e, i) => {
+            if (e.isIntersecting) {
+                // Stagger siblings within same parent
+                const siblings = e.target.parentElement
+                    ? Array.from(e.target.parentElement.querySelectorAll('.ci-reveal:not(.ci-visible)'))
+                    : [e.target];
+                const idx = siblings.indexOf(e.target);
+                setTimeout(() => {
+                    e.target.classList.add('ci-visible');
+                }, Math.min(idx * 80, 320));
+                obs.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    els.forEach(el => obs.observe(el));
+})();
+
+
+/* =========================================
+   CYBER INTELLIGENCE — HERO PARTICLE CANVAS
+========================================= */
+
+(function ciParticleCanvas() {
+    const canvas = document.getElementById('ciParticleCanvas');
+    if (!canvas) return;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) return;
+
+    const ctx = canvas.getContext('2d');
+    let W, H, particles = [], animId;
+
+    function resize() {
+        W = canvas.width  = canvas.offsetWidth;
+        H = canvas.height = canvas.offsetHeight;
+    }
+
+    function createParticle() {
+        return {
+            x: Math.random() * W,
+            y: Math.random() * H,
+            r: Math.random() * 1.5 + 0.4,
+            dx: (Math.random() - 0.5) * 0.3,
+            dy: (Math.random() - 0.5) * 0.3,
+            alpha: Math.random() * 0.4 + 0.1,
+            color: Math.random() > 0.5 ? '139,32,255' : '200,75,255',
+        };
+    }
+
+    function init() {
+        resize();
+        particles = Array.from({ length: 80 }, createParticle);
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, W, H);
+        particles.forEach(p => {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${p.color},${p.alpha})`;
+            ctx.fill();
+
+            p.x += p.dx;
+            p.y += p.dy;
+            if (p.x < 0 || p.x > W) p.dx *= -1;
+            if (p.y < 0 || p.y > H) p.dy *= -1;
+        });
+        animId = requestAnimationFrame(draw);
+    }
+
+    // Draw connecting lines between nearby particles
+    function drawLines() { /* lightweight — skip for perf */ }
+
+    // Intersection observer to start/stop canvas
+    let running = false;
+    const obs = new IntersectionObserver(entries => {
+        const visible = entries[0].isIntersecting;
+        if (visible && !running) { running = true; draw(); }
+        else if (!visible && running) { running = false; cancelAnimationFrame(animId); }
+    }, { threshold: 0.01 });
+
+    init();
+    obs.observe(canvas.parentElement || canvas);
+    window.addEventListener('resize', () => { resize(); particles = Array.from({ length: 80 }, createParticle); });
+})();
+
+
+/* =========================================
+   CYBER INTELLIGENCE — CTA CANVAS (Network)
+========================================= */
+
+(function ciCtaCanvas() {
+    const canvas = document.getElementById('ciCtaCanvas');
+    if (!canvas) return;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) return;
+
+    const ctx = canvas.getContext('2d');
+    let W, H, nodes = [], animId, running = false;
+
+    function resize() {
+        W = canvas.width  = canvas.offsetWidth;
+        H = canvas.height = canvas.offsetHeight;
+    }
+
+    function createNode() {
+        return {
+            x: Math.random() * W, y: Math.random() * H,
+            dx: (Math.random() - 0.5) * 0.4, dy: (Math.random() - 0.5) * 0.4,
+            r: Math.random() * 2 + 1,
+        };
+    }
+
+    function init() { resize(); nodes = Array.from({ length: 40 }, createNode); }
+
+    function draw() {
+        ctx.clearRect(0, 0, W, H);
+        // Draw connections
+        for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+                const d = Math.hypot(nodes[i].x - nodes[j].x, nodes[i].y - nodes[j].y);
+                if (d < 120) {
+                    ctx.beginPath();
+                    ctx.moveTo(nodes[i].x, nodes[i].y);
+                    ctx.lineTo(nodes[j].x, nodes[j].y);
+                    ctx.strokeStyle = `rgba(139,32,255,${0.15 * (1 - d/120)})`;
+                    ctx.lineWidth = 0.8;
+                    ctx.stroke();
+                }
+            }
+        }
+        // Draw nodes
+        nodes.forEach(n => {
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(200,75,255,0.35)';
+            ctx.fill();
+            n.x += n.dx; n.y += n.dy;
+            if (n.x < 0 || n.x > W) n.dx *= -1;
+            if (n.y < 0 || n.y > H) n.dy *= -1;
+        });
+        animId = requestAnimationFrame(draw);
+    }
+
+    const obs = new IntersectionObserver(entries => {
+        const visible = entries[0].isIntersecting;
+        if (visible && !running) { running = true; draw(); }
+        else if (!visible && running) { running = false; cancelAnimationFrame(animId); }
+    }, { threshold: 0.01 });
+
+    init();
+    obs.observe(canvas.parentElement || canvas);
+    window.addEventListener('resize', () => { resize(); nodes = Array.from({ length: 40 }, createNode); });
+})();
+
+
+/* =========================================
+   CYBER INTELLIGENCE — 4-PANEL SHOWCASE
+   Hover / click / touch interaction
+========================================= */
+
+(function ciShowcasePanels() {
+    const container = document.getElementById('ciShowcasePanels');
+    if (!container) return;
+
+    const panels = container.querySelectorAll('.ci-panel');
+    if (!panels.length) return;
+
+    const isMobile = () => window.innerWidth <= 768;
+    const reduced  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function activatePanel(target) {
+        panels.forEach(p => p.classList.remove('ci-panel-active'));
+        target.classList.add('ci-panel-active');
+    }
+
+    panels.forEach(panel => {
+        // Desktop: hover
+        panel.addEventListener('mouseenter', () => {
+            if (isMobile()) return;
+            activatePanel(panel);
+        });
+
+        // Mobile: tap to activate first, second tap follows link
+        panel.addEventListener('click', e => {
+            if (!isMobile()) return;
+            if (!panel.classList.contains('ci-panel-active')) {
+                e.preventDefault();
+                activatePanel(panel);
+            }
+        });
+    });
+
+    // Mouse parallax on active panel bg
+    if (!reduced) {
+        container.addEventListener('mousemove', e => {
+            if (isMobile()) return;
+            const active = container.querySelector('.ci-panel-active');
+            if (!active) return;
+            const rect = active.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top  + rect.height / 2;
+            const dx = (e.clientX - cx) / (rect.width  / 2);
+            const dy = (e.clientY - cy) / (rect.height / 2);
+            active.style.backgroundPosition = `calc(50% + ${dx * 10}px) calc(50% + ${dy * 8}px)`;
+        });
+
+        container.addEventListener('mouseleave', () => {
+            const active = container.querySelector('.ci-panel-active');
+            if (active) active.style.backgroundPosition = 'center';
+        });
+    }
+})();
+
+
+/* =========================================
+   CYBER INTELLIGENCE — FAQ ACCORDION
+========================================= */
+
+(function ciFaqAccordion() {
+    const items = document.querySelectorAll('.ci-faq-item');
+    if (!items.length) return;
+
+    items.forEach(item => {
+        const btn = item.querySelector('.ci-faq-q');
+        if (!btn) return;
+        btn.addEventListener('click', () => {
+            const isOpen = item.classList.contains('ci-faq-open');
+            // Close all
+            items.forEach(i => i.classList.remove('ci-faq-open'));
+            // Open clicked if it was closed
+            if (!isOpen) item.classList.add('ci-faq-open');
+        });
+    });
+})();
+
+
+/* =========================================
+   CYBER INTELLIGENCE — HERO 3D POINTER TILT
+========================================= */
+(function ciHeroTilt() {
+    const visual = document.querySelector('.ci-hero-visual');
+    if (!visual) return;
+
+    let tx = 0, ty = 0, px = 0, py = 0;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    window.addEventListener('pointermove', function(e) {
+        if (reduce) return;
+        const rect = visual.getBoundingClientRect();
+        tx = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
+        ty = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
+        tx = Math.max(-1.5, Math.min(1.5, tx));
+        ty = Math.max(-1.5, Math.min(1.5, ty));
+    });
+
+    function loop() {
+        if (!reduce) {
+            px += (tx - px) * 0.08;
+            py += (ty - py) * 0.08;
+            visual.style.setProperty('--rx', px.toFixed(3));
+            visual.style.setProperty('--ry', py.toFixed(3));
+        }
+        requestAnimationFrame(loop);
+    }
+    loop();
+})();
+
+
+/* =========================================
+   PAGE DIRECTIONAL SLIDE TRANSITIONS
+========================================= */
+(function pageSlideTransitions() {
+    const body = document.body;
+
+    // Check if arriving from a slide transition
+    try {
+        const transitionType = sessionStorage.getItem('pageTransition');
+        if (transitionType === 'from-right') {
+            body.classList.add('page-enter-from-right');
+            sessionStorage.removeItem('pageTransition');
+        } else if (transitionType === 'from-left') {
+            body.classList.add('page-enter-from-left');
+            sessionStorage.removeItem('pageTransition');
+        }
+    } catch(e) {}
+
+    // Intercept clicks to Cyber Intelligence page (slides in FROM RIGHT)
+    document.querySelectorAll('a[href*="cyber-intelligence.php"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            if (e.ctrlKey || e.metaKey || e.shiftKey) return;
+            const href = this.getAttribute('href');
+            if (!href) return;
+
+            e.preventDefault();
+            try { sessionStorage.setItem('pageTransition', 'from-right'); } catch(err) {}
+            body.classList.add('page-exit-left');
+
+            setTimeout(() => {
+                window.location.href = href;
+            }, 360);
+        });
+    });
+
+    // Intercept clicks to Investigation / Home page (slides in FROM LEFT)
+    document.querySelectorAll('a[href*="index.php"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            if (e.ctrlKey || e.metaKey || e.shiftKey) return;
+            const href = this.getAttribute('href');
+            if (!href) return;
+
+            const currentPath = window.location.pathname.split('/').pop() || 'index.php';
+            if (currentPath === 'index.php' && href.includes('#')) return;
+
+            e.preventDefault();
+            try { sessionStorage.setItem('pageTransition', 'from-left'); } catch(err) {}
+            body.classList.add('page-exit-right');
+
+            setTimeout(() => {
+                window.location.href = href;
+            }, 360);
+        });
+    });
+})();
+
+

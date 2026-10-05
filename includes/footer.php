@@ -32,38 +32,41 @@ if (!defined('SITE_NAME')) {
 
             <div class="footer-column">
 
-                <h4>COMPANY</h4>
+                <h4>QUICK LINKS</h4>
 
+                <a href="index.php">Home</a>
+                <a href="cyber-intelligence.php">Cyber Intelligence</a>
+                <a href="investigation.php">Investigation</a>
                 <a href="about.php">About Us</a>
-                <a href="#team">Our Team</a>
-                <a href="#industries">Industries We Serve</a>
-                <a href="#awards">Awards & Recognition</a>
-                <a href="#news">News & Events</a>
-                <a href="#gallery">Photo Gallery</a>
-                <a href="#careers">Careers</a>
-                <a href="#faq">Frequently Asked Questions</a>
-                <a href="#blog">Intelligence Blog</a>
-                <a href="#training">Training & Certification</a>
-                <a href="#contact">Contact Us</a>
+                <a href="#contact">Contact</a>
 
             </div>
 
 
             <div class="footer-column">
 
-                <h4>SERVICES</h4>
+                <h4>CYBER INTELLIGENCE</h4>
 
-                <a href="#services">Pre Matrimonial Screening</a>
-                <a href="#services">Post Matrimonial Disputes</a>
-                <a href="#services">Character Verification</a>
-                <a href="#services">Corporate Investigation</a>
-                <a href="#services">Cyber Investigation</a>
-                <a href="#services">Surveillance Services</a>
-                <a href="#services">Background Verification</a>
-                <a href="#services">Private Detective Services</a>
-                <a href="#services">Digital Investigation</a>
-                <a href="#services">Risk Advisory</a>
-                <a href="#services">Competitive Intelligence</a>
+                <a href="cyber-intelligence.php#ci-services">Cyber Risk Assessment</a>
+                <a href="cyber-intelligence.php#ci-services">Digital Forensics</a>
+                <a href="cyber-intelligence.php#ci-services">Social Media Investigation</a>
+                <a href="cyber-intelligence.php#ci-services">Data &amp; Information Security</a>
+                <a href="cyber-intelligence.php#ci-services">Cyber Security Advisory</a>
+                <a href="cyber-intelligence.php#ci-services">Brand &amp; Executive Protection</a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>INVESTIGATION</h4>
+
+                <a href="investigation.php#services">Pre Matrimonial Screening</a>
+                <a href="investigation.php#services">Post Matrimonial Disputes</a>
+                <a href="investigation.php#services">Character Verification</a>
+                <a href="investigation.php#services">Corporate Investigation</a>
+                <a href="investigation.php#services">Background Verification</a>
+                <a href="investigation.php#services">Surveillance Services</a>
 
             </div>
 
@@ -79,6 +82,7 @@ if (!defined('SITE_NAME')) {
             </div>
 
         </div>
+
 
         <div class="container service-areas-bar">
             <h4>SERVICE AREAS</h4>
