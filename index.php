@@ -27,7 +27,7 @@ include_once __DIR__ . '/includes/header.php';
                     <h1>
                         Professional Investigation<br>
                         <span class="hero-gradient-text">Solutions</span><br>
-                        by <span class="cyber-glitch-wrapper" title="CyberKovai Cyber Systems"><span class="cyber-glitch-text" data-text="CyberKovai">CyberKovai</span><span class="cyber-cursor" aria-hidden="true">_</span><span class="cyber-scan-bar" aria-hidden="true"></span></span>
+                        <span class="hero-by-line">by <span class="cyber-glitch-wrapper" title="CyberKovai Cyber Systems"><span class="cyber-glitch-text" data-text="CyberKovai">CyberKovai</span><span class="cyber-cursor" aria-hidden="true">_</span><span class="cyber-scan-bar" aria-hidden="true"></span></span></span>
                     </h1>
 
                     <p>

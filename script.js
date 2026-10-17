@@ -1079,56 +1079,95 @@ if (contactForm && formResponse) {
     const cyberElements = document.querySelectorAll('.cyber-glitch-text');
     if (!cyberElements.length) return;
 
-    // High-tech cyber / matrix character pool
-    const cyberGlyphs = '01#X/<>[]{}*!@$%~+=?_01';
+    // High-tech cyber character pool (curated uniform proportions, no collision)
+    const cyberGlyphs = '01XYZKV7*+<>?/';
 
     // Respect reduced motion preferences
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     cyberElements.forEach(element => {
-        const originalText = element.getAttribute('data-text') || element.textContent.trim();
+        const originalText = (element.getAttribute('data-text') || element.textContent).trim();
         element.setAttribute('data-text', originalText);
 
-        if (prefersReducedMotion) return;
+        // Build individual character slots
+        element.innerHTML = '';
+        const slots = [];
+        for (let i = 0; i < originalText.length; i++) {
+            const char = originalText[i];
+            const span = document.createElement('span');
+            span.className = 'cyber-slot';
+            span.textContent = char;
+            element.appendChild(span);
+            slots.push({
+                el: span,
+                targetChar: char
+            });
+        }
 
         let isAnimating = false;
         let animationFrameId = null;
+
+        // Stabilize each slot's width so letters never jump or collide during scrambling
+        function stabilizeWidths() {
+            slots.forEach(slot => {
+                slot.el.style.width = '';
+                const rect = slot.el.getBoundingClientRect();
+                if (rect.width > 0) {
+                    slot.el.style.width = Math.ceil(rect.width) + 'px';
+                }
+            });
+        }
+
+        stabilizeWidths();
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(stabilizeWidths);
+        }
+        window.addEventListener('resize', () => {
+            if (!isAnimating) stabilizeWidths();
+        }, { passive: true });
+
+        if (prefersReducedMotion) return;
 
         function scrambleText(durationMs = 900) {
             if (isAnimating) return;
             isAnimating = true;
 
             const startTime = performance.now();
-            const totalChars = originalText.length;
+            const totalChars = slots.length;
 
             function updateFrame(now) {
                 const elapsed = now - startTime;
                 const progress = Math.min(elapsed / durationMs, 1);
-
-                // Calculate how many characters are locked into the target word
                 const lockedCount = Math.floor(progress * totalChars);
 
-                let output = '';
                 for (let i = 0; i < totalChars; i++) {
+                    const slot = slots[i];
+                    if (slot.targetChar === ' ') {
+                        slot.el.textContent = ' ';
+                        continue;
+                    }
+
                     if (i < lockedCount) {
-                        output += originalText[i];
-                    } else if (originalText[i] === ' ') {
-                        output += ' ';
+                        if (slot.el.textContent !== slot.targetChar) {
+                            slot.el.textContent = slot.targetChar;
+                            slot.el.classList.remove('is-cycling');
+                            slot.el.classList.add('is-locked');
+                        }
                     } else {
-                        // Pick a random cyber glyph
-                        const randomGlyph = cyberGlyphs[Math.floor(Math.random() * cyberGlyphs.length)];
-                        output += randomGlyph;
+                        slot.el.classList.add('is-cycling');
+                        slot.el.classList.remove('is-locked');
+                        slot.el.textContent = cyberGlyphs[Math.floor(Math.random() * cyberGlyphs.length)];
                     }
                 }
-
-                element.textContent = output;
-                element.setAttribute('data-text', output);
 
                 if (progress < 1) {
                     animationFrameId = requestAnimationFrame(updateFrame);
                 } else {
-                    element.textContent = originalText;
-                    element.setAttribute('data-text', originalText);
+                    slots.forEach(slot => {
+                        slot.el.textContent = slot.targetChar;
+                        slot.el.classList.remove('is-cycling');
+                        slot.el.classList.add('is-locked');
+                    });
                     isAnimating = false;
                 }
             }
@@ -1138,8 +1177,8 @@ if (contactForm && formResponse) {
 
         // Trigger on initial page load after a slight delay
         setTimeout(() => {
-            scrambleText(1000);
-        }, 450);
+            scrambleText(950);
+        }, 400);
 
         // Trigger on hover / touch
         const wrapper = element.closest('.cyber-glitch-wrapper') || element;
@@ -1151,12 +1190,12 @@ if (contactForm && formResponse) {
             if (!isAnimating) scrambleText(850);
         });
 
-        // Periodic subtle cyber hacker decode pulse (every 10 seconds if idle)
+        // Periodic subtle cyber hacker decode pulse (every 12 seconds if idle)
         setInterval(() => {
             if (!isAnimating && document.visibilityState === 'visible') {
                 scrambleText(700);
             }
-        }, 10000);
+        }, 12000);
     });
 })();
 
