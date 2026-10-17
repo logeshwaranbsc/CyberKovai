@@ -65,16 +65,25 @@ menuToggle.addEventListener("click", () => {
 });
 
 
-/* Close mobile menu after clicking link */
+/* Services Mega Dropdown Toggle for Mobile */
+const dropdownToggle = document.querySelector(".dropdown-toggle");
+if (dropdownToggle) {
+    dropdownToggle.addEventListener("click", (e) => {
+        if (window.innerWidth <= 992) {
+            e.preventDefault();
+            const parent = dropdownToggle.closest(".has-dropdown");
+            if (parent) parent.classList.toggle("mobile-open");
+        }
+    });
+}
 
+/* Close mobile menu after clicking link */
 document
-    .querySelectorAll(".nav-menu a")
+    .querySelectorAll(".nav-menu a:not(.dropdown-toggle)")
     .forEach(link => {
 
         link.addEventListener("click", () => {
-
-            navMenu.classList.remove("active");
-
+            if (navMenu) navMenu.classList.remove("active");
         });
 
     });
@@ -968,7 +977,7 @@ if (contactForm && formResponse) {
     } catch(e) {}
 
     // Intercept clicks to Cyber Intelligence page (slides in FROM RIGHT)
-    document.querySelectorAll('a[href*="cyber-intelligence.php"]').forEach(link => {
+    document.querySelectorAll('a[href*="cyber-intelligence.php"]:not(.dropdown-toggle)').forEach(link => {
         link.addEventListener('click', function(e) {
             if (e.ctrlKey || e.metaKey || e.shiftKey) return;
             const href = this.getAttribute('href');
@@ -985,7 +994,7 @@ if (contactForm && formResponse) {
     });
 
     // Intercept clicks to Investigation / Home page (slides in FROM LEFT)
-    document.querySelectorAll('a[href*="index.php"]').forEach(link => {
+    document.querySelectorAll('a[href*="index.php"]:not(.dropdown-toggle)').forEach(link => {
         link.addEventListener('click', function(e) {
             if (e.ctrlKey || e.metaKey || e.shiftKey) return;
             const href = this.getAttribute('href');
@@ -1004,5 +1013,153 @@ if (contactForm && formResponse) {
         });
     });
 })();
+
+/* =========================================
+   MEGA DROPDOWN & LIVE CHAT WIDGET INTERACTION
+========================================= */
+(function initMegaMenuAndChat() {
+    // 1. Mega Menu Toggle (Click and Hover)
+    const dropdownItem = document.querySelector('.nav-item.has-dropdown');
+    const dropdownToggle = document.querySelector('.dropdown-toggle');
+    const megaMenu = document.querySelector('.mega-dropdown');
+
+    if (dropdownItem && dropdownToggle) {
+        dropdownToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            dropdownItem.classList.toggle('open');
+            const isOpen = dropdownItem.classList.contains('open');
+            dropdownToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!dropdownItem.contains(e.target)) {
+                dropdownItem.classList.remove('open');
+                dropdownToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Close mega menu when any link inside it is clicked
+        if (megaMenu) {
+            megaMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function() {
+                    dropdownItem.classList.remove('open');
+                });
+            });
+        }
+    }
+
+    // 2. Chat Widget interactions
+    const chatCloseBtn = document.getElementById('chatCloseBtn');
+    const chatToggleBtn = document.getElementById('chatToggleBtn');
+    const chatBubble = document.querySelector('.chat-bubble-card');
+
+    if (chatCloseBtn && chatBubble) {
+        chatCloseBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            chatBubble.style.display = 'none';
+        });
+    }
+
+    if (chatToggleBtn && chatBubble) {
+        chatToggleBtn.addEventListener('click', function() {
+            if (chatBubble.style.display === 'none') {
+                chatBubble.style.display = 'flex';
+            } else {
+                chatBubble.style.display = 'none';
+            }
+        });
+    }
+})();
+
+/* =========================================
+   CYBER THEME TEXT SCRAMBLER / HACKER DECODER
+========================================= */
+(function initCyberScrambler() {
+    const cyberElements = document.querySelectorAll('.cyber-glitch-text');
+    if (!cyberElements.length) return;
+
+    // High-tech cyber / matrix character pool
+    const cyberGlyphs = '01#X/<>[]{}*!@$%~+=?_01';
+
+    // Respect reduced motion preferences
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    cyberElements.forEach(element => {
+        const originalText = element.getAttribute('data-text') || element.textContent.trim();
+        element.setAttribute('data-text', originalText);
+
+        if (prefersReducedMotion) return;
+
+        let isAnimating = false;
+        let animationFrameId = null;
+
+        function scrambleText(durationMs = 900) {
+            if (isAnimating) return;
+            isAnimating = true;
+
+            const startTime = performance.now();
+            const totalChars = originalText.length;
+
+            function updateFrame(now) {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / durationMs, 1);
+
+                // Calculate how many characters are locked into the target word
+                const lockedCount = Math.floor(progress * totalChars);
+
+                let output = '';
+                for (let i = 0; i < totalChars; i++) {
+                    if (i < lockedCount) {
+                        output += originalText[i];
+                    } else if (originalText[i] === ' ') {
+                        output += ' ';
+                    } else {
+                        // Pick a random cyber glyph
+                        const randomGlyph = cyberGlyphs[Math.floor(Math.random() * cyberGlyphs.length)];
+                        output += randomGlyph;
+                    }
+                }
+
+                element.textContent = output;
+                element.setAttribute('data-text', output);
+
+                if (progress < 1) {
+                    animationFrameId = requestAnimationFrame(updateFrame);
+                } else {
+                    element.textContent = originalText;
+                    element.setAttribute('data-text', originalText);
+                    isAnimating = false;
+                }
+            }
+
+            animationFrameId = requestAnimationFrame(updateFrame);
+        }
+
+        // Trigger on initial page load after a slight delay
+        setTimeout(() => {
+            scrambleText(1000);
+        }, 450);
+
+        // Trigger on hover / touch
+        const wrapper = element.closest('.cyber-glitch-wrapper') || element;
+        wrapper.addEventListener('mouseenter', () => {
+            if (!isAnimating) scrambleText(750);
+        });
+
+        wrapper.addEventListener('click', () => {
+            if (!isAnimating) scrambleText(850);
+        });
+
+        // Periodic subtle cyber hacker decode pulse (every 10 seconds if idle)
+        setInterval(() => {
+            if (!isAnimating && document.visibilityState === 'visible') {
+                scrambleText(700);
+            }
+        }, 10000);
+    });
+})();
+
+
 
 

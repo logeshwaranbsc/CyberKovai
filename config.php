@@ -15,6 +15,7 @@ define('SITE_LOCATION', 'Coimbatore, Tamil Nadu, India');
 $navLinks = [
     'index.php' => 'Home',
     'about.php' => 'About',
+    '#services' => 'Services',
     '#contact'  => 'Contact'
 ];
 
