@@ -846,19 +846,193 @@ if (contactForm && formResponse) {
 
 
 /* =========================================
-   CYBER INTELLIGENCE — 4-PANEL SHOWCASE
-   Hover / click / touch interaction
+   CYBER INTELLIGENCE — INTERACTIVE COMMAND CONSOLE
+   Animated Radar HUD + 4-Pillar Switcher
 ========================================= */
 
-(function ciShowcasePanels() {
+(function initCyberCommandConsole() {
+    const consoleEl = document.getElementById('ci-command-console');
+    if (!consoleEl) return;
+
+    const stage = consoleEl.querySelector('.ci-console-stage');
+    const cards = consoleEl.querySelectorAll('.console-pillar-card');
+    const blips = consoleEl.querySelectorAll('.radar-blip');
+    const reticle = document.getElementById('radarTargetReticle');
+    const hudVector = document.getElementById('hudVectorCode');
+    const hudStatus = document.getElementById('hudStatus');
+    const hudMetric = document.getElementById('hudMetric');
+    const consoleCoords = document.getElementById('consoleCoords');
+    const radarTagMode = document.getElementById('radarTagMode');
+
+    if (!cards.length) return;
+
+    const sectorModes = [
+        'SECTOR: 01-HUNT',
+        'SECTOR: 02-EVIDENCE',
+        'SECTOR: 03-AUDIT',
+        'SECTOR: 04-SHIELD'
+    ];
+
+    let currentIndex = 0;
+    let autoTimer = null;
+    let isUserHovering = false;
+
+    function selectPillar(idx, userInitiated = false) {
+        if (idx < 0 || idx >= cards.length) return;
+        currentIndex = idx;
+
+        // Update Pillar Cards
+        cards.forEach((card, i) => {
+            const isActive = i === idx;
+            card.classList.toggle('active', isActive);
+            card.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+
+        // Update Radar Blips
+        blips.forEach((blip, i) => {
+            blip.classList.toggle('active', i === idx);
+        });
+
+        // Update Reticle Class
+        if (reticle) {
+            reticle.className = `radar-target-reticle pos-${idx}`;
+        }
+
+        // Update Telemetry Deck & Top Bar
+        const activeCard = cards[idx];
+        if (activeCard) {
+            const code = activeCard.getAttribute('data-code') || '';
+            const status = activeCard.getAttribute('data-status') || '';
+            const metric = activeCard.getAttribute('data-metric') || '';
+            const coords = activeCard.getAttribute('data-coords') || '';
+            const meter = activeCard.getAttribute('data-meter') || '98';
+            const encryption = activeCard.getAttribute('data-encryption') || '';
+            const standard = activeCard.getAttribute('data-standard') || '';
+            const logMsg = activeCard.getAttribute('data-log') || '';
+
+            const hudMetricFill = document.getElementById('hudMetricFill');
+            const hudEncryption = document.getElementById('hudEncryption');
+            const hudStandard = document.getElementById('hudStandard');
+            const termLiveLog = document.getElementById('termLiveLog');
+
+            if (hudVector) hudVector.textContent = code;
+            if (hudStatus) {
+                hudStatus.textContent = status;
+                if (idx === 0) {
+                    hudStatus.className = 'telemetry-val green-text';
+                } else if (idx === 1) {
+                    hudStatus.className = 'telemetry-val orchid-text';
+                } else if (idx === 2) {
+                    hudStatus.className = 'telemetry-val blue-text';
+                } else {
+                    hudStatus.className = 'telemetry-val amber-text';
+                }
+            }
+            if (hudMetric) hudMetric.textContent = metric;
+            if (hudMetricFill) hudMetricFill.style.width = meter + '%';
+            if (hudEncryption) hudEncryption.textContent = encryption;
+            if (hudStandard) hudStandard.textContent = standard;
+            if (consoleCoords) consoleCoords.textContent = coords;
+            if (radarTagMode) radarTagMode.textContent = sectorModes[idx] || 'SECTOR: ACTIVE';
+
+            if (termLiveLog && logMsg) {
+                const now = new Date();
+                const timeStr = [now.getHours(), now.getMinutes(), now.getSeconds()]
+                    .map(n => String(n).padStart(2, '0')).join(':');
+                termLiveLog.innerHTML = `<span class="term-time">[${timeStr}]</span> <span class="term-hi">NODE_LOCK:</span> ${logMsg}`;
+            }
+        }
+
+        if (userInitiated) {
+            restartAutoTimer();
+        }
+    }
+
+    // Card interactions
+    cards.forEach((card, i) => {
+        card.addEventListener('mouseenter', () => {
+            selectPillar(i, true);
+        });
+
+        card.addEventListener('click', (e) => {
+            if (e.target.closest('.pillar-action-btn')) return;
+            selectPillar(i, true);
+        });
+
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                selectPillar(i, true);
+            }
+        });
+    });
+
+    // Blip interactions on radar screen
+    blips.forEach((blip, i) => {
+        blip.addEventListener('mouseenter', () => {
+            selectPillar(i, true);
+        });
+        blip.addEventListener('click', () => {
+            selectPillar(i, true);
+        });
+    });
+
+    // Auto-cycle through pillars smoothly
+    function nextPillar() {
+        if (isUserHovering) return;
+        const nextIdx = (currentIndex + 1) % cards.length;
+        selectPillar(nextIdx, false);
+    }
+
+    function startAutoTimer() {
+        stopAutoTimer();
+        autoTimer = setInterval(nextPillar, 5000);
+    }
+
+    function stopAutoTimer() {
+        if (autoTimer) {
+            clearInterval(autoTimer);
+            autoTimer = null;
+        }
+    }
+
+    function restartAutoTimer() {
+        stopAutoTimer();
+        if (!isUserHovering) {
+            autoTimer = setInterval(nextPillar, 6000);
+        }
+    }
+
+    if (stage) {
+        stage.addEventListener('mouseenter', () => {
+            isUserHovering = true;
+            stopAutoTimer();
+        });
+
+        stage.addEventListener('mouseleave', () => {
+            isUserHovering = false;
+            startAutoTimer();
+        });
+
+        // Touch support
+        stage.addEventListener('touchstart', () => {
+            isUserHovering = true;
+            stopAutoTimer();
+        }, { passive: true });
+    }
+
+    // Initialize first pillar and start auto rotation
+    selectPillar(0);
+    startAutoTimer();
+})();
+
+/* Fallback for legacy panels if present on any other view */
+(function ciLegacyShowcasePanels() {
     const container = document.getElementById('ciShowcasePanels');
     if (!container) return;
 
     const panels = container.querySelectorAll('.ci-panel');
     if (!panels.length) return;
-
-    const isMobile = () => window.innerWidth <= 768;
-    const reduced  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     function activatePanel(target) {
         panels.forEach(p => p.classList.remove('ci-panel-active'));
@@ -866,41 +1040,9 @@ if (contactForm && formResponse) {
     }
 
     panels.forEach(panel => {
-        // Desktop: hover
-        panel.addEventListener('mouseenter', () => {
-            if (isMobile()) return;
-            activatePanel(panel);
-        });
-
-        // Mobile: tap to activate first, second tap follows link
-        panel.addEventListener('click', e => {
-            if (!isMobile()) return;
-            if (!panel.classList.contains('ci-panel-active')) {
-                e.preventDefault();
-                activatePanel(panel);
-            }
-        });
+        panel.addEventListener('mouseenter', () => activatePanel(panel));
+        panel.addEventListener('click', () => activatePanel(panel));
     });
-
-    // Mouse parallax on active panel bg
-    if (!reduced) {
-        container.addEventListener('mousemove', e => {
-            if (isMobile()) return;
-            const active = container.querySelector('.ci-panel-active');
-            if (!active) return;
-            const rect = active.getBoundingClientRect();
-            const cx = rect.left + rect.width / 2;
-            const cy = rect.top  + rect.height / 2;
-            const dx = (e.clientX - cx) / (rect.width  / 2);
-            const dy = (e.clientY - cy) / (rect.height / 2);
-            active.style.backgroundPosition = `calc(50% + ${dx * 10}px) calc(50% + ${dy * 8}px)`;
-        });
-
-        container.addEventListener('mouseleave', () => {
-            const active = container.querySelector('.ci-panel-active');
-            if (active) active.style.backgroundPosition = 'center';
-        });
-    }
 })();
 
 
@@ -976,15 +1118,22 @@ if (contactForm && formResponse) {
         }
     } catch(e) {}
 
-    // Intercept clicks to Cyber Intelligence page (slides in FROM RIGHT)
-    document.querySelectorAll('a[href*="cyber-intelligence.php"]:not(.dropdown-toggle)').forEach(link => {
+    // Intercept clicks to Cyber page (Image 2: digital-forensics.php) - slides in FROM RIGHT
+    document.querySelectorAll('a[href*="digital-forensics.php"]:not(.dropdown-toggle)').forEach(link => {
         link.addEventListener('click', function(e) {
             if (e.ctrlKey || e.metaKey || e.shiftKey) return;
             const href = this.getAttribute('href');
             if (!href) return;
 
+            try { 
+                sessionStorage.setItem('pageTransition', 'from-right');
+                localStorage.setItem('ck_track', 'cyber');
+                localStorage.setItem('ck_section', 'cyber');
+                document.cookie = "ck_track=cyber; path=/; max-age=2592000; SameSite=Lax";
+                document.cookie = "ck_section=cyber; path=/; max-age=2592000; SameSite=Lax";
+            } catch(err) {}
+
             e.preventDefault();
-            try { sessionStorage.setItem('pageTransition', 'from-right'); } catch(err) {}
             body.classList.add('page-exit-left');
 
             setTimeout(() => {
@@ -993,7 +1142,31 @@ if (contactForm && formResponse) {
         });
     });
 
-    // Intercept clicks to Investigation / Home page (slides in FROM LEFT)
+    // Intercept clicks to Investigation page (Image 1: cyber-intelligence.php) - slides in FROM LEFT
+    document.querySelectorAll('a[href*="cyber-intelligence.php"]:not(.dropdown-toggle), a[href*="investigation.php"]:not(.dropdown-toggle)').forEach(link => {
+        link.addEventListener('click', function(e) {
+            if (e.ctrlKey || e.metaKey || e.shiftKey) return;
+            const href = this.getAttribute('href');
+            if (!href) return;
+
+            try { 
+                sessionStorage.setItem('pageTransition', 'from-left');
+                localStorage.setItem('ck_track', 'forensics');
+                localStorage.setItem('ck_section', 'forensics');
+                document.cookie = "ck_track=forensics; path=/; max-age=2592000; SameSite=Lax";
+                document.cookie = "ck_section=forensics; path=/; max-age=2592000; SameSite=Lax";
+            } catch(err) {}
+
+            e.preventDefault();
+            body.classList.add('page-exit-right');
+
+            setTimeout(() => {
+                window.location.href = href;
+            }, 360);
+        });
+    });
+
+    // Intercept clicks to Index / Home page
     document.querySelectorAll('a[href*="index.php"]:not(.dropdown-toggle)').forEach(link => {
         link.addEventListener('click', function(e) {
             if (e.ctrlKey || e.metaKey || e.shiftKey) return;
@@ -1197,6 +1370,146 @@ if (contactForm && formResponse) {
             }
         }, 12000);
     });
+})();
+
+/* ==========================================================================
+   IMAGE 2: DUAL-INTELLIGENCE SPLIT HERO INTERACTION
+   Smooth hover expand/collapse + direct navigation on click
+   ========================================================================== */
+(function initSplitHero() {
+    const cards = document.querySelectorAll('.split-card');
+    if (!cards || cards.length === 0) return;
+
+    let activeCard = document.querySelector('.split-card.active') || cards[0];
+
+    function setActive(targetCard) {
+        if (!targetCard || (targetCard === activeCard && targetCard.classList.contains('active'))) {
+            return;
+        }
+
+        cards.forEach(card => {
+            const isActive = (card === targetCard);
+            card.classList.toggle('active', isActive);
+            card.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+        });
+
+        activeCard = targetCard;
+
+        const track = targetCard.dataset.track;
+        if (track) {
+            const sec = (track === 'forensics' || track === 'investigation') ? 'forensics' : 'cyber';
+            try {
+                localStorage.setItem('ck_track', track);
+                localStorage.setItem('ck_section', sec);
+                document.cookie = `ck_track=${encodeURIComponent(track)}; path=/; max-age=2592000; SameSite=Lax`;
+                document.cookie = `ck_section=${encodeURIComponent(sec)}; path=/; max-age=2592000; SameSite=Lax`;
+            } catch (e) {}
+        }
+    }
+
+    cards.forEach(card => {
+        // Desktop: Hover to expand smoothly
+        card.addEventListener('mouseenter', () => {
+            setActive(card);
+        });
+
+        // Accessibility: Keyboard focus expands card
+        card.addEventListener('focusin', () => {
+            setActive(card);
+        });
+
+        // On Click: Navigate to corresponding page
+        card.addEventListener('click', (e) => {
+            const url = card.dataset.url;
+            const track = card.dataset.track;
+            const sec = (track === 'forensics' || track === 'investigation') ? 'forensics' : 'cyber';
+
+            // If user clicked directly on an anchor or button inside the card, allow natural navigation
+            if (e.target.closest('a') || e.target.closest('button')) {
+                if (track) {
+                    try {
+                        localStorage.setItem('ck_track', track);
+                        localStorage.setItem('ck_section', sec);
+                        document.cookie = `ck_track=${encodeURIComponent(track)}; path=/; max-age=2592000; SameSite=Lax`;
+                        document.cookie = `ck_section=${encodeURIComponent(sec)}; path=/; max-age=2592000; SameSite=Lax`;
+                    } catch (err) {}
+                }
+                return;
+            }
+
+            // Navigate to corresponding page on card click
+            if (url) {
+                if (track) {
+                    try {
+                        localStorage.setItem('ck_track', track);
+                        localStorage.setItem('ck_section', sec);
+                        document.cookie = `ck_track=${encodeURIComponent(track)}; path=/; max-age=2592000; SameSite=Lax`;
+                        document.cookie = `ck_section=${encodeURIComponent(sec)}; path=/; max-age=2592000; SameSite=Lax`;
+                    } catch (err) {}
+                }
+                window.location.href = url;
+            }
+        });
+    });
+
+    // Wire up CTA buttons to store track
+    const cyberCta = document.getElementById('cyberCtaBtn');
+    if (cyberCta) {
+        cyberCta.addEventListener('click', () => {
+            localStorage.setItem('ck_track', 'cyber');
+            localStorage.setItem('ck_section', 'cyber');
+            document.cookie = "ck_track=cyber; path=/; max-age=2592000; SameSite=Lax";
+            document.cookie = "ck_section=cyber; path=/; max-age=2592000; SameSite=Lax";
+        });
+    }
+
+    const invCta = document.getElementById('investigationCtaBtn');
+    if (invCta) {
+        invCta.addEventListener('click', () => {
+            localStorage.setItem('ck_track', 'forensics');
+            localStorage.setItem('ck_section', 'forensics');
+            document.cookie = "ck_track=forensics; path=/; max-age=2592000; SameSite=Lax";
+            document.cookie = "ck_section=forensics; path=/; max-age=2592000; SameSite=Lax";
+        });
+    }
+})();
+
+/* ==========================================================================
+   SECTION SWITCHER & TRACKING (Cyber Intelligence <-> Digital Forensics)
+   ========================================================================== */
+(function initSectionNavigation() {
+    function setSection(sec) {
+        if (!sec) return;
+        try {
+            localStorage.setItem('ck_section', sec);
+            localStorage.setItem('ck_track', (sec === 'forensics' ? 'investigation' : 'cyber'));
+            document.cookie = `ck_section=${encodeURIComponent(sec)}; path=/; max-age=2592000; SameSite=Lax`;
+            document.cookie = `ck_track=${encodeURIComponent(sec === 'forensics' ? 'investigation' : 'cyber')}; path=/; max-age=2592000; SameSite=Lax`;
+        } catch (e) {}
+    }
+
+    // Capture click on section switcher pills
+    document.querySelectorAll('.switcher-pill, .mobile-pill').forEach(pill => {
+        pill.addEventListener('click', () => {
+            const sec = pill.dataset.section || (pill.textContent.includes('Forensic') ? 'forensics' : 'cyber');
+            setSection(sec);
+        });
+    });
+
+    // Sync on page load
+    const urlParams = new URLSearchParams(window.location.search);
+    const paramSec = urlParams.get('section') || urlParams.get('track');
+    if (paramSec) {
+        const normalized = (paramSec === 'forensics' || paramSec === 'investigation') ? 'forensics' : 'cyber';
+        setSection(normalized);
+    } else {
+        const path = window.location.pathname.toLowerCase();
+        if (path.includes('digital-forensics') || path.includes('investigation')) {
+            setSection('forensics');
+        } else if (path.includes('cyber-intelligence')) {
+            setSection('cyber');
+        }
+    }
 })();
 
 

@@ -18,7 +18,22 @@ if (!$service) {
     $service = getServiceBySlug($currentSlug);
 }
 
+// Get service image (or fallback from config for investigation services)
+global $investigationServices;
+$invMap = !empty($investigationServices) ? array_column($investigationServices, 'image', 'slug') : [];
+$serviceImage = $service['image'] ?? ($invMap[$currentSlug] ?? null);
+
 $categorySlug = $service['category'] ?? 'application-security';
+if ($categorySlug === 'digital-investigations') {
+    $activeSection = 'forensics';
+} elseif (!isset($activeSection)) {
+    $paramSection = $_GET['section'] ?? $_GET['track'] ?? null;
+    if ($paramSection && in_array(strtolower($paramSection), ['forensics', 'investigation', 'digital-forensics'])) {
+        $activeSection = 'forensics';
+    } else {
+        $activeSection = 'cyber';
+    }
+}
 $category = $serviceCategories[$categorySlug] ?? [
     'name' => 'Cyber Security',
     'badge' => 'SPECIALIZED SECURITY',
@@ -49,9 +64,9 @@ include_once __DIR__ . '/includes/header.php';
         <div class="container svc-hero-container">
             <!-- Breadcrumbs -->
             <nav class="svc-breadcrumb" aria-label="Breadcrumb">
-                <a href="index.php">Home</a>
+                <a href="<?= $activeHomeUrl ?>">Home</a>
                 <span class="svc-sep">/</span>
-                <a href="#services">Services</a>
+                <a href="<?= ($categorySlug === 'digital-investigations') ? $basePrefix . 'investigation.php?section=forensics#services' : $activeServicesUrl ?>">Services</a>
                 <span class="svc-sep">/</span>
                 <span class="svc-cat-crumb"><?= sanitize_out($category['name']) ?></span>
                 <span class="svc-sep">/</span>
@@ -109,6 +124,15 @@ include_once __DIR__ . '/includes/header.php';
 
                 <!-- Right Visual Stats Card -->
                 <div class="svc-hero-card-side">
+                    <?php if (!empty($serviceImage)): ?>
+                    <div class="svc-hero-img-box">
+                        <img src="<?= $basePrefix ?><?= sanitize_out($serviceImage) ?>" alt="<?= sanitize_out($service['title']) ?>" class="svc-hero-preview-img" loading="eager">
+                        <div class="svc-hero-img-overlay">
+                            <span class="svc-img-tag"><?= sanitize_out($service['badge'] ?? $category['badge'] ?? 'CYBER PRACTICE') ?></span>
+                            <span class="svc-img-status">ACTIVE PRACTICE</span>
+                        </div>
+                    </div>
+                    <?php endif; ?>
                     <div class="svc-hud-card">
                         <div class="svc-card-header">
                             <div class="svc-status-indicator">
@@ -318,8 +342,12 @@ include_once __DIR__ . '/includes/header.php';
             </div>
 
             <div class="svc-related-grid">
-                <?php foreach ($relatedSlice as $relSlug => $relService): ?>
-                    <a href="service.php?slug=<?= urlencode($relSlug) ?>" class="svc-related-card">
+                <?php foreach ($relatedSlice as $relSlug => $relService): 
+                    $relUrl = file_exists(__DIR__ . '/services/' . $relSlug . '.php')
+                        ? $basePrefix . 'services/' . urlencode($relSlug) . '.php'
+                        : $basePrefix . 'service.php?slug=' . urlencode($relSlug);
+                ?>
+                    <a href="<?= $relUrl ?>" class="svc-related-card">
                         <div class="svc-rel-icon"><?= $category['icon'] ?? '🛡️' ?></div>
                         <h4 class="svc-rel-title"><?= sanitize_out($relService['title']) ?></h4>
                         <p class="svc-rel-desc"><?= sanitize_out(substr($relService['short_desc'], 0, 110)) ?>...</p>
@@ -360,7 +388,7 @@ include_once __DIR__ . '/includes/header.php';
                 </div>
 
                 <div class="svc-booking-form-wrapper">
-                    <form action="process-contact.php" method="POST" class="svc-contact-form">
+                    <form action="<?= $basePrefix ?>process-contact.php" method="POST" class="svc-contact-form">
                         <input type="hidden" name="service_interest" value="<?= sanitize_out($service['title']) ?>">
                         
                         <div class="form-group">

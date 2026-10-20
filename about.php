@@ -14,7 +14,7 @@ include_once __DIR__ . '/includes/header.php';
     <section class="about-hero-header">
         <div class="container">
             <div class="breadcrumb">
-                <a href="index.php">Home</a> <span class="sep">/</span> <span class="current">About</span>
+                <a href="<?= $activeHomeUrl ?>">Home</a> <span class="sep">/</span> <span class="current">About</span>
             </div>
             <h1 class="page-title">
                 Intelligence That Goes <span class="gradient-text">Beyond Data</span>
@@ -280,8 +280,8 @@ include_once __DIR__ . '/includes/header.php';
                 <div class="cta-inner-content">
                     <h2>Work With a Team That Sees <span class="gradient-text">What Others Miss</span></h2>
                     <p>Start with a confidential consultation. Tell us about your requirement and our investigation team will recommend the right approach for your case.</p>
-                    <a href="#contact" class="btn cta-purple-btn">
-                        Talk to an Investigation Expert <span class="arrow">➔</span>
+                    <a href="<?= $contactUrl ?>" class="btn cta-purple-btn">
+                        Talk to an Expert <span class="arrow">➔</span>
                     </a>
                 </div>
             </div>

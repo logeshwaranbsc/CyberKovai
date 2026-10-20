@@ -37,6 +37,74 @@ $stats = [
     ['value' => '5',     'label' => 'COUNTRIES']
 ];
 
+// 8 Investigation Services Array (Image 3)
+$investigationServices = [
+    [
+        'id'          => '1',
+        'slug'        => 'cybercrime-victim-assistance-account-recovery',
+        'title'       => 'Cybercrime Victim Assistance & Account Recovery',
+        'icon'        => '🛡️',
+        'image'       => 'assets/images/investigation_01_victim_recovery.jpg',
+        'description' => 'Support for individuals affected by account hacking, online fraud, phishing, impersonation, and cyber extortion incidents. We assist with incident assessment, evidence preservation, recovery guidance, and strengthening account security to prevent future attacks.'
+    ],
+    [
+        'id'          => '2',
+        'slug'        => 'digital-investigations-osint',
+        'title'       => 'Digital Investigations & OSINT',
+        'icon'        => '🔍',
+        'image'       => 'assets/images/investigation_02_osint.jpg',
+        'description' => 'Comprehensive digital investigations using Open-Source Intelligence (OSINT) techniques to uncover online footprints, verify identities, and assess potential risks. Our reports provide actionable insights for personal, legal, and business decision-making.'
+    ],
+    [
+        'id'          => '3',
+        'slug'        => 'social-media-investigations-impersonation-removal',
+        'title'       => 'Social Media Investigations & Impersonation Removal',
+        'icon'        => '📱',
+        'image'       => 'assets/images/investigation_03_social_media.jpg',
+        'description' => 'Identify and investigate fake profiles, impersonation attempts, account takeovers, and unauthorized content usage across major social media platforms. We help document evidence and support platform reporting and removal processes.'
+    ],
+    [
+        'id'          => '4',
+        'slug'        => 'cyber-fraud-investigation-support',
+        'title'       => 'Cyber Fraud Investigation Support',
+        'icon'        => '💳',
+        'image'       => 'assets/images/investigation_04_fraud_support.jpg',
+        'description' => 'Professional investigation support for financial scams, investment fraud, crypto fraud, romance scams, and online marketplace deception. We analyse digital evidence, trace fraud indicators, and prepare detailed reports suitable for law enforcement review.'
+    ],
+    [
+        'id'          => '5',
+        'slug'        => 'digital-evidence-preservation-forensics',
+        'title'       => 'Digital Evidence Preservation & Forensics',
+        'icon'        => '💾',
+        'image'       => 'assets/images/investigation_05_digital_forensics.jpg',
+        'description' => 'Secure collection, preservation, and analysis of digital evidence from devices, emails, screenshots, and online accounts. Our forensic documentation helps maintain evidence integrity for investigations, disputes, and legal proceedings.'
+    ],
+    [
+        'id'          => '6',
+        'slug'        => 'executive-family-digital-protection',
+        'title'       => 'Executive & Family Digital Protection',
+        'icon'        => '👨‍👩‍👧‍👦',
+        'image'       => 'assets/images/investigation_06_executive_family.jpg',
+        'description' => 'Proactive cybersecurity services designed to protect business leaders, public figures, families, and high-profile individuals from digital threats. We assess security risks, improve privacy controls, and strengthen account and device protection.'
+    ],
+    [
+        'id'          => '7',
+        'slug'        => 'cybersecurity-awareness-lea-training',
+        'title'       => 'Cybersecurity Awareness & LEA Training',
+        'icon'        => '🎓',
+        'image'       => 'assets/images/investigation_07_lea_training.jpg',
+        'description' => 'Specialized training programs for law enforcement agencies, educational institutions, NGOs, and corporate teams on cybercrime prevention and investigation techniques. Sessions focus on practical skills, digital evidence handling, fraud awareness, and incident response readiness.'
+    ],
+    [
+        'id'          => '8',
+        'slug'        => 'child-digital-safety-protection',
+        'title'       => 'Child Digital Safety & Protection',
+        'icon'        => '👶',
+        'image'       => 'assets/images/investigation_08_child_safety.jpg',
+        'description' => 'We help safeguard children in the digital world through confidential investigations, online threat assessment, and digital evidence analysis. Our services focus on identifying cyberbullying, online harassment, suspicious digital interactions, and potential child exploitation risks.'
+    ]
+];
+
 // 7 Practices / Services Array (Image 1)
 $services = [
     [

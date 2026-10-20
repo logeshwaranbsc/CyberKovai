@@ -1,0 +1,20 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Handle Section Routing
+    RewriteRule ^cyber-intelligence/services/?$ cyber-intelligence.php?section=cyber#ci-services [L,QSA]
+    RewriteRule ^cyber-intelligence/?$ cyber-intelligence.php?section=cyber [L,QSA]
+
+    RewriteRule ^digital-forensics/services/?$ investigation.php?section=forensics [L,QSA]
+    RewriteRule ^digital-forensics/?$ digital-forensics.php?section=forensics [L,QSA]
+
+    RewriteRule ^about/?$ about.php [L,QSA]
+    RewriteRule ^contact/?$ contact.php [L,QSA]
+    RewriteRule ^investigation/?$ investigation.php?section=forensics [L,QSA]
+
+    # Clean URL handling (.php extension hiding)
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}\.php -f
+    RewriteRule ^(.*)$ $1.php [L,QSA]
+</IfModule>
