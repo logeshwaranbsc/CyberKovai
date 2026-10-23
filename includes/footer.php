@@ -5,6 +5,7 @@ if (!defined('SITE_NAME')) {
 $isServicesSubdir = (basename(dirname($_SERVER['PHP_SELF'])) === 'services');
 $basePrefix = $isServicesSubdir ? '../' : '';
 $currentScript = $currentScript ?? basename($_SERVER['SCRIPT_NAME'] ?? $_SERVER['PHP_SELF'] ?? '');
+$teamUrl = $teamUrl ?? ($basePrefix . 'team.php?section=' . ($activeSection ?? 'cyber'));
 ?>
     <!-- ================= LIVE CHAT / HELP WIDGET (MATCHING SCREENSHOT) ================= -->
     <div class="chat-widget-badge" id="chatWidgetBadge" role="complementary" aria-label="Customer Support">
@@ -67,6 +68,7 @@ $currentScript = $currentScript ?? basename($_SERVER['SCRIPT_NAME'] ?? $_SERVER[
                 <h4>Quick Links</h4>
                 <a href="<?= $activeHomeUrl ?>">Home</a>
                 <a href="<?= $aboutUrl ?>">About Us</a>
+                <a href="<?= $teamUrl ?>">Our Team</a>
                 <a href="#ci-services">Services</a>
                 <a href="#ci-testimonials">Testimonials</a>
                 <a href="#contact">Contact Us</a>
@@ -99,6 +101,7 @@ $currentScript = $currentScript ?? basename($_SERVER['SCRIPT_NAME'] ?? $_SERVER[
                 <h4>Quick Links</h4>
                 <a href="<?= $activeHomeUrl ?>">Home</a>
                 <a href="<?= $aboutUrl ?>">About Us</a>
+                <a href="<?= $teamUrl ?>">Our Team</a>
                 <a href="<?= $basePrefix ?>cyber-intelligence.php?section=forensics#ci-services">Services</a>
                 <a href="<?= $basePrefix ?>cyber-intelligence.php?section=forensics#ci-testimonials">Testimonial</a>
                 <a href="<?= $contactUrl ?>">Contact Us</a>
@@ -135,6 +138,7 @@ $currentScript = $currentScript ?? basename($_SERVER['SCRIPT_NAME'] ?? $_SERVER[
 
                 <a href="<?= $activeHomeUrl ?>">Home</a>
                 <a href="<?= $aboutUrl ?>">About Us</a>
+                <a href="<?= $teamUrl ?>">Our Team</a>
                 <a href="<?= $basePrefix ?>cyber-intelligence.php?section=cyber">Cyber Intelligence</a>
                 <a href="<?= $basePrefix ?>digital-forensics.php?section=forensics">Digital Forensics</a>
                 <a href="<?= $activeServicesUrl ?>">Services</a>

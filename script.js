@@ -1118,36 +1118,43 @@ if (contactForm && formResponse) {
    MEGA DROPDOWN & LIVE CHAT WIDGET INTERACTION
 ========================================= */
 (function initMegaMenuAndChat() {
-    // 1. Mega Menu Toggle (Click and Hover)
-    const dropdownItem = document.querySelector('.nav-item.has-dropdown');
-    const dropdownToggle = document.querySelector('.dropdown-toggle');
-    const megaMenu = document.querySelector('.mega-dropdown');
+    // 1. Dropdown Toggles (About Submodule & Services Mega Menu)
+    const dropdownItems = document.querySelectorAll('.nav-item.has-dropdown');
 
-    if (dropdownItem && dropdownToggle) {
-        dropdownToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            dropdownItem.classList.toggle('open');
-            const isOpen = dropdownItem.classList.contains('open');
-            dropdownToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        });
+    dropdownItems.forEach(dropdownItem => {
+        const dropdownToggle = dropdownItem.querySelector('.dropdown-toggle');
+        const menu = dropdownItem.querySelector('.mega-dropdown, .about-dropdown, .submodule-dropdown');
 
-        // Close when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!dropdownItem.contains(e.target)) {
-                dropdownItem.classList.remove('open');
-                dropdownToggle.setAttribute('aria-expanded', 'false');
-            }
-        });
-
-        // Close mega menu when any link inside it is clicked
-        if (megaMenu) {
-            megaMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', function() {
-                    dropdownItem.classList.remove('open');
-                });
+        if (dropdownItem && dropdownToggle) {
+            dropdownToggle.addEventListener('click', function(e) {
+                // If on mobile or touch, prevent default navigation and toggle dropdown
+                if (window.innerWidth <= 992) {
+                    e.preventDefault();
+                    dropdownItem.classList.toggle('open');
+                    const isOpen = dropdownItem.classList.contains('open');
+                    dropdownToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                }
             });
+
+            // Close when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!dropdownItem.contains(e.target)) {
+                    dropdownItem.classList.remove('open');
+                    dropdownToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // Close menu when any link inside it is clicked
+            if (menu) {
+                menu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', function() {
+                        dropdownItem.classList.remove('open');
+                        dropdownToggle.setAttribute('aria-expanded', 'false');
+                    });
+                });
+            }
         }
-    }
+    });
 
     // 2. Chat Widget interactions
     const chatCloseBtn = document.getElementById('chatCloseBtn');

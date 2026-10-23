@@ -358,28 +358,7 @@ include_once __DIR__ . '/includes/header.php';
         </section>
 
 
-        <!-- ================= ACCREDITATION MARQUEE ================= -->
 
-        <section class="accreditation-bar">
-            <div class="marquee-wrapper">
-                <div class="marquee-track">
-                    <?php foreach ($accreds as $badge): ?>
-                        <div class="marquee-item">
-                            <div class="badge-card">
-                                <img src="<?= sanitize_out($badge['img']) ?>" alt="<?= sanitize_out($badge['alt']) ?>" class="badge-img">
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                    <?php foreach ($accreds as $badge): ?>
-                        <div class="marquee-item">
-                            <div class="badge-card">
-                                <img src="<?= sanitize_out($badge['img']) ?>" alt="<?= sanitize_out($badge['alt']) ?>" class="badge-img">
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        </section>
 
 
         <!-- ================= CYBER CAPABILITIES (3 CORE PILLARS) ================= -->
@@ -895,46 +874,17 @@ include_once __DIR__ . '/includes/header.php';
                     We are associated with reputable organizations and certified bodies to ensure the highest standards of professionalism and ethics.
                 </p>
 
-            </div>
-
-            <!-- Credentials Marquee Row 1 (Scrolling Left) -->
-            <div class="marquee-wrapper credentials-marquee">
-                <div class="marquee-track">
+                <!-- 4 Badges Static Display -->
+                <div class="credentials-grid">
                     <?php foreach ($accreds as $badge): ?>
-                        <div class="marquee-item">
-                            <div class="badge-card">
-                                <img src="<?= sanitize_out($badge['img']) ?>" alt="<?= sanitize_out($badge['alt']) ?>" class="badge-img">
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                    <?php foreach ($accreds as $badge): ?>
-                        <div class="marquee-item">
+                        <div class="credentials-card">
                             <div class="badge-card">
                                 <img src="<?= sanitize_out($badge['img']) ?>" alt="<?= sanitize_out($badge['alt']) ?>" class="badge-img">
                             </div>
                         </div>
                     <?php endforeach; ?>
                 </div>
-            </div>
 
-            <!-- Credentials Marquee Row 2 (Scrolling Right) -->
-            <div class="marquee-wrapper credentials-marquee">
-                <div class="marquee-track marquee-track-reverse">
-                    <?php foreach (array_reverse($accreds) as $badge): ?>
-                        <div class="marquee-item">
-                            <div class="badge-card">
-                                <img src="<?= sanitize_out($badge['img']) ?>" alt="<?= sanitize_out($badge['alt']) ?>" class="badge-img">
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                    <?php foreach (array_reverse($accreds) as $badge): ?>
-                        <div class="marquee-item">
-                            <div class="badge-card">
-                                <img src="<?= sanitize_out($badge['img']) ?>" alt="<?= sanitize_out($badge['alt']) ?>" class="badge-img">
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
             </div>
 
         </section>

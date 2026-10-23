@@ -49,6 +49,7 @@ $activeServicesUrl = ($activeSection === 'cyber')
     : $basePrefix . 'cyber-intelligence.php?section=forensics#ci-services';
 
 $aboutUrl = $basePrefix . 'about.php?section=' . $activeSection;
+$teamUrl = $basePrefix . 'team.php?section=' . $activeSection;
 $contactUrl = $basePrefix . 'contact.php?section=' . $activeSection;
 ?>
 <!DOCTYPE html>
@@ -94,8 +95,29 @@ $contactUrl = $basePrefix . 'contact.php?section=' . $activeSection;
                 <!-- 1. HOME -->
                 <a href="<?= $activeHomeUrl ?>" class="<?= (($activeSection === 'cyber' && $currentScript === 'digital-forensics.php') || ($activeSection === 'forensics' && in_array($currentScript, ['investigation.php', 'cyber-intelligence.php']))) ? 'active' : '' ?>">Home</a>
 
-                <!-- 2. ABOUT -->
-                <a href="<?= $aboutUrl ?>" class="<?= ($currentScript === 'about.php') ? 'active' : '' ?>"><?= ($activeSection === 'forensics') ? 'About Us' : 'About' ?></a>
+                <!-- 2. ABOUT (SERVICES-STYLE DROPDOWN WITH ABOUT & OUR TEAM) -->
+                <div class="nav-item has-dropdown about-nav-item <?= in_array($currentScript, ['about.php', 'team.php']) ? 'active' : '' ?>">
+                    <a href="<?= $aboutUrl ?>" class="nav-link dropdown-toggle" id="aboutDropdownBtn" aria-expanded="false">
+                        <?= ($activeSection === 'forensics') ? 'About Us' : 'About' ?>
+                        <svg class="dropdown-arrow-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6,9 12,15 18,9"/></svg>
+                    </a>
+
+                    <!-- ABOUT DROPDOWN (CENTERED UNDER ABOUT LINK) -->
+                    <div class="about-dropdown" id="aboutMegaMenu">
+                        <ul class="mega-links-list about-links-list">
+                            <li>
+                                <a href="<?= $aboutUrl ?>" class="<?= ($currentScript === 'about.php') ? 'active' : '' ?>">
+                                    <?= ($activeSection === 'forensics') ? 'About Us' : 'About CyberKovai' ?>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?= $teamUrl ?>" class="<?= ($currentScript === 'team.php') ? 'active' : '' ?>">
+                                    Our Team
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
                 <!-- 3. SERVICES (DYNAMICALLY SHOWS CYBER OR FORENSICS BASED ON ACTIVE SECTION) -->
                 <?php if ($activeSection === 'cyber'): ?>

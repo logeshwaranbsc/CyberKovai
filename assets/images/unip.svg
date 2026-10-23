@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 84" width="280" height="84">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f2b48" />
+      <stop offset="100%" stop-color="#071626" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="50%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="saffronArc" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff9933" />
+      <stop offset="100%" stop-color="#dc2626" />
+    </linearGradient>
+    <filter id="subtleDrop" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- Left Emblem / Crest Shield -->
+  <g transform="translate(6, 4)">
+    <!-- Outer Shield Outline -->
+    <path d="M38 3 L68 15 C68 45 38 65 38 73 C38 65 8 45 8 15 Z" 
+          fill="url(#shieldGrad)" 
+          stroke="url(#goldGrad)" 
+          stroke-width="2.5" 
+          stroke-linejoin="round"
+          filter="url(#subtleDrop)" />
+    
+    <!-- Inner Shield Inset Border -->
+    <path d="M38 7 L64 17.5 C64 43 38 61 38 68 C38 61 12 43 12 17.5 Z" 
+          fill="none" 
+          stroke="#fbbf24" 
+          stroke-width="0.8" 
+          opacity="0.6" />
+
+    <!-- Network / Investigative Motif: Interconnected nodes & Cyber Crosshair -->
+    <circle cx="38" cy="33" r="14" fill="none" stroke="#38bdf8" stroke-width="1.2" stroke-dasharray="3,2" opacity="0.8" />
+    
+    <!-- Stylized Magnifier & Globe Network Lines -->
+    <path d="M28 33 Q38 23 48 33 Q38 43 28 33 Z" fill="none" stroke="#93c5fd" stroke-width="1" opacity="0.7" />
+    <line x1="38" y1="20" x2="38" y2="46" stroke="#93c5fd" stroke-width="1" opacity="0.7" />
+    
+    <!-- Forensic / Detective Eye / Focal Point -->
+    <circle cx="38" cy="33" r="5" fill="#f59e0b" stroke="#ffffff" stroke-width="1.2" />
+    <circle cx="38" cy="33" r="2" fill="#0f2b48" />
+
+    <!-- Forensic Lens Handle -->
+    <line x1="47" y1="42" x2="55" y2="50" stroke="#f59e0b" stroke-width="3" stroke-linecap="round" />
+
+    <!-- Stars representing excellence / accreditation -->
+    <g fill="#fbbf24">
+      <polygon points="38,11 39.5,14 43,14 40.5,16 41.5,19 38,17 34.5,19 35.5,16 33,14 36.5,14" transform="scale(0.8) translate(9.5, 3)" />
+    </g>
+
+    <!-- Bottom Emblem Ribbon Banner -->
+    <path d="M16 63 L38 66 L60 63 L57 70 L38 74 L19 70 Z" fill="url(#goldGrad)" />
+    <text x="38" y="70" text-anchor="middle" font-family="'Arial Black', sans-serif" font-weight="900" font-size="5.5" fill="#071626" letter-spacing="0.5">INDIA</text>
+  </g>
+
+  <!-- Dynamic Saffron-to-Crimson Swoosh above text (harmonizing with APDI's arc) -->
+  <path d="M84 20 Q150 11 222 17" fill="none" stroke="url(#saffronArc)" stroke-width="2.5" stroke-linecap="round" />
+
+  <!-- Typography: UNIP -->
+  <text x="84" y="47" 
+        font-family="'Arial Black', 'Helvetica Neue', Arial, sans-serif" 
+        font-size="34" 
+        font-weight="900" 
+        letter-spacing="0.5" 
+        fill="#0f2b48">
+    UNIP
+  </text>
+
+  <!-- INDIA pill badge next to UNIP -->
+  <rect x="188" y="27" width="54" height="15" rx="3" fill="#0f2b48" />
+  <text x="215" y="38" 
+        text-anchor="middle" 
+        font-family="'Arial', sans-serif" 
+        font-size="8.5" 
+        font-weight="800" 
+        letter-spacing="1.2" 
+        fill="#fbbf24">
+    INDIA
+  </text>
+
+  <!-- Subtitle Line 1 -->
+  <text x="85" y="60" 
+        font-family="'Trebuchet MS', 'Arial', sans-serif" 
+        font-size="9" 
+        font-weight="700" 
+        letter-spacing="0.4" 
+        fill="#1e3a8a">
+    Unified Network of
+  </text>
+
+  <!-- Subtitle Line 2 -->
+  <text x="85" y="71" 
+        font-family="'Trebuchet MS', 'Arial', sans-serif" 
+        font-size="8.2" 
+        font-weight="700" 
+        letter-spacing="0.2" 
+        fill="#64748b">
+    Investigative Professionals
+  </text>
+
+  <!-- Decorative Green/Teal Base Accent Bar (Indian Tricolor tribute: Saffron, White, Green) -->
+  <rect x="85" y="76" width="180" height="2" rx="1" fill="#16a34a" />
+</svg>

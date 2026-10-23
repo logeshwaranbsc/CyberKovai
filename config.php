@@ -230,21 +230,12 @@ $riskTools = [
     ['icon' => '📑', 'title' => 'Compliance Risk Review', 'desc' => 'Regulatory & compliance reviews']
 ];
 
-// Accreditation Badges
+// Accreditation Badges (Approved Investigative Association Licenses)
 $accreds = [
-    ['img' => 'assets/images/apdi.webp', 'alt' => 'APDI Certification'],
-    ['img' => 'assets/images/tapdi.webp', 'alt' => 'TAPDI Certification'],
-    ['img' => 'assets/images/aid.webp', 'alt' => 'AID Certification'],
-    ['img' => 'assets/images/iso-9001.webp', 'alt' => 'ISO 9001'],
-    ['img' => 'assets/images/iso-27001(1).webp', 'alt' => 'ISO 27001'],
-    ['img' => 'assets/images/iso-27701.webp', 'alt' => 'ISO 27701'],
-    ['img' => 'assets/images/msme.webp', 'alt' => 'MSME Govt of India'],
-    ['img' => 'assets/images/dpiit.webp', 'alt' => 'DPIIT Startup India'],
-    ['img' => 'assets/images/asis.webp', 'alt' => 'ASIS International'],
-    ['img' => 'assets/images/nasscom.webp', 'alt' => 'NASSCOM'],
-    ['img' => 'assets/images/osac.webp', 'alt' => 'OSAC'],
-    ['img' => 'assets/images/psara.webp', 'alt' => 'PSARA'],
-    ['img' => 'assets/images/tnsdc.webp', 'alt' => 'TNSDC']
+    ['img' => 'assets/images/aid.webp', 'alt' => 'AID - Association of Investigators and Detectives'],
+    ['img' => 'assets/images/tapdi.webp', 'alt' => 'TAPDI - Tamilnadu Association of Professional Detectives and Investigators'],
+    ['img' => 'assets/images/apdi.webp', 'alt' => 'APDI - Association of Professional Detectives & Investigators'],
+    ['img' => 'assets/images/unip.svg', 'alt' => 'UNIP - Unified Network of Investigative Professionals']
 ];
 
 // FAQs Array

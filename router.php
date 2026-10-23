@@ -30,6 +30,10 @@ switch (rtrim($uri, '/')) {
     case '/about':
         require __DIR__ . '/about.php';
         exit;
+    case '/team':
+    case '/our-team':
+        require __DIR__ . '/team.php';
+        exit;
     case '/contact':
         require __DIR__ . '/contact.php';
         exit;
