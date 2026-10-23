@@ -43,7 +43,7 @@ if ($reqSection === 'cyber') {
                     
                     <!-- Background Visual & Warm Monochrome Overlay -->
                     <div class="split-card-bg">
-                        <img src="assets/images/hero_investigation_card.jpg" alt="Investigation Intelligence and Digital Forensics" class="split-card-art">
+                        <img src="assets/images/homeleft.png" alt="Investigation Intelligence and Digital Forensics" class="split-card-art">
                         <div class="split-card-overlay split-card-overlay-warm"></div>
                     </div>
 
@@ -87,7 +87,7 @@ if ($reqSection === 'cyber') {
                     
                     <!-- Background Visual & Overlay -->
                     <div class="split-card-bg">
-                        <img src="assets/images/hero_cyber_cloud.jpg" alt="Cyber Intelligence and Defense Artwork" class="split-card-art">
+                        <img src="assets/images/rightside.png" alt="Cyber Intelligence and Defense Artwork" class="split-card-art">
                         <div class="split-card-overlay"></div>
                     </div>
 

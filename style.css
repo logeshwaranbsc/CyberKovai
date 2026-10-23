@@ -4835,6 +4835,16 @@ button {
     .principles-grid {
         grid-template-columns: 1fr;
     }
+    .team-leader-card {
+        padding: 1.8rem 1.2rem;
+    }
+    .leader-img-frame {
+        width: 240px;
+        height: 275px;
+    }
+    .leader-name {
+        font-size: 1.8rem;
+    }
 }
 
 
@@ -6927,9 +6937,16 @@ button {
 
     .ci-hero-content { align-items: center; }
 
-    .ci-hero-visual {
-        width: 260px;
-        margin: 0 auto;
+    .ci-hero-visual,
+    .inv-hero-visual {
+        position: relative;
+        width: 100%;
+        max-width: 380px;
+        height: 380px;
+        margin: 2rem auto 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }
 
@@ -6993,11 +7010,68 @@ button {
         padding: 0.5rem 0;
     }
 
-    .ci-hero-visual {
-        width: 200px;
+    /* Fixed Hero Stage & Floating Badges on Mobile (No Collisions) */
+    .ci-hero-visual,
+    .inv-hero-visual {
+        position: relative;
+        width: 100%;
+        max-width: 350px;
+        height: 350px;
+        margin: 1.5rem auto 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    .ci-float-card { font-size: 0.68rem; padding: 0.4rem 0.65rem; }
+    .ci-arc-labels {
+        display: none; /* Hide cluttered arc labels on mobile */
+    }
+
+    .ci-float-card {
+        font-size: 0.70rem;
+        padding: 0.38rem 0.65rem;
+        white-space: nowrap;
+        max-width: 150px;
+        z-index: 10;
+        animation: none !important;
+    }
+
+    .ci-fc-1, .inv-fc-1 {
+        top: 0;
+        left: 0;
+        right: auto;
+        bottom: auto;
+    }
+
+    .ci-fc-2, .inv-fc-2 {
+        top: 0;
+        right: 0;
+        left: auto;
+        bottom: auto;
+    }
+
+    .ci-fc-3, .inv-fc-3 {
+        bottom: 48px;
+        right: 0;
+        left: auto;
+        top: auto;
+    }
+
+    .ci-fc-4, .inv-fc-4 {
+        bottom: 48px;
+        left: 0;
+        right: auto;
+        top: auto;
+    }
+
+    .ci-monitoring-badge {
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%) !important;
+        font-size: 0.64rem;
+        padding: 0.35rem 0.9rem;
+        z-index: 10;
+    }
 
     .ci-approach-badge { bottom: auto; top: -18px; left: auto; right: -10px; }
 
@@ -7014,6 +7088,52 @@ button {
     .ci-hero-heading { font-size: 2rem; }
     .ci-testi-grid { grid-template-columns: 1fr; }
     .ci-stats-row { grid-template-columns: 1fr 1fr; }
+
+    .ci-hero-visual,
+    .inv-hero-visual {
+        max-width: 310px;
+        height: 330px;
+    }
+
+    .ci-float-card {
+        font-size: 0.64rem;
+        padding: 0.32rem 0.5rem;
+        max-width: 130px;
+        gap: 0.3rem;
+    }
+
+    .ci-float-card svg {
+        width: 14px;
+        height: 14px;
+    }
+
+    .ci-shield-logo-img {
+        width: 75px;
+    }
+
+    .ci-shield-glow {
+        width: 150px;
+        height: 150px;
+    }
+
+    .ci-ring-outer {
+        inset: 16%;
+    }
+
+    .ci-ring-mid {
+        inset: 24%;
+    }
+
+    .ci-fc-3, .inv-fc-3,
+    .ci-fc-4, .inv-fc-4 {
+        bottom: 42px;
+    }
+
+    .ci-monitoring-badge {
+        bottom: 0;
+        font-size: 0.58rem;
+        padding: 0.28rem 0.75rem;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -8222,7 +8342,8 @@ body.page-enter-from-left {
         grid-template-columns: 1fr;
     }
     .chat-bubble-card {
-        width: 250px;
+        display: none;
+        width: 260px;
         right: 0;
     }
 }
@@ -9181,35 +9302,162 @@ body.page-enter-from-left {
 }
 
 @media (max-width: 991px) {
+    body.portal-page {
+        height: auto !important;
+        min-height: 100vh !important;
+        overflow-y: auto !important;
+    }
+
+    body.portal-page main {
+        overflow: visible !important;
+        min-height: auto !important;
+        height: auto !important;
+    }
+
+    body.portal-page .split-hero-stage,
+    .split-hero-stage {
+        min-height: auto !important;
+        height: auto !important;
+        padding: 96px 0 50px !important;
+        display: block !important;
+        overflow: visible !important;
+    }
+
+    body.portal-page .container.split-hero-container,
     .split-hero-container {
-        flex-direction: column;
-        height: auto;
-        gap: 20px;
+        display: flex !important;
+        flex-direction: column !important;
+        height: auto !important;
+        max-height: none !important;
+        gap: 24px !important;
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+        box-sizing: border-box !important;
+        width: 100% !important;
     }
-    .split-card {
-        min-height: 480px;
-        flex: 1 1 auto !important;
+
+    .split-card,
+    .split-card:not(.active),
+    .split-card.active {
+        width: 100% !important;
+        min-height: auto !important;
+        height: auto !important;
+        flex: none !important;
+        border-radius: 24px !important;
+        overflow: hidden !important;
+        display: block !important;
+        position: relative !important;
+        contain: none !important;
+        transition: transform 0.3s ease, box-shadow 0.3s ease !important;
     }
-    .split-card:not(.active) {
-        min-height: 140px;
+
+    /* Investigation Card Mobile Glow & Styling */
+    .split-card.investigation-card {
+        border: 1px solid rgba(255, 140, 66, 0.45) !important;
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5), 0 0 25px rgba(255, 120, 40, 0.15) !important;
     }
-    .split-card:not(.active) .split-card-collapsed {
-        flex-direction: row;
-        padding: 24px 30px;
+
+    /* Cyber Card Mobile Glow & Styling */
+    .split-card.cyber-card {
+        border: 1px solid rgba(186, 85, 255, 0.45) !important;
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5), 0 0 25px rgba(139, 32, 255, 0.15) !important;
     }
-    .split-card:not(.active) .collapsed-track-title {
-        writing-mode: horizontal-tb;
-        font-size: 1.25rem;
+
+    /* Never collapse on mobile / tablet screens */
+    .split-card-collapsed,
+    .split-card:not(.active) .split-card-collapsed,
+    .split-card.active .split-card-collapsed {
+        display: none !important;
     }
-    .split-card:not(.active) .collapsed-number {
-        font-size: 3rem;
+
+    /* Both cards always show full rich content */
+    .split-card-content,
+    .split-card:not(.active) .split-card-content,
+    .split-card.active .split-card-content {
+        position: relative !important;
+        inset: auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 32px 24px 28px !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        z-index: 3 !important;
+        box-sizing: border-box !important;
     }
-    .split-card-content {
-        position: relative;
-        width: 100%;
-        max-width: 100%;
-        padding: 36px 30px;
+
+    .split-card-bg {
+        position: absolute !important;
+        inset: 0 !important;
+        z-index: 1 !important;
+        overflow: hidden !important;
     }
+
+    .split-card-art,
+    .split-card:not(.active) .split-card-art,
+    .split-card.active .split-card-art {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        opacity: 0.7 !important;
+        filter: brightness(1.0) saturate(1.1) !important;
+    }
+
+    .split-card-overlay {
+        position: absolute !important;
+        inset: 0 !important;
+        z-index: 2 !important;
+    }
+
+    .split-card.investigation-card .split-card-overlay,
+    .split-card.investigation-card .split-card-overlay-warm {
+        background: linear-gradient(135deg, rgba(28, 14, 7, 0.95) 0%, rgba(24, 12, 6, 0.88) 50%, rgba(35, 17, 8, 0.78) 100%) !important;
+    }
+
+    .split-card.cyber-card .split-card-overlay {
+        background: linear-gradient(135deg, rgba(17, 9, 32, 0.95) 0%, rgba(13, 7, 26, 0.88) 50%, rgba(22, 11, 44, 0.78) 100%) !important;
+    }
+
+    .split-card-tag {
+        margin-bottom: 14px !important;
+        font-size: 0.82rem !important;
+        letter-spacing: 2px !important;
+    }
+
+    .split-card-title {
+        font-size: clamp(1.65rem, 4.5vw, 2.2rem) !important;
+        line-height: 1.2 !important;
+        margin-bottom: 14px !important;
+    }
+
+    .split-card-desc {
+        font-size: 0.96rem !important;
+        line-height: 1.55 !important;
+        margin-bottom: 24px !important;
+        max-width: 100% !important;
+        color: rgba(235, 230, 250, 0.88) !important;
+    }
+
+    .split-card-action {
+        display: flex !important;
+        align-items: center !important;
+        gap: 12px !important;
+        flex-wrap: wrap !important;
+        margin-top: auto !important;
+    }
+
+    .split-cta-circle {
+        width: 50px !important;
+        height: 50px !important;
+        flex-shrink: 0 !important;
+    }
+
+    .split-cta-label {
+        font-size: 0.92rem !important;
+        padding: 12px 20px !important;
+    }
+
     .inv-services-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -9226,22 +9474,30 @@ body.page-enter-from-left {
 }
 
 @media (max-width: 680px) {
+    .split-card-content,
+    .split-card:not(.active) .split-card-content,
+    .split-card.active .split-card-content {
+        padding: 26px 20px 22px !important;
+    }
     .split-card-title {
-        font-size: 2rem;
+        font-size: 1.65rem !important;
     }
     .split-card-desc {
-        font-size: 0.98rem;
+        font-size: 0.92rem !important;
+        margin-bottom: 20px !important;
     }
     .split-card-action {
-        gap: 12px;
+        gap: 10px !important;
     }
     .split-cta-circle {
-        width: 52px;
-        height: 52px;
+        width: 46px !important;
+        height: 46px !important;
     }
     .split-cta-label {
-        font-size: 0.88rem;
-        padding: 10px 18px;
+        font-size: 0.86rem !important;
+        padding: 11px 16px !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
     }
     .inv-services-grid {
         grid-template-columns: 1fr;
@@ -9374,25 +9630,7 @@ body.page-enter-from-left {
     }
 }
 
-/* Mobile & tablet responsiveness */
-@media (max-width: 991px) {
-    body.portal-page {
-        height: auto;
-        min-height: 100vh;
-        overflow-y: auto;
-    }
-
-    body.portal-page .split-hero-stage {
-        min-height: calc(100vh - 78px);
-        height: auto;
-        padding: 100px 0 40px;
-    }
-
-    body.portal-page .container.split-hero-container {
-        height: auto;
-        max-height: none;
-    }
-}
+/* Mobile portal-page handled above */
 
 
 /* =========================================

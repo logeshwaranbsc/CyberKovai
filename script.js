@@ -24,27 +24,12 @@ if (typeof Lenis !== "undefined") {
 }
 
 /* =========================================
-   THEME TOGGLE (LIGHT / DARK)
+   PERMANENT DARK THEME ENFORCEMENT
 ========================================= */
-const themeToggle = document.getElementById("themeToggle");
-const storedTheme = localStorage.getItem("theme");
-
-if (storedTheme === "light") {
-    document.documentElement.setAttribute("data-theme", "light");
-}
-
-if (themeToggle) {
-    themeToggle.addEventListener("click", () => {
-        const isLight = document.documentElement.getAttribute("data-theme") === "light";
-        if (isLight) {
-            document.documentElement.removeAttribute("data-theme");
-            localStorage.setItem("theme", "dark");
-        } else {
-            document.documentElement.setAttribute("data-theme", "light");
-            localStorage.setItem("theme", "light");
-        }
-    });
-}
+document.documentElement.removeAttribute("data-theme");
+try {
+    localStorage.removeItem("theme");
+} catch (e) {}
 
 
 /* =========================================
@@ -1170,11 +1155,8 @@ if (contactForm && formResponse) {
 
     if (chatToggleBtn && chatBubble) {
         chatToggleBtn.addEventListener('click', function() {
-            if (chatBubble.style.display === 'none') {
-                chatBubble.style.display = 'flex';
-            } else {
-                chatBubble.style.display = 'none';
-            }
+            const isHidden = window.getComputedStyle(chatBubble).display === 'none';
+            chatBubble.style.display = isHidden ? 'flex' : 'none';
         });
     }
 })();
