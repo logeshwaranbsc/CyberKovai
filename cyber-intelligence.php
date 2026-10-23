@@ -97,57 +97,105 @@ $cyberPillars = [
 // Backwards compatibility
 $cyberPanels = $cyberPillars;
 
-// 6 Cyber Services
+// 6 Cyber Services with Rich Visuals
 $cyberServices = [
-    ['icon'=>'🛡️','title'=>'Cyber Risk Assessment','desc'=>'Identify vulnerabilities, analyze risks and strengthen your security posture with a comprehensive cyber risk assessment.'],
-    ['icon'=>'🔬','title'=>'Digital Forensics','desc'=>'Recover, analyze and preserve digital evidence for investigations and legal proceedings using industry-standard forensic tools.'],
-    ['icon'=>'🔍','title'=>'Social Media Investigation','desc'=>'Uncover digital footprints, monitor online activity and verify social media identities for personal and corporate matters.'],
-    ['icon'=>'🔒','title'=>'Data & Information Security','desc'=>'Protect sensitive data and prevent unauthorized access with robust information security frameworks and data loss prevention.'],
-    ['icon'=>'📡','title'=>'Cyber Security Advisory','desc'=>'Strategic guidance to strengthen your cyber infrastructure, policies and incident response capabilities.'],
-    ['icon'=>'🏢','title'=>'Brand & Executive Protection','desc'=>'Detect online threats and safeguard your brand, executives and critical information from impersonation and defamation.'],
+    [
+        'image' => 'assets/images/ci_service_risk.jpg',
+        'title' => 'Cyber Risk Assessment',
+        'desc'  => 'Identify vulnerabilities, assess risks and strengthen your security posture with comprehensive cyber risk assessments.',
+    ],
+    [
+        'image' => 'assets/images/ci_service_forensics.jpg',
+        'title' => 'Digital Forensics',
+        'desc'  => 'Recover, analyze and preserve digital evidence to help you uncover the root causes of incidents effectively and meet forensic standards.',
+    ],
+    [
+        'image' => 'assets/images/ci_service_social.jpg',
+        'title' => 'Social Media Investigation',
+        'desc'  => 'Uncover digital footprints, monitor online activity and verify tasks from social media for personal and corporate matters.',
+    ],
+    [
+        'image' => 'assets/images/ci_service_data.jpg',
+        'title' => 'Data & Information Security',
+        'desc'  => 'Protect sensitive data and prevent unauthorized access with end-to-end security frameworks and data protection strategies.',
+    ],
+    [
+        'image' => 'assets/images/ci_service_advisory.jpg',
+        'title' => 'Cyber Security Advisory',
+        'desc'  => 'Strategic guidance to strengthen your cyber resilience with policies, risk reduction strategies and best practices.',
+    ],
+    [
+        'image' => 'assets/images/ci_service_fraud.jpg',
+        'title' => 'Fraud & Deception Prevention',
+        'desc'  => 'Detect hidden frauds, verify digital identities and protect your business from financial and reputational risks.',
+    ],
 ];
 
-// Protection process
+// Protection Process (5 Steps)
 $cyberProcess = [
-    ['num'=>'01','title'=>'Detect',   'desc'=>'Identify potential threats and risks across your digital environment.'],
-    ['num'=>'02','title'=>'Investigate','desc'=>'Analyze and trace the source of the threat or breach.'],
-    ['num'=>'03','title'=>'Analyze',  'desc'=>'Uncover patterns, assess impact and map vulnerabilities.'],
-    ['num'=>'04','title'=>'Respond',  'desc'=>'Take actionable measures to mitigate risks and contain incidents.'],
-    ['num'=>'05','title'=>'Protect',  'desc'=>'Strengthen defenses and prevent future threats with ongoing support.'],
+    ['num'=>'01', 'title'=>'Detect',     'desc'=>'Identify potential threats across your systems and digital ecosystem.'],
+    ['num'=>'02', 'title'=>'Investigate','desc'=>'Analyze and isolate suspicious activities with forensic rigor.'],
+    ['num'=>'03', 'title'=>'Analyze',    'desc'=>'Assess risks and derive actionable intelligence from collected data.'],
+    ['num'=>'04', 'title'=>'Respond',    'desc'=>'Take immediate action to contain and mitigate security incidents.'],
+    ['num'=>'05', 'title'=>'Protect',    'desc'=>'Strengthen defenses with continuous monitoring and security upgrades.'],
 ];
 
-// Cyber risk tags
-$cyberRisks = [
-    'Malware & Ransomware','Phishing Attacks','Data Breaches','Insider Threats',
-    'Social Engineering','Account Takeover','Dark Web Monitoring','Business Email Compromise',
-    'Brand Impersonation','IP Theft',
+// Cyber risk tags matching Image 2
+$cyberRisksRow1 = [
+    'Malware & Ransomware',
+    'Phishing Attacks',
+    'Data Breaches',
+    'Insider Threats',
+    'Social Engineering',
+    'Account Takeover',
+];
+$cyberRisksRow2 = [
+    'Dark Web Monitoring',
+    'Business Email Compromise',
+    'Brand Impersonation',
+    'IoT Risks',
 ];
 
-// Testimonials
+// Testimonials matching Image 2
 $testimonials = [
     [
-        'quote' => 'CyberKovai helped us identify critical vulnerabilities in our infrastructure and prevented a potential data breach. Their threat intelligence is invaluable.',
-        'name'  => 'Ramesh S.',
-        'role'  => 'Director, Manufacturing',
+        'quote'  => 'CyberKovai helped us identify critical vulnerabilities before it became a crisis and invaluable to our team! A highly professional and dedicated partner for security needs.',
+        'name'   => 'Karthik',
+        'role'   => 'Director, Manufacturing',
+        'avatar' => 'assets/images/avatar_karthik.jpg',
     ],
     [
-        'quote' => 'Their digital forensics expertise was instrumental in resolving a complex cybersecurity incident for our organization. Highly professional team.',
-        'name'  => 'Priya L.',
-        'role'  => 'CTO, Financial Services',
+        'quote'  => 'Their digital forensics expertise and investigation skills made a significant difference for our organization. Highly recommend their services.',
+        'name'   => 'Priya S.',
+        'role'   => 'IT Head, HealthCare',
+        'avatar' => 'assets/images/avatar_priya.jpg',
     ],
     [
-        'quote' => 'Professional, responsive and highly knowledgeable team. Their threat intelligence services are extremely valuable for our business.',
-        'name'  => 'Arun G.',
-        'role'  => 'Manager, IT & Commerce',
+        'quote'  => 'Quick response, deep technical knowledge and clear guidance. A trusted partner for our security needs.',
+        'name'   => 'Aravind K.',
+        'role'   => 'Manager, IT & Compliance',
+        'avatar' => 'assets/images/avatar_aravind.jpg',
     ],
 ];
 
-// FAQs
+// FAQs matching Image 2
 $cyberFaqs = [
-    ['q'=>'What cyber intelligence services do you offer?',        'a'=>'We offer Cyber Risk Assessment, Digital Forensics, Social Media Investigation, Data & Information Security, Cyber Security Advisory, and Brand & Executive Protection services.'],
-    ['q'=>'How long does an investigation take?',                   'a'=>'Investigation timelines vary based on complexity, typically ranging from 3 to 21 working days. We provide regular progress updates throughout.'],
-    ['q'=>'Is my information kept confidential?',                   'a'=>'Yes. 100% confidentiality is guaranteed. All client information, case details and findings are protected under strict non-disclosure protocols.'],
-    ['q'=>'Do you provide support for international cases?',        'a'=>'Yes. We extend our cyber intelligence services to clients across India and internationally, with coverage in Singapore, Australia, Germany, Canada, UAE and more.'],
+    [
+        'q' => 'What cyber intelligence services do you offer?',
+        'a' => 'We offer Cyber Risk Assessment, Digital Forensics, Social Media Investigation, Data & Information Security, Cyber Security Advisory, and Fraud & Deception Prevention services.'
+    ],
+    [
+        'q' => 'How long does an investigation take?',
+        'a' => 'Investigation timelines vary based on complexity, typically ranging from 3 to 21 working days. We provide regular progress updates throughout.'
+    ],
+    [
+        'q' => 'Is our information kept confidential?',
+        'a' => 'Yes. 100% confidentiality is guaranteed. All client information, case details and findings are protected under strict non-disclosure protocols.'
+    ],
+    [
+        'q' => 'Do you provide support for international cases?',
+        'a' => 'Yes. We extend our cyber intelligence services to clients across India and internationally, with coverage in Singapore, Australia, Germany, Canada, UAE and more.'
+    ],
 ];
 
 include_once __DIR__ . '/includes/header.php';
@@ -289,17 +337,17 @@ include_once __DIR__ . '/includes/header.php';
 
 
 <!-- ================================================================
-     INTERACTIVE CYBER COMMAND CONSOLE (Radar HUD & 4-Pillar Switcher)
+     4-PILLAR ANIMATED HORIZONTAL EXPANDING SHOWCASE
 ================================================================ -->
-<section class="section ci-console-section" id="ci-command-console" aria-label="Interactive Cyber Defense Console">
-    <div class="ci-console-ambient-glow" aria-hidden="true"></div>
+<section class="section ci-showcase-section" id="ci-showcase" aria-label="Cyber Defense Intelligence Pillars">
+    <div class="ci-showcase-ambient-glow" aria-hidden="true"></div>
 
     <div class="container">
         
         <div class="section-heading text-center ci-reveal">
             <span class="section-tag">
                 <span class="pulse-dot"></span>
-                INTERACTIVE COMMAND CONSOLE
+                CORE INTELLIGENCE PILLARS
             </span>
             <h2>
                 Real-Time Cyber <span>Defense Matrix</span>
@@ -309,270 +357,105 @@ include_once __DIR__ . '/includes/header.php';
             </p>
         </div>
 
-        <div class="ci-console-stage ci-reveal">
-            
-            <!-- TOP CONSOLE STATUS BAR -->
-            <div class="console-top-bar">
-                <div class="console-status-indicator">
-                    <span class="console-blink-dot"></span>
-                    <span class="console-system-status">SYSTEM ONLINE // 360° TELEMETRY ACTIVE</span>
-                </div>
-                <div class="console-signal-graph" aria-hidden="true">
-                    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-                </div>
-                <div class="console-coords" id="consoleCoords">
-                    GRID: 4-QUADRANT // TARGET: VEC-01 // ACTIVE
-                </div>
-            </div>
+        <div class="ci-showcase-wrapper ci-reveal">
+            <div class="ci-showcase-panels" id="ciShowcasePanels" role="tablist" aria-label="Cyber Intelligence Pillars">
 
-            <!-- MAIN SPLIT WORKSPACE -->
-            <div class="ci-console-grid">
+                <?php foreach ($cyberPillars as $i => $panel): ?>
+                <div class="ci-panel <?= $i === 0 ? 'ci-panel-active' : '' ?>"
+                     data-panel="<?= $i ?>"
+                     id="ciPanel<?= $i ?>"
+                     role="tab"
+                     tabindex="0"
+                     aria-selected="<?= $i === 0 ? 'true' : 'false' ?>"
+                     aria-label="<?= sanitize_out($panel['title']) ?>">
 
-                <!-- LEFT COLUMN: ANIMATED RADAR HUD & TARGET STAGE -->
-                <div class="ci-console-radar-col">
-                    <div class="ci-radar-card">
-                        
-                        <!-- Corner HUD Brackets -->
-                        <div class="radar-corner radar-tl"></div>
-                        <div class="radar-corner radar-tr"></div>
-                        <div class="radar-corner radar-bl"></div>
-                        <div class="radar-corner radar-br"></div>
+                    <!-- Background Image Layer with Zoom Effect -->
+                    <div class="ci-panel-bg" style="background-image: url('<?= sanitize_out($panel['image']) ?>');"></div>
 
-                        <!-- Radar Header -->
-                        <div class="radar-header">
-                            <div class="radar-hud-tag-wrap">
-                                <span class="radar-hud-tag">SURVEILLANCE RADAR</span>
-                                <span class="radar-tag-mode" id="radarTagMode">SECTOR: 01-HUNT</span>
-                            </div>
-                            <span class="radar-sweep-rate">SWEEP: 360° / 60 RPM</span>
-                        </div>
+                    <!-- Cyber Overlay Gradient & Vignette -->
+                    <div class="ci-panel-overlay"></div>
 
-                        <!-- Live Threat Posture & Equalizer HUD Bar -->
-                        <div class="radar-spectrum-hud">
-                            <div class="spectrum-stat">
-                                <span class="spectrum-dot"></span>
-                                <span class="spectrum-label">DEFCON 4 // THREAT LEVEL: LOW</span>
-                            </div>
-                            <div class="spectrum-bars" aria-hidden="true">
-                                <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-                            </div>
-                            <div class="spectrum-stat-right">
-                                <span class="spectrum-sub">SENSORS: <strong>256/256 ONLINE</strong></span>
-                            </div>
-                        </div>
+                    <!-- Top glowing edge line -->
+                    <div class="ci-panel-glow-edge"></div>
 
-                        <!-- Central Radar Display (Enlarged, centered, clean inward callouts) -->
-                        <div class="radar-screen" id="radarScreen">
-                            
-                            <!-- Rotating Sweep Line -->
-                            <div class="radar-sweep-beam" aria-hidden="true"></div>
-
-                            <!-- Concentric Range Circles -->
-                            <div class="radar-circle radar-c4"></div>
-                            <div class="radar-circle radar-c3"></div>
-                            <div class="radar-circle radar-c2"></div>
-                            <div class="radar-circle radar-c1"></div>
-
-                            <!-- Axis Crosshairs -->
-                            <div class="radar-axis radar-axis-h"></div>
-                            <div class="radar-axis radar-axis-v"></div>
-
-                            <!-- Cardinal Labels -->
-                            <span class="radar-dir radar-n">000° N</span>
-                            <span class="radar-dir radar-e">090° E</span>
-                            <span class="radar-dir radar-s">180° S</span>
-                            <span class="radar-dir radar-w">270° W</span>
-
-                            <!-- Range Tags -->
-                            <span class="radar-range-tag tag-25">25 KM</span>
-                            <span class="radar-range-tag tag-50">50 KM</span>
-                            <span class="radar-range-tag tag-75">75 KM</span>
-
-                            <!-- 4 Target Blips with Coordinates & Non-Overlapping Inward Callouts -->
-                            <!-- Blip 1: Threat Intel (Quadrant II: Top-Left, Callout stacked above) -->
-                            <div class="radar-blip blip-threat active" id="blip-0" data-index="0" title="Threat Intelligence Node">
-                                <span class="blip-core"></span>
-                                <span class="blip-ring"></span>
-                                <span class="blip-callout callout-tl">01 THREAT</span>
-                            </div>
-
-                            <!-- Blip 2: Digital Forensics (Quadrant I: Top-Right, Callout inward left) -->
-                            <div class="radar-blip blip-forensics" id="blip-1" data-index="1" title="Digital Forensics Node">
-                                <span class="blip-core"></span>
-                                <span class="blip-ring"></span>
-                                <span class="blip-callout callout-tr">02 FORENSICS</span>
-                            </div>
-
-                            <!-- Blip 3: Cyber Risk (Quadrant III: Bottom-Left, Callout inward right) -->
-                            <div class="radar-blip blip-risk" id="blip-2" data-index="2" title="Cyber Risk Node">
-                                <span class="blip-core"></span>
-                                <span class="blip-ring"></span>
-                                <span class="blip-callout callout-bl">03 RISK AUDIT</span>
-                            </div>
-
-                            <!-- Blip 4: Data Protection (Quadrant IV: Bottom-Right, Callout inward left) -->
-                            <div class="radar-blip blip-data" id="blip-3" data-index="3" title="Data Protection Node">
-                                <span class="blip-core"></span>
-                                <span class="blip-ring"></span>
-                                <span class="blip-callout callout-br">04 DATA SHIELD</span>
-                            </div>
-
-                            <!-- Target Acquisition Reticle -->
-                            <div class="radar-target-reticle pos-0" id="radarTargetReticle">
-                                <div class="reticle-corner ret-tl"></div>
-                                <div class="reticle-corner ret-tr"></div>
-                                <div class="reticle-corner ret-bl"></div>
-                                <div class="reticle-corner ret-br"></div>
-                                <div class="reticle-center-cross"></div>
-                            </div>
-
-                            <!-- Center Holographic Logo/Shield -->
-                            <div class="radar-center-shield">
-                                <img src="assets/images/logo.png" alt="Cyber Kovai Core Shield" class="radar-center-logo">
-                            </div>
-
-                        </div><!-- /radar-screen -->
-
-                        <!-- Active Telemetry Readout Deck: 4-Cell Matrix (2x2) -->
-                        <div class="radar-telemetry-deck" id="radarTelemetryDeck">
-                            <div class="telemetry-item">
-                                <span class="telemetry-label">ACTIVE VECTOR</span>
-                                <span class="telemetry-val" id="hudVectorCode">VEC-01 // THREAT_INTEL</span>
-                            </div>
-                            <div class="telemetry-item">
-                                <span class="telemetry-label">SECURITY POSTURE</span>
-                                <span class="telemetry-val green-text" id="hudStatus">ACTIVE SHIELDED</span>
-                            </div>
-                            <div class="telemetry-item telemetry-span-2">
-                                <div class="telemetry-split-header">
-                                    <span class="telemetry-label">INTELLIGENCE METRIC</span>
-                                    <span class="telemetry-val-sm" id="hudMetric">99.8% Threat Intercept Rate</span>
-                                </div>
-                                <div class="telemetry-progress-track">
-                                    <div class="telemetry-progress-fill" id="hudMetricFill" style="width: 98%;"></div>
-                                </div>
-                            </div>
-                            <div class="telemetry-item">
-                                <span class="telemetry-label">ENCRYPTION PROTOCOL</span>
-                                <span class="telemetry-val" id="hudEncryption">AES-256-GCM / SHA-512</span>
-                            </div>
-                            <div class="telemetry-item">
-                                <span class="telemetry-label">AUDIT STANDARD</span>
-                                <span class="telemetry-val" id="hudStandard">ISO 27001 &amp; SOC 2</span>
-                            </div>
-                        </div>
-
-                        <!-- Live SOC Terminal Feed Log Stream -->
-                        <div class="radar-terminal-box">
-                            <div class="terminal-bar">
-                                <div class="terminal-dots"><span></span><span></span><span></span></div>
-                                <span class="terminal-title">SOC_FEED // TELEMETRY_STREAM</span>
-                                <span class="terminal-live-tag">LIVE FEED</span>
-                            </div>
-                            <div class="terminal-console-body" id="socTerminalStream">
-                                <div class="term-line term-dim"><span class="term-time">[16:40:12]</span> SEC_CORE: Continuous perimeter telemetry stream synchronized</div>
-                                <div class="term-line term-dim"><span class="term-time">[16:40:15]</span> AI_DEFENSE: Zero-day heuristic pattern scanner active</div>
-                                <div class="term-line term-active" id="termLiveLog"><span class="term-time">[16:40:20]</span> <span class="term-hi">NODE_LOCK:</span> Threat Hunter active. 99.8% intercept rate confirmed.</div>
-                            </div>
-                        </div>
-
+                    <!-- Floating Cyber Particle Nodes -->
+                    <div class="ci-panel-particles" aria-hidden="true">
+                        <span class="ci-ptcl ptcl-1"></span>
+                        <span class="ci-ptcl ptcl-2"></span>
+                        <span class="ci-ptcl ptcl-3"></span>
+                        <span class="ci-ptcl ptcl-4"></span>
+                        <span class="ci-ptcl ptcl-5"></span>
                     </div>
-                </div><!-- /ci-console-radar-col -->
 
-
-                <!-- RIGHT COLUMN: 4 INTERACTIVE PILLAR SWITCHER TABS -->
-                <div class="ci-console-switch-col">
-                    <div class="console-pillars-list" role="tablist" aria-label="Cyber Intelligence Pillars">
-
-                        <?php foreach ($cyberPillars as $i => $pillar): ?>
-                        <div class="console-pillar-card <?= $i === 0 ? 'active' : '' ?>"
-                             id="<?= sanitize_out($pillar['id']) ?>"
-                             data-index="<?= $i ?>"
-                             data-code="<?= sanitize_out($pillar['code']) ?>"
-                             data-status="<?= sanitize_out($pillar['status']) ?>"
-                             data-metric="<?= sanitize_out($pillar['metric']) ?>"
-                             data-coords="<?= sanitize_out($pillar['coords']) ?>"
-                             data-meter="<?= sanitize_out($pillar['meter'] ?? '99') ?>"
-                             data-encryption="<?= sanitize_out($pillar['encryption'] ?? 'AES-256') ?>"
-                             data-standard="<?= sanitize_out($pillar['standard'] ?? 'ISO 27001') ?>"
-                             data-log="<?= sanitize_out($pillar['log'] ?? '') ?>"
-                             role="tab"
-                             tabindex="0"
-                             aria-selected="<?= $i === 0 ? 'true' : 'false' ?>">
-
-                            <div class="pillar-card-glow"></div>
-
-                            <!-- Header: Number, Icon, Badge -->
-                            <div class="pillar-card-top">
-                                <div class="pillar-num-icon">
-                                    <span class="pillar-num"><?= sanitize_out($pillar['num']) ?></span>
-                                    <div class="pillar-svg-box">
-                                        <?= $pillar['svg_icon'] ?>
-                                    </div>
-                                </div>
-                                <span class="pillar-badge"><?= sanitize_out($pillar['badge']) ?></span>
-                            </div>
-
-                            <!-- Title & Description -->
-                            <div class="pillar-body">
-                                <h3 class="pillar-title"><?= sanitize_out($pillar['title']) ?></h3>
-                                <p class="pillar-desc"><?= sanitize_out($pillar['desc']) ?></p>
-                            </div>
-
-                            <!-- Capabilities Tags -->
-                            <div class="pillar-caps">
-                                <?php foreach ($pillar['capabilities'] as $cap): ?>
-                                    <span class="pillar-cap-tag">
-                                        <span class="cap-dot"></span>
-                                        <?= sanitize_out($cap) ?>
-                                    </span>
-                                <?php endforeach; ?>
-                            </div>
-
-                            <!-- Footer: Metric & Action Link -->
-                            <div class="pillar-footer">
-                                <div class="pillar-metric-highlight">
-                                    <strong><?= sanitize_out($pillar['metric']) ?></strong>
-                                    <small><?= sanitize_out($pillar['metric_sub']) ?></small>
-                                </div>
-                                <a href="#contact" class="pillar-action-btn" title="Inquire about <?= sanitize_out($pillar['title']) ?>">
-                                    <span>Explore</span>
-                                    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2">
-                                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                                        <polyline points="12 5 19 12 12 19"></polyline>
-                                    </svg>
-                                </a>
-                            </div>
-
+                    <!-- COLLAPSED STATE (Slim Vertical Strip) -->
+                    <div class="ci-panel-collapsed" aria-hidden="<?= $i === 0 ? 'true' : 'false' ?>">
+                        <span class="ci-panel-num"><?= sanitize_out($panel['num']) ?></span>
+                        <div class="ci-panel-icon-badge">
+                            <?= $panel['svg_icon'] ?>
                         </div>
-                        <?php endforeach; ?>
-
+                        <div class="ci-panel-short-title">
+                            <span><?= sanitize_out($panel['short'] ?? $panel['title']) ?></span>
+                        </div>
+                        <div class="ci-panel-expand-pill">
+                            <span class="expand-dot"></span>
+                            <span>EXPAND</span>
+                        </div>
                     </div>
-                </div><!-- /ci-console-switch-col -->
 
-            </div><!-- /ci-console-grid -->
+                    <!-- EXPANDED STATE (Rich content with staggered entrance) -->
+                    <div class="ci-panel-expanded" aria-hidden="<?= $i === 0 ? 'false' : 'true' ?>">
+                        <div class="ci-panel-exp-header">
+                            <div class="ci-panel-tag-group">
+                                <span class="ci-panel-exp-num"><?= sanitize_out($panel['num']) ?></span>
+                                <span class="ci-panel-exp-badge"><?= sanitize_out($panel['badge']) ?></span>
+                                <span class="ci-panel-exp-status">
+                                    <span class="status-pulse-dot" style="background: <?= sanitize_out($panel['status_color'] ?? '#10b981') ?>; box-shadow: 0 0 8px <?= sanitize_out($panel['status_color'] ?? '#10b981') ?>;"></span>
+                                    <?= sanitize_out($panel['status']) ?>
+                                </span>
+                            </div>
+                            <div class="ci-panel-exp-icon">
+                                <?= $panel['svg_icon'] ?>
+                            </div>
+                        </div>
 
-            <!-- CONSOLE FOOTER STATUS BAR -->
-            <div class="console-bottom-bar">
-                <div class="console-footer-info">
-                    <span class="console-dot-pulsing"></span>
-                    <span>CYBER KOVAI SOC 2 &amp; ISO 27001 MONITORED INFRASTRUCTURE</span>
-                </div>
-                <div class="console-footer-cta">
-                    <a href="#contact" class="console-deploy-btn">
-                        <span>Deploy Unified Cyber Defense</span>
-                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2">
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
-                    </a>
-                </div>
-            </div>
+                        <h3 class="ci-panel-exp-title"><?= sanitize_out($panel['title']) ?></h3>
+                        <p class="ci-panel-exp-desc"><?= sanitize_out($panel['desc']) ?></p>
 
-        </div><!-- /ci-console-stage -->
+                        <!-- Capabilities Tags -->
+                        <div class="ci-panel-caps">
+                            <?php foreach ($panel['capabilities'] as $cap): ?>
+                                <span class="ci-cap-tag">
+                                    <span class="ci-cap-dot"></span>
+                                    <?= sanitize_out($cap) ?>
+                                </span>
+                            <?php endforeach; ?>
+                        </div>
+
+                        <!-- Metric Highlight & CTA Footer -->
+                        <div class="ci-panel-exp-footer">
+                            <div class="ci-panel-metric-box">
+                                <div class="ci-metric-value"><?= sanitize_out($panel['metric']) ?></div>
+                                <div class="ci-metric-sub"><?= sanitize_out($panel['metric_sub']) ?></div>
+                            </div>
+
+                            <a href="#contact" class="ci-panel-cta" title="Inquire about <?= sanitize_out($panel['title']) ?>">
+                                <span>Explore Service</span>
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                </div><!-- /ci-panel -->
+                <?php endforeach; ?>
+
+            </div><!-- /ci-showcase-panels -->
+        </div><!-- /ci-showcase-wrapper -->
 
     </div><!-- /container -->
-</section><!-- /ci-console-section -->
+</section><!-- /ci-showcase-section -->
 
 
 <!-- ================================================================
@@ -585,11 +468,16 @@ include_once __DIR__ . '/includes/header.php';
             <!-- Left: Image -->
             <div class="ci-approach-img-col ci-reveal">
                 <div class="ci-approach-img-wrap">
-                    <img src="assets/images/15_investigation_monitoring_room.png"
+                    <img src="assets/images/ci_analyst_approach.jpg"
                          alt="Cyber Analyst Operations Center" class="ci-approach-img" loading="lazy">
                     <div class="ci-approach-img-border"></div>
                     <div class="ci-approach-badge">
-                        <div class="ci-approach-badge-icon">🕐</div>
+                        <div class="ci-approach-badge-icon">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                        </div>
                         <div>
                             <strong>24/7</strong>
                             <span>Threat Monitoring</span>
@@ -600,15 +488,18 @@ include_once __DIR__ . '/includes/header.php';
 
             <!-- Right: Content -->
             <div class="ci-approach-content">
-                <span class="section-tag ci-reveal">ABOUT OUR APPROACH</span>
+                <span class="section-tag ci-reveal">
+                    <span class="pulse-dot"></span>
+                    OUR APPROACH
+                </span>
 
                 <h2 class="ci-reveal">
                     Proactive Intelligence<br>
-                    for a <span>Safer Tomorrow</span>
+                    for a <span class="ci-grad-text">Safer Tomorrow</span>
                 </h2>
 
                 <p class="ci-reveal">
-                    We combine advanced technology, cyber intelligence and deep expertise to identify threats early, analyze risks and help organizations stay ahead of evolving cyber challenges.
+                    We help organizations detect, investigate and respond to cyber threats before they cause business disruption.
                 </p>
 
                 <ul class="ci-approach-list">
@@ -624,13 +515,13 @@ include_once __DIR__ . '/includes/header.php';
                                 <polyline points="4,10 8,14 16,6"/>
                             </svg>
                         </span>
-                        <?= sanitize_out($point) ?>
+                        <span><?= sanitize_out($point) ?></span>
                     </li>
                     <?php endforeach; ?>
                 </ul>
 
-                <a href="#contact" class="btn primary-btn ci-reveal" style="margin-top:1.5rem;display:inline-flex;">
-                    Learn More About Cyber Intelligence &#x2192;
+                <a href="#ci-services" class="btn primary-btn ci-approach-btn ci-reveal">
+                    Learn More About Cyber Intelligence <span>&rarr;</span>
                 </a>
             </div>
 
@@ -640,30 +531,34 @@ include_once __DIR__ . '/includes/header.php';
 
 
 <!-- ================================================================
-     CYBER SERVICES (6 CARDS)
+     CYBER SERVICES (6 CARDS WITH RICH PHOTO HEADERS)
 ================================================================ -->
 <section class="section ci-services-section" id="ci-services">
     <div class="container">
 
         <div class="section-heading text-center ci-reveal">
-            <span class="section-tag">OUR SERVICES</span>
-            <h2>Comprehensive <span>Cyber Intelligence</span> Solutions</h2>
-            <p>End-to-end cyber intelligence services to help businesses detect, investigate, respond and stay protected.</p>
+            <span class="section-tag">
+                <span class="pulse-dot"></span>
+                OUR SERVICES
+            </span>
+            <h2>Comprehensive <span class="ci-grad-text">Cyber Intelligence</span> Solutions</h2>
+            <p>From risk and cyber intelligence services to digital forensics, detection, investigation, response and long-term protection.</p>
         </div>
 
         <div class="ci-services-grid">
             <?php foreach ($cyberServices as $svc): ?>
             <article class="ci-svc-card ci-reveal">
-                <div class="ci-svc-icon"><?= $svc['icon'] ?></div>
-                <h3><?= sanitize_out($svc['title']) ?></h3>
-                <p><?= sanitize_out($svc['desc']) ?></p>
-                <a href="#contact" class="ci-svc-link">
-                    Learn More
-                    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="5" y1="12" x2="19" y2="12"/>
-                        <polyline points="12,5 19,12 12,19"/>
-                    </svg>
-                </a>
+                <div class="ci-svc-img-wrap">
+                    <img src="<?= sanitize_out($svc['image']) ?>" alt="<?= sanitize_out($svc['title']) ?>" class="ci-svc-img" loading="lazy">
+                    <div class="ci-svc-img-gradient"></div>
+                </div>
+                <div class="ci-svc-body">
+                    <h3><?= sanitize_out($svc['title']) ?></h3>
+                    <p><?= sanitize_out($svc['desc']) ?></p>
+                    <a href="#contact" class="ci-svc-link">
+                        Learn More <span>&rarr;</span>
+                    </a>
+                </div>
             </article>
             <?php endforeach; ?>
         </div>
@@ -673,45 +568,34 @@ include_once __DIR__ . '/includes/header.php';
 
 
 <!-- ================================================================
-     PROTECTION PROCESS (5 STEPS)
+     PROTECTION PROCESS (5 SLEEK TIMELINE NODES)
 ================================================================ -->
 <section class="section ci-process-section" id="ci-process">
     <div class="container">
 
         <div class="section-heading text-center ci-reveal">
-            <span class="section-tag">OUR PROCESS</span>
-            <h2>How We <span>Protect Your Business</span></h2>
-            <p>A systematic and proactive approach to cyber intelligence.</p>
+            <span class="section-tag">
+                <span class="pulse-dot"></span>
+                OUR PROCESS
+            </span>
+            <h2>How We <span class="ci-grad-text">Protect Your Business</span></h2>
+            <p>A structured and proactive approach to cyber resilience.</p>
         </div>
 
-        <div class="ci-process-track">
-            <?php foreach ($cyberProcess as $idx => $step): ?>
-            <div class="ci-process-step ci-reveal">
-                <div class="ci-process-num"><?= sanitize_out($step['num']) ?></div>
-                <div class="ci-process-icon">
-                    <?php
-                    $icons = ['🔎','🕵️','📊','⚡','🛡️'];
-                    echo $icons[$idx] ?? '🔵';
-                    ?>
+        <div class="ci-process-timeline-wrap ci-reveal">
+            <div class="ci-process-line" aria-hidden="true"></div>
+            <div class="ci-process-track">
+                <?php foreach ($cyberProcess as $step): ?>
+                <div class="ci-process-step">
+                    <div class="ci-process-node">
+                        <span class="ci-process-node-pulse"></span>
+                        <span class="ci-process-node-num"><?= sanitize_out($step['num']) ?></span>
+                    </div>
+                    <h4><?= sanitize_out($step['title']) ?></h4>
+                    <p><?= sanitize_out($step['desc']) ?></p>
                 </div>
-                <h4><?= sanitize_out($step['title']) ?></h4>
-                <p><?= sanitize_out($step['desc']) ?></p>
+                <?php endforeach; ?>
             </div>
-            <?php if ($idx < count($cyberProcess)-1): ?>
-            <div class="ci-process-arrow" aria-hidden="true">
-                <svg viewBox="0 0 32 16" width="32" height="16" fill="none">
-                    <path d="M0 8h28" stroke="url(#arrowGrad)" stroke-width="1.5" stroke-dasharray="3 3"/>
-                    <path d="M24 4l6 4-6 4" stroke="url(#arrowGrad)" stroke-width="1.5" stroke-linecap="round"/>
-                    <defs>
-                        <linearGradient id="arrowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stop-color="#7b2ff7"/>
-                            <stop offset="100%" stop-color="#c84bff"/>
-                        </linearGradient>
-                    </defs>
-                </svg>
-            </div>
-            <?php endif; ?>
-            <?php endforeach; ?>
         </div>
 
     </div>
@@ -719,23 +603,36 @@ include_once __DIR__ . '/includes/header.php';
 
 
 <!-- ================================================================
-     CYBER RISKS
+     CYBER RISKS WE HELP YOU IDENTIFY
 ================================================================ -->
 <section class="section ci-risks-section" id="ci-risks">
     <div class="container">
 
         <div class="section-heading text-center ci-reveal">
-            <h2>Cyber Risks We Help You <span>Identify</span></h2>
-            <p>Stay ahead of evolving threats with continuous monitoring and intelligence.</p>
+            <h2>Cyber Risks We Help You <span class="ci-grad-text">Identify</span></h2>
+            <p>Stay ahead of evolving threats with real-time monitoring and intelligence.</p>
         </div>
 
-        <div class="ci-risks-grid ci-reveal">
-            <?php foreach ($cyberRisks as $risk): ?>
-            <div class="ci-risk-tag">
-                <span class="ci-risk-dot"></span>
-                <?= sanitize_out($risk) ?>
+        <div class="ci-risks-wrapper ci-reveal">
+            <!-- Row 1: 6 tags -->
+            <div class="ci-risks-row ci-risks-row-1">
+                <?php foreach ($cyberRisksRow1 as $risk): ?>
+                <div class="ci-risk-tag">
+                    <span class="ci-risk-dot"></span>
+                    <span><?= sanitize_out($risk) ?></span>
+                </div>
+                <?php endforeach; ?>
             </div>
-            <?php endforeach; ?>
+
+            <!-- Row 2: 4 tags -->
+            <div class="ci-risks-row ci-risks-row-2">
+                <?php foreach ($cyberRisksRow2 as $risk): ?>
+                <div class="ci-risk-tag">
+                    <span class="ci-risk-dot"></span>
+                    <span><?= sanitize_out($risk) ?></span>
+                </div>
+                <?php endforeach; ?>
+            </div>
         </div>
 
     </div>
@@ -743,97 +640,50 @@ include_once __DIR__ . '/includes/header.php';
 
 
 <!-- ================================================================
-     GLOBAL COVERAGE
+     GLOBAL FOOTPRINT
 ================================================================ -->
 <section class="section ci-coverage-section" id="ci-coverage">
     <div class="container">
 
         <div class="ci-coverage-grid">
 
-            <!-- Map side -->
+            <!-- Left: High-Tech Telemetry Map Card -->
             <div class="ci-coverage-map-col ci-reveal">
                 <div class="ci-world-map-wrap">
-                    <!-- SVG world map placeholder with glowing dots -->
-                    <svg class="ci-world-map-svg" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid meet" aria-label="Global coverage map">
-                        <!-- Simplified world map paths -->
-                        <rect width="800" height="400" fill="transparent"/>
-                        <!-- Grid lines -->
-                        <?php for ($g=0;$g<8;$g++): ?>
-                            <line x1="<?= $g*100 ?>" y1="0" x2="<?= $g*100 ?>" y2="400" stroke="rgba(139,32,255,0.08)" stroke-width="1"/>
-                        <?php endfor; ?>
-                        <?php for ($g=0;$g<5;$g++): ?>
-                            <line x1="0" y1="<?= $g*100 ?>" x2="800" y2="<?= $g*100 ?>" stroke="rgba(139,32,255,0.08)" stroke-width="1"/>
-                        <?php endfor; ?>
-
-                        <!-- Continent blobs (simplified) -->
-                        <!-- North America -->
-                        <ellipse cx="160" cy="160" rx="90" ry="70" fill="rgba(139,32,255,0.12)" stroke="rgba(139,32,255,0.2)" stroke-width="1"/>
-                        <!-- South America -->
-                        <ellipse cx="200" cy="300" rx="50" ry="65" fill="rgba(139,32,255,0.10)" stroke="rgba(139,32,255,0.18)" stroke-width="1"/>
-                        <!-- Europe -->
-                        <ellipse cx="390" cy="130" rx="55" ry="50" fill="rgba(139,32,255,0.12)" stroke="rgba(139,32,255,0.2)" stroke-width="1"/>
-                        <!-- Africa -->
-                        <ellipse cx="400" cy="270" rx="60" ry="85" fill="rgba(139,32,255,0.10)" stroke="rgba(139,32,255,0.18)" stroke-width="1"/>
-                        <!-- Asia -->
-                        <ellipse cx="580" cy="150" rx="120" ry="80" fill="rgba(139,32,255,0.12)" stroke="rgba(139,32,255,0.2)" stroke-width="1"/>
-                        <!-- Australia -->
-                        <ellipse cx="660" cy="310" rx="60" ry="40" fill="rgba(139,32,255,0.10)" stroke="rgba(139,32,255,0.18)" stroke-width="1"/>
-
-                        <!-- Coimbatore hub -->
-                        <circle cx="550" cy="195" r="6" fill="#c84bff" opacity="0.9">
-                            <animate attributeName="r" values="6;10;6" dur="2s" repeatCount="indefinite"/>
-                            <animate attributeName="opacity" values="0.9;0.4;0.9" dur="2s" repeatCount="indefinite"/>
-                        </circle>
-                        <circle cx="550" cy="195" r="3" fill="#fff"/>
-                        <text x="558" y="191" fill="rgba(255,255,255,0.7)" font-size="9" font-family="Inter,sans-serif">Coimbatore</text>
-
-                        <!-- Location dots -->
-                        <?php
-                        $dotLocations = [
-                            [160,155,'Delhi'],[200,120,'Mumbai'],[390,125,'Germany'],
-                            [620,190,'Singapore'],[665,310,'Australia'],[140,120,'Canada'],
-                            [410,260,'S. Africa'],[500,175,'Saudi Arabia'],[640,170,'Thailand'],
-                        ];
-                        foreach ($dotLocations as [$dx,$dy,$dn]):
-                        ?>
-                        <circle cx="<?=$dx?>" cy="<?=$dy?>" r="4" fill="rgba(200,75,255,0.7)">
-                            <animate attributeName="opacity" values="0.7;0.3;0.7" dur="<?= (rand(15,30)/10) ?>s" repeatCount="indefinite"/>
-                        </circle>
-                        <!-- connecting line to hub -->
-                        <line x1="<?=$dx?>" y1="<?=$dy?>" x2="550" y2="195"
-                              stroke="rgba(139,32,255,0.18)" stroke-width="1" stroke-dasharray="3 5">
-                            <animate attributeName="stroke-dashoffset" values="0;-16" dur="<?= (rand(18,35)/10) ?>s" repeatCount="indefinite"/>
-                        </line>
-                        <?php endforeach; ?>
-                    </svg>
+                    <img src="assets/images/ci_global_map.jpg" alt="Global Cyber Threat & Telemetry Network" class="ci-world-map-img" loading="lazy">
                 </div>
             </div>
 
-            <!-- Content side -->
+            <!-- Right: Content & 2x2 Stat Cards -->
             <div class="ci-coverage-content">
-                <span class="section-tag ci-reveal">GLOBAL COVERAGE</span>
+                <span class="section-tag ci-reveal">
+                    <span class="pulse-dot"></span>
+                    GLOBAL FOOTPRINT
+                </span>
 
-                <h2 class="ci-reveal">From Coimbatore <span>to the World</span></h2>
+                <h2 class="ci-reveal">From Coimbatore <span class="ci-grad-text">to the World</span></h2>
 
                 <p class="ci-reveal">
-                    We provide cyber intelligence services to businesses and organizations across India and internationally, with a trusted network of partners worldwide.
+                    We provide cyber intelligence and forensics services to businesses, government agencies and law enforcement, with a trusted network of specialists across 15+ countries.
                 </p>
 
-                <div class="ci-stats-row">
-                    <?php foreach ([
-                        ['15+','Countries'],['500+','Investigations'],['24/7','Threat Monitoring'],['99%','Success Rate'],
-                    ] as $stat): ?>
-                    <div class="ci-stat-item ci-reveal">
-                        <strong><?= $stat[0] ?></strong>
-                        <span><?= $stat[1] ?></span>
+                <div class="ci-stats-row ci-reveal">
+                    <div class="ci-stat-item">
+                        <strong>15+</strong>
+                        <span>Countries</span>
                     </div>
-                    <?php endforeach; ?>
-                </div>
-
-                <div class="ci-coverage-locations ci-reveal">
-                    <?php foreach (['India','UAE','Singapore','Canada','Germany','Malaysia','Thailand','Australia','Saudi Arabia','South Africa','Other Regions'] as $loc): ?>
-                    <span class="ci-loc-pill"><?= sanitize_out($loc) ?></span>
-                    <?php endforeach; ?>
+                    <div class="ci-stat-item">
+                        <strong>500+</strong>
+                        <span>Investigations</span>
+                    </div>
+                    <div class="ci-stat-item">
+                        <strong>24/7</strong>
+                        <span>Threat Monitoring</span>
+                    </div>
+                    <div class="ci-stat-item">
+                        <strong>99%</strong>
+                        <span>Business Trust</span>
+                    </div>
                 </div>
             </div>
 
@@ -843,26 +693,27 @@ include_once __DIR__ . '/includes/header.php';
 
 
 <!-- ================================================================
-     TESTIMONIALS
+     TESTIMONIALS (3 CARDS)
 ================================================================ -->
 <section class="section ci-testimonials" id="ci-testimonials">
     <div class="container">
 
         <div class="section-heading text-center ci-reveal">
-            <span class="section-tag">CLIENT FEEDBACK</span>
-            <h2>What Our <span>Clients Say</span></h2>
+            <span class="section-tag">
+                <span class="pulse-dot"></span>
+                TESTIMONIALS
+            </span>
+            <h2>What Our <span class="ci-grad-text">Clients Say</span></h2>
         </div>
 
         <div class="ci-testi-grid">
             <?php foreach ($testimonials as $t): ?>
             <div class="ci-testi-card ci-reveal">
-                <div class="ci-testi-quote-icon">&#x201C;</div>
+                <div class="ci-testi-quote-icon">&ldquo;</div>
                 <p class="ci-testi-quote"><?= sanitize_out($t['quote']) ?></p>
                 <div class="ci-testi-author">
-                    <div class="ci-testi-avatar">
-                        <?= strtoupper(substr($t['name'], 0, 1)) ?>
-                    </div>
-                    <div>
+                    <img src="<?= sanitize_out($t['avatar']) ?>" alt="<?= sanitize_out($t['name']) ?>" class="ci-testi-avatar-img" loading="lazy">
+                    <div class="ci-testi-meta">
                         <strong><?= sanitize_out($t['name']) ?></strong>
                         <span><?= sanitize_out($t['role']) ?></span>
                     </div>
@@ -876,30 +727,34 @@ include_once __DIR__ . '/includes/header.php';
 
 
 <!-- ================================================================
-     FAQ
+     FAQ (HELP CENTER)
 ================================================================ -->
 <section class="section ci-faq-section" id="ci-faq">
-    <div class="container" style="max-width:800px">
+    <div class="container">
 
         <div class="ci-faq-grid">
 
             <div class="ci-faq-left ci-reveal">
-                <span class="section-tag">FAQ</span>
-                <h2>Frequently Asked <span>Questions</span></h2>
+                <span class="section-tag">
+                    <span class="pulse-dot"></span>
+                    HELP CENTER
+                </span>
+                <h2>Frequently Asked <span class="ci-grad-text">Questions</span></h2>
                 <p>Have more questions? Our team is ready to help.</p>
-                <a href="#contact" class="btn primary-btn" style="margin-top:1.5rem;display:inline-flex;">
-                    Talk to Our<br>Cyber Intelligence Experts
+                <a href="#contact" class="btn primary-btn ci-faq-btn">
+                    <span>View All FAQs</span>
+                    <small>or Get Free Expert Consult</small>
                 </a>
             </div>
 
             <div class="ci-faq-list">
                 <?php foreach ($cyberFaqs as $faq): ?>
                 <div class="ci-faq-item ci-reveal">
-                    <button class="ci-faq-q">
-                        <?= sanitize_out($faq['q']) ?>
+                    <button class="ci-faq-q" type="button" aria-expanded="false">
+                        <span><?= sanitize_out($faq['q']) ?></span>
                         <span class="ci-faq-arrow">
-                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="6,9 12,15 18,9"/>
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="9 18 15 12 9 6"/>
                             </svg>
                         </span>
                     </button>
@@ -917,21 +772,23 @@ include_once __DIR__ . '/includes/header.php';
 
 
 <!-- ================================================================
-     FINAL CTA
+     FINAL CTA (SECURE YOUR ASSETS)
 ================================================================ -->
 <section class="ci-final-cta" id="contact">
     <!-- Background digital network canvas -->
     <canvas id="ciCtaCanvas" class="ci-cta-canvas" aria-hidden="true"></canvas>
 
     <div class="container ci-cta-inner">
-        <span class="section-tag ci-reveal">SECURE YOUR BUSINESS</span>
-        <h2 class="ci-reveal">Secure Your <span>Digital Future</span></h2>
-        <p class="ci-reveal">
+        <span class="section-tag ci-reveal">
+            <span class="pulse-dot"></span>
+            SECURE YOUR ASSETS
+        </span>
+        <p class="ci-cta-tagline ci-reveal">
             Partner with CyberKovai for proactive cyber intelligence and comprehensive security solutions.
         </p>
         <div class="ci-cta-btns ci-reveal">
             <a href="#ci-services" class="btn primary-btn">
-                Explore Cyber Services &#x2192;
+                Explore Cyber Services <span>&rarr;</span>
             </a>
             <a href="tel:<?= sanitize_out(SITE_PHONE_TEL) ?>" class="btn outline-btn">
                 Talk to an Expert
@@ -939,6 +796,28 @@ include_once __DIR__ . '/includes/header.php';
         </div>
     </div>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const faqItems = document.querySelectorAll('.ci-faq-item');
+    faqItems.forEach(function (item) {
+        const btn = item.querySelector('.ci-faq-q');
+        if (!btn) return;
+        btn.addEventListener('click', function () {
+            const isOpen = item.classList.contains('ci-faq-open');
+            faqItems.forEach(function (other) {
+                if (other !== item) {
+                    other.classList.remove('ci-faq-open');
+                    const otherBtn = other.querySelector('.ci-faq-q');
+                    if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+                }
+            });
+            item.classList.toggle('ci-faq-open', !isOpen);
+            btn.setAttribute('aria-expanded', !isOpen ? 'true' : 'false');
+        });
+    });
+});
+</script>
 
 </main>
 

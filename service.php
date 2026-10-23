@@ -66,7 +66,7 @@ include_once __DIR__ . '/includes/header.php';
             <nav class="svc-breadcrumb" aria-label="Breadcrumb">
                 <a href="<?= $activeHomeUrl ?>">Home</a>
                 <span class="svc-sep">/</span>
-                <a href="<?= ($categorySlug === 'digital-investigations') ? $basePrefix . 'investigation.php?section=forensics#services' : $activeServicesUrl ?>">Services</a>
+                <a href="<?= ($categorySlug === 'digital-investigations') ? $basePrefix . 'cyber-intelligence.php?section=forensics#ci-services' : $activeServicesUrl ?>">Services</a>
                 <span class="svc-sep">/</span>
                 <span class="svc-cat-crumb"><?= sanitize_out($category['name']) ?></span>
                 <span class="svc-sep">/</span>

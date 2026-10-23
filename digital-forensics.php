@@ -3,6 +3,7 @@
  * Cyber Kovai — Digital Investigation & Forensics Home Page
  */
 require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/includes/forensic-icons.php';
 
 $pageTitle       = 'Digital Investigation & Forensics | Cyber Kovai';
 $pageDescription = 'Professional investigation solutions and digital forensics by CyberKovai. Confidential corporate intelligence, evidence collection, and cybercrime defense.';
@@ -10,7 +11,7 @@ $pageDescription = 'Professional investigation solutions and digital forensics b
 include_once __DIR__ . '/includes/header.php';
 ?>
 
-    <main>
+    <main class="df-page">
 
         <!-- ================= HERO ================= -->
 
@@ -59,10 +60,36 @@ include_once __DIR__ . '/includes/header.php';
 
                 </div>
 
-                <!-- RIGHT SIDE: Preserved Hologram Shield Stage -->
-                <div class="hero-visual">
+                <!-- RIGHT SIDE: Hologram Shield Stage + Orbiting Services -->
+                <div class="hero-visual inv-hero-visual">
 
                     <canvas id="fx" aria-hidden="true"></canvas>
+
+                    <!-- Arc label text around the ring -->
+                    <div class="ci-arc-labels" aria-hidden="true">
+                        <div class="ci-arc-label ci-arc-top">APPLICATION SECURITY</div>
+                        <div class="ci-arc-label ci-arc-right">NETWORK SECURITY</div>
+                        <div class="ci-arc-label ci-arc-bottom">ENTERPRISE SECURITY</div>
+                        <div class="ci-arc-label ci-arc-left">CLOUD SECURITY</div>
+                    </div>
+
+                    <!-- Floating service cards (4 corners) -->
+                    <div class="ci-float-card inv-fc-1">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                        <span>Application Security</span>
+                    </div>
+                    <div class="ci-float-card inv-fc-2">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+                        <span>Network Security</span>
+                    </div>
+                    <div class="ci-float-card inv-fc-3">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                        <span>Enterprise Security</span>
+                    </div>
+                    <div class="ci-float-card inv-fc-4">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+                        <span>Cloud Security</span>
+                    </div>
 
                     <div class="stage" id="stage">
                         <!-- Background HUD rings -->
@@ -118,44 +145,211 @@ include_once __DIR__ . '/includes/header.php';
 
         <!-- ================= ABOUT SECTION ================= -->
 
-        <section class="section about-section" id="about">
+        <section class="section about-section cyber-about-section" id="about">
+            <!-- Ambient Glow Accents -->
+            <div class="about-ambient-glow about-glow-left" aria-hidden="true"></div>
+            <div class="about-ambient-glow about-glow-right" aria-hidden="true"></div>
 
             <div class="container about-grid">
 
                 <div class="about-content">
 
-                    <span class="section-tag">
-                        ABOUT CYBER KOVAI
-                    </span>
+                    <div class="cyber-badge-tag">
+                        <span class="cyber-tag-pulse"></span>
+                        <span class="cyber-tag-text">ABOUT CYBER KOVAI</span>
+                        <span class="cyber-tag-code">[ SYSTEM // VERIFIED ]</span>
+                    </div>
 
-                    <h2>
-                        Make Confident
-                        Decisions with Trusted
-                        <span>Business Intelligence</span>
+                    <h2 class="about-headline">
+                        Make Confident Decisions with Trusted
+                        <span class="cyber-gradient-text">Business Intelligence</span>
                     </h2>
 
-                    <p>
-                        At Cyber Kovai, we provide reliable and discreet investigation and verification services to help individuals, businesses and organizations make informed and confident decisions.
-                    </p>
-                    <p>
-                        20+ years of experience and a team of experts combine traditional investigative methods with modern technology to deliver fast, accurate and actionable analytics.
-                    </p>
+                    <div class="about-lead-box">
+                        <p class="about-lead-text">
+                            At Cyber Kovai, we provide reliable and discreet investigation and verification services to help individuals, businesses, and organizations make informed, confident decisions.
+                        </p>
+                        <p class="about-sub-text">
+                            Combining <strong>20+ years of investigative mastery</strong> with modern cyber-analytics to deliver swift, court-admissible, and actionable intelligence.
+                        </p>
+                    </div>
 
-                    <div class="about-bullets">
-                        <div><span>Ô£ô</span> Experienced Investigators</div>
-                        <div><span>Ô£ô</span> Discreet & Confidential Process</div>
-                        <div><span>Ô£ô</span> Tailored Solutions for Individuals & Businesses</div>
+                    <!-- Interactive Capability Cards -->
+                    <div class="about-capabilities">
+                        <div class="capability-card" tabindex="0">
+                            <div class="capability-icon-wrap">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                    <path d="m9 12 2 2 4-4"/>
+                                </svg>
+                            </div>
+                            <div class="capability-body">
+                                <div class="capability-header">
+                                    <h4>Experienced Investigators</h4>
+                                    <span class="capability-tag">20+ YRS EXP</span>
+                                </div>
+                                <p>Licensed forensic specialists executing rigorous field and cyber analytics with verified precision.</p>
+                            </div>
+                            <div class="capability-check">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="capability-card" tabindex="0">
+                            <div class="capability-icon-wrap icon-cyan">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                    <circle cx="12" cy="16" r="1"/>
+                                </svg>
+                            </div>
+                            <div class="capability-body">
+                                <div class="capability-header">
+                                    <h4>Discreet & Confidential Process</h4>
+                                    <span class="capability-tag tag-cyan">100% NDA</span>
+                                </div>
+                                <p>Zero-digital footprint operations with ironclad chain of custody and attorney-client discretion.</p>
+                            </div>
+                            <div class="capability-check">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="capability-card" tabindex="0">
+                            <div class="capability-icon-wrap icon-purple">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="2" y1="12" x2="22" y2="12"/>
+                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                                </svg>
+                            </div>
+                            <div class="capability-body">
+                                <div class="capability-header">
+                                    <h4>Tailored Solutions for Individuals & Businesses</h4>
+                                    <span class="capability-tag tag-purple">CUSTOM OPS</span>
+                                </div>
+                                <p>Adaptive intelligence packages tailored for background checks, fraud auditing, and counter-surveillance.</p>
+                            </div>
+                            <div class="capability-check">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mini Stat Ticker Row -->
+                    <div class="about-stat-strip">
+                        <div class="stat-strip-item">
+                            <span class="stat-strip-num">20+</span>
+                            <span class="stat-strip-lbl">Years Field Mastery</span>
+                        </div>
+                        <div class="stat-strip-divider"></div>
+                        <div class="stat-strip-item">
+                            <span class="stat-strip-num">2,000+</span>
+                            <span class="stat-strip-lbl">Verified Inquiries</span>
+                        </div>
+                        <div class="stat-strip-divider"></div>
+                        <div class="stat-strip-item">
+                            <span class="stat-strip-num">99.4%</span>
+                            <span class="stat-strip-lbl">Accuracy Rate</span>
+                        </div>
                     </div>
 
                 </div>
 
-                <div class="about-image-card">
-                    <img src="assets/images/15_investigation_monitoring_room.png" alt="Trusted Intelligence Visual" class="about-hero-img">
-                    <div class="badge-overlay badge-top-right">
-                        <span>­ƒøí´©Å</span> Trusted by <strong>2000+ Clients</strong>
-                    </div>
-                    <div class="badge-overlay badge-bottom-left">
-                        <span>­ƒôê</span> <strong>99% Accuracy</strong>
+                <!-- Right Cyber Console Stage -->
+                <div class="about-visual-column">
+                    <div class="cyber-console-card">
+                        
+                        <!-- Console Header Bar -->
+                        <div class="console-top-bar">
+                            <div class="console-dots">
+                                <span class="dot dot-red"></span>
+                                <span class="dot dot-yellow"></span>
+                                <span class="dot dot-green"></span>
+                            </div>
+                            <div class="console-title">
+                                <span class="console-icon">◈</span>
+                                SOC COMMAND FEED // CAM-04
+                            </div>
+                            <div class="console-live-badge">
+                                <span class="rec-pulse"></span>
+                                LIVE FEED
+                            </div>
+                        </div>
+
+                        <!-- Media Display Window -->
+                        <div class="console-media-window">
+                            <!-- HUD Crosshair Corners -->
+                            <div class="hud-corner hud-tl" aria-hidden="true"></div>
+                            <div class="hud-corner hud-tr" aria-hidden="true"></div>
+                            <div class="hud-corner hud-bl" aria-hidden="true"></div>
+                            <div class="hud-corner hud-br" aria-hidden="true"></div>
+
+                            <!-- Animated Scanning Laser -->
+                            <div class="cyber-scan-laser" aria-hidden="true"></div>
+
+                            <!-- Grid Reticle Overlay -->
+                            <div class="cyber-grid-mesh" aria-hidden="true"></div>
+
+                            <img src="assets/images/15_investigation_monitoring_room.png" alt="Cyber Kovai Investigation Monitoring Room" class="about-hero-img" loading="lazy">
+
+                            <!-- Floating Experience Pill: Top Left (20+ Years) -->
+                            <div class="hologram-pill holo-top-left">
+                                <span class="pill-glow-dot"></span>
+                                <span><strong>20+ Years</strong> Field Forensics</span>
+                            </div>
+
+                            <!-- Floating Holographic Badge 1: Top Right (Trusted by 2000+ Clients) -->
+                            <div class="hologram-badge holo-top-right">
+                                <div class="holo-badge-icon holo-icon-purple">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                        <circle cx="9" cy="7" r="4"/>
+                                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                    </svg>
+                                </div>
+                                <div class="holo-badge-content">
+                                    <span class="holo-badge-label">Verified Track Record</span>
+                                    <div class="holo-badge-value">
+                                        <strong>2,000+</strong> <span>Clients</span>
+                                    </div>
+                                </div>
+                                <div class="holo-sparkle" aria-hidden="true">✦</div>
+                            </div>
+
+                            <!-- Floating Holographic Badge 2: Bottom Left (99% Accuracy) -->
+                            <div class="hologram-badge holo-bottom-left">
+                                <div class="holo-badge-icon holo-icon-emerald">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <circle cx="12" cy="12" r="6"/>
+                                        <circle cx="12" cy="12" r="2"/>
+                                    </svg>
+                                </div>
+                                <div class="holo-badge-content">
+                                    <span class="holo-badge-label">Evidentiary Precision</span>
+                                    <div class="holo-badge-value">
+                                        <strong class="text-emerald">99.4%</strong> <span>Accuracy</span>
+                                    </div>
+                                </div>
+                                <div class="holo-sparkle holo-sparkle-emerald" aria-hidden="true">✦</div>
+                            </div>
+
+                            <!-- Holographic Telemetry Strip at Bottom of Image -->
+                            <div class="console-telemetry-bar">
+                                <span class="telemetry-item"><span class="telemetry-dot"></span> ENCRYPTION: AES-256</span>
+                                <span class="telemetry-item">NODE: IN-COV-SOC-01</span>
+                                <span class="telemetry-item">STATUS: ACTIVE</span>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -188,34 +382,97 @@ include_once __DIR__ . '/includes/header.php';
         </section>
 
 
-        <!-- ================= FOCUS SECTION (WHAT IS CORPORATE INTELLIGENCE) ================= -->
+        <!-- ================= CYBER CAPABILITIES (3 CORE PILLARS) ================= -->
 
-        <section class="section focus-section" id="features">
+        <section class="section cyber-capabilities-section" id="capabilities">
 
             <div class="container">
 
-                <div class="focus-header text-center">
+                <div class="section-heading text-center">
 
                     <span class="section-tag">
-                        OUR FOCUS
+                        CYBER DEFENSE
                     </span>
 
                     <h2>
-                        What is <span>Corporate Intelligence?</span>
+                        Core Cyber <span>Security Capabilities</span>
                     </h2>
 
-                    <p class="focus-intro">
-                        Corporate Intelligence involves gathering, analysing and interpreting information about a company, market or industry to support strategic decision-making. It helps organizations identify opportunities, mitigate risk and stay ahead in a competitive environment.
+                    <p>
+                        Offensive attack simulations, continuous vulnerability auditing, and zero-trust architecture hardening designed to neutralize complex adversarial threats.
                     </p>
 
-                    <div class="focus-callout">
-                        At Cyber Kovai, we deliver verified and unbiased information to help you make confident decisions.
+                </div>
+
+                <div class="cyber-capabilities-grid">
+
+                    <!-- CARD 1: Realworld Attack Simulation -->
+                    <div class="cyber-cap-card cap-card-attack">
+                        <div class="cap-card-icon-wrap">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                                <path d="M10 16V10H16" stroke="#f43f5e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M38 16V10H32" stroke="#f43f5e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M10 32V38H16" stroke="#f43f5e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M38 32V38H32" stroke="#f43f5e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="24" cy="24" r="14" stroke="#f43f5e" stroke-width="2" stroke-dasharray="3 3"/>
+                                <path d="M24 16L31 19.5V25C31 29.5 28 33 24 34.5C20 33 17 29.5 17 25V19.5L24 16Z" fill="#3b82f6" fill-opacity="0.18" stroke="#2563eb" stroke-width="2.2" stroke-linejoin="round"/>
+                                <circle cx="24" cy="24" r="2" fill="#2563eb"/>
+                                <path d="M24 26V28.5" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="cap-card-title">Realworld Attack Simulation</h3>
+                        <ul class="cap-card-list list-blue">
+                            <li><span class="cap-check">✓</span> Offensive approach to find vulnerabilities.</li>
+                            <li><span class="cap-check">✓</span> Mapping with OWASP, CREST &amp; NIST standards</li>
+                            <li><span class="cap-check">✓</span> Detailed Report with remediation steps</li>
+                            <li><span class="cap-check">✓</span> Re-evaluation and issuance of certificates.</li>
+                        </ul>
                     </div>
 
-                    <div class="focus-pills-row">
-                        <?php foreach ($focusCategories as $cat): ?>
-                            <span class="focus-pill"><?= sanitize_out($cat) ?></span>
-                        <?php endforeach; ?>
+                    <!-- CARD 2: Vulnerability Management -->
+                    <div class="cyber-cap-card cap-card-vuln">
+                        <div class="cap-card-icon-wrap">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                                <rect x="8" y="9" width="32" height="23" rx="3" stroke="#2563eb" stroke-width="2.2" fill="#2563eb" fill-opacity="0.1"/>
+                                <path d="M20 32V37H28V32" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <line x1="15" y1="37" x2="33" y2="37" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round"/>
+                                <circle cx="24" cy="20.5" r="7" stroke="#38bdf8" stroke-width="1.8"/>
+                                <circle cx="24" cy="20.5" r="3" stroke="#38bdf8" stroke-width="1.5"/>
+                                <line x1="24" y1="13.5" x2="24" y2="27.5" stroke="#38bdf8" stroke-width="1.5"/>
+                                <line x1="17" y1="20.5" x2="31" y2="20.5" stroke="#38bdf8" stroke-width="1.5"/>
+                            </svg>
+                        </div>
+                        <h3 class="cap-card-title">Vulnerability Management</h3>
+                        <ul class="cap-card-list list-amber">
+                            <li><span class="cap-check">✓</span> Vulnerabilities prioritization based on severity</li>
+                            <li><span class="cap-check">✓</span> Comprehensive scans to detect vulnerabilities</li>
+                            <li><span class="cap-check">✓</span> Detailed Report with remediation steps</li>
+                            <li><span class="cap-check">✓</span> Establishment of vulnerability disclosure process.</li>
+                        </ul>
+                    </div>
+
+                    <!-- CARD 3: Secure Architecture Design -->
+                    <div class="cyber-cap-card cap-card-arch">
+                        <div class="cap-card-icon-wrap">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                                <path d="M34 23C34 19.13 30.87 16 27 16C26.36 16 25.75 16.09 25.17 16.25C23.94 13.73 21.17 12 18 12C13.58 12 10 15.58 10 20C10 20.35 10.02 20.69 10.07 21.03C7.72 21.94 6 24.27 6 27C6 30.87 9.13 34 13 34H33C36.87 34 40 30.87 40 27C40 24.82 39 22.88 37.44 21.61C37.47 21.41 37.5 21.2 37.5 21" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#3b82f6" fill-opacity="0.1"/>
+                                <path d="M24 19L29 21.5V25.5C29 28.5 27 31 24 32C21 31 19 28.5 19 25.5V21.5L24 19Z" fill="#10b981" fill-opacity="0.22" stroke="#10b981" stroke-width="2" stroke-linejoin="round"/>
+                                <path d="M22 25.5L23.5 27L26.5 24" stroke="#10b981" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="16" cy="40" r="2.2" stroke="#10b981" stroke-width="1.8"/>
+                                <circle cx="24" cy="40" r="2.2" stroke="#10b981" stroke-width="1.8"/>
+                                <circle cx="32" cy="40" r="2.2" stroke="#10b981" stroke-width="1.8"/>
+                                <line x1="16" y1="34" x2="16" y2="37.8" stroke="#10b981" stroke-width="1.5"/>
+                                <line x1="24" y1="34" x2="24" y2="37.8" stroke="#10b981" stroke-width="1.5"/>
+                                <line x1="32" y1="34" x2="32" y2="37.8" stroke="#10b981" stroke-width="1.5"/>
+                            </svg>
+                        </div>
+                        <h3 class="cap-card-title">Secure Architecture Design</h3>
+                        <ul class="cap-card-list list-green">
+                            <li><span class="cap-check">✓</span> Conducting thorough reviews of system architecture.</li>
+                            <li><span class="cap-check">✓</span> Assessment architecture against industry standards.</li>
+                            <li><span class="cap-check">✓</span> Recommendations for enhancing security posture</li>
+                            <li><span class="cap-check">✓</span> Check for potential points of entry for attackers.</li>
+                        </ul>
                     </div>
 
                 </div>
@@ -224,18 +481,17 @@ include_once __DIR__ . '/includes/header.php';
 
         </section>
 
-
-        <!-- ================= STATS SECTION ================= -->
-
-        <section class="stats-section">
+        <section class="stats-section cyber-stats-section">
 
             <div class="container">
 
-                <div class="stats-counter-grid">
+                <div class="stats-counter-grid cyber-hud-stats">
                     <?php foreach ($stats as $stat): ?>
-                        <div class="stat-counter-card">
-                            <strong><?= sanitize_out($stat['value']) ?></strong>
-                            <span><?= sanitize_out($stat['label']) ?></span>
+                        <div class="stat-counter-card cyber-hud-stat-card">
+                            <div class="stat-card-beam" aria-hidden="true"></div>
+                            <div class="stat-hud-chip">VERIFIED METRIC</div>
+                            <strong class="stat-counter-val"><?= sanitize_out($stat['value']) ?></strong>
+                            <span class="stat-counter-lbl"><?= sanitize_out($stat['label']) ?></span>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -247,7 +503,7 @@ include_once __DIR__ . '/includes/header.php';
 
         <!-- ================= PRACTICES / SERVICES ================= -->
 
-        <section class="section services-section" id="services">
+        <section class="section services-section cyber-practices-section" id="services">
 
             <div class="container">
 
@@ -268,21 +524,43 @@ include_once __DIR__ . '/includes/header.php';
                 </div>
 
 
-                <div class="practices-grid">
+                <div class="practices-bento-grid">
 
-                    <?php foreach ($services as $service): ?>
-                        <article class="practice-card">
-
-                            <div class="practice-icon-box">
-                                <?= sanitize_out($service['icon']) ?>
+                    <?php foreach ($services as $index => $service): 
+                        $isHero = ($index === 0 || $index === 3);
+                        $refNum = str_pad($index + 1, 2, '0', STR_PAD_LEFT);
+                    ?>
+                        <article class="practice-bento-card <?= $isHero ? 'bento-hero-card' : '' ?> bento-item-<?= $index + 1 ?>">
+                            <div class="bento-card-header">
+                                <div class="bento-icon-wrapper">
+                                    <?= get_forensic_icon($service['title'], 'bento-svg-icon', 24) ?>
+                                </div>
+                                <div class="bento-dossier-tag">
+                                    <span class="dossier-code">// CASE-<?= $refNum ?></span>
+                                    <?php if ($isHero): ?>
+                                        <span class="dossier-badge">FEATURED DOSSIER</span>
+                                    <?php endif; ?>
+                                </div>
                             </div>
 
-                            <h3><?= sanitize_out($service['title']) ?></h3>
+                            <div class="bento-card-content">
+                                <h3><?= sanitize_out($service['title']) ?></h3>
+                                <p><?= sanitize_out($service['description']) ?></p>
+                            </div>
 
-                            <p><?= sanitize_out($service['description']) ?></p>
-
-                            <a href="#contact" class="practice-link">Learn More <span>Ô×ö</span></a>
-
+                            <div class="bento-card-footer">
+                                <a href="#contact" class="practice-cyber-link">
+                                    <span>Explore Casefile</span>
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                        <polyline points="12 5 19 12 12 19"></polyline>
+                                    </svg>
+                                </a>
+                                <div class="bento-status-indicator">
+                                    <span class="status-pulse-dot"></span>
+                                    <span class="status-text">CLEARED</span>
+                                </div>
+                            </div>
                         </article>
                     <?php endforeach; ?>
 
@@ -295,7 +573,7 @@ include_once __DIR__ . '/includes/header.php';
 
         <!-- ================= PROCESS (STRUCTURED LIFECYCLE) ================= -->
 
-        <section class="section process-section" id="process">
+        <section class="section process-section cyber-process-section" id="process">
 
             <div class="container">
 
@@ -315,21 +593,39 @@ include_once __DIR__ . '/includes/header.php';
 
                 </div>
 
+                <div class="cyber-pipeline-wrapper">
+                    <div class="pipeline-conduit-line" aria-hidden="true">
+                        <div class="pipeline-glow-pulse"></div>
+                    </div>
 
-                <div class="lifecycle-grid">
+                    <div class="cyber-pipeline-track">
+                        <?php foreach ($processSteps as $i => $step): ?>
+                            <div class="pipeline-stage-card" tabindex="0">
+                                
+                                <div class="stage-node-wrapper">
+                                    <div class="stage-node-circle">
+                                        <span class="stage-node-pulse"></span>
+                                        <span class="stage-node-num"><?= sanitize_out($step['num']) ?></span>
+                                    </div>
+                                    <div class="stage-phase-label">PHASE <?= sanitize_out($step['num']) ?></div>
+                                </div>
 
-                    <?php foreach ($processSteps as $step): ?>
-                        <div class="lifecycle-card">
+                                <div class="stage-card-body">
+                                    <div class="stage-icon-capsule">
+                                        <?= get_forensic_icon($step['title'], 'stage-svg-icon', 22) ?>
+                                    </div>
+                                    <h3><?= sanitize_out($step['title']) ?></h3>
+                                    <p><?= sanitize_out($step['desc']) ?></p>
+                                </div>
 
-                            <span class="lifecycle-num"><?= sanitize_out($step['num']) ?></span>
+                                <div class="stage-hud-meta">
+                                    <span class="stage-meta-code">STATUS: SYNCHRONIZED</span>
+                                    <span class="stage-arrow">→</span>
+                                </div>
 
-                            <h3><?= sanitize_out($step['title']) ?></h3>
-
-                            <p><?= sanitize_out($step['desc']) ?></p>
-
-                        </div>
-                    <?php endforeach; ?>
-
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
 
             </div>
@@ -337,11 +633,11 @@ include_once __DIR__ . '/includes/header.php';
         </section>
 
 
-        <!-- ================= INDUSTRIES ================= -->
+        <!-- ================= INDUSTRIES (CYBER INTELLIGENCE FOR EVERY INDUSTRY) ================= -->
 
-        <section class="section industries-section" id="industries">
+        <section class="section industries-section cyber-industries-section" id="industries">
 
-            <div class="container">
+            <div class="container industries-container">
 
                 <div class="section-heading text-center">
 
@@ -350,24 +646,95 @@ include_once __DIR__ . '/includes/header.php';
                     </span>
 
                     <h2>
-                        Intelligence Tailored to Your <span>Sector's Risks</span>
+                        Cyber Intelligence for <span>Every Industry</span>
                     </h2>
 
                     <p>
-                        Customized investigation and business intelligence solutions for a wide range of industries.
+                        Tailored intelligence to address industry-specific risks and challenges.
                     </p>
 
                 </div>
 
+                <div class="industries-cyber-grid">
 
-                <div class="industries-grid">
-
-                    <?php foreach ($industries as $ind): ?>
-                        <div class="industry-card">
-                            <span class="ind-icon"><?= sanitize_out($ind['icon']) ?></span>
-                            <span class="ind-name"><?= sanitize_out($ind['name']) ?></span>
+                    <!-- Col 1: Banking & Financial Services -->
+                    <div class="industry-cyber-col" tabindex="0">
+                        <div class="industry-cyber-icon-orb">
+                            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 21h18M3 10h18M12 3l9 7H3l9-7z"/>
+                                <path d="M5 10v11M9 10v11M15 10v11M19 10v11"/>
+                            </svg>
                         </div>
-                    <?php endforeach; ?>
+                        <h3>Banking &amp; Financial Services</h3>
+                        <p>Fraud prevention, threat monitoring and risk visibility.</p>
+                    </div>
+
+                    <!-- Col 2: Healthcare & Life Sciences -->
+                    <div class="industry-cyber-col" tabindex="0">
+                        <div class="industry-cyber-icon-orb">
+                            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 21h18"/>
+                                <path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"/>
+                                <path d="M12 7v6M9 10h6"/>
+                                <path d="M10 17h4"/>
+                            </svg>
+                        </div>
+                        <h3>Healthcare &amp; Life Sciences</h3>
+                        <p>Protect sensitive data and ensure operational resilience.</p>
+                    </div>
+
+                    <!-- Col 3: Technology & SaaS -->
+                    <div class="industry-cyber-col" tabindex="0">
+                        <div class="industry-cyber-icon-orb">
+                            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                <rect x="9" y="8" width="6" height="6" rx="1"/>
+                                <path d="M9 11H7M17 11h-2M12 8V6M12 16v-2"/>
+                            </svg>
+                        </div>
+                        <h3>Technology &amp; SaaS</h3>
+                        <p>Monitor threats targeting digital platforms and intellectual property.</p>
+                    </div>
+
+                    <!-- Col 4: Manufacturing & Industrial -->
+                    <div class="industry-cyber-col" tabindex="0">
+                        <div class="industry-cyber-icon-orb">
+                            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 20h20"/>
+                                <path d="M4 20V9l6 4V9l6 4V4h4v16"/>
+                                <rect x="7" y="16" width="2" height="4"/>
+                                <rect x="13" y="16" width="2" height="4"/>
+                            </svg>
+                        </div>
+                        <h3>Manufacturing &amp; Industrial</h3>
+                        <p>Identify risks to OT/IT environments and supply chains.</p>
+                    </div>
+
+                    <!-- Col 5: Government & Public Sector -->
+                    <div class="industry-cyber-col" tabindex="0">
+                        <div class="industry-cyber-icon-orb">
+                            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2L2 7h20L12 2z"/>
+                                <path d="M4 10v9M8 10v9M12 10v9M16 10v9M20 10v9"/>
+                                <path d="M2 19h20M1 22h22"/>
+                            </svg>
+                        </div>
+                        <h3>Government &amp; Public Sector</h3>
+                        <p>Enhance threat visibility and protect critical infrastructure.</p>
+                    </div>
+
+                    <!-- Col 6: Retail & E-commerce -->
+                    <div class="industry-cyber-col" tabindex="0">
+                        <div class="industry-cyber-icon-orb">
+                            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="9" cy="21" r="1.5"/>
+                                <circle cx="19" cy="21" r="1.5"/>
+                                <path d="M2.5 2.5h3l2.4 12.3a2 2 0 0 0 2 1.6h9.6a2 2 0 0 0 2-1.6l1.5-8.3H6.2"/>
+                            </svg>
+                        </div>
+                        <h3>Retail &amp; E-commerce</h3>
+                        <p>Detect fraud, account takeovers and emerging cyber threats.</p>
+                    </div>
 
                 </div>
 
@@ -378,7 +745,7 @@ include_once __DIR__ . '/includes/header.php';
 
         <!-- ================= CLIENT SCALES ================= -->
 
-        <section class="section clients-section">
+        <section class="section clients-section cyber-clients-section">
 
             <div class="container">
 
@@ -399,13 +766,30 @@ include_once __DIR__ . '/includes/header.php';
                 </div>
 
 
-                <div class="client-scales-grid">
+                <div class="client-tiers-deck">
 
-                    <?php foreach ($clientTypes as $client): ?>
-                        <div class="client-scale-card">
-                            <div class="client-icon"><?= sanitize_out($client['icon']) ?></div>
+                    <?php 
+                    $tierNames = ['EMERGING VENTURES', 'REGIONAL MID-MARKET', 'HIGH-CAPACITY ENTERPRISE', 'INSTITUTIONAL BODIES', 'GLOBAL CONGLOMERATE'];
+                    foreach ($clientTypes as $i => $client): 
+                        $tierNum = $i + 1;
+                        $tierLabel = $tierNames[$i] ?? 'TIER ' . $tierNum;
+                    ?>
+                        <div class="client-tier-card" tabindex="0">
+                            <div class="tier-top-strip">
+                                <span class="tier-chip">TIER 0<?= $tierNum ?></span>
+                                <span class="tier-label"><?= $tierLabel ?></span>
+                            </div>
+
+                            <div class="tier-icon-orb">
+                                <?= get_forensic_icon($client['title'], 'tier-svg-icon', 26) ?>
+                            </div>
+
                             <h3><?= sanitize_out($client['title']) ?></h3>
                             <p><?= sanitize_out($client['desc']) ?></p>
+
+                            <div class="tier-capacity-bar" title="Scale Deployment Tier <?= $tierNum ?> of 5">
+                                <div class="tier-fill-track" style="width: <?= $tierNum * 20 ?>%;"></div>
+                            </div>
                         </div>
                     <?php endforeach; ?>
 
@@ -558,7 +942,7 @@ include_once __DIR__ . '/includes/header.php';
 
         <!-- ================= BUSINESS RISK SIMULATOR (TOOL) ================= -->
 
-        <section class="section tools-section" id="company">
+        <section class="section tools-section cyber-tools-section" id="company">
 
             <div class="container">
 
@@ -579,13 +963,36 @@ include_once __DIR__ . '/includes/header.php';
                 </div>
 
 
-                <div class="simulator-grid">
+                <div class="simulator-matrix-deck">
 
-                    <?php foreach ($riskTools as $tool): ?>
-                        <div class="simulator-card">
-                            <div class="sim-icon"><?= sanitize_out($tool['icon']) ?></div>
+                    <?php 
+                    $vectors = ['IDENTITY', 'FINANCIAL', 'GEOLOCATION', 'PERSONNEL', 'PARTNERSHIP', 'SUPPLY CHAIN', 'ASSET INFRA', 'REGULATORY'];
+                    foreach ($riskTools as $i => $tool): 
+                        $vectorTag = $vectors[$i] ?? 'THREAT VECTOR';
+                    ?>
+                        <div class="simulator-probe-card" tabindex="0">
+                            <!-- Scanning Probe Laser on hover -->
+                            <div class="probe-sweep-laser" aria-hidden="true"></div>
+
+                            <div class="probe-card-header">
+                                <div class="probe-terminal-meta">
+                                    <span class="probe-live-dot"></span>
+                                    <span class="probe-meta-text">PROBE 0<?= $i + 1 ?> // ACTIVE</span>
+                                </div>
+                                <span class="probe-vector-chip"><?= $vectorTag ?></span>
+                            </div>
+
+                            <div class="probe-icon-wrap">
+                                <?= get_forensic_icon($tool['title'], 'probe-svg-icon', 24) ?>
+                            </div>
+
                             <h3><?= sanitize_out($tool['title']) ?></h3>
                             <p><?= sanitize_out($tool['desc']) ?></p>
+
+                            <div class="probe-card-footer">
+                                <span class="probe-action-text">Run Diagnostic</span>
+                                <span class="probe-reticle-arrow">➔</span>
+                            </div>
                         </div>
                     <?php endforeach; ?>
 
@@ -598,7 +1005,7 @@ include_once __DIR__ . '/includes/header.php';
 
         <!-- ================= FAQ SECTION ================= -->
 
-        <section class="section faq-section" id="faq">
+        <section class="section faq-section cyber-faq-section" id="faq">
 
             <div class="container" style="max-width: 860px;">
 
@@ -622,7 +1029,11 @@ include_once __DIR__ . '/includes/header.php';
 
                             <button class="faq-question">
                                 <?= sanitize_out($faq['question']) ?>
-                                <span class="arrow-icon">Ôû╝</span>
+                                <span class="arrow-icon">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="6 9 12 15 18 9"></polyline>
+                                    </svg>
+                                </span>
                             </button>
 
                             <div class="faq-answer">
@@ -635,7 +1046,7 @@ include_once __DIR__ . '/includes/header.php';
                 </div>
 
                 <div class="text-center" style="margin-top: 2rem;">
-                    <a href="#contact" class="btn outline-btn">View All FAQs Ô×ö</a>
+                    <a href="#contact" class="btn outline-btn">View All FAQs <span>→</span></a>
                 </div>
 
             </div>

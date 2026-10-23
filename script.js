@@ -846,147 +846,95 @@ if (contactForm && formResponse) {
 
 
 /* =========================================
-   CYBER INTELLIGENCE — INTERACTIVE COMMAND CONSOLE
-   Animated Radar HUD + 4-Pillar Switcher
+   CYBER INTELLIGENCE — 4-PILLAR EXPANDING SHOWCASE
+   Animated Horizontal Cards with Auto-Cycle & Micro-Interactions
 ========================================= */
 
-(function initCyberCommandConsole() {
-    const consoleEl = document.getElementById('ci-command-console');
-    if (!consoleEl) return;
+(function initCiShowcasePanels() {
+    const container = document.getElementById('ciShowcasePanels');
+    if (!container) return;
 
-    const stage = consoleEl.querySelector('.ci-console-stage');
-    const cards = consoleEl.querySelectorAll('.console-pillar-card');
-    const blips = consoleEl.querySelectorAll('.radar-blip');
-    const reticle = document.getElementById('radarTargetReticle');
-    const hudVector = document.getElementById('hudVectorCode');
-    const hudStatus = document.getElementById('hudStatus');
-    const hudMetric = document.getElementById('hudMetric');
-    const consoleCoords = document.getElementById('consoleCoords');
-    const radarTagMode = document.getElementById('radarTagMode');
-
-    if (!cards.length) return;
-
-    const sectorModes = [
-        'SECTOR: 01-HUNT',
-        'SECTOR: 02-EVIDENCE',
-        'SECTOR: 03-AUDIT',
-        'SECTOR: 04-SHIELD'
-    ];
+    const panels = container.querySelectorAll('.ci-panel');
+    if (!panels.length) return;
 
     let currentIndex = 0;
     let autoTimer = null;
     let isUserHovering = false;
+    const isMobile = () => window.innerWidth <= 992;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    function selectPillar(idx, userInitiated = false) {
-        if (idx < 0 || idx >= cards.length) return;
-        currentIndex = idx;
+    function activatePanel(targetIndex, userInitiated = false) {
+        if (targetIndex < 0 || targetIndex >= panels.length) return;
+        currentIndex = targetIndex;
 
-        // Update Pillar Cards
-        cards.forEach((card, i) => {
-            const isActive = i === idx;
-            card.classList.toggle('active', isActive);
-            card.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        panels.forEach((p, idx) => {
+            const isActive = idx === targetIndex;
+            p.classList.toggle('ci-panel-active', isActive);
+            p.setAttribute('aria-selected', isActive ? 'true' : 'false');
+
+            const collapsedEl = p.querySelector('.ci-panel-collapsed');
+            const expandedEl = p.querySelector('.ci-panel-expanded');
+            if (collapsedEl) collapsedEl.setAttribute('aria-hidden', isActive ? 'true' : 'false');
+            if (expandedEl) expandedEl.setAttribute('aria-hidden', isActive ? 'false' : 'true');
         });
-
-        // Update Radar Blips
-        blips.forEach((blip, i) => {
-            blip.classList.toggle('active', i === idx);
-        });
-
-        // Update Reticle Class
-        if (reticle) {
-            reticle.className = `radar-target-reticle pos-${idx}`;
-        }
-
-        // Update Telemetry Deck & Top Bar
-        const activeCard = cards[idx];
-        if (activeCard) {
-            const code = activeCard.getAttribute('data-code') || '';
-            const status = activeCard.getAttribute('data-status') || '';
-            const metric = activeCard.getAttribute('data-metric') || '';
-            const coords = activeCard.getAttribute('data-coords') || '';
-            const meter = activeCard.getAttribute('data-meter') || '98';
-            const encryption = activeCard.getAttribute('data-encryption') || '';
-            const standard = activeCard.getAttribute('data-standard') || '';
-            const logMsg = activeCard.getAttribute('data-log') || '';
-
-            const hudMetricFill = document.getElementById('hudMetricFill');
-            const hudEncryption = document.getElementById('hudEncryption');
-            const hudStandard = document.getElementById('hudStandard');
-            const termLiveLog = document.getElementById('termLiveLog');
-
-            if (hudVector) hudVector.textContent = code;
-            if (hudStatus) {
-                hudStatus.textContent = status;
-                if (idx === 0) {
-                    hudStatus.className = 'telemetry-val green-text';
-                } else if (idx === 1) {
-                    hudStatus.className = 'telemetry-val orchid-text';
-                } else if (idx === 2) {
-                    hudStatus.className = 'telemetry-val blue-text';
-                } else {
-                    hudStatus.className = 'telemetry-val amber-text';
-                }
-            }
-            if (hudMetric) hudMetric.textContent = metric;
-            if (hudMetricFill) hudMetricFill.style.width = meter + '%';
-            if (hudEncryption) hudEncryption.textContent = encryption;
-            if (hudStandard) hudStandard.textContent = standard;
-            if (consoleCoords) consoleCoords.textContent = coords;
-            if (radarTagMode) radarTagMode.textContent = sectorModes[idx] || 'SECTOR: ACTIVE';
-
-            if (termLiveLog && logMsg) {
-                const now = new Date();
-                const timeStr = [now.getHours(), now.getMinutes(), now.getSeconds()]
-                    .map(n => String(n).padStart(2, '0')).join(':');
-                termLiveLog.innerHTML = `<span class="term-time">[${timeStr}]</span> <span class="term-hi">NODE_LOCK:</span> ${logMsg}`;
-            }
-        }
 
         if (userInitiated) {
             restartAutoTimer();
         }
     }
 
-    // Card interactions
-    cards.forEach((card, i) => {
-        card.addEventListener('mouseenter', () => {
-            selectPillar(i, true);
+    // Attach interaction listeners
+    panels.forEach((panel, idx) => {
+        // Desktop: Hover expands instantly
+        panel.addEventListener('mouseenter', () => {
+            if (!isMobile()) {
+                activatePanel(idx, true);
+            }
         });
 
-        card.addEventListener('click', (e) => {
-            if (e.target.closest('.pillar-action-btn')) return;
-            selectPillar(i, true);
+        // Click / Touch: activates panel
+        panel.addEventListener('click', (e) => {
+            // Allow direct click on CTA button without interference
+            if (e.target.closest('.ci-panel-cta')) return;
+
+            activatePanel(idx, true);
         });
 
-        card.addEventListener('keydown', (e) => {
+        // Keyboard navigation
+        panel.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-                selectPillar(i, true);
+                activatePanel(idx, true);
+            } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                e.preventDefault();
+                const next = (currentIndex + 1) % panels.length;
+                if (panels[next]) {
+                    panels[next].focus();
+                    activatePanel(next, true);
+                }
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                const prev = (currentIndex - 1 + panels.length) % panels.length;
+                if (panels[prev]) {
+                    panels[prev].focus();
+                    activatePanel(prev, true);
+                }
             }
         });
     });
 
-    // Blip interactions on radar screen
-    blips.forEach((blip, i) => {
-        blip.addEventListener('mouseenter', () => {
-            selectPillar(i, true);
-        });
-        blip.addEventListener('click', () => {
-            selectPillar(i, true);
-        });
-    });
-
-    // Auto-cycle through pillars smoothly
-    function nextPillar() {
-        if (isUserHovering) return;
-        const nextIdx = (currentIndex + 1) % cards.length;
-        selectPillar(nextIdx, false);
+    // Auto-cycle through panels smoothly (every 5.5s)
+    function nextPanel() {
+        if (isUserHovering || isMobile() || prefersReducedMotion) return;
+        const nextIdx = (currentIndex + 1) % panels.length;
+        activatePanel(nextIdx, false);
     }
 
     function startAutoTimer() {
         stopAutoTimer();
-        autoTimer = setInterval(nextPillar, 5000);
+        if (!prefersReducedMotion) {
+            autoTimer = setInterval(nextPanel, 5500);
+        }
     }
 
     function stopAutoTimer() {
@@ -998,51 +946,30 @@ if (contactForm && formResponse) {
 
     function restartAutoTimer() {
         stopAutoTimer();
-        if (!isUserHovering) {
-            autoTimer = setInterval(nextPillar, 6000);
+        if (!isUserHovering && !prefersReducedMotion) {
+            autoTimer = setInterval(nextPanel, 6500);
         }
     }
 
-    if (stage) {
-        stage.addEventListener('mouseenter', () => {
-            isUserHovering = true;
-            stopAutoTimer();
-        });
-
-        stage.addEventListener('mouseleave', () => {
-            isUserHovering = false;
-            startAutoTimer();
-        });
-
-        // Touch support
-        stage.addEventListener('touchstart', () => {
-            isUserHovering = true;
-            stopAutoTimer();
-        }, { passive: true });
-    }
-
-    // Initialize first pillar and start auto rotation
-    selectPillar(0);
-    startAutoTimer();
-})();
-
-/* Fallback for legacy panels if present on any other view */
-(function ciLegacyShowcasePanels() {
-    const container = document.getElementById('ciShowcasePanels');
-    if (!container) return;
-
-    const panels = container.querySelectorAll('.ci-panel');
-    if (!panels.length) return;
-
-    function activatePanel(target) {
-        panels.forEach(p => p.classList.remove('ci-panel-active'));
-        target.classList.add('ci-panel-active');
-    }
-
-    panels.forEach(panel => {
-        panel.addEventListener('mouseenter', () => activatePanel(panel));
-        panel.addEventListener('click', () => activatePanel(panel));
+    // Pause on container hover / focus / touch
+    container.addEventListener('mouseenter', () => {
+        isUserHovering = true;
+        stopAutoTimer();
     });
+
+    container.addEventListener('mouseleave', () => {
+        isUserHovering = false;
+        startAutoTimer();
+    });
+
+    container.addEventListener('touchstart', () => {
+        isUserHovering = true;
+        stopAutoTimer();
+    }, { passive: true });
+
+    // Initialize first panel and start cycle
+    activatePanel(0);
+    startAutoTimer();
 })();
 
 

@@ -14,21 +14,18 @@ if ($uri !== '/' && file_exists($file) && !is_dir($file)) {
 // Clean Section Route Mappings
 switch (rtrim($uri, '/')) {
     case '/cyber-intelligence':
-        $_GET['section'] = 'cyber';
-        require __DIR__ . '/cyber-intelligence.php';
-        exit;
+    case '/cyber-intelligence.php':
     case '/cyber-intelligence/services':
-        $_GET['section'] = 'cyber';
+    case '/investigation':
+    case '/investigation.php':
+    case '/digital-forensics/services':
+        $_GET['section'] = 'forensics';
         require __DIR__ . '/cyber-intelligence.php';
         exit;
     case '/digital-forensics':
-        $_GET['section'] = 'forensics';
+    case '/digital-forensics.php':
+        $_GET['section'] = 'cyber';
         require __DIR__ . '/digital-forensics.php';
-        exit;
-    case '/digital-forensics/services':
-    case '/investigation':
-        $_GET['section'] = 'forensics';
-        require __DIR__ . '/investigation.php';
         exit;
     case '/about':
         require __DIR__ . '/about.php';

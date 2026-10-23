@@ -42,11 +42,11 @@ if (!headers_sent()) {
 // Dynamic URLs based on active section (Image 1 is Investigation, Image 2 is Cyber)
 $activeHomeUrl = ($activeSection === 'cyber')
     ? $basePrefix . 'digital-forensics.php?section=cyber'
-    : $basePrefix . 'investigation.php?section=forensics';
+    : $basePrefix . 'cyber-intelligence.php?section=forensics';
 
 $activeServicesUrl = ($activeSection === 'cyber')
     ? $basePrefix . 'digital-forensics.php?section=cyber#services'
-    : $basePrefix . 'investigation.php?section=forensics#services';
+    : $basePrefix . 'cyber-intelligence.php?section=forensics#ci-services';
 
 $aboutUrl = $basePrefix . 'about.php?section=' . $activeSection;
 $contactUrl = $basePrefix . 'contact.php?section=' . $activeSection;
@@ -83,7 +83,7 @@ $contactUrl = $basePrefix . 'contact.php?section=' . $activeSection;
     <header class="navbar" id="siteNavbar">
         <div class="container nav-container">
 
-            <a href="<?= $basePrefix ?>index.php" class="logo" title="Cyber Kovai - Intelligence Portal">
+            <a href="<?= $basePrefix ?>index.php" class="logo" title="Cyber Kovai - Selection Portal">
                 <img src="<?= $basePrefix ?>assets/images/logo.png" alt="<?= sanitize_out(SITE_NAME) ?>">
                 <span>CYBER <strong>KOVAI</strong></span>
             </a>
@@ -176,7 +176,7 @@ $contactUrl = $basePrefix . 'contact.php?section=' . $activeSection;
                     </div>
                 <?php else: ?>
                     <!-- DIGITAL INVESTIGATION & FORENSICS SERVICES DROPDOWN -->
-                    <div class="nav-item has-dropdown <?= ($currentScript === 'investigation.php' || (isset($categorySlug) && $categorySlug === 'digital-investigations')) ? 'active' : '' ?>">
+                    <div class="nav-item has-dropdown <?= ($currentScript === 'cyber-intelligence.php' || (isset($categorySlug) && $categorySlug === 'digital-investigations')) ? 'active' : '' ?>">
                         <a href="<?= $activeServicesUrl ?>" class="nav-link dropdown-toggle" id="servicesDropdownBtn" aria-expanded="false">
                             Services
                             <svg class="dropdown-arrow-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6,9 12,15 18,9"/></svg>
@@ -203,7 +203,7 @@ $contactUrl = $basePrefix . 'contact.php?section=' . $activeSection;
                     </div>
 
                     <!-- TESTIMONIAL (Matching Image 3) -->
-                    <a href="<?= $basePrefix ?>investigation.php?section=forensics#testimonials">Testimonial</a>
+                    <a href="<?= $basePrefix ?>cyber-intelligence.php?section=forensics#ci-testimonials">Testimonial</a>
                 <?php endif; ?>
 
                 <!-- 4. CONTACT -->

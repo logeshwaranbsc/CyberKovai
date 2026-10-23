@@ -3,15 +3,16 @@
     RewriteBase /
 
     # Handle Section Routing
-    RewriteRule ^cyber-intelligence/services/?$ cyber-intelligence.php?section=cyber#ci-services [L,QSA]
-    RewriteRule ^cyber-intelligence/?$ cyber-intelligence.php?section=cyber [L,QSA]
+    RewriteRule ^cyber-intelligence/services/?$ cyber-intelligence.php?section=forensics#ci-services [L,QSA]
+    RewriteRule ^cyber-intelligence/?$ cyber-intelligence.php?section=forensics [L,QSA]
 
-    RewriteRule ^digital-forensics/services/?$ investigation.php?section=forensics [L,QSA]
-    RewriteRule ^digital-forensics/?$ digital-forensics.php?section=forensics [L,QSA]
+    RewriteRule ^digital-forensics/services/?$ digital-forensics.php?section=cyber#services [L,QSA]
+    RewriteRule ^digital-forensics/?$ digital-forensics.php?section=cyber [L,QSA]
 
     RewriteRule ^about/?$ about.php [L,QSA]
     RewriteRule ^contact/?$ contact.php [L,QSA]
-    RewriteRule ^investigation/?$ investigation.php?section=forensics [L,QSA]
+    RewriteRule ^investigation/?$ cyber-intelligence.php?section=forensics [L,QSA]
+    RewriteRule ^investigation\.php$ cyber-intelligence.php?section=forensics [L,QSA]
 
     # Clean URL handling (.php extension hiding)
     RewriteCond %{REQUEST_FILENAME} !-d
