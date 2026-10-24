@@ -106,8 +106,8 @@ $contactUrl = $basePrefix . 'contact.php?section=' . $activeSection;
                     </button>
                 </div>
 
-                <!-- 1. HOME (Desktop only - Mobile drawer uses top logo for home, starting with Services) -->
-                <a href="<?= $activeHomeUrl ?>" class="nav-main-link desktop-only-link <?= (($activeSection === 'cyber' && $currentScript === 'digital-forensics.php') || ($activeSection === 'forensics' && in_array($currentScript, ['investigation.php', 'cyber-intelligence.php']))) ? 'active' : '' ?>">Home</a>
+                <!-- 1. HOME -->
+                <a href="<?= $activeHomeUrl ?>" class="nav-main-link <?= (($activeSection === 'cyber' && $currentScript === 'digital-forensics.php') || ($activeSection === 'forensics' && in_array($currentScript, ['investigation.php', 'cyber-intelligence.php']))) ? 'active' : '' ?>">Home</a>
 
                 <!-- 2. SERVICES (ACCORDION IN MOBILE / 4-COLUMN MEGA DROPDOWN IN DESKTOP) -->
                 <?php if ($activeSection === 'cyber'): ?>
@@ -226,8 +226,6 @@ $contactUrl = $basePrefix . 'contact.php?section=' . $activeSection;
                         </div>
                     </div>
 
-                    <!-- TESTIMONIAL (Matching Image 3) -->
-                    <a href="<?= $basePrefix ?>cyber-intelligence.php?section=forensics#ci-testimonials" class="nav-main-link desktop-only-link">Testimonial</a>
                 <?php endif; ?>
 
                 <!-- 3. ABOUT (ACCORDION IN MOBILE / DROPDOWN IN DESKTOP) -->
@@ -300,12 +298,7 @@ $contactUrl = $basePrefix . 'contact.php?section=' . $activeSection;
             </nav>
 
             <div class="nav-actions">
-                <button class="search-btn" title="Search" aria-label="Search">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
-                </button>
+               
 
 
 
