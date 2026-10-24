@@ -36,41 +36,57 @@ try {
    MOBILE NAVIGATION
 ========================================= */
 
-const menuToggle =
-    document.getElementById("menuToggle");
+const menuToggle = document.getElementById("menuToggle");
+const navMenu = document.getElementById("navMenu");
+const mobileDrawerClose = document.getElementById("mobileDrawerClose");
 
-const navMenu =
-    document.getElementById("navMenu");
+function openMobileDrawer() {
+    if (navMenu) {
+        navMenu.classList.add("active");
+        document.body.classList.add("mobile-drawer-open");
+    }
+}
 
+function closeMobileDrawer() {
+    if (navMenu) {
+        navMenu.classList.remove("active");
+        document.body.classList.remove("mobile-drawer-open");
+    }
+}
 
-menuToggle.addEventListener("click", () => {
-
-    navMenu.classList.toggle("active");
-
-});
-
-
-/* Services Mega Dropdown Toggle for Mobile */
-const dropdownToggle = document.querySelector(".dropdown-toggle");
-if (dropdownToggle) {
-    dropdownToggle.addEventListener("click", (e) => {
-        if (window.innerWidth <= 992) {
-            e.preventDefault();
-            const parent = dropdownToggle.closest(".has-dropdown");
-            if (parent) parent.classList.toggle("mobile-open");
+if (menuToggle) {
+    menuToggle.addEventListener("click", () => {
+        if (navMenu && navMenu.classList.contains("active")) {
+            closeMobileDrawer();
+        } else {
+            openMobileDrawer();
         }
     });
 }
 
-/* Close mobile menu after clicking link */
+if (mobileDrawerClose) {
+    mobileDrawerClose.addEventListener("click", closeMobileDrawer);
+}
+
+// Close drawer on Escape
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeMobileDrawer();
+});
+
+// Close drawer on resize to desktop
+window.addEventListener("resize", () => {
+    if (window.innerWidth > 991) {
+        closeMobileDrawer();
+    }
+}, { passive: true });
+
+/* Close mobile menu after clicking non-dropdown navigation link or quick contact links */
 document
-    .querySelectorAll(".nav-menu a:not(.dropdown-toggle)")
+    .querySelectorAll(".nav-menu > a:not(.dropdown-toggle), .mobile-only-link, .qc-card, .qc-cta-button, .mobile-drawer-brand, .mega-links-list a, .about-links-list a")
     .forEach(link => {
-
         link.addEventListener("click", () => {
-            if (navMenu) navMenu.classList.remove("active");
+            closeMobileDrawer();
         });
-
     });
 
 
@@ -1103,42 +1119,92 @@ if (contactForm && formResponse) {
    MEGA DROPDOWN & LIVE CHAT WIDGET INTERACTION
 ========================================= */
 (function initMegaMenuAndChat() {
-    // 1. Dropdown Toggles (About Submodule & Services Mega Menu)
-    const dropdownItems = document.querySelectorAll('.nav-item.has-dropdown');
+    // 1. Dropdown Toggles (Services & About for Mobile View)
+    const servicesNavItem = document.getElementById('servicesNavItem');
+    const servicesDropdownBtn = document.getElementById('servicesDropdownBtn');
+    const aboutNavItem = document.getElementById('aboutNavItem');
+    const aboutDropdownBtn = document.getElementById('aboutDropdownBtn');
 
-    dropdownItems.forEach(dropdownItem => {
-        const dropdownToggle = dropdownItem.querySelector('.dropdown-toggle');
-        const menu = dropdownItem.querySelector('.mega-dropdown, .about-dropdown, .submodule-dropdown');
+    if (servicesDropdownBtn && servicesNavItem) {
+        servicesDropdownBtn.addEventListener('click', function(e) {
+            if (window.innerWidth <= 991) {
+                e.preventDefault();
+                const isExpanded = servicesNavItem.classList.toggle('mobile-expanded');
+                servicesDropdownBtn.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
 
-        if (dropdownItem && dropdownToggle) {
-            dropdownToggle.addEventListener('click', function(e) {
-                // If on mobile or touch, prevent default navigation and toggle dropdown
-                if (window.innerWidth <= 992) {
-                    e.preventDefault();
-                    dropdownItem.classList.toggle('open');
-                    const isOpen = dropdownItem.classList.contains('open');
-                    dropdownToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-                }
-            });
-
-            // Close when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!dropdownItem.contains(e.target)) {
-                    dropdownItem.classList.remove('open');
-                    dropdownToggle.setAttribute('aria-expanded', 'false');
-                }
-            });
-
-            // Close menu when any link inside it is clicked
-            if (menu) {
-                menu.querySelectorAll('a').forEach(link => {
-                    link.addEventListener('click', function() {
-                        dropdownItem.classList.remove('open');
-                        dropdownToggle.setAttribute('aria-expanded', 'false');
+                // If closed, also collapse open category accordions
+                if (!isExpanded) {
+                    servicesNavItem.querySelectorAll('.mega-category-block.is-open').forEach(b => {
+                        b.classList.remove('is-open');
+                        const h = b.querySelector('.mega-cat-header');
+                        if (h) h.setAttribute('aria-expanded', 'false');
                     });
-                });
+                }
             }
+        });
+    }
+
+    if (aboutDropdownBtn && aboutNavItem) {
+        aboutDropdownBtn.addEventListener('click', function(e) {
+            if (window.innerWidth <= 991) {
+                e.preventDefault();
+                const isExpanded = aboutNavItem.classList.toggle('mobile-expanded');
+                aboutDropdownBtn.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+            }
+        });
+    }
+
+    // 2. Category Blocks Accordion (Application Security, Network Security, etc.)
+    const categoryBlocks = document.querySelectorAll('.mega-category-block');
+    categoryBlocks.forEach((block) => {
+        const header = block.querySelector('.mega-cat-header');
+
+        if (header) {
+            header.addEventListener('click', function(e) {
+                if (window.innerWidth <= 991) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const isAlreadyOpen = block.classList.contains('is-open');
+
+                    // Accordion: Close other category blocks
+                    categoryBlocks.forEach(b => {
+                        if (b !== block) {
+                            b.classList.remove('is-open');
+                            const h = b.querySelector('.mega-cat-header');
+                            if (h) h.setAttribute('aria-expanded', 'false');
+                        }
+                    });
+
+                    // Toggle current category
+                    block.classList.toggle('is-open', !isAlreadyOpen);
+                    header.setAttribute('aria-expanded', !isAlreadyOpen ? 'true' : 'false');
+                }
+            });
         }
+
+        // Hover interaction on pointer devices
+        block.addEventListener('mouseenter', function() {
+            if (window.innerWidth <= 991 && window.matchMedia('(hover: hover)').matches) {
+                categoryBlocks.forEach(b => {
+                    if (b !== block) b.classList.remove('is-open');
+                });
+                block.classList.add('is-open');
+                if (header) header.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
+
+    // 3. Submodule links: close mobile drawer and body lock when navigated
+    document.querySelectorAll('.mega-links-list a, .forensics-links-list a, .about-links-list a').forEach(link => {
+        link.addEventListener('click', function() {
+            if (window.innerWidth <= 991) {
+                const navMenu = document.getElementById('navMenu');
+                if (navMenu) {
+                    navMenu.classList.remove('active');
+                    document.body.classList.remove('mobile-drawer-open');
+                }
+            }
+        });
     });
 
     // 2. Chat Widget interactions

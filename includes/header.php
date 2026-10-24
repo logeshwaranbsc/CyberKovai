@@ -89,43 +89,33 @@ $contactUrl = $basePrefix . 'contact.php?section=' . $activeSection;
                 <span>CYBER <strong>KOVAI</strong></span>
             </a>
 
-            <!-- NAVBAR MENU: STRICTLY HOME | ABOUT | SERVICES | CONTACT -->
+            <!-- NAVBAR MENU: HOME | SERVICES | ABOUT | OUR TEAM | CONTACT -->
             <nav class="nav-menu" id="navMenu">
 
-                <!-- 1. HOME -->
-                <a href="<?= $activeHomeUrl ?>" class="<?= (($activeSection === 'cyber' && $currentScript === 'digital-forensics.php') || ($activeSection === 'forensics' && in_array($currentScript, ['investigation.php', 'cyber-intelligence.php']))) ? 'active' : '' ?>">Home</a>
-
-                <!-- 2. ABOUT (SERVICES-STYLE DROPDOWN WITH ABOUT & OUR TEAM) -->
-                <div class="nav-item has-dropdown about-nav-item <?= in_array($currentScript, ['about.php', 'team.php']) ? 'active' : '' ?>">
-                    <a href="<?= $aboutUrl ?>" class="nav-link dropdown-toggle" id="aboutDropdownBtn" aria-expanded="false">
-                        <?= ($activeSection === 'forensics') ? 'About Us' : 'About' ?>
-                        <svg class="dropdown-arrow-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6,9 12,15 18,9"/></svg>
+                <!-- MOBILE DRAWER TOP BAR (Close Button & Logo) -->
+                <div class="mobile-drawer-header">
+                    <a href="<?= $basePrefix ?>index.php" class="mobile-drawer-brand" title="<?= sanitize_out(SITE_NAME) ?>">
+                        <img src="<?= $basePrefix ?>assets/images/logo.png" alt="<?= sanitize_out(SITE_NAME) ?>">
+                        <span>CYBER <strong>KOVAI</strong></span>
                     </a>
-
-                    <!-- ABOUT DROPDOWN (CENTERED UNDER ABOUT LINK) -->
-                    <div class="about-dropdown" id="aboutMegaMenu">
-                        <ul class="mega-links-list about-links-list">
-                            <li>
-                                <a href="<?= $aboutUrl ?>" class="<?= ($currentScript === 'about.php') ? 'active' : '' ?>">
-                                    <?= ($activeSection === 'forensics') ? 'About Us' : 'About CyberKovai' ?>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="<?= $teamUrl ?>" class="<?= ($currentScript === 'team.php') ? 'active' : '' ?>">
-                                    Our Team
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                    <button type="button" class="mobile-drawer-close" id="mobileDrawerClose" aria-label="Close navigation menu">
+                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
                 </div>
 
-                <!-- 3. SERVICES (DYNAMICALLY SHOWS CYBER OR FORENSICS BASED ON ACTIVE SECTION) -->
+                <!-- 1. HOME (Desktop only - Mobile drawer uses top logo for home, starting with Services) -->
+                <a href="<?= $activeHomeUrl ?>" class="nav-main-link desktop-only-link <?= (($activeSection === 'cyber' && $currentScript === 'digital-forensics.php') || ($activeSection === 'forensics' && in_array($currentScript, ['investigation.php', 'cyber-intelligence.php']))) ? 'active' : '' ?>">Home</a>
+
+                <!-- 2. SERVICES (ACCORDION IN MOBILE / 4-COLUMN MEGA DROPDOWN IN DESKTOP) -->
                 <?php if ($activeSection === 'cyber'): ?>
-                    <!-- CYBER INTELLIGENCE SERVICES (4-COLUMN MEGA DROPDOWN) -->
-                    <div class="nav-item has-dropdown <?= (($isServicesSubdir || $currentScript === 'service.php') && (!isset($categorySlug) || $categorySlug !== 'digital-investigations')) ? 'active' : '' ?>">
+                    <!-- CYBER INTELLIGENCE SERVICES -->
+                    <div class="nav-item has-dropdown services-nav-item <?= (($isServicesSubdir || $currentScript === 'service.php') && (!isset($categorySlug) || $categorySlug !== 'digital-investigations')) ? 'active' : '' ?>" id="servicesNavItem">
                         <a href="<?= $activeServicesUrl ?>" class="nav-link dropdown-toggle" id="servicesDropdownBtn" aria-expanded="false">
-                            Services
-                            <svg class="dropdown-arrow-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6,9 12,15 18,9"/></svg>
+                            <span>Services</span>
+                            <span class="nav-arrow" aria-hidden="true">➔</span>
                         </a>
 
                         <!-- MEGA DROPDOWN (4 HIGHLIGHTED COLUMNS USING CYBER KOVAI PALETTE) -->
@@ -134,61 +124,73 @@ $contactUrl = $basePrefix . 'contact.php?section=' . $activeSection;
 
                                 <!-- COLUMN 1: Application Security -->
                                 <div class="mega-col-group">
-                                    <div class="mega-category-block">
-                                        <h4 class="mega-col-title">Application Security</h4>
+                                    <div class="mega-category-block" data-category="application-security">
+                                        <div class="mega-cat-header" tabindex="0" role="button" aria-expanded="false">
+                                            <h4 class="mega-col-title">Application Security</h4>
+                                            <span class="mega-cat-arrow" aria-hidden="true">➔</span>
+                                        </div>
                                         <ul class="mega-links-list">
-                                            <li><a href="<?= $basePrefix ?>services/vulnerability-assessment-penetration-testing.php">Comprehensive VAPT Assessment</a></li>
-                                            <li><a href="<?= $basePrefix ?>services/web-application-penetration-testing.php">Web Application Security Testing</a></li>
-                                            <li><a href="<?= $basePrefix ?>services/mobile-app-penetration-testing.php">Mobile Application Security (iOS &amp; Android)</a></li>
-                                            <li><a href="<?= $basePrefix ?>services/api-penetration-testing.php">REST &amp; GraphQL API Security Testing</a></li>
-                                            <li><a href="<?= $basePrefix ?>services/secure-source-code-review.php">Secure Code Audit &amp; SAST Review</a></li>
-                                            <li><a href="<?= $basePrefix ?>services/ecommerce-security.php">E-Commerce &amp; Payment Security Audit</a></li>
-                                            <li><a href="<?= $basePrefix ?>services/saas-security.php">SaaS Platform Security Assessment</a></li>
-                                            <li><a href="<?= $basePrefix ?>services/devsecops.php">DevSecOps &amp; CI/CD Pipeline Assurance</a></li>
+                                            <li class="submodule-item"><a href="<?= $basePrefix ?>services/vulnerability-assessment-penetration-testing.php">Comprehensive VAPT Assessment</a></li>
+                                            <li class="submodule-item"><a href="<?= $basePrefix ?>services/web-application-penetration-testing.php">Web Application Security Testing</a></li>
+                                            <li class="submodule-item"><a href="<?= $basePrefix ?>services/mobile-app-penetration-testing.php">Mobile Application Security (iOS &amp; Android)</a></li>
+                                            <li class="submodule-item"><a href="<?= $basePrefix ?>services/api-penetration-testing.php">REST &amp; GraphQL API Security Testing</a></li>
+                                            <li class="submodule-item submodule-extra"><a href="<?= $basePrefix ?>services/secure-source-code-review.php">Secure Code Audit &amp; SAST Review</a></li>
+                                            <li class="submodule-item submodule-extra"><a href="<?= $basePrefix ?>services/ecommerce-security.php">E-Commerce &amp; Payment Security Audit</a></li>
+                                            <li class="submodule-item submodule-extra"><a href="<?= $basePrefix ?>services/saas-security.php">SaaS Platform Security Assessment</a></li>
+                                            <li class="submodule-item submodule-extra"><a href="<?= $basePrefix ?>services/devsecops.php">DevSecOps &amp; CI/CD Pipeline Assurance</a></li>
                                         </ul>
                                     </div>
                                 </div>
 
                                 <!-- COLUMN 2: Network Security -->
                                 <div class="mega-col-group">
-                                    <div class="mega-category-block">
-                                        <h4 class="mega-col-title">Network Security</h4>
+                                    <div class="mega-category-block" data-category="network-security">
+                                        <div class="mega-cat-header" tabindex="0" role="button" aria-expanded="false">
+                                            <h4 class="mega-col-title">Network Security</h4>
+                                            <span class="mega-cat-arrow" aria-hidden="true">➔</span>
+                                        </div>
                                         <ul class="mega-links-list">
-                                            <li><a href="<?= $basePrefix ?>services/network-penetration-testing.php">External &amp; Internal Network Pen Testing</a></li>
-                                            <li><a href="<?= $basePrefix ?>services/wireless-penetration-testing.php">Wireless &amp; Wi-Fi Security Assessment</a></li>
-                                            <li><a href="<?= $basePrefix ?>services/firewall-security-audit.php">Firewall &amp; Perimeter Rulebase Audit</a></li>
+                                            <li class="submodule-item"><a href="<?= $basePrefix ?>services/network-penetration-testing.php">External &amp; Internal Network Pen Testing</a></li>
+                                            <li class="submodule-item"><a href="<?= $basePrefix ?>services/wireless-penetration-testing.php">Wireless &amp; Wi-Fi Security Assessment</a></li>
+                                            <li class="submodule-item"><a href="<?= $basePrefix ?>services/firewall-security-audit.php">Firewall &amp; Perimeter Rulebase Audit</a></li>
                                         </ul>
                                     </div>
                                 </div>
 
                                 <!-- COLUMN 3: Cloud Security -->
                                 <div class="mega-col-group">
-                                    <div class="mega-category-block">
-                                        <h4 class="mega-col-title">Cloud Security</h4>
+                                    <div class="mega-category-block" data-category="cloud-security">
+                                        <div class="mega-cat-header" tabindex="0" role="button" aria-expanded="false">
+                                            <h4 class="mega-col-title">Cloud Security</h4>
+                                            <span class="mega-cat-arrow" aria-hidden="true">➔</span>
+                                        </div>
                                         <ul class="mega-links-list">
-                                            <li><a href="<?= $basePrefix ?>services/cloud-configuration-review.php">Cloud Security Posture Assessment (CSPM)</a></li>
-                                            <li><a href="<?= $basePrefix ?>services/cloud-application-security-assessment-casa.php">Cloud App Security Assessment (CASA Tier 2/3)</a></li>
-                                            <li><a href="<?= $basePrefix ?>services/cloud-container-security.php">Docker &amp; Kubernetes Container Security</a></li>
-                                            <li><a href="<?= $basePrefix ?>services/gcp-server-hardening.php">Google Cloud (GCP) Security Hardening</a></li>
-                                            <li><a href="<?= $basePrefix ?>services/aws-server-hardening.php">Amazon Web Services (AWS) Hardening</a></li>
-                                            <li><a href="<?= $basePrefix ?>services/azure-server-hardening.php">Microsoft Azure Cloud Hardening</a></li>
+                                            <li class="submodule-item"><a href="<?= $basePrefix ?>services/cloud-configuration-review.php">Cloud Security Posture Assessment (CSPM)</a></li>
+                                            <li class="submodule-item"><a href="<?= $basePrefix ?>services/cloud-application-security-assessment-casa.php">Cloud App Security Assessment (CASA Tier 2/3)</a></li>
+                                            <li class="submodule-item"><a href="<?= $basePrefix ?>services/cloud-container-security.php">Docker &amp; Kubernetes Container Security</a></li>
+                                            <li class="submodule-item"><a href="<?= $basePrefix ?>services/gcp-server-hardening.php">Google Cloud (GCP) Security Hardening</a></li>
+                                            <li class="submodule-item submodule-extra"><a href="<?= $basePrefix ?>services/aws-server-hardening.php">Amazon Web Services (AWS) Hardening</a></li>
+                                            <li class="submodule-item submodule-extra"><a href="<?= $basePrefix ?>services/azure-server-hardening.php">Microsoft Azure Cloud Hardening</a></li>
                                         </ul>
                                     </div>
                                 </div>
 
                                 <!-- COLUMN 4: Enterprise Security -->
                                 <div class="mega-col-group">
-                                    <div class="mega-category-block">
-                                        <h4 class="mega-col-title">Enterprise Security</h4>
+                                    <div class="mega-category-block" data-category="enterprise-security">
+                                        <div class="mega-cat-header" tabindex="0" role="button" aria-expanded="false">
+                                            <h4 class="mega-col-title">Enterprise Security</h4>
+                                            <span class="mega-cat-arrow" aria-hidden="true">➔</span>
+                                        </div>
                                         <ul class="mega-links-list">
-                                            <li><a href="<?= $basePrefix ?>services/virtual-cISO-services.php">Virtual CISO (vCISO) Advisory</a></li>
-                                            <li><a href="<?= $basePrefix ?>services/black-box-testing.php">Zero-Knowledge Black Box Pen Testing</a></li>
-                                            <li><a href="<?= $basePrefix ?>services/email-security-audit.php">Email Security &amp; Anti-Phishing Audit</a></li>
-                                            <li><a href="<?= $basePrefix ?>services/server-hardening.php">Server &amp; Operating System Hardening</a></li>
-                                            <li><a href="<?= $basePrefix ?>services/microsoft-365-security.php">Microsoft 365 &amp; Entra ID Security Review</a></li>
-                                            <li><a href="<?= $basePrefix ?>services/erp-security-audit-assessment.php">Enterprise ERP &amp; SAP Security Audit</a></li>
-                                            <li><a href="<?= $basePrefix ?>services/security-architecture-review.php">Zero-Trust Security Architecture Review</a></li>
-                                            <li><a href="<?= $basePrefix ?>services/wordpress-security.php">CMS &amp; Web Platform Security Hardening</a></li>
+                                            <li class="submodule-item"><a href="<?= $basePrefix ?>services/virtual-cISO-services.php">Virtual CISO (vCISO) Advisory</a></li>
+                                            <li class="submodule-item"><a href="<?= $basePrefix ?>services/black-box-testing.php">Zero-Knowledge Black Box Pen Testing</a></li>
+                                            <li class="submodule-item"><a href="<?= $basePrefix ?>services/email-security-audit.php">Email Security &amp; Anti-Phishing Audit</a></li>
+                                            <li class="submodule-item"><a href="<?= $basePrefix ?>services/server-hardening.php">Server &amp; Operating System Hardening</a></li>
+                                            <li class="submodule-item submodule-extra"><a href="<?= $basePrefix ?>services/microsoft-365-security.php">Microsoft 365 &amp; Entra ID Security Review</a></li>
+                                            <li class="submodule-item submodule-extra"><a href="<?= $basePrefix ?>services/erp-security-audit-assessment.php">Enterprise ERP &amp; SAP Security Audit</a></li>
+                                            <li class="submodule-item submodule-extra"><a href="<?= $basePrefix ?>services/security-architecture-review.php">Zero-Trust Security Architecture Review</a></li>
+                                            <li class="submodule-item submodule-extra"><a href="<?= $basePrefix ?>services/wordpress-security.php">CMS &amp; Web Platform Security Hardening</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -198,13 +200,13 @@ $contactUrl = $basePrefix . 'contact.php?section=' . $activeSection;
                     </div>
                 <?php else: ?>
                     <!-- DIGITAL INVESTIGATION & FORENSICS SERVICES DROPDOWN -->
-                    <div class="nav-item has-dropdown <?= ($currentScript === 'cyber-intelligence.php' || (isset($categorySlug) && $categorySlug === 'digital-investigations')) ? 'active' : '' ?>">
+                    <div class="nav-item has-dropdown services-nav-item <?= ($currentScript === 'cyber-intelligence.php' || (isset($categorySlug) && $categorySlug === 'digital-investigations')) ? 'active' : '' ?>" id="servicesNavItem">
                         <a href="<?= $activeServicesUrl ?>" class="nav-link dropdown-toggle" id="servicesDropdownBtn" aria-expanded="false">
-                            Services
-                            <svg class="dropdown-arrow-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6,9 12,15 18,9"/></svg>
+                            <span>Services</span>
+                            <span class="nav-arrow" aria-hidden="true">➔</span>
                         </a>
 
-                        <!-- FORENSICS DROPDOWN (8 SPECIALIZED PRACTICES - EXACTLY LIKE IMAGE 2) -->
+                        <!-- FORENSICS DROPDOWN (8 SPECIALIZED PRACTICES) -->
                         <div class="mega-dropdown forensics-mega-dropdown" id="servicesMegaMenu">
                             <ul class="mega-links-list forensics-links-list">
                                 <?php 
@@ -212,9 +214,9 @@ $contactUrl = $basePrefix . 'contact.php?section=' . $activeSection;
                                 if (!isset($investigationServices) || empty($investigationServices)) {
                                     require_once __DIR__ . '/../config.php';
                                 }
-                                foreach ($investigationServices as $svc): 
+                                foreach ($investigationServices as $idx => $svc): 
                                 ?>
-                                <li>
+                                <li class="submodule-item">
                                     <a href="<?= $basePrefix ?>services/<?= sanitize_out($svc['slug']) ?>.php?section=forensics">
                                         <?= sanitize_out($svc['title']) ?>
                                     </a>
@@ -225,11 +227,76 @@ $contactUrl = $basePrefix . 'contact.php?section=' . $activeSection;
                     </div>
 
                     <!-- TESTIMONIAL (Matching Image 3) -->
-                    <a href="<?= $basePrefix ?>cyber-intelligence.php?section=forensics#ci-testimonials">Testimonial</a>
+                    <a href="<?= $basePrefix ?>cyber-intelligence.php?section=forensics#ci-testimonials" class="nav-main-link desktop-only-link">Testimonial</a>
                 <?php endif; ?>
 
+                <!-- 3. ABOUT (ACCORDION IN MOBILE / DROPDOWN IN DESKTOP) -->
+                <div class="nav-item has-dropdown about-nav-item <?= in_array($currentScript, ['about.php', 'team.php']) ? 'active' : '' ?>" id="aboutNavItem">
+                    <a href="<?= $aboutUrl ?>" class="nav-link dropdown-toggle" id="aboutDropdownBtn" aria-expanded="false">
+                        <span><?= ($activeSection === 'forensics') ? 'About Us' : 'About' ?></span>
+                        <svg class="dropdown-arrow-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6,9 12,15 18,9"/></svg>
+                        <span class="nav-arrow" aria-hidden="true">➔</span>
+                    </a>
+
+                    <!-- ABOUT DROPDOWN / SUBMODULES -->
+                    <div class="about-dropdown" id="aboutMegaMenu">
+                        <ul class="mega-links-list about-links-list">
+                            <li class="submodule-item">
+                                <a href="<?= $aboutUrl ?>" class="<?= ($currentScript === 'about.php') ? 'active' : '' ?>">
+                                    <?= ($activeSection === 'forensics') ? 'About Us' : 'About CyberKovai' ?>
+                                </a>
+                            </li>
+                            <li class="submodule-item">
+                                <a href="<?= $teamUrl ?>" class="<?= ($currentScript === 'team.php') ? 'active' : '' ?>">
+                                    Our Team
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
                 <!-- 4. CONTACT -->
-                <a href="<?= $contactUrl ?>" class="<?= ($currentScript === 'contact.php') ? 'active' : '' ?>"><?= ($activeSection === 'forensics') ? 'Contact Us' : 'Contact' ?></a>
+                <a href="<?= $contactUrl ?>" class="nav-main-link <?= ($currentScript === 'contact.php') ? 'active' : '' ?>"><?= ($activeSection === 'forensics') ? 'Contact Us' : 'Contact' ?></a>
+
+                <!-- QUICK CONTACT SECTION (MATCHING SCREENSHOT 1 & 2) -->
+                <div class="mobile-drawer-quick-contact">
+                    <div class="quick-contact-header">
+                        <h4 class="quick-contact-title">Quick Contact</h4>
+                        <p class="quick-contact-subtitle">Talk to our team</p>
+                    </div>
+
+                    <a href="mailto:<?= SITE_EMAIL ?>" class="qc-card qc-card-email">
+                        <span class="qc-label">Email</span>
+                        <span class="qc-value"><?= SITE_EMAIL ?></span>
+                    </a>
+
+                    <a href="tel:<?= SITE_PHONE_TEL ?>" class="qc-card qc-card-phone">
+                        <span class="qc-label">Phone</span>
+                        <span class="qc-value"><?= SITE_PHONE ?></span>
+                    </a>
+
+                    <div class="qc-bottom-row">
+                        <div class="qc-social-card">
+                            <span class="qc-label">Social</span>
+                            <div class="qc-social-icons">
+                                <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn">
+                                    <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45c-.88 0-1.6.72-1.6 1.6s.72 1.6 1.6 1.6 1.6-.72 1.6-1.6-.72-1.6-1.6-1.6Z"/></svg>
+                                </a>
+                                <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter">
+                                    <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                                </a>
+                                <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">
+                                    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                                </a>
+                            </div>
+                        </div>
+
+                        <a href="<?= $contactUrl ?>" class="qc-cta-button">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                            <span>Message</span>
+                        </a>
+                    </div>
+                </div>
             </nav>
 
             <div class="nav-actions">
