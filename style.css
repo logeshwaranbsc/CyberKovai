@@ -10939,25 +10939,25 @@ body.page-enter-from-left {
 }
 
 .holo-top-right {
-    top: -24px;
-    right: -24px;
+    top: 46px;
+    right: 20px;
     animation: cyberHoloFloatA 5s ease-in-out infinite alternate;
 }
 
 .holo-bottom-left {
-    bottom: -22px;
-    left: -22px;
+    bottom: 46px;
+    left: 20px;
     animation: cyberHoloFloatB 6s ease-in-out infinite alternate;
 }
 
 @keyframes cyberHoloFloatA {
     0% { transform: translateY(0px); }
-    100% { transform: translateY(-9px); }
+    100% { transform: translateY(-6px); }
 }
 
 @keyframes cyberHoloFloatB {
     0% { transform: translateY(0px); }
-    100% { transform: translateY(9px); }
+    100% { transform: translateY(6px); }
 }
 
 .holo-badge-icon {
@@ -11043,8 +11043,8 @@ body.page-enter-from-left {
 /* Experience Pill */
 .hologram-pill {
     position: absolute;
-    top: 50px;
-    left: -20px;
+    top: 46px;
+    left: 20px;
     z-index: 9;
     display: inline-flex;
     align-items: center;
@@ -11058,6 +11058,11 @@ body.page-enter-from-left {
     color: #e2e8f0;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(0, 240, 255, 0.15);
     animation: cyberHoloFloatA 4.2s ease-in-out infinite alternate;
+}
+
+.holo-top-left {
+    top: 46px;
+    left: 20px;
 }
 
 .pill-glow-dot {
@@ -11086,18 +11091,19 @@ body.page-enter-from-left {
     }
 
     .holo-top-right {
-        top: -15px;
-        right: 0px;
+        top: 40px;
+        right: 16px;
     }
 
     .holo-bottom-left {
-        bottom: -15px;
-        left: 0px;
+        bottom: 44px;
+        left: 16px;
     }
 
+    .holo-top-left,
     .hologram-pill {
-        left: 10px;
-        top: 45px;
+        left: 16px;
+        top: 40px;
     }
 }
 
@@ -11134,15 +11140,16 @@ body.page-enter-from-left {
     }
 
     .holo-top-right {
-        top: -10px;
-        right: -5px;
+        top: 14px;
+        right: 14px;
     }
 
     .holo-bottom-left {
-        bottom: -10px;
-        left: -5px;
+        bottom: 42px;
+        left: 14px;
     }
 
+    .holo-top-left,
     .hologram-pill {
         display: none;
     }

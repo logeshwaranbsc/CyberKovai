@@ -170,7 +170,7 @@ include_once __DIR__ . '/includes/header.php';
                             At Cyber Kovai, we provide reliable and discreet investigation and verification services to help individuals, businesses, and organizations make informed, confident decisions.
                         </p>
                         <p class="about-sub-text">
-                            Combining <strong>20+ years of investigative mastery</strong> with modern cyber-analytics to deliver swift, court-admissible, and actionable intelligence.
+                            Combining <strong>10+ years of investigative mastery</strong> with modern cyber-analytics to deliver swift, court-admissible, and actionable intelligence.
                         </p>
                     </div>
 
@@ -186,7 +186,7 @@ include_once __DIR__ . '/includes/header.php';
                             <div class="capability-body">
                                 <div class="capability-header">
                                     <h4>Experienced Investigators</h4>
-                                    <span class="capability-tag">20+ YRS EXP</span>
+                                    <span class="capability-tag">10+ YRS EXP</span>
                                 </div>
                                 <p>Licensed forensic specialists executing rigorous field and cyber analytics with verified precision.</p>
                             </div>
@@ -245,7 +245,7 @@ include_once __DIR__ . '/includes/header.php';
                     <!-- Mini Stat Ticker Row -->
                     <div class="about-stat-strip">
                         <div class="stat-strip-item">
-                            <span class="stat-strip-num">20+</span>
+                            <span class="stat-strip-num">10+</span>
                             <span class="stat-strip-lbl">Years Field Mastery</span>
                         </div>
                         <div class="stat-strip-divider"></div>
