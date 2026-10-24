@@ -982,6 +982,8 @@ button {
 
     display: flex;
     align-items: center;
+
+    padding-top: calc(78px + 20px);
 }
 
 .hero-bg {
@@ -12333,7 +12335,7 @@ body.page-enter-from-left {
 }
 
 .df-page .hero-content {
-    padding-top: 24px;
+    padding-top: 0;
     padding-bottom: 12px;
 }
 
