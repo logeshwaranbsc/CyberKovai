@@ -182,8 +182,8 @@ $teamUrl = $teamUrl ?? ($basePrefix . 'team.php?section=' . ($activeSection ?? '
                 <p class="reach-item">📍 <?= sanitize_out(SITE_LOCATION) ?></p>
                 <p class="reach-item">📞 <?= sanitize_out(SITE_PHONE) ?></p>
                 <p class="reach-item">✉️ <?= sanitize_out(SITE_EMAIL) ?></p>
-                <div style="margin-top:0.75rem;">
-                    <a href="<?= $contactUrl ?>" class="btn primary-btn" style="padding: 9px 18px; font-size: 11px; letter-spacing: 0.05em;">
+                <div style="margin-top:0.85rem;">
+                    <a href="<?= $contactUrl ?>" class="btn primary-btn" style="padding: 10px 20px; font-size: 12.5px; font-weight: 700; letter-spacing: 0.05em; border-radius: 50px; display: inline-flex;">
                         <span>SCHEDULE AUDIT ➔</span>
                     </a>
                 </div>

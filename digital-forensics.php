@@ -297,12 +297,12 @@ include_once __DIR__ . '/includes/header.php';
                             <!-- Grid Reticle Overlay -->
                             <div class="cyber-grid-mesh" aria-hidden="true"></div>
 
-                            <img src="assets/images/15_investigation_monitoring_room.png" alt="Cyber Kovai Investigation Monitoring Room" class="about-hero-img" loading="lazy">
+                            <img src="assets/images/soc_command_center.jpg" alt="Cyber Kovai SOC Command Operations Center" class="about-hero-img" loading="lazy">
 
                             <!-- Floating Experience Pill: Top Left (20+ Years) -->
                             <div class="hologram-pill holo-top-left">
                                 <span class="pill-glow-dot"></span>
-                                <span><strong>20+ Years</strong> Field Forensics</span>
+                                <span><strong>10+ Years</strong> Field Forensics</span>
                             </div>
 
                             <!-- Floating Holographic Badge 1: Top Right (Trusted by 2000+ Clients) -->
