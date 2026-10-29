@@ -1,12 +1,184 @@
 <?php
 /**
- * Cyber Kovai — Digital Investigation & Forensics Home Page
+ * Cyber Kovai — Cyber Security & Offensive Threat Defense
  */
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/includes/forensic-icons.php';
 
-$pageTitle       = 'Digital Investigation & Forensics | Cyber Kovai';
-$pageDescription = 'Professional investigation solutions and digital forensics by CyberKovai. Confidential corporate intelligence, evidence collection, and cybercrime defense.';
+$activeSection   = 'cyber';
+$pageTitle       = 'Cyber Security & Offensive Threat Defense | ' . SITE_NAME;
+$pageDescription = 'Comprehensive cybersecurity solutions, certified ethical hacking, VAPT, cloud security, network defense, and enterprise cyber resilience by CyberKovai.';
+
+// Cyber Security Stats
+$cyberStats = [
+    ['value' => '500+',   'label' => 'SECURITY AUDITS COMPLETED'],
+    ['value' => '10k+',   'label' => 'VULNERABILITIES REMEDIATED'],
+    ['value' => '99.9%',  'label' => 'THREAT MITIGATION RATE'],
+    ['value' => '140+',   'label' => 'ATTACK VECTORS AUDITED'],
+    ['value' => '0',      'label' => 'CRITICAL RESIDUAL EXPOSURES']
+];
+
+// 7 Cyber Security Core Practices
+$cyberPractices = [
+    [
+        'id'          => '01',
+        'title'       => 'Vulnerability Assessment & Pen Testing (VAPT)',
+        'slug'        => 'vulnerability-assessment-penetration-testing',
+        'link'        => 'services/vulnerability-assessment-penetration-testing.php',
+        'tag'         => '// APPSEC-01',
+        'icon'        => '🛡️',
+        'description' => 'Simulate real-world attacks across web applications, APIs, mobile apps, and systems to uncover exploitable flaws before adversaries do.'
+    ],
+    [
+        'id'          => '02',
+        'title'       => 'Network & Wireless Penetration Testing',
+        'slug'        => 'network-penetration-testing',
+        'link'        => 'services/network-penetration-testing.php',
+        'tag'         => '// NETSEC-02',
+        'icon'        => '🌐',
+        'description' => 'Comprehensive perimeter and internal network auditing, firewall rulebase evaluations, and rogue wireless access point testing.'
+    ],
+    [
+        'id'          => '03',
+        'title'       => 'Cloud Security & Posture Management (CSPM)',
+        'slug'        => 'cloud-configuration-review',
+        'link'        => 'services/cloud-configuration-review.php',
+        'tag'         => '// CLOUD-03',
+        'icon'        => '☁️',
+        'description' => 'Audit AWS, Azure, and GCP architectures for misconfigurations, excessive IAM privileges, CASA compliance, and container vulnerabilities.'
+    ],
+    [
+        'id'          => '04',
+        'title'       => 'Virtual CISO (vCISO) & Executive Advisory',
+        'slug'        => 'virtual-cISO-services',
+        'link'        => 'services/virtual-cISO-services.php',
+        'tag'         => '// ENTPR-04',
+        'icon'        => '👔',
+        'description' => 'Strategic cybersecurity leadership, governance, vendor risk management, and regulatory alignment with ISO 27001, SOC 2, and NIST.'
+    ],
+    [
+        'id'          => '05',
+        'title'       => 'REST & GraphQL API Security Testing',
+        'slug'        => 'api-penetration-testing',
+        'link'        => 'services/api-penetration-testing.php',
+        'tag'         => '// APISEC-05',
+        'icon'        => '⚡',
+        'description' => 'Deep technical auditing for OWASP API Security Top 10 vulnerabilities, broken authentication, rate-limiting flaws, and mass assignment.'
+    ],
+    [
+        'id'          => '06',
+        'title'       => 'Secure Source Code Review (SAST/DAST)',
+        'slug'        => 'secure-source-code-review',
+        'link'        => 'services/secure-source-code-review.php',
+        'tag'         => '// DEVSEC-06',
+        'icon'        => '💻',
+        'description' => 'Automated and manual line-by-line static analysis to identify hidden backdoors, cryptographic bugs, and code injection vulnerabilities.'
+    ],
+    [
+        'id'          => '07',
+        'title'       => 'Zero-Trust Architecture & Threat Hardening',
+        'slug'        => 'security-architecture-review',
+        'link'        => 'services/security-architecture-review.php',
+        'tag'         => '// ZEROTRUST-07',
+        'icon'        => '🔒',
+        'description' => 'Enterprise identity defense, Microsoft 365 hardening, network segmentation, and micro-perimeter security to stop ransomware spread.'
+    ]
+];
+
+// Cyber Defense Lifecycle (5 Steps)
+$cyberProcessSteps = [
+    [
+        'num'   => '01',
+        'title' => 'Scoping & Reconnaissance',
+        'desc'  => 'Map external attack surfaces, identify target domains, cloud assets, and APIs.'
+    ],
+    [
+        'num'   => '02',
+        'title' => 'Vulnerability Exploitation',
+        'desc'  => 'Execute automated scans and certified manual exploit testing aligned with OWASP & NIST.'
+    ],
+    [
+        'num'   => '03',
+        'title' => 'Risk Scoring & Analysis',
+        'desc'  => 'Quantify business impact using CVSS v3.1 metrics and map full attack chains.'
+    ],
+    [
+        'num'   => '04',
+        'title' => 'Remediation Roadmap',
+        'desc'  => 'Deliver executive summaries and technical reports with exact step-by-step fix guides.'
+    ],
+    [
+        'num'   => '05',
+        'title' => 'Verification & Attestation',
+        'desc'  => 'Perform complimentary re-testing and issue a verifiable Security Attestation Certificate.'
+    ]
+];
+
+// Cyber Client Tiers
+$cyberClientTypes = [
+    ['icon' => '🚀', 'title' => 'High-Growth Startups', 'desc' => 'Securing MVP architectures, passing enterprise vendor risk assessments, and pre-launch VAPT.'],
+    ['icon' => '🏢', 'title' => 'Regional SaaS & Mid-Market', 'desc' => 'Continuous vulnerability management, SOC 2 compliance readiness, and API protection.'],
+    ['icon' => '🏙️', 'title' => 'High-Capacity Enterprises', 'desc' => 'Comprehensive red teaming, multi-cloud hardening, ERP auditing, and zero-trust engineering.'],
+    ['icon' => '🏛️', 'title' => 'Institutional & Public Sector', 'desc' => 'Safeguarding critical public infrastructure, sovereign data, and compliance audits.'],
+    ['icon' => '🌐', 'title' => 'Global Multinationals', 'desc' => 'Distributed attack surface management, supply chain assessments, and executive vCISO advisory.']
+];
+
+// 4 Credentials / Accreditations (Original)
+$accreds = [
+    ['img' => 'assets/images/aid.webp',   'alt' => 'AID - Association of Investigators and Detectives'],
+    ['img' => 'assets/images/tapdi.webp', 'alt' => 'TAPDI - Tamilnadu Association of Professional Detectives and Investigators'],
+    ['img' => 'assets/images/apdi.webp',  'alt' => 'APDI - Association of Professional Detectives & Investigators'],
+    ['img' => 'assets/images/unip.svg',   'alt' => 'UNIP - Unified Network of Investigative Professionals']
+];
+
+// Cyber Attack Surface Simulator Probes
+$cyberRiskTools = [
+    ['icon' => '🌐', 'title' => 'Web App & API Vulnerability Probe', 'desc' => 'Scan for SQLi, XSS, SSRF, BOLA, and OWASP Top 10 exploits'],
+    ['icon' => '🛡️', 'title' => 'Perimeter & Port Exposure Scan',   'desc' => 'Detect open firewall ports, exposed services & DNS leaks'],
+    ['icon' => '☁️', 'title' => 'Cloud Misconfiguration Audit',     'desc' => 'Uncover open S3 buckets, IAM privilege flaws & GCP risks'],
+    ['icon' => '🦠', 'title' => 'Ransomware & Malware Resilience',   'desc' => 'Evaluate endpoint defense & lateral movement barriers'],
+    ['icon' => '💻', 'title' => 'Source Code & Secret Leak Probe',   'desc' => 'Detect exposed API keys, credentials, and CVE-prone libraries'],
+    ['icon' => '🎣', 'title' => 'Phishing & Identity Compromise',   'desc' => 'Simulate credential stuffing, spear-phishing & auth bypass'],
+    ['icon' => '📦', 'title' => 'Supply Chain & Third-Party Audit',  'desc' => 'Identify vulnerabilities in vendor dependencies & integrations'],
+    ['icon' => '📋', 'title' => 'Regulatory & Compliance Check',    'desc' => 'Evaluate readiness for ISO 27001, SOC 2, HIPAA & NIST CSF']
+];
+
+// Cybersecurity FAQs
+$cyberFaqs = [
+    [
+        'question' => 'What cybersecurity services does Cyber Kovai provide?',
+        'answer'   => 'Cyber Kovai provides comprehensive offensive and defensive cybersecurity solutions, including Vulnerability Assessment and Penetration Testing (VAPT), Web & Mobile Application Security, Network Penetration Testing, Cloud Security Audits (AWS, GCP, Azure), API Security, Virtual CISO (vCISO) Advisory, Secure Code Review, and Zero-Trust Architecture Hardening.'
+    ],
+    [
+        'question' => 'What standards and frameworks do you follow during testing?',
+        'answer'   => 'Our security testing strictly adheres to industry-leading frameworks including OWASP Top 10, OWASP API Security Top 10, NIST SP 800-115, SANS/CWE 25, and PTES (Penetration Testing Execution Standard), ensuring thorough and standardized vulnerability discovery.'
+    ],
+    [
+        'question' => 'How long does a security assessment or penetration test take?',
+        'answer'   => 'Assessment timelines depend on scope and infrastructure size. A typical web application or network VAPT takes between 3 to 10 business days. We provide continuous interim alerts for any critical zero-day discoveries followed by a detailed formal report.'
+    ],
+    [
+        'question' => 'Do you provide re-testing after our engineering team fixes vulnerabilities?',
+        'answer'   => 'Yes. We include complimentary verification re-testing within 30 days to confirm that reported vulnerabilities are properly patched, followed by the issuance of a formal Certificate of Security Attestation.'
+    ],
+    [
+        'question' => 'How is our proprietary source code and sensitive infrastructure protected?',
+        'answer'   => 'All engagements are conducted under legally binding Non-Disclosure Agreements (NDAs). We utilize encrypted communication channels, secure isolated testing pods, and strict data-handling protocols aligned with ISO 27001.'
+    ]
+];
+
+// Contact Form Services List
+$cyberFormServices = [
+    'Comprehensive VAPT Assessment',
+    'Web Application Security Testing',
+    'Mobile Application Security (iOS & Android)',
+    'REST & GraphQL API Security Testing',
+    'Network & Wireless Penetration Testing',
+    'Cloud Security Posture & CASA Assessment',
+    'Virtual CISO (vCISO) Advisory',
+    'Secure Source Code Review (SAST/DAST)',
+    'Zero-Trust Architecture & Threat Hardening'
+];
 
 include_once __DIR__ . '/includes/header.php';
 ?>
@@ -24,38 +196,38 @@ include_once __DIR__ . '/includes/header.php';
                 <div class="hero-left">
 
                     <div class="hero-tags-wrapper">
-                        <span class="hero-tag-pill">BUSINESS INTELLIGENCE</span>
-                        <span class="hero-tag-pill">RISK REDUCTION</span>
-                        <span class="hero-tag-pill">ADAPTIVE INSIGHTS</span>
+                        <span class="hero-tag-pill">CYBER DEFENSE</span>
+                        <span class="hero-tag-pill">ZERO-TRUST SECURITY</span>
+                        <span class="hero-tag-pill">OFFENSIVE RESEARCH</span>
                     </div>
 
                     <h1>
-                        Professional Investigation<br>
+                        Advanced Cyber Security<br>
                         <span class="hero-gradient-text">Solutions</span><br>
                         <span class="hero-by-line">by <span class="cyber-glitch-wrapper" title="CyberKovai Cyber Systems"><span class="cyber-glitch-text" data-text="CyberKovai">CyberKovai</span><span class="cyber-cursor" aria-hidden="true">_</span><span class="cyber-scan-bar" aria-hidden="true"></span></span></span>
                     </h1>
 
                     <p>
-                        CyberKovai delivers confidential and result-oriented investigation services for individuals, families, and businesses. Our experienced investigators provide accurate reports, discreet operations, and trusted support across matrimonial, employment, fraud, and cyber investigations.
+                        CyberKovai delivers proactive cybersecurity solutions, certified penetration testing, and enterprise defense for modern businesses. Our certified ethical hackers provide continuous vulnerability management, cloud hardening, application security, and 24/7 digital resilience.
                     </p>
 
                     <div class="hero-buttons">
 
                         <a href="#contact" class="btn primary-btn">
-                            Get a Consultation
+                            Schedule Security Audit
                             <span>➔</span>
                         </a>
 
-                        <a href="cyber-intelligence.php?section=forensics" class="btn outline-btn">
-                            Explore Investigation Services
+                        <a href="#services" class="btn outline-btn">
+                            Explore Security Practices
                             <span>➔</span>
                         </a>
                     </div>
 
                     <div class="hero-features-row">
-                        <div><span>✓</span> Due Diligence</div>
-                        <div><span>✓</span> Actionable</div>
-                        <div><span>✓</span> Actionable Insights</div>
+                        <div><span>✓</span> Offensive VAPT &amp; Attack Simulations</div>
+                        <div><span>✓</span> Zero-Trust Architecture Hardening</div>
+                        <div><span>✓</span> OWASP, NIST &amp; ISO 27001 Aligned</div>
                     </div>
 
                 </div>
@@ -157,20 +329,20 @@ include_once __DIR__ . '/includes/header.php';
                     <div class="cyber-badge-tag">
                         <span class="cyber-tag-pulse"></span>
                         <span class="cyber-tag-text">ABOUT CYBER KOVAI</span>
-                        <span class="cyber-tag-code">[ SYSTEM // VERIFIED ]</span>
+                        <span class="cyber-tag-code">[ SYSTEM // THREAT DEFENSE ACTIVE ]</span>
                     </div>
 
                     <h2 class="about-headline">
-                        Make Confident Decisions with Trusted
-                        <span class="cyber-gradient-text">Business Intelligence</span>
+                        Defend Your Digital Infrastructure with
+                        <span class="cyber-gradient-text">Elite Cyber Security</span>
                     </h2>
 
                     <div class="about-lead-box">
                         <p class="about-lead-text">
-                            At Cyber Kovai, we provide reliable and discreet investigation and verification services to help individuals, businesses, and organizations make informed, confident decisions.
+                            At Cyber Kovai, we provide cutting-edge offensive security, continuous vulnerability assessment, and zero-trust engineering to help organizations safeguard digital assets and defend against complex cyber threats.
                         </p>
                         <p class="about-sub-text">
-                            Combining <strong>10+ years of investigative mastery</strong> with modern cyber-analytics to deliver swift, court-admissible, and actionable intelligence.
+                            Combining <strong>certified cybersecurity mastery (OSCP, CEH, CISSP)</strong> with advanced adversary attack simulation to deliver actionable, enterprise-grade protection.
                         </p>
                     </div>
 
@@ -185,10 +357,10 @@ include_once __DIR__ . '/includes/header.php';
                             </div>
                             <div class="capability-body">
                                 <div class="capability-header">
-                                    <h4>Experienced Investigators</h4>
-                                    <span class="capability-tag">10+ YRS EXP</span>
+                                    <h4>Certified Ethical Hackers</h4>
+                                    <span class="capability-tag">CREST &amp; OSCP</span>
                                 </div>
-                                <p>Licensed forensic specialists executing rigorous field and cyber analytics with verified precision.</p>
+                                <p>Elite red-team specialists simulating real-world adversary tactics to uncover critical vulnerabilities before malicious actors exploit them.</p>
                             </div>
                             <div class="capability-check">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -207,10 +379,10 @@ include_once __DIR__ . '/includes/header.php';
                             </div>
                             <div class="capability-body">
                                 <div class="capability-header">
-                                    <h4>Discreet & Confidential Process</h4>
-                                    <span class="capability-tag tag-cyan">100% NDA</span>
+                                    <h4>Continuous Vulnerability Management</h4>
+                                    <span class="capability-tag tag-cyan">OWASP &amp; NIST</span>
                                 </div>
-                                <p>Zero-digital footprint operations with ironclad chain of custody and attorney-client discretion.</p>
+                                <p>Systematic surface scanning, CVSS v3.1 threat prioritization, and technical remediation roadmaps to eliminate attack surfaces.</p>
                             </div>
                             <div class="capability-check">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -222,17 +394,16 @@ include_once __DIR__ . '/includes/header.php';
                         <div class="capability-card" tabindex="0">
                             <div class="capability-icon-wrap icon-purple">
                                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <line x1="2" y1="12" x2="22" y2="12"/>
-                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                                    <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>
+                                    <path d="M12 12v4m-2-2h4"/>
                                 </svg>
                             </div>
                             <div class="capability-body">
                                 <div class="capability-header">
-                                    <h4>Tailored Solutions for Individuals & Businesses</h4>
-                                    <span class="capability-tag tag-purple">CUSTOM OPS</span>
+                                    <h4>Multi-Cloud &amp; Zero-Trust Hardening</h4>
+                                    <span class="capability-tag tag-purple">AWS, GCP &amp; AZURE</span>
                                 </div>
-                                <p>Adaptive intelligence packages tailored for background checks, fraud auditing, and counter-surveillance.</p>
+                                <p>Hardening cloud architectures, APIs, and enterprise perimeters against ransomware, lateral movement, and data breaches.</p>
                             </div>
                             <div class="capability-check">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -245,18 +416,18 @@ include_once __DIR__ . '/includes/header.php';
                     <!-- Mini Stat Ticker Row -->
                     <div class="about-stat-strip">
                         <div class="stat-strip-item">
-                            <span class="stat-strip-num">10+</span>
-                            <span class="stat-strip-lbl">Years Field Mastery</span>
+                            <span class="stat-strip-num">500+</span>
+                            <span class="stat-strip-lbl">Security Audits Executed</span>
                         </div>
                         <div class="stat-strip-divider"></div>
                         <div class="stat-strip-item">
-                            <span class="stat-strip-num">2,000+</span>
-                            <span class="stat-strip-lbl">Verified Inquiries</span>
+                            <span class="stat-strip-num">10,000+</span>
+                            <span class="stat-strip-lbl">Vulnerabilities Remediated</span>
                         </div>
                         <div class="stat-strip-divider"></div>
                         <div class="stat-strip-item">
-                            <span class="stat-strip-num">99.4%</span>
-                            <span class="stat-strip-lbl">Accuracy Rate</span>
+                            <span class="stat-strip-num">99.9%</span>
+                            <span class="stat-strip-lbl">Threat Mitigation Rate</span>
                         </div>
                     </div>
 
@@ -299,32 +470,30 @@ include_once __DIR__ . '/includes/header.php';
 
                             <img src="assets/images/soc_command_center.jpg" alt="Cyber Kovai SOC Command Operations Center" class="about-hero-img" loading="lazy">
 
-                            <!-- Floating Experience Pill: Top Left (20+ Years) -->
+                            <!-- Floating Experience Pill: Top Left -->
                             <div class="hologram-pill holo-top-left">
                                 <span class="pill-glow-dot"></span>
-                                <span><strong>10+ Years</strong> Field Forensics</span>
+                                <span><strong>10+ Years</strong> Cyber Defense Mastery</span>
                             </div>
 
-                            <!-- Floating Holographic Badge 1: Top Right (Trusted by 2000+ Clients) -->
+                            <!-- Floating Holographic Badge 1: Top Right -->
                             <div class="hologram-badge holo-top-right">
                                 <div class="holo-badge-icon holo-icon-purple">
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                                        <circle cx="9" cy="7" r="4"/>
-                                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                        <path d="m9 12 2 2 4-4"/>
                                     </svg>
                                 </div>
                                 <div class="holo-badge-content">
-                                    <span class="holo-badge-label">Verified Track Record</span>
+                                    <span class="holo-badge-label">Verified Security Posture</span>
                                     <div class="holo-badge-value">
-                                        <strong>2,000+</strong> <span>Clients</span>
+                                        <strong>500+</strong> <span>Systems Secured</span>
                                     </div>
                                 </div>
                                 <div class="holo-sparkle" aria-hidden="true">✦</div>
                             </div>
 
-                            <!-- Floating Holographic Badge 2: Bottom Left (99% Accuracy) -->
+                            <!-- Floating Holographic Badge 2: Bottom Left -->
                             <div class="hologram-badge holo-bottom-left">
                                 <div class="holo-badge-icon holo-icon-emerald">
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -334,9 +503,9 @@ include_once __DIR__ . '/includes/header.php';
                                     </svg>
                                 </div>
                                 <div class="holo-badge-content">
-                                    <span class="holo-badge-label">Evidentiary Precision</span>
+                                    <span class="holo-badge-label">Defense Efficacy</span>
                                     <div class="holo-badge-value">
-                                        <strong class="text-emerald">99.4%</strong> <span>Accuracy</span>
+                                        <strong class="text-emerald">99.9%</strong> <span>Threat Mitigation</span>
                                     </div>
                                 </div>
                                 <div class="holo-sparkle holo-sparkle-emerald" aria-hidden="true">✦</div>
@@ -344,9 +513,9 @@ include_once __DIR__ . '/includes/header.php';
 
                             <!-- Holographic Telemetry Strip at Bottom of Image -->
                             <div class="console-telemetry-bar">
-                                <span class="telemetry-item"><span class="telemetry-dot"></span> ENCRYPTION: AES-256</span>
-                                <span class="telemetry-item">NODE: IN-COV-SOC-01</span>
-                                <span class="telemetry-item">STATUS: ACTIVE</span>
+                                <span class="telemetry-item"><span class="telemetry-dot"></span> ENCRYPTION: AES-256-GCM</span>
+                                <span class="telemetry-item">SOC RADAR: ACTIVE</span>
+                                <span class="telemetry-item">STATUS: PERIMETER SECURED</span>
                             </div>
                         </div>
 
@@ -465,7 +634,7 @@ include_once __DIR__ . '/includes/header.php';
             <div class="container">
 
                 <div class="stats-counter-grid cyber-hud-stats">
-                    <?php foreach ($stats as $stat): ?>
+                    <?php foreach ($cyberStats as $stat): ?>
                         <div class="stat-counter-card cyber-hud-stat-card">
                             <div class="stat-card-beam" aria-hidden="true"></div>
                             <div class="stat-hud-chip">VERIFIED METRIC</div>
@@ -493,11 +662,11 @@ include_once __DIR__ . '/includes/header.php';
                     </span>
 
                     <h2>
-                        Seven Practices. One Standard: <span>Verified Truth.</span>
+                        Seven Practices. One Standard: <span>Uncompromising Defense.</span>
                     </h2>
 
                     <p>
-                        Comprehensive investigation and business intelligence services for individuals and organizations.
+                        Comprehensive offensive and defensive cybersecurity practices engineered for modern digital enterprises.
                     </p>
 
                 </div>
@@ -505,9 +674,8 @@ include_once __DIR__ . '/includes/header.php';
 
                 <div class="practices-bento-grid">
 
-                    <?php foreach ($services as $index => $service): 
+                    <?php foreach ($cyberPractices as $index => $service): 
                         $isHero = ($index === 0 || $index === 3);
-                        $refNum = str_pad($index + 1, 2, '0', STR_PAD_LEFT);
                     ?>
                         <article class="practice-bento-card <?= $isHero ? 'bento-hero-card' : '' ?> bento-item-<?= $index + 1 ?>">
                             <div class="bento-card-header">
@@ -515,9 +683,9 @@ include_once __DIR__ . '/includes/header.php';
                                     <?= get_forensic_icon($service['title'], 'bento-svg-icon', 24) ?>
                                 </div>
                                 <div class="bento-dossier-tag">
-                                    <span class="dossier-code">// CASE-<?= $refNum ?></span>
+                                    <span class="dossier-code"><?= sanitize_out($service['tag']) ?></span>
                                     <?php if ($isHero): ?>
-                                        <span class="dossier-badge">FEATURED DOSSIER</span>
+                                        <span class="dossier-badge">PRIMARY PRACTICE</span>
                                     <?php endif; ?>
                                 </div>
                             </div>
@@ -528,8 +696,8 @@ include_once __DIR__ . '/includes/header.php';
                             </div>
 
                             <div class="bento-card-footer">
-                                <a href="#contact" class="practice-cyber-link">
-                                    <span>Explore Casefile</span>
+                                <a href="<?= sanitize_out($service['link']) ?>" class="practice-cyber-link">
+                                    <span>Explore Security Practice</span>
                                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                         <line x1="5" y1="12" x2="19" y2="12"></line>
                                         <polyline points="12 5 19 12 12 19"></polyline>
@@ -537,7 +705,7 @@ include_once __DIR__ . '/includes/header.php';
                                 </a>
                                 <div class="bento-status-indicator">
                                     <span class="status-pulse-dot"></span>
-                                    <span class="status-text">CLEARED</span>
+                                    <span class="status-text">ARMORED</span>
                                 </div>
                             </div>
                         </article>
@@ -559,15 +727,15 @@ include_once __DIR__ . '/includes/header.php';
                 <div class="section-heading text-center">
 
                     <span class="section-tag">
-                        OUR PROCESS
+                        OUR METHODOLOGY
                     </span>
 
                     <h2>
-                        A Structured <span>Intelligence Lifecycle</span>
+                        A Structured <span>Cyber Defense Lifecycle</span>
                     </h2>
 
                     <p>
-                        A systematic approach to deliver solutions and actionable insights.
+                        A systematic 5-stage methodology to detect, neutralize, and safeguard your infrastructure against sophisticated adversaries.
                     </p>
 
                 </div>
@@ -578,7 +746,7 @@ include_once __DIR__ . '/includes/header.php';
                     </div>
 
                     <div class="cyber-pipeline-track">
-                        <?php foreach ($processSteps as $i => $step): ?>
+                        <?php foreach ($cyberProcessSteps as $i => $step): ?>
                             <div class="pipeline-stage-card" tabindex="0">
                                 
                                 <div class="stage-node-wrapper">
@@ -749,7 +917,7 @@ include_once __DIR__ . '/includes/header.php';
 
                     <?php 
                     $tierNames = ['EMERGING VENTURES', 'REGIONAL MID-MARKET', 'HIGH-CAPACITY ENTERPRISE', 'INSTITUTIONAL BODIES', 'GLOBAL CONGLOMERATE'];
-                    foreach ($clientTypes as $i => $client): 
+                    foreach ($cyberClientTypes as $i => $client): 
                         $tierNum = $i + 1;
                         $tierLabel = $tierNames[$i] ?? 'TIER ' . $tierNum;
                     ?>
@@ -801,7 +969,7 @@ include_once __DIR__ . '/includes/header.php';
                     <div class="coverage-content-col">
 
                         <span class="section-tag">
-                            OUR REACH
+                            GLOBAL REACH
                         </span>
 
                         <h2>
@@ -809,36 +977,36 @@ include_once __DIR__ . '/includes/header.php';
                         </h2>
 
                         <p class="coverage-subtitle">
-                            Delivering trusted investigation and intelligence services to clients across India and internationally.
+                            Delivering offensive security testing, cloud defense, and cyber resilience across India and globally.
                         </p>
 
                         <div class="coverage-features">
 
                             <div class="coverage-feature">
                                 <div class="coverage-feature-text">
-                                    <h4>Global Network & Cross-Border Intelligence</h4>
-                                    <p>Seamless operational capabilities across Asia-Pacific, Middle East, Europe, North America, and beyond.</p>
+                                    <h4>Global Remote &amp; On-Premises Security Audits</h4>
+                                    <p>Seamless security testing and penetration assessments across Asia-Pacific, Middle East, Europe, and North America.</p>
                                 </div>
                             </div>
 
                             <div class="coverage-feature">
                                 <div class="coverage-feature-text">
-                                    <h4>On-The-Ground Local Operatives</h4>
-                                    <p>Direct access to vetted field investigators and legal intelligence partners in 50+ key international jurisdictions.</p>
+                                    <h4>Certified Security Researchers &amp; Penetration Testers</h4>
+                                    <p>Direct access to OSCP, CEH, and CISSP certified ethical hackers with proven track records.</p>
                                 </div>
                             </div>
 
                             <div class="coverage-feature">
                                 <div class="coverage-feature-text">
-                                    <h4>Strict International Legal Compliance</h4>
-                                    <p>All inquiries are executed strictly within regional regulatory frameworks and data privacy mandates.</p>
+                                    <h4>Strict International Security Compliance</h4>
+                                    <p>All assessments are conducted strictly adhering to OWASP Top 10, NIST CSF, ISO 27001, and regional data protection mandates.</p>
                                 </div>
                             </div>
 
                         </div>
 
                         <div class="coverage-locations-header">
-                            <span>Key Operational Hubs & Coverage:</span>
+                            <span>Key Operational Hubs &amp; Coverage:</span>
                         </div>
 
                         <div class="locations-pill-bar">
@@ -858,21 +1026,25 @@ include_once __DIR__ . '/includes/header.php';
 
         <!-- ================= ACCREDITATIONS & CREDENTIALS ================= -->
 
-        <section class="section credentials-section">
+        <section class="section credentials-section" id="credentials">
 
-            <div class="container text-center">
+            <div class="container">
 
-                <span class="section-tag">
-                    OUR CREDENTIALS
-                </span>
+                <div class="section-heading text-center">
 
-                <h2>
-                    Memberships, Associations & <span>Certifications</span>
-                </h2>
+                    <span class="section-tag">
+                        OUR CREDENTIALS
+                    </span>
 
-                <p style="max-width: 680px; margin: 0 auto 2.5rem; opacity: 0.85;">
-                    We are associated with reputable organizations and certified bodies to ensure the highest standards of professionalism and ethics.
-                </p>
+                    <h2>
+                        Memberships, Associations &amp; <span>Certifications</span>
+                    </h2>
+
+                    <p>
+                        We are associated with reputable organizations and certified bodies to ensure the highest standards of professionalism and ethics.
+                    </p>
+
+                </div>
 
                 <!-- 4 Badges Static Display -->
                 <div class="credentials-grid">
@@ -899,15 +1071,15 @@ include_once __DIR__ . '/includes/header.php';
                 <div class="section-heading text-center">
 
                     <span class="section-tag">
-                        TOOLS
+                        DIAGNOSTICS
                     </span>
 
                     <h2>
-                        Business Risk <span>Simulator</span>
+                        Cyber Attack Surface <span>Simulator</span>
                     </h2>
 
                     <p>
-                        Assess potential risk and make informed decisions with our interactive tools.
+                        Identify potential security exposures and evaluate your defense readiness across critical attack vectors.
                     </p>
 
                 </div>
@@ -916,8 +1088,8 @@ include_once __DIR__ . '/includes/header.php';
                 <div class="simulator-matrix-deck">
 
                     <?php 
-                    $vectors = ['IDENTITY', 'FINANCIAL', 'GEOLOCATION', 'PERSONNEL', 'PARTNERSHIP', 'SUPPLY CHAIN', 'ASSET INFRA', 'REGULATORY'];
-                    foreach ($riskTools as $i => $tool): 
+                    $vectors = ['WEB & API', 'NETWORK', 'CLOUD INFRA', 'RANSOMWARE', 'CODE AUDIT', 'IDENTITY', 'SUPPLY CHAIN', 'COMPLIANCE'];
+                    foreach ($cyberRiskTools as $i => $tool): 
                         $vectorTag = $vectors[$i] ?? 'THREAT VECTOR';
                     ?>
                         <div class="simulator-probe-card" tabindex="0">
@@ -974,7 +1146,7 @@ include_once __DIR__ . '/includes/header.php';
 
                 <div class="faq-accordion-list">
 
-                    <?php foreach ($faqs as $faq): ?>
+                    <?php foreach ($cyberFaqs as $faq): ?>
                         <div class="faq-item">
 
                             <button class="faq-question">
@@ -1017,21 +1189,21 @@ include_once __DIR__ . '/includes/header.php';
                     </span>
 
                     <h2>
-                        Ready to Reduce <span>Business Risk?</span>
+                        Ready to Strengthen Your <span>Cyber Defenses?</span>
                     </h2>
 
                     <p>
-                        Partner with Cyber Kovai for trusted, confidential and professional investigation and business intelligence services.
+                        Partner with Cyber Kovai for certified penetration testing, cloud security hardening, and enterprise cyber resilience.
                     </p>
 
                     <div class="contact-buttons">
 
                         <a href="tel:<?= sanitize_out(SITE_PHONE_TEL) ?>" class="btn primary-btn">
-                            Get a Consultation ➔
+                            Schedule Security Consultation ➔
                         </a>
 
                         <a href="mailto:<?= sanitize_out(SITE_EMAIL) ?>" class="btn outline-btn">
-                            Learn More
+                            Email Security Team
                         </a>
 
                     </div>
@@ -1047,8 +1219,8 @@ include_once __DIR__ . '/includes/header.php';
                                     <input type="text" id="name" name="name" required placeholder="John Doe" style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit;">
                                 </div>
                                 <div>
-                                    <label for="email" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">Email Address *</label>
-                                    <input type="email" id="email" name="email" required placeholder="john@example.com" style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit;">
+                                    <label for="email" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">Work Email Address *</label>
+                                    <input type="email" id="email" name="email" required placeholder="john@company.com" style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit;">
                                 </div>
                             </div>
 
@@ -1060,17 +1232,17 @@ include_once __DIR__ . '/includes/header.php';
                                 <div>
                                     <label for="service" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">Service Required</label>
                                     <select id="service" name="service" style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit;">
-                                        <option value="">Select a Practice</option>
-                                        <?php foreach ($services as $service): ?>
-                                            <option value="<?= sanitize_out($service['title']) ?>"><?= sanitize_out($service['title']) ?></option>
+                                        <option value="">Select a Cybersecurity Practice</option>
+                                        <?php foreach ($cyberFormServices as $formService): ?>
+                                            <option value="<?= sanitize_out($formService) ?>"><?= sanitize_out($formService) ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
                             </div>
 
                             <div style="margin-bottom: 1.5rem;">
-                                <label for="message" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">Confidential Details / Message *</label>
-                                <textarea id="message" name="message" rows="4" required placeholder="Describe your requirement in brief..." style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit; resize: vertical;"></textarea>
+                                <label for="message" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">Security Scope / Assessment Requirements *</label>
+                                <textarea id="message" name="message" rows="4" required placeholder="Describe your web/mobile/cloud environment, compliance deadline, or specific testing requirements..." style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit; resize: vertical;"></textarea>
                             </div>
 
                             <!-- Google reCAPTCHA -->
@@ -1079,7 +1251,7 @@ include_once __DIR__ . '/includes/header.php';
                             </div>
 
                             <button type="submit" class="btn primary-btn" style="cursor: pointer; border: none; width: 100%; justify-content: center; font-size: 1.05rem;">
-                                Submit Confidential Request ➔
+                                Request Security Assessment ➔
                             </button>
                         </form>
                     </div>

@@ -24,6 +24,8 @@ switch (rtrim($uri, '/')) {
         exit;
     case '/digital-forensics':
     case '/digital-forensics.php':
+    case '/digitalforensics':
+    case '/digitalforensics.php':
         $_GET['section'] = 'cyber';
         require __DIR__ . '/digital-forensics.php';
         exit;

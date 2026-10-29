@@ -8,6 +8,8 @@
 
     RewriteRule ^digital-forensics/services/?$ digital-forensics.php?section=cyber#services [L,QSA]
     RewriteRule ^digital-forensics/?$ digital-forensics.php?section=cyber [L,QSA]
+    RewriteRule ^digitalforensics/services/?$ digital-forensics.php?section=cyber#services [L,QSA]
+    RewriteRule ^digitalforensics/?$ digital-forensics.php?section=cyber [L,QSA]
 
     RewriteRule ^about/?$ about.php [L,QSA]
     RewriteRule ^contact/?$ contact.php [L,QSA]

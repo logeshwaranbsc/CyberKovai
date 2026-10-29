@@ -3937,6 +3937,10 @@ button {
     flex-shrink: 0;
 }
 
+.credentials-section {
+    text-align: center;
+}
+
 .credentials-marquee {
     margin-bottom: 20px;
     padding: 8px 0;
