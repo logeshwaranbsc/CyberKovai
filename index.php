@@ -8,6 +8,7 @@ $pageDescription = 'Choose between Digital Investigation & Forensics and Cyber I
 
 $bodyClass  = 'portal-page';
 $hideFooter = true;
+$hideNavbar = true;
 
 include_once __DIR__ . '/includes/header.php';
 

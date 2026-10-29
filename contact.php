@@ -107,6 +107,11 @@ include_once __DIR__ . '/includes/header.php';
                             <textarea id="message" name="message" rows="4" required placeholder="Describe your requirement in brief. All submissions are encrypted and kept strictly confidential under NDA." style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit; resize: vertical;"></textarea>
                         </div>
 
+                        <!-- Google reCAPTCHA -->
+                        <div class="recaptcha-wrapper" style="margin-bottom: 1.5rem;">
+                            <div class="g-recaptcha" data-sitekey="<?= sanitize_out(RECAPTCHA_SITE_KEY) ?>" data-theme="dark"></div>
+                        </div>
+
                         <button type="submit" class="btn primary-btn" style="cursor: pointer; border: none; width: 100%; justify-content: center; font-size: 1.05rem;">
                             Submit Confidential Request ➔
                         </button>

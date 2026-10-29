@@ -388,7 +388,8 @@ include_once __DIR__ . '/includes/header.php';
                 </div>
 
                 <div class="svc-booking-form-wrapper">
-                    <form action="<?= $basePrefix ?>process-contact.php" method="POST" class="svc-contact-form">
+                    <form id="contactForm" action="<?= $basePrefix ?>process-contact.php" method="POST" class="svc-contact-form">
+                        <div id="formResponse" style="display: none; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; font-weight: 500;"></div>
                         <input type="hidden" name="service_interest" value="<?= sanitize_out($service['title']) ?>">
                         
                         <div class="form-group">
@@ -410,6 +411,11 @@ include_once __DIR__ . '/includes/header.php';
                         <div class="form-group">
                             <label for="client_scope">Target Architecture / Scope Details</label>
                             <textarea id="client_scope" name="message" rows="3" placeholder="Briefly describe your systems, compliance requirements (e.g., ISO, PCI, SOC 2), or audit timelines..."></textarea>
+                        </div>
+
+                        <!-- Google reCAPTCHA -->
+                        <div class="form-group recaptcha-wrapper" style="margin-bottom: 1.5rem;">
+                            <div class="g-recaptcha" data-sitekey="<?= sanitize_out(RECAPTCHA_SITE_KEY) ?>" data-theme="dark"></div>
                         </div>
 
                         <button type="submit" class="btn primary-btn svc-submit-btn">

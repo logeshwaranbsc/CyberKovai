@@ -433,50 +433,82 @@ if (footerYear) {
 
 
 /* =========================================
-   PHP CONTACT FORM AJAX SUBMISSION
+   PHP CONTACT FORM AJAX SUBMISSION & RECAPTCHA
 ========================================= */
-const contactForm = document.getElementById("contactForm");
-const formResponse = document.getElementById("formResponse");
+const allContactForms = document.querySelectorAll("#contactForm, .svc-contact-form");
 
-if (contactForm && formResponse) {
-    contactForm.addEventListener("submit", function (e) {
+allContactForms.forEach((currentForm) => {
+    currentForm.addEventListener("submit", function (e) {
         e.preventDefault();
 
-        const formData = new FormData(contactForm);
-        const submitBtn = contactForm.querySelector('button[type="submit"]');
-        const originalBtnText = submitBtn ? submitBtn.innerHTML : '';
+        const formResponse = currentForm.querySelector("#formResponse") || document.getElementById("formResponse");
+
+        // Client-side reCAPTCHA verification check if grecaptcha is available
+        if (typeof grecaptcha !== "undefined") {
+            const recaptchaToken = currentForm.querySelector(".g-recaptcha-response")?.value || grecaptcha.getResponse();
+            if (!recaptchaToken) {
+                if (formResponse) {
+                    formResponse.style.display = "block";
+                    formResponse.style.background = "rgba(231, 76, 60, 0.15)";
+                    formResponse.style.border = "1px solid rgba(231, 76, 60, 0.4)";
+                    formResponse.style.color = "#e74c3c";
+                    formResponse.textContent = "Please complete the reCAPTCHA verification.";
+                }
+                return;
+            }
+        }
+
+        const formData = new FormData(currentForm);
+        const submitBtn = currentForm.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn ? submitBtn.innerHTML : "";
 
         if (submitBtn) {
             submitBtn.disabled = true;
-            submitBtn.innerHTML = 'Sending...';
+            submitBtn.innerHTML = "Sending...";
         }
 
-        fetch(contactForm.action || 'process-contact.php', {
-            method: 'POST',
+        fetch(currentForm.action || "process-contact.php", {
+            method: "POST",
             body: formData
         })
-            .then(res => res.json())
-            .then(data => {
-                formResponse.style.display = 'block';
-                if (data.success) {
-                    formResponse.style.background = 'rgba(46, 204, 113, 0.15)';
-                    formResponse.style.border = '1px solid rgba(46, 204, 113, 0.4)';
-                    formResponse.style.color = '#2ecc71';
-                    formResponse.textContent = data.message;
-                    contactForm.reset();
-                } else {
-                    formResponse.style.background = 'rgba(231, 76, 60, 0.15)';
-                    formResponse.style.border = '1px solid rgba(231, 76, 60, 0.4)';
-                    formResponse.style.color = '#e74c3c';
-                    formResponse.textContent = data.message || 'An error occurred. Please try again.';
+            .then((res) => res.json())
+            .then((data) => {
+                if (typeof grecaptcha !== "undefined") {
+                    try {
+                        grecaptcha.reset();
+                    } catch (err) {}
+                }
+
+                if (formResponse) {
+                    formResponse.style.display = "block";
+                    if (data.success) {
+                        formResponse.style.background = "rgba(46, 204, 113, 0.15)";
+                        formResponse.style.border = "1px solid rgba(46, 204, 113, 0.4)";
+                        formResponse.style.color = "#2ecc71";
+                        formResponse.textContent = data.message;
+                        currentForm.reset();
+                    } else {
+                        formResponse.style.background = "rgba(231, 76, 60, 0.15)";
+                        formResponse.style.border = "1px solid rgba(231, 76, 60, 0.4)";
+                        formResponse.style.color = "#e74c3c";
+                        formResponse.textContent = data.message || "An error occurred. Please try again.";
+                    }
                 }
             })
             .catch(() => {
-                formResponse.style.display = 'block';
-                formResponse.style.background = 'rgba(231, 76, 60, 0.15)';
-                formResponse.style.border = '1px solid rgba(231, 76, 60, 0.4)';
-                formResponse.style.color = '#e74c3c';
-                formResponse.textContent = 'Network error. Please try again later.';
+                if (typeof grecaptcha !== "undefined") {
+                    try {
+                        grecaptcha.reset();
+                    } catch (err) {}
+                }
+
+                if (formResponse) {
+                    formResponse.style.display = "block";
+                    formResponse.style.background = "rgba(231, 76, 60, 0.15)";
+                    formResponse.style.border = "1px solid rgba(231, 76, 60, 0.4)";
+                    formResponse.style.color = "#e74c3c";
+                    formResponse.textContent = "Network error. Please try again later.";
+                }
             })
             .finally(() => {
                 if (submitBtn) {
@@ -485,7 +517,7 @@ if (contactForm && formResponse) {
                 }
             });
     });
-}
+});
 
 
 /* =========================================

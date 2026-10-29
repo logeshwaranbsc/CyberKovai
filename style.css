@@ -10016,7 +10016,14 @@ body.page-enter-from-left {
         height: auto !important;
     }
 
-    body.portal-page .split-hero-stage,
+    body.portal-page .split-hero-stage {
+        min-height: auto !important;
+        height: auto !important;
+        padding: 36px 0 40px !important;
+        display: block !important;
+        overflow: visible !important;
+    }
+
     .split-hero-stage {
         min-height: auto !important;
         height: auto !important;
@@ -10258,7 +10265,7 @@ body.page-enter-from-left {
         flex: 1 1 auto;
         min-height: 0;
         height: 100%;
-        padding: calc(78px + 14px) 0 16px;
+        padding: 24px 0;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -10266,10 +10273,10 @@ body.page-enter-from-left {
     }
 
     body.portal-page .container.split-hero-container {
-        height: calc(100vh - 78px - 34px);
-        height: calc(100dvh - 78px - 34px);
-        max-height: calc(100vh - 78px - 34px);
-        max-height: calc(100dvh - 78px - 34px);
+        height: calc(100vh - 48px);
+        height: calc(100dvh - 48px);
+        max-height: calc(100vh - 48px);
+        max-height: calc(100dvh - 48px);
         min-height: 480px;
         width: min(calc(100% - 48px), 1440px);
     }
@@ -10278,13 +10285,13 @@ body.page-enter-from-left {
 /* Responsive adjustment for compact laptop screens (e.g. 1366x768 or 1360x633) */
 @media (min-width: 992px) and (max-height: 720px) {
     body.portal-page .split-hero-stage {
-        padding: calc(78px + 8px) 0 12px;
+        padding: 16px 0;
     }
 
     body.portal-page .container.split-hero-container {
-        height: calc(100vh - 78px - 22px);
-        height: calc(100dvh - 78px - 22px);
-        max-height: calc(100vh - 78px - 22px);
+        height: calc(100vh - 32px);
+        height: calc(100dvh - 32px);
+        max-height: calc(100vh - 32px);
         min-height: 420px;
     }
 
@@ -12375,3 +12382,26 @@ body.page-enter-from-left {
 .df-page .contact-box {
     padding: 42px 26px;
 }
+
+/* =========================================
+   GOOGLE reCAPTCHA STYLES
+========================================= */
+.recaptcha-wrapper {
+    margin: 1.25rem 0;
+    display: flex;
+    justify-content: flex-start;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.recaptcha-wrapper .g-recaptcha {
+    transform-origin: 0 0;
+}
+
+@media (max-width: 380px) {
+    .recaptcha-wrapper .g-recaptcha {
+        transform: scale(0.88);
+        transform-origin: 0 0;
+    }
+}

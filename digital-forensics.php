@@ -1027,7 +1027,7 @@ include_once __DIR__ . '/includes/header.php';
                     <div class="contact-buttons">
 
                         <a href="tel:<?= sanitize_out(SITE_PHONE_TEL) ?>" class="btn primary-btn">
-                            Get a Consultation Ô×ö
+                            Get a Consultation ➔
                         </a>
 
                         <a href="mailto:<?= sanitize_out(SITE_EMAIL) ?>" class="btn outline-btn">
@@ -1073,8 +1073,13 @@ include_once __DIR__ . '/includes/header.php';
                                 <textarea id="message" name="message" rows="4" required placeholder="Describe your requirement in brief..." style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit; resize: vertical;"></textarea>
                             </div>
 
+                            <!-- Google reCAPTCHA -->
+                            <div class="recaptcha-wrapper" style="margin-bottom: 1.5rem;">
+                                <div class="g-recaptcha" data-sitekey="<?= sanitize_out(RECAPTCHA_SITE_KEY) ?>" data-theme="dark"></div>
+                            </div>
+
                             <button type="submit" class="btn primary-btn" style="cursor: pointer; border: none; width: 100%; justify-content: center; font-size: 1.05rem;">
-                                Submit Confidential Request Ô×ö
+                                Submit Confidential Request ➔
                             </button>
                         </form>
                     </div>

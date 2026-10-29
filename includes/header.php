@@ -75,10 +75,13 @@ $contactUrl = $basePrefix . 'contact.php?section=' . $activeSection;
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+    <!-- Google reCAPTCHA API -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body class="<?= $bodyClass ?? '' ?>">
 
+<?php if (empty($hideNavbar)): ?>
     <!-- ================= NAVBAR ================= -->
 
     <header class="navbar" id="siteNavbar">
@@ -313,3 +316,4 @@ $contactUrl = $basePrefix . 'contact.php?section=' . $activeSection;
 
         </div>
     </header>
+<?php endif; ?>
