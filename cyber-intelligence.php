@@ -1,208 +1,229 @@
 <?php
 /**
- * Cyber Kovai — Cyber Intelligence Services Page
+ * Cyber Kovai — Digital Investigation & Forensics Solutions
  */
 require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/includes/forensic-icons.php';
 
-$pageTitle       = 'Cyber Intelligence Services';
-$pageDescription = 'Proactive cyber intelligence solutions to detect risks, investigate digital threats, conduct advanced forensics and protect your sensitive information. CyberKovai, Coimbatore.';
+$activeSection   = 'forensics';
+$pageTitle       = 'Digital Investigation & Forensics Services';
+$pageDescription = 'Confidential digital investigations, accredited forensic evidence recovery, OSINT threat intelligence, and cyber fraud tracing by CyberKovai, Coimbatore.';
 
-// Interactive Cyber Command Console 4-Pillar Data
-$cyberPillars = [
-    [
-        'id'          => 'pillar-threat',
-        'num'         => '01',
-        'code'        => 'VEC-01 // THREAT_INTEL',
-        'badge'       => 'PROACTIVE HUNTING',
-        'title'       => 'Threat Intelligence & Detection',
-        'metric'      => '99.8% Threat Intercept Rate',
-        'metric_sub'  => 'Surface, Deep & Dark Web Coverage',
-        'meter'       => '99',
-        'encryption'  => 'ZERO-DAY FEEDS / TLS 1.3',
-        'standard'    => 'ISO 27001 & SOC 2',
-        'log'         => 'Threat Hunter active. 99.8% intercept rate confirmed across 4,200 IOCs.',
-        'desc'        => 'Proactive threat hunting and global telemetry tracking across surface, deep, and dark web threat vectors before adversarial campaigns reach your infrastructure.',
-        'target_id'   => 'target-threat',
-        'coords'      => 'LAT 11.0168° N / LNG 76.9558° E',
-        'status'      => 'MONITORING ACTIVE',
-        'status_color'=> '#10b981',
-        'image'       => 'assets/images/22_threat_intelligence.jpg',
-        'capabilities'=> ['Dark Web Surveillance', 'Zero-Day IOC Feeds', 'Adversary Attribution', 'Early Warning Radar'],
-        'svg_icon'    => '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/><circle cx="12" cy="12" r="4"/></svg>'
-    ],
+// Interactive Investigation Console 4-Pillar Data
+$investigationPillars = [
     [
         'id'          => 'pillar-forensics',
-        'num'         => '02',
-        'code'        => 'VEC-02 // DIGITAL_FORENSICS',
-        'badge'       => 'EVIDENCE INTEGRITY',
-        'title'       => 'Incident Forensics & Investigation',
+        'num'         => '01',
+        'code'        => 'INV-01 // DIGITAL_FORENSICS',
+        'badge'       => 'COURT ADMISSIBLE',
+        'title'       => 'Digital Forensics & Artifact Analysis',
+        'short'       => 'Digital Forensics',
         'metric'      => '100% Cryptographic Verification',
         'metric_sub'  => 'ISO/IEC 27037 Evidence Standard',
         'meter'       => '100',
         'encryption'  => 'SHA-256 VAULT / HSM',
         'standard'    => 'ISO/IEC 27037 COURT STANDARD',
         'log'         => 'Forensic Triage: Cryptographic SHA-256 hash verified. Chain-of-custody sealed.',
-        'desc'        => 'Court-admissible digital artifact extraction, memory volatile capture, root-cause breach tracing, and complete forensic timeline reconstruction.',
+        'desc'        => 'Court-admissible bit-stream imaging, volatile memory capture, deleted artifact carving, timestamp tampering detection, and root-cause breach tracing.',
         'target_id'   => 'target-forensics',
         'coords'      => 'SEC-HASH: SHA256-VAULT-VERIFIED',
         'status'      => 'CHAIN-OF-CUSTODY READY',
         'status_color'=> '#8b20ff',
-        'image'       => 'assets/images/23_digital_forensics.jpg',
-        'capabilities'=> ['Memory & Disk Imaging', 'Malware Reverse Engineering', 'Cryptographic Hashing', 'Court-Ready Expert Reports'],
+        'image'       => 'assets/images/investigation_05_digital_forensics.jpg',
+        'capabilities'=> ['Memory & Disk Imaging', 'Deleted File Carving', 'Cryptographic Hashing', 'Court-Ready Expert Reports'],
         'svg_icon'    => '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 0-7.07 17.07l.07.07"/><path d="M12 6a6 6 0 0 0-4.24 10.24"/><path d="M12 10a2 2 0 0 0-1.41 3.41"/><path d="M12 18v4"/><path d="M8 22h8"/><circle cx="12" cy="12" r="1"/></svg>'
     ],
     [
-        'id'          => 'pillar-risk',
-        'num'         => '03',
-        'code'        => 'VEC-03 // CYBER_RISK',
-        'badge'       => 'SURFACE AUDITING',
-        'title'       => 'Risk Assessment & Attack Surface',
-        'metric'      => '140+ Attack Vectors Audited',
-        'metric_sub'  => 'CVSS v3.1 / OWASP Top 10 Aligned',
-        'meter'       => '95',
-        'encryption'  => 'CVSS v3.1 / OWASP DEFENSE',
-        'standard'    => 'NIST CSF & OWASP TOP 10',
-        'log'         => 'Risk Audit: 140+ attack surfaces scanned. Zero critical perimeter exposures detected.',
-        'desc'        => 'Systematic auditing of external perimeter, APIs, cloud environments, and internal network segments to identify and remediate zero-day exposures.',
-        'target_id'   => 'target-risk',
-        'coords'      => 'PERIMETER: 0 EXPOSED SERVICES',
-        'status'      => 'VAPT SHIELD ACTIVE',
+        'id'          => 'pillar-osint',
+        'num'         => '02',
+        'code'        => 'INV-02 // OSINT_INTEL',
+        'badge'       => 'DEEP INTELLIGENCE',
+        'title'       => 'OSINT & Digital Footprint Tracing',
+        'short'       => 'OSINT & Tracing',
+        'metric'      => '99.4% Attribution Confidence',
+        'metric_sub'  => 'Surface, Deep & Dark Web Profiling',
+        'meter'       => '99',
+        'encryption'  => 'ANONYMIZED TELEMETRY',
+        'standard'    => 'ETHICAL INVESTIGATION PROTOCOL',
+        'log'         => 'OSINT Recon: Multi-source footprint correlated. Digital identity confirmed across 8 platforms.',
+        'desc'        => 'Uncovering hidden digital footprints, verifying online identities, cross-platform persona correlation, geolocation intelligence, and adversary profiling.',
+        'target_id'   => 'target-osint',
+        'coords'      => 'OSINT: MULTI-VECTOR TRACE ACTIVE',
+        'status'      => 'RECONNAISSANCE ACTIVE',
         'status_color'=> '#3da9fc',
-        'image'       => 'assets/images/24_cyber_risk_assessment.jpg',
-        'capabilities'=> ['Vulnerability Assessment', 'Web & Mobile Pen Testing', 'Cloud Hardening Review', 'Executive Risk Scorecard'],
-        'svg_icon'    => '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>'
+        'image'       => 'assets/images/investigation_02_osint.jpg',
+        'capabilities'=> ['Deep Web Persona Profiling', 'Domain & Network Recon', 'Identity Verification', 'Geolocation Intelligence'],
+        'svg_icon'    => '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><circle cx="11" cy="11" r="3"/></svg>'
     ],
     [
-        'id'          => 'pillar-data',
+        'id'          => 'pillar-fraud',
+        'num'         => '03',
+        'code'        => 'INV-03 // FRAUD_TRACE',
+        'badge'       => 'FINANCIAL FORENSICS',
+        'title'       => 'Cyber Fraud & Financial Scam Tracing',
+        'short'       => 'Cyber Fraud Tracing',
+        'metric'      => '₹50Cr+ Traced In Fraud Cases',
+        'metric_sub'  => 'Crypto, Banking & Wire Scam Tracing',
+        'meter'       => '98',
+        'encryption'  => 'FIN-TRACE / BLOCKCHAIN AUDIT',
+        'standard'    => 'LEA-READY EVIDENTIARY DOSSIER',
+        'log'         => 'Fraud Trace: Transaction trail mapped across payment gateways and blockchain ledgers.',
+        'desc'        => 'Professional investigation for investment scams, crypto fraud, banking deception, business email compromise, and preparation of legal enforcement dossiers.',
+        'target_id'   => 'target-fraud',
+        'coords'      => 'TRACE: FINANCIAL TRAIL IDENTIFIED',
+        'status'      => 'FRAUD INTEL ACTIVE',
+        'status_color'=> '#f59e0b',
+        'image'       => 'assets/images/investigation_04_fraud_support.jpg',
+        'capabilities'=> ['Cryptocurrency Ledger Tracing', 'Phishing & Wire Scam Tracking', 'Mule Account Identification', 'LEA Complaint Dossier Prep'],
+        'svg_icon'    => '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/><circle cx="7" cy="15" r="1"/></svg>'
+    ],
+    [
+        'id'          => 'pillar-social',
         'num'         => '04',
-        'code'        => 'VEC-04 // DATA_PROTECTION',
-        'badge'       => 'ZERO-TRUST ENCRYPTION',
-        'title'       => 'Data Shielding & Governance',
-        'metric'      => 'AES-256 GCM Protection',
-        'metric_sub'  => 'Zero Data Leakage Tolerance',
-        'meter'       => '100',
-        'encryption'  => 'AES-256-GCM / HARDWARE HSM',
-        'standard'    => 'GDPR / HIPAA / ISO 27701',
-        'log'         => 'Data Shield: Hardware HSM keys loaded. Memory-level immutability active.',
-        'desc'        => 'Enterprise Data Loss Prevention (DLP) frameworks, cryptographic key management, and credential shielding protecting sensitive proprietary assets.',
-        'target_id'   => 'target-data',
-        'coords'      => 'ENCRYPTION: HARDWARE HSM KEY',
-        'status'      => 'VAULT SECURED',
-        'status_color'=> '#ff8c42',
-        'image'       => 'assets/images/25_data_protection.jpg',
-        'capabilities'=> ['Enterprise DLP Controls', 'Privileged Identity Shielding', 'Ransomware Immutability', 'Compliance Audit Trails'],
-        'svg_icon'    => '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1.5"/></svg>'
+        'code'        => 'INV-04 // SOCIAL_INTEL',
+        'badge'       => 'IDENTITY DEFENSE',
+        'title'       => 'Social Media & Impersonation Investigation',
+        'short'       => 'Social Media Intel',
+        'metric'      => '99.1% Impersonation Removal Rate',
+        'metric_sub'  => 'Evidence Capture & Takedown Support',
+        'meter'       => '99',
+        'encryption'  => 'METADATA ARCHIVE / HASH SEAL',
+        'standard'    => 'PLATFORM TOS & LEGAL COMPLIANCE',
+        'log'         => 'Identity Verification: Fake profiles identified, metadata archived, takedown notice dispatched.',
+        'desc'        => 'Detecting and unmasking fake profiles, investigating online harassment, recovering hijacked accounts, and compiling digital evidence for legal takedowns.',
+        'target_id'   => 'target-social',
+        'coords'      => 'IDENTITY: PROFILE ANOMALY DETECTED',
+        'status'      => 'TAKEDOWN STREAM ACTIVE',
+        'status_color'=> '#10b981',
+        'image'       => 'assets/images/investigation_03_social_media.jpg',
+        'capabilities'=> ['Fake Profile & Botnet Tracing', 'Harassment & Defamation Evidence', 'Account Takeover Recovery', 'Platform Legal Reporting Support'],
+        'svg_icon'    => '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>'
     ],
 ];
-// Backwards compatibility
-$cyberPanels = $cyberPillars;
+// Compatibility aliases
+$cyberPillars = $investigationPillars;
+$cyberPanels  = $investigationPillars;
 
-// 6 Cyber Services with Rich Visuals
-$cyberServices = [
-    [
-        'image' => 'assets/images/ci_service_risk.jpg',
-        'title' => 'Cyber Risk Assessment',
-        'desc'  => 'Identify vulnerabilities, assess risks and strengthen your security posture with comprehensive cyber risk assessments.',
-    ],
-    [
-        'image' => 'assets/images/ci_service_forensics.jpg',
-        'title' => 'Digital Forensics',
-        'desc'  => 'Recover, analyze and preserve digital evidence to help you uncover the root causes of incidents effectively and meet forensic standards.',
-    ],
-    [
-        'image' => 'assets/images/ci_service_social.jpg',
-        'title' => 'Social Media Investigation',
-        'desc'  => 'Uncover digital footprints, monitor online activity and verify tasks from social media for personal and corporate matters.',
-    ],
-    [
-        'image' => 'assets/images/ci_service_data.jpg',
-        'title' => 'Data & Information Security',
-        'desc'  => 'Protect sensitive data and prevent unauthorized access with end-to-end security frameworks and data protection strategies.',
-    ],
-    [
-        'image' => 'assets/images/ci_service_advisory.jpg',
-        'title' => 'Cyber Security Advisory',
-        'desc'  => 'Strategic guidance to strengthen your cyber resilience with policies, risk reduction strategies and best practices.',
-    ],
-    [
-        'image' => 'assets/images/ci_service_fraud.jpg',
-        'title' => 'Fraud & Deception Prevention',
-        'desc'  => 'Detect hidden frauds, verify digital identities and protect your business from financial and reputational risks.',
-    ],
-];
+// 8 Investigation Services with Rich Visuals
+global $investigationServices;
+if (empty($investigationServices)) {
+    require_once __DIR__ . '/config.php';
+}
+$cyberServices = $investigationServices;
 
-// Protection Process (5 Steps)
-$cyberProcess = [
-    ['num'=>'01', 'title'=>'Detect',     'desc'=>'Identify potential threats across your systems and digital ecosystem.'],
-    ['num'=>'02', 'title'=>'Investigate','desc'=>'Analyze and isolate suspicious activities with forensic rigor.'],
-    ['num'=>'03', 'title'=>'Analyze',    'desc'=>'Assess risks and derive actionable intelligence from collected data.'],
-    ['num'=>'04', 'title'=>'Respond',    'desc'=>'Take immediate action to contain and mitigate security incidents.'],
-    ['num'=>'05', 'title'=>'Protect',    'desc'=>'Strengthen defenses with continuous monitoring and security upgrades.'],
-];
-
-// Cyber risk tags matching Image 2
-$cyberRisksRow1 = [
-    'Malware & Ransomware',
-    'Phishing Attacks',
-    'Data Breaches',
-    'Insider Threats',
-    'Social Engineering',
-    'Account Takeover',
-];
-$cyberRisksRow2 = [
-    'Dark Web Monitoring',
-    'Business Email Compromise',
-    'Brand Impersonation',
-    'IoT Risks',
-];
-
-// Testimonials matching Image 2
-$testimonials = [
+// Forensic Investigation Lifecycle (5 Steps)
+$investigationProcess = [
     [
-        'quote'  => 'CyberKovai helped us identify critical vulnerabilities before it became a crisis and invaluable to our team! A highly professional and dedicated partner for security needs.',
-        'name'   => 'Karthik',
-        'role'   => 'Director, Manufacturing',
+        'num'   => '01',
+        'title' => 'Consultation & Scoping',
+        'desc'  => 'Confidential case assessment under strict NDA to understand case requirements and define investigation scope.'
+    ],
+    [
+        'num'   => '02',
+        'title' => 'Evidence Acquisition',
+        'desc'  => 'Forensic bit-stream disk and device imaging adhering strictly to ISO/IEC 27037 standards.'
+    ],
+    [
+        'num'   => '03',
+        'title' => 'Forensic Analysis & OSINT',
+        'desc'  => 'Artifact extraction, deleted data recovery, timeline reconstruction, and cross-platform intelligence correlation.'
+    ],
+    [
+        'num'   => '04',
+        'title' => 'Evidentiary Reporting',
+        'desc'  => 'Comprehensive, court-admissible forensic dossiers with cryptographic SHA-256 verification.'
+    ],
+    [
+        'num'   => '05',
+        'title' => 'Legal & Ongoing Advisory',
+        'desc'  => 'Expert witness testimony, law enforcement filing support, and actionable guidance for legal proceedings.'
+    ],
+];
+$cyberProcess = $investigationProcess;
+
+// Investigation Threat & Incident Tags
+$investigationThreatsRow1 = [
+    'Cybercrime & Online Fraud',
+    'Digital Evidence Preservation',
+    'Crypto & Investment Scams',
+    'Social Media Impersonation',
+    'Corporate Data Theft & Espionage',
+    'Matrimonial & Personal Disputes',
+];
+$investigationThreatsRow2 = [
+    'Cyberstalking & Harassment',
+    'Account Takeovers & Hacking',
+    'Child Digital Safety Threats',
+    'Extortion & Blackmail Tracing',
+];
+$cyberRisksRow1 = $investigationThreatsRow1;
+$cyberRisksRow2 = $investigationThreatsRow2;
+
+// Testimonials for Investigation
+$investigationTestimonials = [
+    [
+        'quote'  => 'CyberKovai\'s digital forensics team recovered critical deleted evidence and provided an airtight forensic report that proved decisive in our corporate litigation. Exceptional discretion and technical precision.',
+        'name'   => 'Rajesh M.',
+        'role'   => 'Managing Partner, Legal Advisory',
         'avatar' => 'assets/images/avatar_karthik.jpg',
     ],
     [
-        'quote'  => 'Their digital forensics expertise and investigation skills made a significant difference for our organization. Highly recommend their services.',
+        'quote'  => 'Their cyber fraud tracing and blockchain analysis uncovered the illicit movement of funds after our firm suffered a major financial wire fraud. The dossier provided to law enforcement led directly to key recoveries.',
         'name'   => 'Priya S.',
-        'role'   => 'IT Head, HealthCare',
+        'role'   => 'Chief Financial Officer, Enterprise Logistics',
         'avatar' => 'assets/images/avatar_priya.jpg',
     ],
     [
-        'quote'  => 'Quick response, deep technical knowledge and clear guidance. A trusted partner for our security needs.',
+        'quote'  => 'We faced an aggressive online harassment and executive impersonation campaign. CyberKovai identified the perpetrators through OSINT within 72 hours and facilitated swift platform takedowns.',
         'name'   => 'Aravind K.',
-        'role'   => 'Manager, IT & Compliance',
+        'role'   => 'VP Operations & Corporate Affairs',
         'avatar' => 'assets/images/avatar_aravind.jpg',
     ],
 ];
+$testimonials = $investigationTestimonials;
 
-// FAQs matching Image 2
-$cyberFaqs = [
+// FAQs for Digital Investigations & Forensics
+$investigationFaqs = [
     [
-        'q' => 'What cyber intelligence services do you offer?',
-        'a' => 'We offer Cyber Risk Assessment, Digital Forensics, Social Media Investigation, Data & Information Security, Cyber Security Advisory, and Fraud & Deception Prevention services.'
+        'q' => 'What digital investigation and forensic services do you offer?',
+        'a' => 'We provide Digital Forensics & Artifact Extraction, OSINT & Background Intelligence, Cyber Fraud & Scam Tracing, Social Media Investigations & Impersonation Removal, Cybercrime Victim Assistance, Executive Digital Protection, and Child Digital Safety investigations.'
     ],
     [
-        'q' => 'How long does an investigation take?',
-        'a' => 'Investigation timelines vary based on complexity, typically ranging from 3 to 21 working days. We provide regular progress updates throughout.'
+        'q' => 'Are your forensic reports admissible in court?',
+        'a' => 'Yes. All digital evidence is collected, preserved, and analyzed following ISO/IEC 27037 standards. We maintain a rigorous chain of custody and verify artifacts with cryptographic SHA-256 hashes, ensuring our comprehensive reports are fully admissible in legal proceedings.'
     ],
     [
-        'q' => 'Is our information kept confidential?',
-        'a' => 'Yes. 100% confidentiality is guaranteed. All client information, case details and findings are protected under strict non-disclosure protocols.'
+        'q' => 'How do you guarantee the confidentiality of my case?',
+        'a' => '100% confidentiality is guaranteed from your very first consultation. All case files, client identities, and forensic findings are protected under legally binding Non-Disclosure Agreements (NDAs) and stored in encrypted offline forensic vaults.'
     ],
     [
-        'q' => 'Do you provide support for international cases?',
-        'a' => 'Yes. We extend our cyber intelligence services to clients across India and internationally, with coverage in Singapore, Australia, Germany, Canada, UAE and more.'
+        'q' => 'How long does a digital investigation take?',
+        'a' => 'Investigation timelines vary depending on case complexity. Urgent inquiries such as active impersonation or account takeovers can produce actionable intelligence within 24 to 72 hours, while complex corporate forensic audits or financial fraud tracing typically range from 5 to 14 business days.'
     ],
+    [
+        'q' => 'Do you assist with cross-border and international cases?',
+        'a' => 'Yes. CyberKovai handles digital investigations across India and internationally, working regularly on matters spanning the UAE, Singapore, Germany, Canada, the UK, Australia, and the US.'
+    ],
+];
+$cyberFaqs = $investigationFaqs;
+
+// Form Services Dropdown List
+$investigationFormServices = [
+    'Digital Evidence Preservation & Forensics',
+    'Digital Investigations & OSINT',
+    'Cyber Fraud Investigation Support',
+    'Social Media Investigations & Impersonation Removal',
+    'Cybercrime Victim Assistance & Account Recovery',
+    'Executive & Family Digital Protection',
+    'Child Digital Safety & Protection',
+    'Cybersecurity Awareness & LEA Training',
+    'Corporate & Background Investigation'
 ];
 
 include_once __DIR__ . '/includes/header.php';
 ?>
 
 <main class="ci-page">
-
 
 <!-- ================================================================
      HERO SECTION
@@ -229,33 +250,30 @@ include_once __DIR__ . '/includes/header.php';
 
             <div class="ci-hero-label ci-reveal">
                 <svg viewBox="0 0 10 10" width="8" height="8" fill="var(--orchid)"><circle cx="5" cy="5" r="5"/></svg>
-                CYBER INTELLIGENCE SERVICES
+                DIGITAL INVESTIGATION &amp; FORENSICS
             </div>
 
             <h1 class="ci-hero-heading ci-reveal">
-                Protect Your<br>
-                <span class="ci-grad-text">Digital World</span>
+                Uncover Digital Truth<br>
+                <span class="ci-grad-text">&amp; Forensic Evidence</span>
             </h1>
 
             <p class="ci-hero-desc ci-reveal">
-                Proactive cyber intelligence solutions to detect risks, investigate digital threats, conduct advanced forensics and protect your sensitive information.
+                Confidential, court-admissible digital investigations, OSINT intelligence, cyber fraud tracing, and evidence preservation for individuals, legal counsel, and enterprises.
             </p>
 
             <div class="ci-hero-trust ci-reveal">
-                <span>&#10003; Threat Detection</span>
-                <span>&#10003; Risk Assessment</span>
-                <span>&#10003; Data Protection</span>
+                <span>&#10003; Court-Admissible Evidence</span>
+                <span>&#10003; 100% Confidential Inquiry</span>
+                <span>&#10003; Certified Specialists</span>
             </div>
 
             <div class="ci-hero-btns ci-reveal">
-                <a href="digital-forensics.php?section=cyber" class="btn outline-btn">
-                    <span>&#x2190;</span> Explore Cyber Intelligence
-                </a>
                 <a href="#ci-services" class="btn primary-btn">
-                    Explore Cyber Services <span>&#x2192;</span>
+                    Explore Investigation Services <span>&#x2192;</span>
                 </a>
                 <a href="#contact" class="btn outline-btn">
-                    Talk to an Expert
+                    Schedule Consultation <span>&#x2192;</span>
                 </a>
             </div>
 
@@ -270,28 +288,28 @@ include_once __DIR__ . '/includes/header.php';
 
             <!-- HUD arc labels -->
             <div class="ci-arc-labels">
-                <div class="ci-arc-label ci-arc-top">THREAT DETECTION</div>
-                <div class="ci-arc-label ci-arc-right">DIGITAL FORENSICS</div>
-                <div class="ci-arc-label ci-arc-bottom">RISK ASSESSMENT</div>
-                <div class="ci-arc-label ci-arc-left">DATA SECURITY</div>
+                <div class="ci-arc-label ci-arc-top">DIGITAL FORENSICS</div>
+                <div class="ci-arc-label ci-arc-right">OSINT INVESTIGATION</div>
+                <div class="ci-arc-label ci-arc-bottom">CYBER FRAUD TRACING</div>
+                <div class="ci-arc-label ci-arc-left">EVIDENCE PRESERVATION</div>
             </div>
 
             <!-- Floating feature cards -->
             <div class="ci-float-card ci-fc-1">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                <span>Threat Detection</span>
-            </div>
-            <div class="ci-float-card ci-fc-2">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a10 10 0 0 0-7.07 17.07l.07.07"/><path d="M12 6a6 6 0 0 0-4.24 10.24"/><path d="M12 10a2 2 0 0 0-1.41 3.41"/><path d="M12 18v4"/><path d="M8 22h8"/><circle cx="12" cy="12" r="1"/></svg>
                 <span>Digital Forensics</span>
             </div>
+            <div class="ci-float-card ci-fc-2">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><circle cx="11" cy="11" r="3"/></svg>
+                <span>OSINT Recon</span>
+            </div>
             <div class="ci-float-card ci-fc-3">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg>
-                <span>Risk Assessment</span>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/><circle cx="7" cy="15" r="1"/></svg>
+                <span>Cyber Fraud Tracing</span>
             </div>
             <div class="ci-float-card ci-fc-4">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                <span>Data Security</span>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                <span>Evidence Vault</span>
             </div>
 
             <!-- Central shield -->
@@ -326,7 +344,7 @@ include_once __DIR__ . '/includes/header.php';
             <!-- Intel monitoring badge -->
             <div class="ci-monitoring-badge">
                 <span class="ci-monitoring-dot"></span>
-                INTELLIGENCE MONITORING
+                CONFIDENTIAL INVESTIGATION ACTIVE
             </div>
 
         </div><!-- /ci-hero-visual -->
@@ -339,7 +357,7 @@ include_once __DIR__ . '/includes/header.php';
 <!-- ================================================================
      4-PILLAR ANIMATED HORIZONTAL EXPANDING SHOWCASE
 ================================================================ -->
-<section class="section ci-showcase-section" id="ci-showcase" aria-label="Cyber Defense Intelligence Pillars">
+<section class="section ci-showcase-section" id="ci-showcase" aria-label="Digital Investigation Pillars">
     <div class="ci-showcase-ambient-glow" aria-hidden="true"></div>
 
     <div class="container">
@@ -347,20 +365,20 @@ include_once __DIR__ . '/includes/header.php';
         <div class="section-heading text-center ci-reveal">
             <span class="section-tag">
                 <span class="pulse-dot"></span>
-                CORE INTELLIGENCE PILLARS
+                CORE INVESTIGATION PILLARS
             </span>
             <h2>
-                Real-Time Cyber <span>Defense Matrix</span>
+                Digital Forensic &amp; <span>Investigation Matrix</span>
             </h2>
             <p class="section-desc" style="max-width: 740px; margin: 0 auto;">
-                Continuous 360° telemetry monitoring, multi-quadrant threat vector scanning, and active countermeasures across our four operational intelligence pillars.
+                Court-grade forensic artifact analysis, OSINT intelligence mapping, financial fraud indicators tracing, and evidentiary preservation across our four specialized investigation pillars.
             </p>
         </div>
 
         <div class="ci-showcase-wrapper ci-reveal">
-            <div class="ci-showcase-panels" id="ciShowcasePanels" role="tablist" aria-label="Cyber Intelligence Pillars">
+            <div class="ci-showcase-panels" id="ciShowcasePanels" role="tablist" aria-label="Digital Investigation Pillars">
 
-                <?php foreach ($cyberPillars as $i => $panel): ?>
+                <?php foreach ($investigationPillars as $i => $panel): ?>
                 <div class="ci-panel <?= $i === 0 ? 'ci-panel-active' : '' ?>"
                      data-panel="<?= $i ?>"
                      id="ciPanel<?= $i ?>"
@@ -439,7 +457,7 @@ include_once __DIR__ . '/includes/header.php';
                             </div>
 
                             <a href="#contact" class="ci-panel-cta" title="Inquire about <?= sanitize_out($panel['title']) ?>">
-                                <span>Explore Service</span>
+                                <span>Inquire Confidentially</span>
                                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                     <line x1="5" y1="12" x2="19" y2="12"></line>
                                     <polyline points="12 5 19 12 12 19"></polyline>
@@ -459,7 +477,7 @@ include_once __DIR__ . '/includes/header.php';
 
 
 <!-- ================================================================
-     ABOUT OUR APPROACH
+     ABOUT OUR INVESTIGATIVE METHODOLOGY
 ================================================================ -->
 <section class="section ci-approach" id="ci-approach">
     <div class="container">
@@ -468,19 +486,19 @@ include_once __DIR__ . '/includes/header.php';
             <!-- Left: Image -->
             <div class="ci-approach-img-col ci-reveal">
                 <div class="ci-approach-img-wrap">
-                    <img src="assets/images/ci_analyst_approach.jpg"
-                         alt="Cyber Analyst Operations Center" class="ci-approach-img" loading="lazy">
+                    <img src="assets/images/15_investigation_monitoring_room.png"
+                         alt="Cyber Forensics & Investigation Operations Center" class="ci-approach-img" loading="lazy">
                     <div class="ci-approach-img-border"></div>
                     <div class="ci-approach-badge">
                         <div class="ci-approach-badge-icon">
                             <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"/>
-                                <polyline points="12 6 12 12 16 14"/>
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                <circle cx="12" cy="11" r="3"/>
                             </svg>
                         </div>
                         <div>
-                            <strong>24/7</strong>
-                            <span>Threat Monitoring</span>
+                            <strong>100%</strong>
+                            <span>Confidential Inquiry</span>
                         </div>
                     </div>
                 </div>
@@ -490,24 +508,24 @@ include_once __DIR__ . '/includes/header.php';
             <div class="ci-approach-content">
                 <span class="section-tag ci-reveal">
                     <span class="pulse-dot"></span>
-                    OUR APPROACH
+                    OUR METHODOLOGY
                 </span>
 
                 <h2 class="ci-reveal">
-                    Proactive Intelligence<br>
-                    for a <span class="ci-grad-text">Safer Tomorrow</span>
+                    Scientific Precision &amp;<br>
+                    Discreet <span class="ci-grad-text">Investigative Rigor</span>
                 </h2>
 
                 <p class="ci-reveal">
-                    We help organizations detect, investigate and respond to cyber threats before they cause business disruption.
+                    We combine accredited digital forensic methodologies, court-tested evidence preservation, and global open-source intelligence to uncover facts that stand up to legal scrutiny.
                 </p>
 
                 <ul class="ci-approach-list">
                     <?php foreach ([
-                        'Real-Time Threat Monitoring',
-                        'Actionable Intelligence & Insights',
-                        'Advanced Forensic Analysis',
-                        'Customized Security Solutions',
+                        'ISO/IEC 27037 Evidence Handling & Chain-of-Custody',
+                        'Legally Admissible Documentation & Expert Analysis',
+                        'Advanced OSINT & Cross-Platform Forensic Tracking',
+                        'Strict Non-Disclosure & 100% Case Confidentiality',
                     ] as $point): ?>
                     <li class="ci-reveal">
                         <span class="ci-check-icon">
@@ -521,7 +539,7 @@ include_once __DIR__ . '/includes/header.php';
                 </ul>
 
                 <a href="#ci-services" class="btn primary-btn ci-approach-btn ci-reveal">
-                    Learn More About Cyber Intelligence <span>&rarr;</span>
+                    Explore Investigation Practices <span>&rarr;</span>
                 </a>
             </div>
 
@@ -531,7 +549,7 @@ include_once __DIR__ . '/includes/header.php';
 
 
 <!-- ================================================================
-     CYBER SERVICES (6 CARDS WITH RICH PHOTO HEADERS)
+     DIGITAL INVESTIGATION SERVICES (8 CORE PRACTICES)
 ================================================================ -->
 <section class="section ci-services-section" id="ci-services">
     <div class="container">
@@ -539,14 +557,14 @@ include_once __DIR__ . '/includes/header.php';
         <div class="section-heading text-center ci-reveal">
             <span class="section-tag">
                 <span class="pulse-dot"></span>
-                OUR SERVICES
+                OUR SPECIALIZED PRACTICES
             </span>
-            <h2>Comprehensive <span class="ci-grad-text">Cyber Intelligence</span> Solutions</h2>
-            <p>From risk and cyber intelligence services to digital forensics, detection, investigation, response and long-term protection.</p>
+            <h2>Comprehensive <span class="ci-grad-text">Digital Investigation</span> Solutions</h2>
+            <p>From incident evidence recovery and cyber fraud tracing to OSINT and child safety, we provide legally sound investigations with complete discretion.</p>
         </div>
 
-        <div class="ci-services-grid">
-            <?php foreach ($cyberServices as $svc): ?>
+        <div class="ci-services-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+            <?php foreach ($investigationServices as $svc): ?>
             <article class="ci-svc-card ci-reveal">
                 <div class="ci-svc-img-wrap">
                     <img src="<?= sanitize_out($svc['image']) ?>" alt="<?= sanitize_out($svc['title']) ?>" class="ci-svc-img" loading="lazy">
@@ -554,9 +572,9 @@ include_once __DIR__ . '/includes/header.php';
                 </div>
                 <div class="ci-svc-body">
                     <h3><?= sanitize_out($svc['title']) ?></h3>
-                    <p><?= sanitize_out($svc['desc']) ?></p>
-                    <a href="#contact" class="ci-svc-link">
-                        Learn More <span>&rarr;</span>
+                    <p><?= sanitize_out($svc['description']) ?></p>
+                    <a href="services/<?= sanitize_out($svc['slug']) ?>.php?section=forensics" class="ci-svc-link">
+                        Explore Investigation <span>&rarr;</span>
                     </a>
                 </div>
             </article>
@@ -568,7 +586,7 @@ include_once __DIR__ . '/includes/header.php';
 
 
 <!-- ================================================================
-     PROTECTION PROCESS (5 SLEEK TIMELINE NODES)
+     EVIDENTIARY PROCESS (5 FORENSIC TIMELINE NODES)
 ================================================================ -->
 <section class="section ci-process-section" id="ci-process">
     <div class="container">
@@ -576,16 +594,16 @@ include_once __DIR__ . '/includes/header.php';
         <div class="section-heading text-center ci-reveal">
             <span class="section-tag">
                 <span class="pulse-dot"></span>
-                OUR PROCESS
+                EVIDENTIARY PROCESS
             </span>
-            <h2>How We <span class="ci-grad-text">Protect Your Business</span></h2>
-            <p>A structured and proactive approach to cyber resilience.</p>
+            <h2>How We Conduct <span class="ci-grad-text">Digital Investigations</span></h2>
+            <p>A structured, chain-of-custody compliant process designed to deliver verified facts and court-admissible results.</p>
         </div>
 
         <div class="ci-process-timeline-wrap ci-reveal">
             <div class="ci-process-line" aria-hidden="true"></div>
             <div class="ci-process-track">
-                <?php foreach ($cyberProcess as $step): ?>
+                <?php foreach ($investigationProcess as $step): ?>
                 <div class="ci-process-step">
                     <div class="ci-process-node">
                         <span class="ci-process-node-pulse"></span>
@@ -603,36 +621,70 @@ include_once __DIR__ . '/includes/header.php';
 
 
 <!-- ================================================================
-     CYBER RISKS WE HELP YOU IDENTIFY
+     INCIDENTS & THREATS WE INVESTIGATE
 ================================================================ -->
 <section class="section ci-risks-section" id="ci-risks">
     <div class="container">
 
         <div class="section-heading text-center ci-reveal">
-            <h2>Cyber Risks We Help You <span class="ci-grad-text">Identify</span></h2>
-            <p>Stay ahead of evolving threats with real-time monitoring and intelligence.</p>
+            <h2>Incidents &amp; Threats We <span class="ci-grad-text">Investigate</span></h2>
+            <p>Specialized investigative capabilities across diverse cybercrime, financial fraud, and digital dispute categories.</p>
         </div>
 
         <div class="ci-risks-wrapper ci-reveal">
             <!-- Row 1: 6 tags -->
             <div class="ci-risks-row ci-risks-row-1">
-                <?php foreach ($cyberRisksRow1 as $risk): ?>
+                <?php foreach ($investigationThreatsRow1 as $threat): ?>
                 <div class="ci-risk-tag">
                     <span class="ci-risk-dot"></span>
-                    <span><?= sanitize_out($risk) ?></span>
+                    <span><?= sanitize_out($threat) ?></span>
                 </div>
                 <?php endforeach; ?>
             </div>
 
             <!-- Row 2: 4 tags -->
             <div class="ci-risks-row ci-risks-row-2">
-                <?php foreach ($cyberRisksRow2 as $risk): ?>
+                <?php foreach ($investigationThreatsRow2 as $threat): ?>
                 <div class="ci-risk-tag">
                     <span class="ci-risk-dot"></span>
-                    <span><?= sanitize_out($risk) ?></span>
+                    <span><?= sanitize_out($threat) ?></span>
                 </div>
                 <?php endforeach; ?>
             </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ================================================================
+     MEMBERSHIPS, ASSOCIATIONS & ACCREDITATIONS
+================================================================ -->
+<section class="section credentials-section" id="credentials" style="text-align: center; padding: 3.5rem 0; background: rgba(5, 5, 17, 0.7);">
+    <div class="container">
+
+        <div class="section-heading text-center ci-reveal">
+            <span class="section-tag">
+                <span class="pulse-dot"></span>
+                OUR CREDENTIALS
+            </span>
+            <h2>
+                Memberships, Associations &amp; <span>Accreditations</span>
+            </h2>
+            <p style="max-width: 680px; margin: 0 auto 2.5rem; opacity: 0.85;">
+                We are associated with reputable investigative organizations and certified bodies to ensure the highest standards of professionalism, ethics, and legal compliance.
+            </p>
+        </div>
+
+        <!-- 4 Badges Display -->
+        <div class="credentials-grid" style="display: flex; justify-content: center; align-items: center; gap: 2rem; flex-wrap: wrap;">
+            <?php foreach ($accreds as $badge): ?>
+                <div class="credentials-card" style="padding: 1rem 1.5rem; background: rgba(13, 11, 26, 0.8); border: 1px solid rgba(139, 32, 255, 0.25); border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                    <div class="badge-card">
+                        <img src="<?= sanitize_out($badge['img']) ?>" alt="<?= sanitize_out($badge['alt']) ?>" class="badge-img" style="max-height: 55px; width: auto; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));">
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
 
     </div>
@@ -650,7 +702,7 @@ include_once __DIR__ . '/includes/header.php';
             <!-- Left: High-Tech Telemetry Map Card -->
             <div class="ci-coverage-map-col ci-reveal">
                 <div class="ci-world-map-wrap">
-                    <img src="assets/images/ci_global_map.jpg" alt="Global Cyber Threat & Telemetry Network" class="ci-world-map-img" loading="lazy">
+                    <img src="assets/images/ci_global_map.jpg" alt="Global Cyber Investigation & Intelligence Network" class="ci-world-map-img" loading="lazy">
                 </div>
             </div>
 
@@ -664,25 +716,25 @@ include_once __DIR__ . '/includes/header.php';
                 <h2 class="ci-reveal">From Coimbatore <span class="ci-grad-text">to the World</span></h2>
 
                 <p class="ci-reveal">
-                    We provide cyber intelligence and forensics services to businesses, government agencies and law enforcement, with a trusted network of specialists across 15+ countries.
+                    We provide discreet digital investigation and forensics services to individuals, legal practices, corporations, and law enforcement agencies across India and internationally.
                 </p>
 
                 <div class="ci-stats-row ci-reveal">
                     <div class="ci-stat-item">
                         <strong>15+</strong>
-                        <span>Countries</span>
+                        <span>Countries Covered</span>
                     </div>
                     <div class="ci-stat-item">
                         <strong>500+</strong>
-                        <span>Investigations</span>
+                        <span>Cases Investigated</span>
                     </div>
                     <div class="ci-stat-item">
-                        <strong>24/7</strong>
-                        <span>Threat Monitoring</span>
+                        <strong>100%</strong>
+                        <span>Confidentiality Guaranteed</span>
                     </div>
                     <div class="ci-stat-item">
-                        <strong>99%</strong>
-                        <span>Business Trust</span>
+                        <strong>99.4%</strong>
+                        <span>Evidentiary Precision</span>
                     </div>
                 </div>
             </div>
@@ -701,7 +753,7 @@ include_once __DIR__ . '/includes/header.php';
         <div class="section-heading text-center ci-reveal">
             <span class="section-tag">
                 <span class="pulse-dot"></span>
-                TESTIMONIALS
+                CASE TESTIMONIALS
             </span>
             <h2>What Our <span class="ci-grad-text">Clients Say</span></h2>
         </div>
@@ -740,10 +792,10 @@ include_once __DIR__ . '/includes/header.php';
                     HELP CENTER
                 </span>
                 <h2>Frequently Asked <span class="ci-grad-text">Questions</span></h2>
-                <p>Have more questions? Our team is ready to help.</p>
+                <p>Have questions regarding evidence admissibility, confidentiality, or case timelines? Our forensic team is ready to assist.</p>
                 <a href="#contact" class="btn primary-btn ci-faq-btn">
-                    <span>View All FAQs</span>
-                    <small>or Get Free Expert Consult</small>
+                    <span>Ask a Question</span>
+                    <small>or Get Free Confidential Consult</small>
                 </a>
             </div>
 
@@ -772,28 +824,79 @@ include_once __DIR__ . '/includes/header.php';
 
 
 <!-- ================================================================
-     FINAL CTA (SECURE YOUR ASSETS)
+     FINAL CTA & CONFIDENTIAL INQUIRY FORM
 ================================================================ -->
-<section class="ci-final-cta" id="contact">
+<section class="ci-final-cta" id="contact" style="padding: 4.5rem 0;">
     <!-- Background digital network canvas -->
     <canvas id="ciCtaCanvas" class="ci-cta-canvas" aria-hidden="true"></canvas>
 
     <div class="container ci-cta-inner">
         <span class="section-tag ci-reveal">
             <span class="pulse-dot"></span>
-            SECURE YOUR ASSETS
+            CONFIDENTIAL INQUIRY
         </span>
+        <h2>Need a Discreet <span class="ci-grad-text">Digital Investigation?</span></h2>
         <p class="ci-cta-tagline ci-reveal">
-            Partner with CyberKovai for proactive cyber intelligence and comprehensive security solutions.
+            Speak directly with our senior forensic investigators. All consultations are 100% confidential and protected by strict non-disclosure agreements.
         </p>
-        <div class="ci-cta-btns ci-reveal">
-            <a href="#ci-services" class="btn primary-btn">
-                Explore Cyber Services <span>&rarr;</span>
+
+        <div class="ci-cta-btns ci-reveal" style="margin-bottom: 2.5rem;">
+            <a href="tel:<?= sanitize_out(SITE_PHONE_TEL) ?>" class="btn primary-btn">
+                <span>&#x1F4DE;</span> Call Senior Investigator ➔
             </a>
-            <a href="tel:<?= sanitize_out(SITE_PHONE_TEL) ?>" class="btn outline-btn">
-                Talk to an Expert
+            <a href="mailto:<?= sanitize_out(SITE_EMAIL) ?>" class="btn outline-btn">
+                <span>&#x2709;&#xFE0F;</span> Email Investigation Team
             </a>
         </div>
+
+        <!-- Interactive PHP Contact Form -->
+        <div class="contact-form-wrapper ci-reveal" style="width: 100%; max-width: 820px; margin: 0 auto; text-align: left; background: rgba(13, 11, 26, 0.9); padding: 2.2rem; border-radius: 20px; border: 1px solid rgba(139, 32, 255, 0.35); box-shadow: 0 20px 50px rgba(0,0,0,0.6); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);">
+            <form id="contactForm" action="process-contact.php" method="POST">
+                <div id="formResponse" style="display: none; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; font-weight: 500;"></div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; margin-bottom: 1.2rem;">
+                    <div>
+                        <label for="name" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">Your Name *</label>
+                        <input type="text" id="name" name="name" required placeholder="John Doe" style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.18); color: #fff;">
+                    </div>
+                    <div>
+                        <label for="email" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">Confidential Email Address *</label>
+                        <input type="email" id="email" name="email" required placeholder="john@example.com" style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.18); color: #fff;">
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; margin-bottom: 1.2rem;">
+                    <div>
+                        <label for="phone" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">Phone / WhatsApp *</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="+91 98765 43210" style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.18); color: #fff;">
+                    </div>
+                    <div>
+                        <label for="service" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">Investigation Service Required</label>
+                        <select id="service" name="service" style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit; background: #130f28; border: 1px solid rgba(255,255,255,0.18); color: #fff;">
+                            <option value="">Select an Investigation Practice</option>
+                            <?php foreach ($investigationFormServices as $formService): ?>
+                                <option value="<?= sanitize_out($formService) ?>"><?= sanitize_out($formService) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <label for="message" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">Confidential Case Overview / Incident Details *</label>
+                    <textarea id="message" name="message" rows="4" required placeholder="Describe the suspected breach, affected devices/platforms, or required evidence preservation (strictly confidential)..." style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit; resize: vertical; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.18); color: #fff;"></textarea>
+                </div>
+
+                <!-- Google reCAPTCHA -->
+                <div class="recaptcha-wrapper" style="margin-bottom: 1.5rem;">
+                    <div class="g-recaptcha" data-sitekey="<?= sanitize_out(RECAPTCHA_SITE_KEY) ?>" data-theme="dark"></div>
+                </div>
+
+                <button type="submit" class="btn primary-btn" style="cursor: pointer; border: none; width: 100%; justify-content: center; font-size: 1.05rem; padding: 1.05rem;">
+                    Submit Confidential Investigation Request ➔
+                </button>
+            </form>
+        </div>
+
     </div>
 </section>
 

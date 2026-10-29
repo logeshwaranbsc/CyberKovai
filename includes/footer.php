@@ -44,13 +44,13 @@ $teamUrl = $teamUrl ?? ($basePrefix . 'team.php?section=' . ($activeSection ?? '
                     <span>CYBER <strong>KOVAI</strong></span>
                 </a>
 
-                <?php if ($currentScript === 'cyber-intelligence.php'): ?>
+                <?php if ($activeSection === 'forensics' || $currentScript === 'cyber-intelligence.php'): ?>
                 <p>
-                    CyberKovai provides professional cyber intelligence services, investigative digital forensics and security advisory for organizations worldwide and individuals.
+                    CyberKovai provides confidential digital investigation services, court-admissible digital forensics, OSINT threat intelligence, and fraud prevention for legal counsel, enterprises, and individuals.
                 </p>
                 <?php else: ?>
                 <p>
-                    CyberKovai is an elite cybersecurity and intelligence consultancy delivering comprehensive penetration testing, cyber risk management, compliance auditing, and digital forensics.
+                    CyberKovai is an elite cybersecurity and intelligence consultancy delivering comprehensive penetration testing, cyber risk management, compliance auditing, and cloud security defense.
                 </p>
                 <?php endif; ?>
 
@@ -63,47 +63,14 @@ $teamUrl = $teamUrl ?? ($basePrefix . 'team.php?section=' . ($activeSection ?? '
 
             </div>
 
-            <?php if ($currentScript === 'cyber-intelligence.php'): ?>
-            <div class="footer-column">
-                <h4>Quick Links</h4>
-                <a href="<?= $activeHomeUrl ?>">Home</a>
-                <a href="<?= $aboutUrl ?>">About Us</a>
-                <a href="<?= $teamUrl ?>">Our Team</a>
-                <a href="#ci-services">Services</a>
-                <a href="#ci-testimonials">Testimonials</a>
-                <a href="#contact">Contact Us</a>
-            </div>
-
-            <div class="footer-column">
-                <h4>Our Services</h4>
-                <a href="#ci-services">Threat Intelligence Monitoring</a>
-                <a href="#ci-services">Digital Forensics Investigation</a>
-                <a href="#ci-services">Cyber Risk Assessment</a>
-                <a href="#ci-services">Social Media Investigation</a>
-                <a href="#ci-services">Data & Information Security</a>
-                <a href="#ci-services">Cyber Security Advisory</a>
-                <a href="#ci-services">Fraud & Deception Prevention</a>
-            </div>
-
-            <div class="footer-column">
-                <h4>Contact Information</h4>
-                <p class="reach-item">📞 +91 87541 43015</p>
-                <p class="reach-item">✉️ info@cyberkovai.com</p>
-                <p class="reach-item">📍 Coimbatore, India</p>
-                <div style="margin-top:1rem;">
-                    <a href="#contact" class="btn primary-btn" style="padding: 10px 22px; font-size: 12px; font-weight:700; border-radius:50px; display:inline-flex;">
-                        <span>Report an Incident</span>
-                    </a>
-                </div>
-            </div>
-            <?php elseif ($activeSection === 'forensics' || (isset($categorySlug) && $categorySlug === 'digital-investigations')): ?>
+            <?php if ($activeSection === 'forensics' || $currentScript === 'cyber-intelligence.php' || (isset($categorySlug) && $categorySlug === 'digital-investigations')): ?>
             <div class="footer-column">
                 <h4>Quick Links</h4>
                 <a href="<?= $activeHomeUrl ?>">Home</a>
                 <a href="<?= $aboutUrl ?>">About Us</a>
                 <a href="<?= $teamUrl ?>">Our Team</a>
                 <a href="<?= $basePrefix ?>cyber-intelligence.php?section=forensics#ci-services">Services</a>
-                <a href="<?= $basePrefix ?>cyber-intelligence.php?section=forensics#ci-testimonials">Testimonial</a>
+                <a href="<?= $basePrefix ?>cyber-intelligence.php?section=forensics#ci-testimonials">Testimonials</a>
                 <a href="<?= $contactUrl ?>">Contact Us</a>
             </div>
 
@@ -116,14 +83,14 @@ $teamUrl = $teamUrl ?? ($basePrefix . 'team.php?section=' . ($activeSection ?? '
                 }
                 foreach ($investigationServices as $svc): 
                 ?>
-                    <a href="<?= $basePrefix ?>services/<?= sanitize_out($svc['slug']) ?>.php"><?= sanitize_out($svc['title']) ?></a>
+                    <a href="<?= $basePrefix ?>services/<?= sanitize_out($svc['slug']) ?>.php?section=forensics"><?= sanitize_out($svc['title']) ?></a>
                 <?php endforeach; ?>
             </div>
 
             <div class="footer-column">
                 <h4>Contact Information</h4>
-                <p class="reach-item">📍 Coimbatore - 641 017.</p>
-                <p class="reach-item">📞 +91 63820 19821</p>
+                <p class="reach-item">📍 Coimbatore, Tamil Nadu, India</p>
+                <p class="reach-item">📞 +91 98765 43210</p>
                 <p class="reach-item">✉️ info@cyberkovai.com</p>
                 <div style="margin-top:0.75rem;">
                     <a href="<?= $contactUrl ?>" class="btn primary-btn" style="padding: 9px 18px; font-size: 11px; letter-spacing: 0.05em;">
