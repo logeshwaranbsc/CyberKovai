@@ -69,12 +69,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <div class="form-group">
                     <label for="username" class="form-label">Username / Email</label>
-                    <input type="text" id="username" name="username" class="form-control" required autofocus placeholder="Kovaicyber@gmail.com" value="<?= htmlspecialchars($_POST['username'] ?? '') ?>">
+                    <input type="text" id="username" name="username" class="form-control" required autofocus placeholder="Enter username or email" autocomplete="username" value="<?= htmlspecialchars($_POST['username'] ?? '') ?>">
                 </div>
 
                 <div class="form-group">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" id="password" name="password" class="form-control" required placeholder="••••••••••••">
+                    <input type="password" id="password" name="password" class="form-control" required placeholder="Enter password" autocomplete="current-password">
                 </div>
 
                 <div style="margin-top: 1.75rem;">
@@ -85,7 +85,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
 
             <div style="margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--border-color); text-align: center; font-size: 0.78rem; color: var(--text-muted);">
-                <p>Administrative Account: <code style="color: var(--accent-purple-light);">Kovaicyber@gmail.com</code></p>
                 <p style="margin-top: 0.5rem;"><a href="../index.php" style="color: var(--text-secondary); text-decoration: none;">&larr; Return to Website</a></p>
             </div>
         </div>

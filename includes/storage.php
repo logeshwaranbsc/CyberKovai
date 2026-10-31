@@ -723,7 +723,7 @@ function ck_seed_storage() {
         ck_write_json('settings.json', $settings);
     }
 
-    // 2. Admins Seeding (Default Admin: Kovaicyber@gmail.com / Admin@CyberKovai2026!)
+    // 2. Admins Seeding (Initial Superadmin Account)
     if (!file_exists(ck_data_path('admins.json'))) {
         $admins = [
             'Kovaicyber@gmail.com' => [

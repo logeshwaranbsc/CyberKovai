@@ -85,6 +85,12 @@ $flash = ck_get_flash();
                 <span class="link-icon">👤</span>
                 <span>Admin Profile</span>
             </a>
+
+            <div class="nav-section-title">Session</div>
+            <a href="logout.php" class="sidebar-link sidebar-link-logout" title="Sign out of Admin Console">
+                <span class="link-icon">🚪</span>
+                <span>Log Out</span>
+            </a>
         </nav>
 
         <div class="sidebar-footer">
@@ -97,8 +103,9 @@ $flash = ck_get_flash();
                     <div class="admin-role">Superadmin</div>
                 </div>
             </a>
-            <a href="logout.php" class="btn-icon-logout" title="Sign Out">
+            <a href="logout.php" class="btn-sidebar-logout" title="Sign Out">
                 <span>🚪</span>
+                <span>Logout</span>
             </a>
         </div>
     </aside>
@@ -122,6 +129,9 @@ $flash = ck_get_flash();
             <div class="topbar-actions">
                 <a href="../index.php" target="_blank" rel="noopener" class="btn-view-site" title="Open live website in new tab">
                     <span>🌐</span> View Live Site ➔
+                </a>
+                <a href="logout.php" class="btn-topbar-logout" title="Sign Out of Admin Console">
+                    <span>🚪</span> Log Out
                 </a>
             </div>
         </header>
