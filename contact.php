@@ -76,11 +76,11 @@ include_once __DIR__ . '/includes/header.php';
                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; margin-bottom: 1.2rem;">
                             <div>
                                 <label for="phone" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">Phone / WhatsApp / Signal *</label>
-                                <input type="tel" id="phone" name="phone" required placeholder="+91 98765 43210" style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit;">
+                                <input type="tel" id="phone" name="phone" required placeholder="+91 63820 19821" style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit;">
                             </div>
                             <div>
-                                <label for="service" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">Service Required</label>
-                                <select id="service" name="service" style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit;">
+                                <label for="service" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">Service Required *</label>
+                                <select id="service" name="service" required style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit;">
                                     <?php if ($activeSection === 'cyber'): ?>
                                         <option value="Cyber Threat Intelligence">Cyber Threat Intelligence</option>
                                         <option value="Vulnerability Assessment & Pen Testing">Vulnerability Assessment &amp; Pen Testing (VAPT)</option>
@@ -107,10 +107,12 @@ include_once __DIR__ . '/includes/header.php';
                             <textarea id="message" name="message" rows="4" required placeholder="Describe your requirement in brief. All submissions are encrypted and kept strictly confidential under NDA." style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit; resize: vertical;"></textarea>
                         </div>
 
+                        <?php if (defined('ENABLE_RECAPTCHA') && ENABLE_RECAPTCHA): ?>
                         <!-- Google reCAPTCHA -->
                         <div class="recaptcha-wrapper" style="margin-bottom: 1.5rem;">
                             <div class="g-recaptcha" data-sitekey="<?= sanitize_out(RECAPTCHA_SITE_KEY) ?>" data-theme="dark"></div>
                         </div>
+                        <?php endif; ?>
 
                         <button type="submit" class="btn primary-btn" style="cursor: pointer; border: none; width: 100%; justify-content: center; font-size: 1.05rem;">
                             Submit Confidential Request ➔

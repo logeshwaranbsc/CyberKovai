@@ -125,9 +125,9 @@ $cyberClientTypes = [
 
 // 4 Credentials / Accreditations (Original)
 $accreds = [
-    ['img' => 'assets/images/aid.webp',   'alt' => 'AID - Association of Investigators and Detectives'],
-    ['img' => 'assets/images/tapdi.webp', 'alt' => 'TAPDI - Tamilnadu Association of Professional Detectives and Investigators'],
-    ['img' => 'assets/images/apdi.webp',  'alt' => 'APDI - Association of Professional Detectives & Investigators'],
+    ['img' => 'assets/images/aid.png',   'alt' => 'AID - Association of Investigators and Detectives'],
+    ['img' => 'assets/images/tapdi.png', 'alt' => 'TAPDI - Tamilnadu Association of Professional Detectives and Investigators'],
+    ['img' => 'assets/images/apdi.png',  'alt' => 'APDI - Association of Professional Detectives & Investigators'],
     ['img' => 'assets/images/unip.svg',   'alt' => 'UNIP - Unified Network of Investigative Professionals']
 ];
 
@@ -942,6 +942,27 @@ include_once __DIR__ . '/includes/header.php';
 
                 </div>
 
+                <!-- Featured Client Partnerships Showcase -->
+                <div class="cyber-clients-showcase">
+                    <div class="cyber-clients-showcase-label">
+                        <span class="pulse-dot"></span>
+                        <span>FEATURED CLIENT ENGAGEMENTS</span>
+                    </div>
+                    <div class="cyber-clients-logos-deck">
+                        <?php foreach ($clientLogos as $client): ?>
+                        <div class="cyber-client-card">
+                            <div class="cyber-client-logo-box">
+                                <img src="<?= sanitize_out($client['img']) ?>" alt="<?= sanitize_out($client['alt']) ?>" class="cyber-client-logo-img" loading="lazy">
+                            </div>
+                            <div class="cyber-client-meta">
+                                <h4><?= sanitize_out($client['name']) ?></h4>
+                                <span class="cyber-client-cat"><?= sanitize_out($client['category']) ?></span>
+                            </div>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+
             </div>
 
         </section>
@@ -1215,23 +1236,23 @@ include_once __DIR__ . '/includes/header.php';
                             
                             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; margin-bottom: 1.2rem;">
                                 <div>
-                                    <label for="name" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">Your Name *</label>
+                                    <label for="name" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">Your Name / Pseudonym *</label>
                                     <input type="text" id="name" name="name" required placeholder="John Doe" style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit;">
                                 </div>
                                 <div>
-                                    <label for="email" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">Work Email Address *</label>
+                                    <label for="email" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">Secure Email Address *</label>
                                     <input type="email" id="email" name="email" required placeholder="john@company.com" style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit;">
                                 </div>
                             </div>
 
                             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; margin-bottom: 1.2rem;">
                                 <div>
-                                    <label for="phone" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">Phone Number *</label>
-                                    <input type="tel" id="phone" name="phone" required placeholder="+91 98765 43210" style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit;">
+                                    <label for="phone" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">Phone / WhatsApp / Signal *</label>
+                                    <input type="tel" id="phone" name="phone" required placeholder="+91 63820 19821" style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit;">
                                 </div>
                                 <div>
-                                    <label for="service" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">Service Required</label>
-                                    <select id="service" name="service" style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit;">
+                                    <label for="service" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">Service Required *</label>
+                                    <select id="service" name="service" required style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit;">
                                         <option value="">Select a Cybersecurity Practice</option>
                                         <?php foreach ($cyberFormServices as $formService): ?>
                                             <option value="<?= sanitize_out($formService) ?>"><?= sanitize_out($formService) ?></option>
@@ -1241,14 +1262,16 @@ include_once __DIR__ . '/includes/header.php';
                             </div>
 
                             <div style="margin-bottom: 1.5rem;">
-                                <label for="message" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">Security Scope / Assessment Requirements *</label>
+                                <label for="message" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">Confidential Details / Message *</label>
                                 <textarea id="message" name="message" rows="4" required placeholder="Describe your web/mobile/cloud environment, compliance deadline, or specific testing requirements..." style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit; resize: vertical;"></textarea>
                             </div>
 
+                            <?php if (defined('ENABLE_RECAPTCHA') && ENABLE_RECAPTCHA): ?>
                             <!-- Google reCAPTCHA -->
                             <div class="recaptcha-wrapper" style="margin-bottom: 1.5rem;">
                                 <div class="g-recaptcha" data-sitekey="<?= sanitize_out(RECAPTCHA_SITE_KEY) ?>" data-theme="dark"></div>
                             </div>
+                            <?php endif; ?>
 
                             <button type="submit" class="btn primary-btn" style="cursor: pointer; border: none; width: 100%; justify-content: center; font-size: 1.05rem;">
                                 Request Security Assessment ➔

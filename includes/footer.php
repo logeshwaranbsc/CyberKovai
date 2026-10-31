@@ -55,9 +55,6 @@ $teamUrl = $teamUrl ?? ($basePrefix . 'team.php?section=' . ($activeSection ?? '
                 <?php endif; ?>
 
                 <div class="social-links">
-                    <a href="#" aria-label="Facebook">f</a>
-                    <a href="#" aria-label="Twitter">x</a>
-                    <a href="#" aria-label="Instagram">◎</a>
                     <a href="#" aria-label="LinkedIn">in</a>
                 </div>
 
@@ -83,14 +80,14 @@ $teamUrl = $teamUrl ?? ($basePrefix . 'team.php?section=' . ($activeSection ?? '
                 }
                 foreach ($investigationServices as $svc): 
                 ?>
-                    <a href="<?= $basePrefix ?>services/<?= sanitize_out($svc['slug']) ?>.php?section=forensics"><?= sanitize_out($svc['title']) ?></a>
+                    <a href="<?= $basePrefix ?>services/<?= sanitize_out($svc['slug']) ?>.php?section=forensics"><?= sanitize_out($svc['short'] ?? $svc['title']) ?></a>
                 <?php endforeach; ?>
             </div>
 
             <div class="footer-column">
                 <h4>Contact Information</h4>
                 <p class="reach-item">📍 Coimbatore, Tamil Nadu, India</p>
-                <p class="reach-item">📞 +91 98765 43210</p>
+                <p class="reach-item">📞 +91 63820 19821</p>
                 <p class="reach-item">✉️ info@cyberkovai.com</p>
                 <div style="margin-top:0.75rem;">
                     <a href="<?= $contactUrl ?>" class="btn primary-btn" style="padding: 9px 18px; font-size: 11px; letter-spacing: 0.05em;">

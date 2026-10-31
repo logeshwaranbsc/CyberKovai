@@ -390,33 +390,47 @@ include_once __DIR__ . '/includes/header.php';
                 <div class="svc-booking-form-wrapper">
                     <form id="contactForm" action="<?= $basePrefix ?>process-contact.php" method="POST" class="svc-contact-form">
                         <div id="formResponse" style="display: none; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; font-weight: 500;"></div>
-                        <input type="hidden" name="service_interest" value="<?= sanitize_out($service['title']) ?>">
+                        <div class="form-group">
+                            <label for="service">Service Required *</label>
+                            <select id="service" name="service" required>
+                                <option value="<?= sanitize_out($service['title']) ?>" selected><?= sanitize_out($service['title']) ?></option>
+                                <?php if (!empty($services) && is_array($services)): ?>
+                                    <?php foreach ($services as $svcItem): ?>
+                                        <?php if (!empty($svcItem['title']) && $svcItem['title'] !== $service['title']): ?>
+                                            <option value="<?= sanitize_out($svcItem['title']) ?>"><?= sanitize_out($svcItem['title']) ?></option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </select>
+                        </div>
                         
                         <div class="form-group">
-                            <label for="client_name">Full Name *</label>
+                            <label for="client_name">Your Name / Pseudonym *</label>
                             <input type="text" id="client_name" name="name" required placeholder="e.g. John Doe">
                         </div>
 
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="client_email">Corporate Email *</label>
+                                <label for="client_email">Secure Email Address *</label>
                                 <input type="email" id="client_email" name="email" required placeholder="john@company.com">
                             </div>
                             <div class="form-group">
-                                <label for="client_phone">Phone Number *</label>
-                                <input type="tel" id="client_phone" name="phone" required placeholder="+91 98765 43210">
+                                <label for="client_phone">Phone / WhatsApp / Signal *</label>
+                                <input type="tel" id="client_phone" name="phone" required placeholder="+91 63820 19821">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="client_scope">Target Architecture / Scope Details</label>
-                            <textarea id="client_scope" name="message" rows="3" placeholder="Briefly describe your systems, compliance requirements (e.g., ISO, PCI, SOC 2), or audit timelines..."></textarea>
+                            <label for="client_scope">Confidential Details / Message *</label>
+                            <textarea id="client_scope" name="message" rows="3" required placeholder="Describe your requirement in brief. All submissions are encrypted and kept strictly confidential under NDA."></textarea>
                         </div>
 
+                        <?php if (defined('ENABLE_RECAPTCHA') && ENABLE_RECAPTCHA): ?>
                         <!-- Google reCAPTCHA -->
                         <div class="form-group recaptcha-wrapper" style="margin-bottom: 1.5rem;">
                             <div class="g-recaptcha" data-sitekey="<?= sanitize_out(RECAPTCHA_SITE_KEY) ?>" data-theme="dark"></div>
                         </div>
+                        <?php endif; ?>
 
                         <button type="submit" class="btn primary-btn svc-submit-btn">
                             Request Confidential Audit Proposal ➔

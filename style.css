@@ -3947,25 +3947,53 @@ button {
 }
 
 .credentials-grid {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     align-items: center;
-    flex-wrap: wrap;
-    gap: 28px;
-    max-width: 980px;
-    margin: 1rem auto 0;
+    justify-content: center;
+    gap: 20px;
+    max-width: 1140px;
+    margin: 1.5rem auto 0;
     padding: 12px 0;
+    width: 100%;
 }
 
 .credentials-card {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(13, 11, 26, 0.85);
+    border: 1px solid rgba(139, 32, 255, 0.28);
+    border-radius: 16px;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(139, 32, 255, 0.05);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.credentials-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(196, 75, 255, 0.65);
+    box-shadow: 0 12px 35px rgba(139, 32, 255, 0.28);
 }
 
 .credentials-grid .badge-card {
-    width: 215px;
-    height: 84px;
+    width: 100%;
+    max-width: 220px;
+    height: 76px;
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    transition: transform 0.25s ease;
+}
+
+.credentials-card:hover .badge-card {
+    transform: scale(1.02);
 }
 
 .badge-card {
@@ -3990,11 +4018,37 @@ button {
 
 .badge-img {
     max-height: 48px;
-    max-width: 150px;
+    max-width: 155px;
     width: auto;
     height: auto;
     object-fit: contain;
     display: block;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12));
+}
+
+@media (max-width: 992px) {
+    .credentials-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+    }
+    .credentials-card {
+        padding: 10px 8px;
+    }
+    .credentials-grid .badge-card {
+        height: 66px;
+        padding: 6px 10px;
+    }
+    .badge-img {
+        max-height: 38px;
+        max-width: 120px;
+    }
+}
+
+@media (max-width: 640px) {
+    .credentials-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
 }
 
 /* =========================================
@@ -4911,61 +4965,148 @@ button {
     margin-top: 4px;
 }
 
-/* PRINCIPLES SECTION (5 CARDS) */
+/* PRINCIPLES THAT DEFINE OUR INVESTIGATIONS (8 CARDS - 4x2 GRID) */
 .principles-section {
-    padding: 4rem 0;
+    position: relative;
+    padding: 5.5rem 0 6rem;
+    background: #080616;
+    overflow: hidden;
+}
+
+.principles-ambient-glow {
+    position: absolute;
+    top: -150px;
+    right: -100px;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.18) 0%, rgba(139, 92, 246, 0.05) 50%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.principles-ambient-glow::after {
+    content: "";
+    position: absolute;
+    top: 30%;
+    right: 15%;
+    width: 450px;
+    height: 150px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(192, 132, 252, 0.3) 0%, transparent 70%);
+    transform: rotate(-35deg);
+    filter: blur(40px);
+}
+
+.principles-header {
+    position: relative;
+    z-index: 2;
+    text-align: left;
+    margin-bottom: 3rem;
+}
+
+.principles-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: #c084fc;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    font-family: 'Space Grotesk', monospace, sans-serif;
+}
+
+.principles-tag-line {
+    display: inline-block;
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, #c084fc, #ec4899);
+    border-radius: 2px;
+}
+
+.principles-header h2 {
+    font-size: clamp(2.1rem, 3.4vw, 2.9rem);
+    font-weight: 800;
+    line-height: 1.2;
+    color: #ffffff;
+    margin: 0 0 0.95rem 0;
+    letter-spacing: -0.02em;
+}
+
+.principles-header p {
+    font-size: 0.98rem;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 680px;
+    margin: 0;
 }
 
 .principles-grid {
+    position: relative;
+    z-index: 2;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 18px;
-    margin-top: 2.5rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.35rem;
+    margin-top: 0;
 }
 
 .principle-card {
-    background: rgba(13, 13, 35, 0.6);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    padding: 2rem 1.3rem;
-    backdrop-filter: blur(16px);
-    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    background: rgba(14, 10, 32, 0.65);
+    border: 1px solid rgba(139, 92, 246, 0.22);
+    border-radius: 16px;
+    padding: 1.85rem 1.45rem;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    box-sizing: border-box;
 }
 
 .principle-card:hover {
-    transform: translateY(-6px);
-    border-color: var(--purple-light);
-    background: rgba(184, 77, 255, 0.08);
-    box-shadow: 0 15px 35px rgba(139, 32, 255, 0.22);
+    transform: translateY(-5px);
+    border-color: rgba(192, 132, 252, 0.55);
+    background: rgba(22, 16, 52, 0.85);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 25px rgba(168, 85, 247, 0.22);
 }
 
 .principle-icon-box {
-    width: 46px;
-    height: 46px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
     border-radius: 12px;
-    background: rgba(139, 32, 255, 0.18);
-    border: 1px solid rgba(184, 77, 255, 0.35);
+    background: rgba(168, 85, 247, 0.1);
+    border: 1px solid rgba(168, 85, 247, 0.32);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--purple-light);
-    margin-bottom: 1.2rem;
+    color: #c084fc;
+    margin-bottom: 1.3rem;
     flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.principle-card:hover .principle-icon-box {
+    border-color: rgba(192, 132, 252, 0.65);
+    background: rgba(168, 85, 247, 0.2);
+    box-shadow: 0 0 16px rgba(168, 85, 247, 0.35);
 }
 
 .principle-card h3 {
     font-size: 1.05rem;
     font-weight: 700;
-    margin-bottom: 0.6rem;
+    margin: 0 0 0.65rem 0;
     color: #ffffff;
+    line-height: 1.35;
 }
 
 .principle-card p {
-    font-size: 0.84rem;
-    line-height: 1.6;
-    color: var(--text-secondary);
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.64);
+    margin: 0;
 }
 
 /* WHAT SETS US APART SECTION (6 CARDS GRID) */
@@ -5451,7 +5592,7 @@ button {
 /* RESPONSIVE BREAKPOINTS FOR ABOUT PAGE */
 @media (max-width: 1024px) {
     .principles-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .apart-grid {
@@ -5766,6 +5907,97 @@ button {
     margin: 0;
 }
 
+/* Dynamic Hero Service Text Rotator */
+/* =========================================
+   CYBER INVESTIGATION — HERO TYPEWRITER ROTATOR
+   Typewriter animation: Deleting backwards letter-by-letter & typing forwards letter-by-letter
+========================================= */
+.ci-hero-rotator,
+.ci-typewriter-rotator {
+    display: inline-flex;
+    align-items: baseline;
+    position: relative;
+    vertical-align: top;
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+    min-height: 1.2em;
+    white-space: nowrap;
+}
+
+.ci-typewriter-text {
+    display: inline;
+    white-space: pre;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #7b2ff7 0%, #c84bff 50%, #4a9eff 100%);
+    background-size: 220% 220%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: ciGradientShimmer 8s ease infinite;
+}
+
+/* Cybernetic Neon Typing Cursor */
+.ci-typewriter-cursor {
+    display: inline-block;
+    width: 3px;
+    height: 0.92em;
+    margin-left: 4px;
+    vertical-align: -0.06em;
+    background: #00f0ff;
+    border-radius: 2px;
+    box-shadow: 0 0 10px #00f0ff, 0 0 20px rgba(0, 240, 255, 0.7);
+    animation: ciCursorBlink 0.85s steps(2, start) infinite;
+    pointer-events: none;
+    flex-shrink: 0;
+}
+
+/* While actively typing or deleting, cursor stays solid (no blink distraction) */
+.ci-typewriter-rotator.is-typing .ci-typewriter-cursor,
+.ci-typewriter-rotator.is-deleting .ci-typewriter-cursor {
+    animation: none;
+    opacity: 1;
+}
+
+@keyframes ciCursorBlink {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0; }
+}
+
+@keyframes ciGradientShimmer {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Legacy kinetic rotator fallback support */
+.ci-rotator-viewport {
+    display: inline-block;
+    position: relative;
+    white-space: nowrap;
+}
+
+.ci-rotator-word {
+    display: inline-block;
+    background: linear-gradient(135deg, #7b2ff7 0%, #c84bff 50%, #4a9eff 100%);
+    background-size: 220% 220%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Reduced Motion Fallback */
+@media (prefers-reduced-motion: reduce) {
+    .ci-typewriter-text {
+        animation: none !important;
+    }
+    .ci-typewriter-cursor {
+        animation: none !important;
+        opacity: 0.85;
+    }
+}
+
 .ci-hero-desc {
     font-size: 1.02rem;
     color: var(--text-secondary);
@@ -5875,6 +6107,169 @@ button {
     transition: transform 0.15s ease-out;
 }
 
+/* Investigation Intelligence Core (Zero Logo - High-Precision Forensic Matrix) */
+.ci-intel-stage {
+    position: relative;
+    z-index: 4;
+    width: 210px;
+    height: 210px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: perspective(800px) rotateY(calc(var(--rx)*16deg)) rotateX(calc(var(--ry)*-12deg));
+    transition: transform 0.15s ease-out;
+}
+
+/* Multi-Layer Ambient Radial Glow */
+.ci-intel-ambient-glow {
+    position: absolute;
+    width: 230px;
+    height: 230px;
+    top: 50%;
+    left: 50%;
+    margin-top: -115px;
+    margin-left: -115px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,75,255,0.45) 0%, rgba(123,47,247,0.22) 42%, rgba(0,240,255,0.08) 62%, transparent 75%);
+    animation: ciIntelGlowPulse 3.5s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes ciIntelGlowPulse {
+    0%   { transform: scale(0.92); opacity: 0.72; }
+    100% { transform: scale(1.18); opacity: 0.98; }
+}
+
+/* Tactical HUD Reticle with Dual Counter-Rotating Radar Rings */
+.ci-intel-reticle-svg {
+    position: absolute;
+    width: 210px;
+    height: 210px;
+    top: 50%;
+    left: 50%;
+    margin-top: -105px;
+    margin-left: -105px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.ci-radar-spin-cw {
+    transform-origin: 80px 80px;
+    animation: ciRadarSpinCW 22s linear infinite;
+}
+
+.ci-radar-spin-ccw {
+    transform-origin: 80px 80px;
+    animation: ciRadarSpinCCW 28s linear infinite;
+}
+
+@keyframes ciRadarSpinCW {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+@keyframes ciRadarSpinCCW {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(-360deg); }
+}
+
+/* Central Investigation Emblem Wrapper */
+.ci-intel-emblem-wrap {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: ciIntelFloat 4.8s ease-in-out infinite;
+    cursor: pointer;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease;
+}
+
+@keyframes ciIntelFloat {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-7px); }
+}
+
+.ci-hero-visual:hover .ci-intel-emblem-wrap {
+    transform: scale(1.06) translateY(-4px);
+}
+
+.ci-hero-visual:hover .ci-intel-ambient-glow {
+    transform: scale(1.32);
+    opacity: 1;
+}
+
+/* Forensic Badge SVG */
+.ci-forensic-badge-svg {
+    width: 125px;
+    height: 145px;
+    display: block;
+    filter: drop-shadow(0 0 22px rgba(200, 75, 255, 0.65)) drop-shadow(0 0 42px rgba(123, 47, 247, 0.45));
+    transition: filter 0.35s ease;
+}
+
+.ci-hero-visual:hover .ci-forensic-badge-svg {
+    filter: drop-shadow(0 0 32px rgba(200, 75, 255, 0.95)) drop-shadow(0 0 55px rgba(0, 240, 255, 0.55));
+}
+
+/* Forensic Laser Scan Animation */
+.ci-laser-scan-group {
+    animation: ciLaserScan 2.4s ease-in-out infinite alternate;
+    transform-origin: 65px 73px;
+}
+
+@keyframes ciLaserScan {
+    0%   { transform: translateY(-24px); opacity: 0.3; }
+    20%  { opacity: 1; }
+    80%  { opacity: 1; }
+    100% { transform: translateY(24px); opacity: 0.3; }
+}
+
+/* Live Investigation Telemetry Status Pill */
+.ci-intel-core-status {
+    margin-top: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    border-radius: 50px;
+    background: rgba(14, 11, 32, 0.94);
+    border: 1px solid rgba(200, 75, 255, 0.45);
+    box-shadow: 0 4px 16px rgba(139, 32, 255, 0.35);
+    backdrop-filter: blur(8px);
+    white-space: nowrap;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ci-hero-visual:hover .ci-intel-core-status {
+    border-color: rgba(0, 240, 255, 0.7);
+    box-shadow: 0 4px 20px rgba(0, 240, 255, 0.4);
+}
+
+.ci-intel-core-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #00f0ff;
+    box-shadow: 0 0 8px #00f0ff;
+    animation: ciCoreDotPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes ciCoreDotPulse {
+    0%, 100% { transform: scale(0.9); opacity: 0.7; }
+    50%      { transform: scale(1.3); opacity: 1; box-shadow: 0 0 12px #00f0ff; }
+}
+
+.ci-intel-core-txt {
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: #e9dcff;
+    text-transform: uppercase;
+}
+
 .ci-shield-glow {
     position: absolute;
     width: 210px;
@@ -5923,11 +6318,12 @@ button {
 }
 
 /* SVG data lines */
+.ci-hero-visual .ci-data-lines,
 .ci-data-lines {
     position: absolute;
-    inset: -100%;
-    width: 300%;
-    height: 300%;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     z-index: 2;
     pointer-events: none;
     opacity: 0.65;
@@ -6048,7 +6444,7 @@ button {
 
 .ci-showcase-section {
     position: relative;
-    padding: 3.5rem 0 3.2rem;
+    padding: 2.4rem 0 2rem;
     background: radial-gradient(circle at 50% 20%, rgba(26, 12, 54, 0.45) 0%, rgba(5, 5, 17, 0.98) 75%);
     overflow: hidden;
 }
@@ -6058,10 +6454,10 @@ button {
     top: 35%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 1000px;
-    height: 550px;
-    background: radial-gradient(ellipse, rgba(139, 32, 255, 0.20) 0%, rgba(0, 240, 255, 0.08) 45%, transparent 75%);
-    filter: blur(90px);
+    width: 850px;
+    height: 380px;
+    background: radial-gradient(ellipse, rgba(139, 32, 255, 0.18) 0%, rgba(0, 240, 255, 0.07) 45%, transparent 75%);
+    filter: blur(75px);
     pointer-events: none;
     z-index: 0;
 }
@@ -6070,12 +6466,12 @@ button {
 .ci-showcase-wrapper {
     position: relative;
     z-index: 2;
-    margin-top: 1.8rem;
-    border-radius: 26px;
+    margin-top: 1.2rem;
+    border-radius: 18px;
     background: rgba(9, 10, 26, 0.6);
     border: 1px solid rgba(139, 32, 255, 0.28);
-    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6), 0 0 40px rgba(139, 32, 255, 0.12);
-    padding: 12px;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55), 0 0 30px rgba(139, 32, 255, 0.12);
+    padding: 10px;
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
 }
@@ -6084,10 +6480,10 @@ button {
 .ci-showcase-panels {
     display: flex;
     width: 100%;
-    height: 580px;
-    border-radius: 18px;
+    height: 410px;
+    border-radius: 12px;
     overflow: hidden;
-    gap: 8px;
+    gap: 7px;
     position: relative;
 }
 
@@ -6095,12 +6491,14 @@ button {
 .ci-panel {
     position: relative;
     flex: 1;
-    min-width: 80px;
-    border-radius: 14px;
+    min-width: 64px;
+    max-width: 105px;
+    border-radius: 12px;
     overflow: hidden;
     cursor: pointer;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    transition: flex 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transition: flex 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                max-width 0.65s cubic-bezier(0.16, 1, 0.3, 1),
                 border-color 0.4s ease,
                 box-shadow 0.4s ease;
     outline: none;
@@ -6114,10 +6512,12 @@ button {
 
 /* Active Expanded Panel */
 .ci-panel.ci-panel-active {
-    flex: 3.8;
+    flex: 5.2;
+    min-width: 440px;
+    max-width: 100%;
     border-color: rgba(196, 75, 255, 0.6);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(139, 32, 255, 0.3);
-    cursor: default;
+    cursor: pointer;
 }
 
 /* Inactive Panel Hover */
@@ -6135,13 +6535,13 @@ button {
     background-repeat: no-repeat;
     transform: scale(1);
     transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
-    filter: saturate(0.85) brightness(0.7);
+    filter: saturate(0.95) brightness(0.75);
     z-index: 1;
 }
 
 .ci-panel.ci-panel-active .ci-panel-bg {
-    transform: scale(1.08);
-    filter: saturate(1.1) brightness(0.85);
+    transform: scale(1.06);
+    filter: saturate(1.15) brightness(0.88);
 }
 
 /* Cyber Overlay Gradient */
@@ -6155,9 +6555,9 @@ button {
 
 .ci-panel:not(.ci-panel-active) .ci-panel-overlay {
     background: linear-gradient(180deg,
-        rgba(5, 6, 18, 0.75) 0%,
-        rgba(7, 8, 22, 0.90) 60%,
-        rgba(5, 5, 17, 0.96) 100%);
+        rgba(5, 6, 18, 0.68) 0%,
+        rgba(7, 8, 22, 0.80) 60%,
+        rgba(5, 5, 17, 0.92) 100%);
 }
 
 .ci-panel.ci-panel-active .ci-panel-overlay {
@@ -6257,7 +6657,7 @@ button {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding: 24px 10px;
+    padding: 14px 6px;
     transition: opacity 0.3s ease, transform 0.3s ease;
     pointer-events: none;
 }
@@ -6275,20 +6675,20 @@ button {
 
 .ci-panel-num {
     font-family: 'Space Grotesk', monospace;
-    font-size: 1.8rem;
+    font-size: 1.25rem;
     font-weight: 800;
     background: linear-gradient(180deg, #ffffff 0%, rgba(200, 75, 255, 0.7) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     line-height: 1;
-    letter-spacing: -1px;
+    letter-spacing: -0.5px;
 }
 
 .ci-panel-icon-badge {
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
+    width: 35px;
+    height: 35px;
+    border-radius: 9px;
     background: rgba(13, 14, 38, 0.85);
     border: 1px solid rgba(184, 77, 255, 0.35);
     display: flex;
@@ -6297,6 +6697,11 @@ button {
     color: var(--orchid);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     transition: all 0.3s ease;
+}
+
+.ci-panel-icon-badge svg {
+    width: 17px;
+    height: 17px;
 }
 
 .ci-panel:hover .ci-panel-icon-badge {
@@ -6310,14 +6715,14 @@ button {
     writing-mode: vertical-rl;
     transform: rotate(180deg);
     font-family: 'Space Grotesk', monospace;
-    font-size: 0.88rem;
+    font-size: 0.74rem;
     font-weight: 700;
-    letter-spacing: 2px;
+    letter-spacing: 1.4px;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(255, 255, 255, 0.78);
     white-space: nowrap;
     transition: color 0.3s ease;
-    margin: 12px 0;
+    margin: 8px 0;
 }
 
 .ci-panel:hover .ci-panel-short-title {
@@ -6327,15 +6732,15 @@ button {
 .ci-panel-expand-pill {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
     font-family: 'Space Grotesk', monospace;
-    font-size: 0.62rem;
+    font-size: 0.54rem;
     font-weight: 700;
-    letter-spacing: 1.2px;
+    letter-spacing: 0.9px;
     color: var(--orchid);
-    background: rgba(139, 32, 255, 0.12);
-    border: 1px solid rgba(184, 77, 255, 0.3);
-    padding: 4px 10px;
+    background: rgba(139, 32, 255, 0.14);
+    border: 1px solid rgba(184, 77, 255, 0.32);
+    padding: 3px 8px;
     border-radius: 50px;
     white-space: nowrap;
 }
@@ -6359,8 +6764,7 @@ button {
     z-index: 4;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    padding: 2.2rem 2.6rem;
+    padding: 1.25rem 1.6rem 1.15rem;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.35s ease;
@@ -6378,39 +6782,39 @@ button {
 .ci-panel-caps,
 .ci-panel-exp-footer {
     opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(12px);
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .ci-panel.ci-panel-active .ci-panel-exp-header {
     opacity: 1;
     transform: translateY(0);
-    transition-delay: 0.12s;
+    transition-delay: 0.10s;
 }
 
 .ci-panel.ci-panel-active .ci-panel-exp-title {
     opacity: 1;
     transform: translateY(0);
-    transition-delay: 0.20s;
+    transition-delay: 0.16s;
 }
 
 .ci-panel.ci-panel-active .ci-panel-exp-desc {
     opacity: 1;
     transform: translateY(0);
-    transition-delay: 0.26s;
+    transition-delay: 0.22s;
 }
 
 .ci-panel.ci-panel-active .ci-panel-caps {
     opacity: 1;
     transform: translateY(0);
-    transition-delay: 0.32s;
+    transition-delay: 0.28s;
 }
 
 .ci-panel.ci-panel-active .ci-panel-exp-footer {
     opacity: 1;
     transform: translateY(0);
-    transition-delay: 0.38s;
+    transition-delay: 0.34s;
 }
 
 /* Header: Number, Sector Badge, Live Status & Icon */
@@ -6418,34 +6822,34 @@ button {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 16px;
-    margin-bottom: 0.8rem;
+    gap: 12px;
+    margin-bottom: 0.45rem;
 }
 
 .ci-panel-tag-group {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     flex-wrap: wrap;
 }
 
 .ci-panel-exp-num {
     font-family: 'Space Grotesk', monospace;
-    font-size: 1.15rem;
+    font-size: 1.02rem;
     font-weight: 800;
     color: var(--orchid);
-    padding: 3px 10px;
+    padding: 2px 8px;
     background: rgba(139, 32, 255, 0.15);
     border: 1px solid rgba(184, 77, 255, 0.35);
-    border-radius: 6px;
+    border-radius: 5px;
 }
 
 .ci-panel-exp-badge {
     font-family: 'Space Grotesk', monospace;
-    font-size: 0.68rem;
+    font-size: 0.62rem;
     font-weight: 700;
-    letter-spacing: 1.2px;
-    padding: 4px 12px;
+    letter-spacing: 1px;
+    padding: 3px 9px;
     border-radius: 50px;
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.12);
@@ -6456,17 +6860,17 @@ button {
 .ci-panel-exp-status {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
     font-family: 'Space Grotesk', monospace;
-    font-size: 0.68rem;
+    font-size: 0.62rem;
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 0.8px;
     color: #10b981;
 }
 
 .status-pulse-dot {
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
     animation: statusPulse 1.6s ease-in-out infinite alternate;
 }
@@ -6477,59 +6881,65 @@ button {
 }
 
 .ci-panel-exp-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
     background: linear-gradient(135deg, rgba(100, 23, 201, 0.4), rgba(169, 50, 255, 0.2));
     border: 1px solid rgba(184, 77, 255, 0.4);
     display: flex;
     align-items: center;
     justify-content: center;
     color: #ffffff;
-    box-shadow: 0 0 16px rgba(139, 32, 255, 0.35);
+    box-shadow: 0 0 12px rgba(139, 32, 255, 0.35);
+}
+
+.ci-panel-exp-icon svg {
+    width: 17px;
+    height: 17px;
 }
 
 /* Title & Description */
 .ci-panel-exp-title {
-    font-size: clamp(1.45rem, 2.1vw, 2.05rem);
+    font-size: clamp(1.18rem, 1.45vw, 1.5rem);
     font-weight: 800;
     color: #ffffff;
     line-height: 1.2;
-    margin: 0 0 0.55rem;
-    letter-spacing: -0.5px;
+    margin: 0 0 0.35rem;
+    letter-spacing: -0.3px;
     max-width: 620px;
 }
 
 .ci-panel-exp-desc {
-    font-size: 0.90rem;
+    font-size: 0.82rem;
     color: rgba(255, 255, 255, 0.82);
-    line-height: 1.55;
+    line-height: 1.42;
     max-width: 580px;
-    margin: 0 0 0.85rem;
+    margin: 0 0 0.55rem;
 }
 
 /* Capabilities Tags */
 .ci-panel-caps {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 0.9rem;
+    gap: 5px;
+    margin-bottom: 0.55rem;
 }
 
 .ci-cap-tag {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
     font-family: 'Space Grotesk', monospace;
-    font-size: 0.72rem;
+    font-size: 0.67rem;
     font-weight: 600;
     color: rgba(255, 255, 255, 0.88);
     background: rgba(13, 14, 38, 0.7);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 5px 12px;
-    border-radius: 6px;
+    padding: 3px 8px;
+    border-radius: 5px;
     backdrop-filter: blur(8px);
     transition: all 0.25s ease;
+    white-space: nowrap;
 }
 
 .ci-cap-tag:hover {
@@ -6540,11 +6950,11 @@ button {
 }
 
 .ci-cap-dot {
-    width: 5px;
-    height: 5px;
+    width: 4px;
+    height: 4px;
     border-radius: 50%;
     background: var(--orchid);
-    box-shadow: 0 0 6px var(--orchid);
+    box-shadow: 0 0 5px var(--orchid);
 }
 
 /* Metric Box & CTA Footer */
@@ -6552,51 +6962,61 @@ button {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 20px;
-    padding-top: 1.2rem;
+    gap: 14px;
+    padding-top: 0.7rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    margin-top: auto;
 }
 
 .ci-panel-metric-box {
     display: flex;
     flex-direction: column;
     gap: 2px;
+    min-width: 0;
+    flex: 1 1 auto;
 }
 
 .ci-metric-value {
     font-family: 'Space Grotesk', monospace;
-    font-size: 1.15rem;
+    font-size: 1.02rem;
     font-weight: 800;
     color: #10b981;
     letter-spacing: -0.3px;
     text-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .ci-metric-sub {
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .ci-panel-cta {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    font-size: 0.88rem;
+    gap: 7px;
+    font-size: 0.80rem;
     font-weight: 700;
     color: #ffffff;
     background: linear-gradient(135deg, #6417c9, #a932ff);
-    padding: 0.72rem 1.6rem;
+    padding: 0.54rem 1.25rem;
     border-radius: 50px;
     text-decoration: none;
-    box-shadow: 0 0 20px rgba(139, 32, 255, 0.4);
+    box-shadow: 0 0 16px rgba(139, 32, 255, 0.4);
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .ci-panel-cta:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 28px rgba(139, 32, 255, 0.65);
+    box-shadow: 0 6px 24px rgba(139, 32, 255, 0.65);
     background: linear-gradient(135deg, #741ee4, #b944ff);
     color: #ffffff;
 }
@@ -6609,72 +7029,75 @@ button {
 @media (max-width: 992px) {
     .ci-showcase-wrapper {
         padding: 8px;
-        margin-top: 2rem;
+        margin-top: 1.4rem;
     }
 
     .ci-showcase-panels {
         flex-direction: column;
         height: auto;
-        gap: 10px;
+        gap: 8px;
     }
 
     .ci-panel {
         flex: none !important;
-        min-width: 100%;
-        height: 72px;
-        border-radius: 12px;
+        min-width: 100% !important;
+        max-width: 100% !important;
+        height: 56px;
+        border-radius: 10px;
         transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1),
                     border-color 0.3s ease;
     }
 
     .ci-panel.ci-panel-active {
-        height: 520px;
+        height: auto;
+        min-height: 390px;
     }
 
     /* In vertical accordion mode, collapsed state is a horizontal row */
     .ci-panel-collapsed {
         flex-direction: row;
         justify-content: space-between;
-        padding: 14px 20px;
+        padding: 12px 16px;
     }
 
     .ci-panel-short-title {
         writing-mode: horizontal-tb;
         transform: none;
         margin: 0;
-        font-size: 0.95rem;
+        font-size: 0.88rem;
     }
 
     .ci-panel-num {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
     }
 
     .ci-panel-icon-badge {
-        width: 36px;
-        height: 36px;
+        width: 30px;
+        height: 30px;
     }
 
     .ci-panel-expanded {
-        padding: 1.8rem 1.8rem;
+        padding: 1.3rem 1.3rem;
     }
 
     .ci-panel-exp-title {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
     }
 
     .ci-panel-exp-desc {
-        font-size: 0.88rem;
-        line-height: 1.55;
+        font-size: 0.82rem;
+        line-height: 1.42;
     }
 }
 
 @media (max-width: 576px) {
     .ci-panel.ci-panel-active {
-        height: 580px;
+        height: auto;
+        min-height: 420px;
     }
 
     .ci-panel-expanded {
-        padding: 1.4rem 1.2rem;
+        padding: 1.1rem 0.95rem;
     }
 
     .ci-panel-exp-header {
@@ -6686,26 +7109,26 @@ button {
     }
 
     .ci-panel-exp-title {
-        font-size: 1.3rem;
+        font-size: 1.15rem;
     }
 
     .ci-panel-exp-desc {
-        font-size: 0.84rem;
+        font-size: 0.80rem;
     }
 
     .ci-panel-caps {
-        gap: 6px;
+        gap: 5px;
     }
 
     .ci-cap-tag {
-        font-size: 0.66rem;
-        padding: 4px 8px;
+        font-size: 0.64rem;
+        padding: 3px 7px;
     }
 
     .ci-panel-exp-footer {
         flex-direction: column;
         align-items: stretch;
-        gap: 12px;
+        gap: 10px;
     }
 
     .ci-panel-cta {
@@ -6899,6 +7322,7 @@ button {
     display: flex;
     flex-direction: column;
     position: relative;
+    scroll-margin-top: 115px;
     transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
                 border-color 0.3s ease,
                 box-shadow 0.3s ease;
@@ -6908,6 +7332,74 @@ button {
     transform: translateY(-7px);
     border-color: rgba(200, 75, 255, 0.55);
     box-shadow: 0 16px 45px rgba(139, 32, 255, 0.22);
+}
+
+/* Section 2 Card Highlight (Activated on Section 1 Showcase Click) */
+.ci-svc-card.ci-svc-highlight {
+    border-color: #22d3ee !important;
+    transform: translateY(-9px) scale(1.025);
+    box-shadow: 0 0 0 2px #22d3ee,
+                0 0 35px rgba(34, 211, 238, 0.65),
+                0 0 70px rgba(168, 85, 247, 0.45),
+                0 22px 45px rgba(0, 0, 0, 0.65) !important;
+    animation: ciSvcHighlightPulse 1.8s ease-in-out infinite alternate;
+    z-index: 5;
+}
+
+.ci-svc-card.ci-svc-highlight .ci-svc-img {
+    transform: scale(1.08);
+}
+
+.ci-svc-card.ci-svc-highlight .ci-svc-link {
+    color: #22d3ee;
+    gap: 12px;
+}
+
+.ci-svc-card.ci-svc-highlight::before {
+    content: 'SELECTED INVESTIGATION';
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 10;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #ffffff;
+    background: linear-gradient(135deg, #a855f7, #06b6d4);
+    padding: 5px 12px;
+    border-radius: 20px;
+    box-shadow: 0 0 18px rgba(34, 211, 238, 0.65), 0 4px 12px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    animation: ciBadgePop 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes ciSvcHighlightPulse {
+    0% {
+        border-color: #22d3ee;
+        box-shadow: 0 0 0 2px #22d3ee,
+                    0 0 24px rgba(34, 211, 238, 0.55),
+                    0 0 48px rgba(168, 85, 247, 0.35),
+                    0 16px 36px rgba(0, 0, 0, 0.5);
+    }
+    100% {
+        border-color: #c084fc;
+        box-shadow: 0 0 0 2.5px #c084fc,
+                    0 0 45px rgba(168, 85, 247, 0.8),
+                    0 0 80px rgba(34, 211, 238, 0.6),
+                    0 24px 50px rgba(0, 0, 0, 0.7);
+    }
+}
+
+@keyframes ciBadgePop {
+    0% {
+        opacity: 0;
+        transform: scale(0.65) translateY(-8px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
 }
 
 .ci-svc-img-wrap {
@@ -6998,14 +7490,119 @@ button {
     top: 36px;
     left: 8%;
     right: 8%;
-    height: 2px;
+    height: 3px;
     background: linear-gradient(90deg,
         rgba(139, 32, 255, 0.15) 0%,
-        rgba(200, 75, 255, 0.7) 25%,
-        rgba(200, 75, 255, 0.7) 75%,
+        rgba(184, 77, 255, 0.35) 50%,
         rgba(139, 32, 255, 0.15) 100%);
+    box-shadow: 0 0 12px rgba(139, 32, 255, 0.25);
+    border-radius: 3px;
     z-index: 1;
+    overflow: visible;
 }
+
+/* Base electric circuit stream flowing continuously through the line */
+.ci-process-flow-stream {
+    position: absolute;
+    inset: 0;
+    border-radius: 3px;
+    background: repeating-linear-gradient(
+        90deg,
+        rgba(200, 75, 255, 0.12) 0px,
+        rgba(200, 75, 255, 0.45) 15px,
+        rgba(0, 240, 255, 0.55) 30px,
+        rgba(200, 75, 255, 0.12) 45px
+    );
+    background-size: 200% 100%;
+    animation: ciProcessStream 3s linear infinite;
+    opacity: 0.65;
+}
+
+@keyframes ciProcessStream {
+    0% { background-position: 200% 0; }
+    100% { background-position: 0% 0; }
+}
+
+/* High-energy traveling beam / data packet moving across the line */
+.ci-process-glow-pulse {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 3px;
+    border-radius: 3px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.ci-process-glow-pulse.ci-pulse-primary {
+    width: 140px;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(139, 32, 255, 0.25) 25%,
+        rgba(200, 75, 255, 0.85) 60%,
+        #00f0ff 88%,
+        #ffffff 100%
+    );
+    box-shadow: 0 0 16px #00f0ff, 0 0 28px rgba(200, 75, 255, 0.85);
+    animation: ciProcessBeamTravel 3.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.ci-process-glow-pulse.ci-pulse-secondary {
+    width: 85px;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(0, 240, 255, 0.2) 30%,
+        #c84bff 70%,
+        #00f0ff 100%
+    );
+    box-shadow: 0 0 12px #00f0ff, 0 0 20px rgba(0, 240, 255, 0.6);
+    animation: ciProcessBeamTravel 3.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    animation-delay: 1.9s;
+}
+
+/* Glowing Photon Bead on Head of Beam */
+.ci-pulse-photon {
+    position: absolute;
+    right: -4px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 10px #ffffff, 0 0 18px #00f0ff, 0 0 32px #c84bff;
+}
+
+.ci-pulse-secondary .ci-pulse-photon {
+    width: 6px;
+    height: 6px;
+    background: #00f0ff;
+    box-shadow: 0 0 8px #00f0ff, 0 0 16px #c84bff;
+}
+
+@keyframes ciProcessBeamTravel {
+    0% {
+        left: -140px;
+        opacity: 0;
+    }
+    4% {
+        opacity: 1;
+    }
+    92% {
+        opacity: 1;
+    }
+    100% {
+        left: 100%;
+        opacity: 0;
+    }
+}
+
+/* Staggered sequential pulses on nodes to match packet arrival */
+.ci-process-step:nth-child(1) .ci-process-node-pulse { animation-delay: 0s; }
+.ci-process-step:nth-child(2) .ci-process-node-pulse { animation-delay: 0.8s; }
+.ci-process-step:nth-child(3) .ci-process-node-pulse { animation-delay: 1.6s; }
+.ci-process-step:nth-child(4) .ci-process-node-pulse { animation-delay: 2.4s; }
+.ci-process-step:nth-child(5) .ci-process-node-pulse { animation-delay: 3.2s; }
 
 .ci-process-track {
     display: flex;
@@ -7085,12 +7682,29 @@ button {
    CYBER RISKS
 ========================================= */
 
+/* ================================================================
+   INCIDENTS & THREATS WE INVESTIGATE (WORD-CLOUD FORMAT)
+   ================================================================ */
 .ci-risks-section {
-    background: var(--bg);
+    background: radial-gradient(circle at 50% 50%, rgba(139, 32, 255, 0.08) 0%, rgba(5, 5, 17, 0) 70%), var(--bg);
     position: relative;
-    padding: 2.8rem 0;
+    padding: 3.8rem 0;
+    overflow: hidden;
 }
 
+.ci-risks-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.65rem 0.55rem;
+    max-width: 1160px;
+    margin: 2.2rem auto 0;
+    padding: 0 10px;
+    position: relative;
+}
+
+/* Fallback row wrappers if referenced */
 .ci-risks-wrapper {
     display: flex;
     flex-direction: column;
@@ -7109,36 +7723,175 @@ button {
     max-width: 1240px;
 }
 
+/* Word Cloud Tag Base */
 .ci-risk-tag {
     display: inline-flex;
     align-items: center;
-    gap: 0.55rem;
-    padding: 0.5rem 0.95rem;
-    background: rgba(18, 14, 32, 0.75);
-    border: 1px solid rgba(139, 32, 255, 0.28);
+    gap: 0.5rem;
+    background: rgba(15, 12, 28, 0.78);
+    border: 1px solid rgba(139, 32, 255, 0.22);
     border-radius: 50px;
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.88);
     cursor: default;
-    transition: all 0.25s ease;
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.28s ease,
+                border-color 0.28s ease,
+                background 0.28s ease,
+                color 0.25s ease;
     white-space: nowrap;
+    user-select: none;
+    line-height: 1.25;
 }
 
-.ci-risk-tag:hover {
-    border-color: rgba(200, 75, 255, 0.65);
-    box-shadow: 0 0 20px rgba(200, 75, 255, 0.25);
-    transform: translateY(-2px);
+/* Typographic Hierarchy for Word Cloud */
+.ci-risk-tag.tag-xl {
+    font-size: 1.05rem;
+    font-weight: 700;
+    padding: 0.68rem 1.35rem;
+    background: rgba(28, 16, 56, 0.9);
+    border-width: 1.5px;
+    letter-spacing: -0.01em;
     color: #ffffff;
 }
 
+.ci-risk-tag.tag-lg {
+    font-size: 0.92rem;
+    font-weight: 650;
+    padding: 0.54rem 1.15rem;
+    background: rgba(22, 14, 44, 0.84);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.ci-risk-tag.tag-md {
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 0.44rem 0.95rem;
+    background: rgba(16, 12, 32, 0.78);
+    border: 1px solid rgba(139, 32, 255, 0.24);
+    color: rgba(255, 255, 255, 0.88);
+}
+
+.ci-risk-tag.tag-sm {
+    font-size: 0.74rem;
+    font-weight: 500;
+    padding: 0.34rem 0.78rem;
+    background: rgba(13, 10, 26, 0.68);
+    border: 1px solid rgba(139, 32, 255, 0.18);
+    color: rgba(255, 255, 255, 0.76);
+}
+
+/* Glowing Indicator Dots */
 .ci-risk-dot {
-    width: 7px;
-    height: 7px;
     border-radius: 50%;
-    background: #c84bff;
-    box-shadow: 0 0 8px #c84bff;
     flex-shrink: 0;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.ci-risk-tag.tag-xl .ci-risk-dot { width: 8.5px; height: 8.5px; }
+.ci-risk-tag.tag-lg .ci-risk-dot { width: 7.5px; height: 7.5px; }
+.ci-risk-tag.tag-md .ci-risk-dot { width: 6.5px; height: 6.5px; }
+.ci-risk-tag.tag-sm .ci-risk-dot { width: 5.5px; height: 5.5px; }
+
+/* Cyber Color Palettes */
+.ci-risk-tag.accent-purple {
+    border-color: rgba(192, 132, 252, 0.28);
+}
+.ci-risk-tag.accent-purple .ci-risk-dot {
+    background: #c084fc;
+    box-shadow: 0 0 8px #c084fc;
+}
+
+.ci-risk-tag.accent-cyan {
+    border-color: rgba(34, 211, 238, 0.28);
+}
+.ci-risk-tag.accent-cyan .ci-risk-dot {
+    background: #22d3ee;
+    box-shadow: 0 0 8px #22d3ee;
+}
+
+.ci-risk-tag.accent-emerald {
+    border-color: rgba(52, 211, 153, 0.28);
+}
+.ci-risk-tag.accent-emerald .ci-risk-dot {
+    background: #34d399;
+    box-shadow: 0 0 8px #34d399;
+}
+
+.ci-risk-tag.accent-amber {
+    border-color: rgba(251, 191, 36, 0.28);
+}
+.ci-risk-tag.accent-amber .ci-risk-dot {
+    background: #fbbf24;
+    box-shadow: 0 0 8px #fbbf24;
+}
+
+.ci-risk-tag.accent-rose {
+    border-color: rgba(251, 113, 133, 0.28);
+}
+.ci-risk-tag.accent-rose .ci-risk-dot {
+    background: #fb7185;
+    box-shadow: 0 0 8px #fb7185;
+}
+
+/* Hover Dynamics */
+.ci-risk-tag:hover {
+    transform: translateY(-3px) scale(1.05);
+    color: #ffffff;
+    z-index: 5;
+}
+
+.ci-risk-tag.accent-purple:hover {
+    border-color: #c084fc;
+    box-shadow: 0 0 24px rgba(192, 132, 252, 0.5), 0 8px 18px rgba(0, 0, 0, 0.5);
+    background: rgba(36, 18, 72, 0.95);
+}
+
+.ci-risk-tag.accent-cyan:hover {
+    border-color: #22d3ee;
+    box-shadow: 0 0 24px rgba(34, 211, 238, 0.5), 0 8px 18px rgba(0, 0, 0, 0.5);
+    background: rgba(14, 34, 58, 0.95);
+}
+
+.ci-risk-tag.accent-emerald:hover {
+    border-color: #34d399;
+    box-shadow: 0 0 24px rgba(52, 211, 153, 0.5), 0 8px 18px rgba(0, 0, 0, 0.5);
+    background: rgba(12, 42, 32, 0.95);
+}
+
+.ci-risk-tag.accent-amber:hover {
+    border-color: #fbbf24;
+    box-shadow: 0 0 24px rgba(251, 191, 36, 0.5), 0 8px 18px rgba(0, 0, 0, 0.5);
+    background: rgba(45, 32, 16, 0.95);
+}
+
+.ci-risk-tag.accent-rose:hover {
+    border-color: #fb7185;
+    box-shadow: 0 0 24px rgba(251, 113, 133, 0.5), 0 8px 18px rgba(0, 0, 0, 0.5);
+    background: rgba(50, 16, 30, 0.95);
+}
+
+@media (max-width: 768px) {
+    .ci-risks-cloud {
+        gap: 0.5rem 0.4rem;
+        margin-top: 1.5rem;
+    }
+    .ci-risk-tag.tag-xl {
+        font-size: 0.92rem;
+        padding: 0.5rem 1rem;
+    }
+    .ci-risk-tag.tag-lg {
+        font-size: 0.84rem;
+        padding: 0.44rem 0.88rem;
+    }
+    .ci-risk-tag.tag-md {
+        font-size: 0.78rem;
+        padding: 0.38rem 0.78rem;
+    }
+    .ci-risk-tag.tag-sm {
+        font-size: 0.70rem;
+        padding: 0.30rem 0.65rem;
+    }
 }
 
 
@@ -7159,20 +7912,48 @@ button {
     align-items: center;
 }
 
-.ci-world-map-wrap {
-    background: #0c0a1b;
-    border: 1px solid rgba(139, 32, 255, 0.25);
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.55), 0 0 25px rgba(139, 32, 255, 0.15);
-}
+.ci-map-card{position:relative;padding:14px;border-radius:22px;background:linear-gradient(180deg,rgba(20,10,50,.85),rgba(8,6,28,.95));border:1px solid rgba(139,92,246,.45);box-shadow:0 0 40px rgba(139,92,246,.18),inset 0 0 30px rgba(34,211,238,.04)}
+.ci-map-head{padding:6px 10px 12px}
+.ci-map-title{font-size:.78rem;letter-spacing:.06em;font-weight:600;color:#e9e3ff}
+.ci-live{display:inline-flex;align-items:center;gap:8px;margin-top:6px;font-size:.75rem;color:#5eead4;padding:3px 10px;border-radius:8px;background:rgba(34,211,238,.08)}
+.ci-live-dot{width:8px;height:8px;border-radius:50%;background:#22d3ee;animation:ciBlink 1.6s infinite}
+@keyframes ciBlink{50%{opacity:.25}}
 
-.ci-world-map-img {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-}
+.ci-world-map-wrap{position:relative;aspect-ratio:1014/665;border-radius:14px;overflow:hidden;background:#070620}
+.ci-world-map-wrap canvas,.ci-map-svg{position:absolute;inset:0;width:100%;height:100%}
+.ci-world-map-wrap::after{content:"";position:absolute;top:0;bottom:0;width:18%;left:-20%;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(139,92,246,.14),transparent);animation:ciScan 7s linear infinite}
+@keyframes ciScan{to{left:110%}}
+
+.ci-arc{fill:none;stroke:url(#ciArcGrad);stroke-width:1.6;stroke-linecap:round;stroke-dasharray:6 7;opacity:.85;transition:opacity .4s}
+.ci-arc.is-flow{animation:ciFlow 1.4s linear infinite}
+@keyframes ciFlow{to{stroke-dashoffset:-26}}
+.ci-arc.is-dim,.ci-node.is-dim{opacity:.12}
+
+.ci-node{cursor:pointer;transition:opacity .4s}
+.ci-node .core{fill:#fff;filter:url(#ciGlow)}
+.ci-node .halo{fill:rgba(34,211,238,.35)}
+.ci-node .ring{fill:none;stroke:#22d3ee;stroke-width:1.5;transform-box:fill-box;transform-origin:center;animation:ciPulse 2.6s ease-out infinite}
+.ci-node:nth-child(even) .ring{animation-delay:.9s}
+.ci-node.is-active .ring{stroke:#a855f7;animation-duration:1.6s}
+.ci-node.is-hub .halo{fill:rgba(168,85,247,.45)}
+.ci-node.is-hub .ring{stroke:#a855f7}
+.ci-node text{fill:#fff;font:600 13px system-ui,sans-serif;paint-order:stroke;stroke:#05041a;stroke-width:3px}
+@keyframes ciPulse{0%{transform:scale(.6);opacity:.9}100%{transform:scale(3);opacity:0}}
+
+.ci-tip{position:absolute;min-width:200px;padding:14px 16px;border-radius:12px;pointer-events:none;background:rgba(12,8,36,.92);border:1px solid rgba(139,92,246,.6);backdrop-filter:blur(6px);opacity:0;transform:translateY(8px);transition:opacity .35s,transform .35s;z-index:3}
+.ci-tip.is-show{opacity:1;transform:none}
+.ci-tip h4{margin:0 0 4px;font-size:1rem;color:#fff}
+.ci-tip-count{font-size:.8rem;color:#cfc8ee}.ci-tip-count b{color:#22d3ee}
+.ci-tip ul{margin:8px 0 0;padding:0;list-style:none;font-size:.78rem;color:#cfc8ee}
+.ci-tip li{display:flex;align-items:center;gap:8px;margin-top:4px}
+.ci-tip li::before{content:"";width:5px;height:5px;border-radius:50%;background:#22d3ee}
+
+.ci-region-tabs{display:flex;gap:8px;overflow-x:auto;padding:12px 4px 2px;scrollbar-width:none}
+.ci-region-tabs button{flex:none;padding:8px 16px;border-radius:12px;font-size:.78rem;cursor:pointer;color:#cfc8ee;background:rgba(255,255,255,.03);border:1px solid rgba(139,92,246,.25);transition:.25s}
+.ci-region-tabs button:hover{border-color:#a855f7}
+.ci-region-tabs button.is-active{color:#fff;background:linear-gradient(135deg,#7c3aed,#a855f7);border-color:transparent}
+
+@media (prefers-reduced-motion:reduce){.ci-node .ring,.ci-live-dot,.ci-arc,.ci-world-map-wrap::after{animation:none!important}}
 
 .ci-coverage-content {
     display: flex;
@@ -7362,26 +8143,30 @@ button {
 }
 
 .ci-faq-btn {
-    display: flex;
-    flex-direction: column;
+    display: inline-flex;
     align-items: center;
-    text-align: center;
-    padding: 0.8rem 1.6rem;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.85rem 1.8rem;
     border-radius: 50px;
     margin-top: 0.6rem;
     width: fit-content;
-    line-height: 1.25;
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1;
 }
 
 .ci-faq-btn span {
-    font-size: 0.94rem;
+    font-size: 0.95rem;
     font-weight: 700;
 }
 
-.ci-faq-btn small {
-    font-size: 0.75rem;
-    font-weight: 500;
-    opacity: 0.85;
+.ci-faq-btn .btn-arrow {
+    transition: transform 0.25s ease;
+}
+
+.ci-faq-btn:hover .btn-arrow {
+    transform: translateX(4px);
 }
 
 .ci-faq-list {
@@ -7446,7 +8231,7 @@ button {
 }
 
 .ci-faq-open .ci-faq-a {
-    max-height: 300px;
+    max-height: 500px;
 }
 
 .ci-faq-a p {
@@ -7684,7 +8469,7 @@ button {
 
     .ci-live-badge { display: none; }
 
-    /* 4-panel showcase: vertical stack */
+    /* Showcase mobile containment */
     .ci-showcase-section {
         overflow: hidden !important;
     }
@@ -7692,45 +8477,6 @@ button {
     .ci-showcase-ambient-glow {
         max-width: 100% !important;
         overflow: hidden !important;
-    }
-
-    .ci-showcase-panels {
-        flex-direction: column;
-        height: auto;
-    }
-
-    .ci-panel {
-        flex: none !important;
-        height: 280px;
-        width: 100% !important;
-        overflow: hidden !important;
-    }
-
-    .ci-panel-active {
-        height: 380px;
-    }
-
-    /* On mobile: always show expanded content */
-    .ci-panel .ci-panel-expanded {
-        opacity: 1;
-        pointer-events: auto;
-    }
-
-    .ci-panel .ci-panel-exp-num,
-    .ci-panel .ci-panel-exp-title,
-    .ci-panel .ci-panel-exp-desc,
-    .ci-panel .ci-panel-cta {
-        opacity: 1;
-        transform: none;
-    }
-
-    /* Completely hide collapsed elements on mobile so they don't overflow */
-    .ci-panel .ci-panel-collapsed {
-        display: none !important;
-    }
-
-    .ci-panel-expanded {
-        padding: 1.5rem;
     }
 
     .ci-process-track {
@@ -7823,7 +8569,12 @@ button {
 }
 
 @media (max-width: 480px) {
-    .ci-hero-heading { font-size: 2rem; }
+    .ci-hero-heading { font-size: clamp(1.68rem, 6.4vw, 1.95rem); }
+    .ci-typewriter-rotator,
+    .ci-rotator-viewport { max-width: 100%; }
+    .ci-typewriter-text,
+    .ci-rotator-word { letter-spacing: -0.025em; }
+    .ci-typewriter-cursor { width: 2.5px; height: 0.9em; margin-left: 2px; }
     .ci-testi-grid { grid-template-columns: 1fr; }
     .ci-stats-row { grid-template-columns: 1fr 1fr; }
 
@@ -7847,6 +8598,39 @@ button {
 
     .ci-shield-logo-img {
         width: 75px;
+    }
+
+    .ci-intel-stage {
+        width: 165px;
+        height: 165px;
+    }
+
+    .ci-forensic-badge-svg {
+        width: 95px;
+        height: 110px;
+    }
+
+    .ci-intel-reticle-svg {
+        width: 165px;
+        height: 165px;
+        margin-top: -82.5px;
+        margin-left: -82.5px;
+    }
+
+    .ci-intel-ambient-glow {
+        width: 165px;
+        height: 165px;
+        margin-top: -82.5px;
+        margin-left: -82.5px;
+    }
+
+    .ci-intel-core-status {
+        margin-top: 4px;
+        padding: 2px 8px;
+    }
+
+    .ci-intel-core-txt {
+        font-size: 0.58rem;
     }
 
     .ci-shield-glow {
@@ -7879,6 +8663,12 @@ button {
     .ci-ring-mid,
     .ci-shield-icon,
     .ci-shield-glow,
+    .ci-intel-ambient-glow,
+    .ci-radar-spin-cw,
+    .ci-radar-spin-ccw,
+    .ci-intel-emblem-wrap,
+    .ci-laser-scan-group,
+    .ci-intel-core-dot,
     .ci-float-card,
     .ci-ptcl,
     .ci-monitoring-dot,
@@ -8834,7 +9624,8 @@ body.page-enter-from-left {
 }
 
 .svc-contact-form input,
-.svc-contact-form textarea {
+.svc-contact-form textarea,
+.svc-contact-form select {
     width: 100%;
     padding: 12px 14px;
     background: var(--bg);
@@ -8848,7 +9639,8 @@ body.page-enter-from-left {
 }
 
 .svc-contact-form input:focus,
-.svc-contact-form textarea:focus {
+.svc-contact-form textarea:focus,
+.svc-contact-form select:focus {
     outline: none;
     border-color: var(--purple-light);
     box-shadow: 0 0 12px rgba(139, 32, 255, 0.35);
@@ -12419,4 +13211,224 @@ body.page-enter-from-left {
         transform: scale(0.88);
         transform-origin: 0 0;
     }
-}
+}
+
+
+/* ================================================================
+   OUR CLIENTS & PARTNER ENGAGEMENTS
+   ================================================================ */
+.ci-clients-section {
+    background: linear-gradient(180deg, var(--bg-secondary) 0%, rgba(10, 8, 22, 0.95) 100%);
+    position: relative;
+    padding: 3.8rem 0 3.2rem;
+    border-top: 1px solid rgba(139, 32, 255, 0.12);
+    border-bottom: 1px solid rgba(139, 32, 255, 0.12);
+}
+
+.ci-clients-deck {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 2rem;
+    max-width: 920px;
+    margin: 2.2rem auto 0;
+}
+
+.ci-client-card {
+    flex: 1 1 360px;
+    max-width: 440px;
+    background: rgba(13, 11, 26, 0.85);
+    border: 1px solid rgba(139, 32, 255, 0.28);
+    border-radius: 18px;
+    padding: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(139, 32, 255, 0.04);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+}
+
+.ci-client-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(200, 75, 255, 0.65);
+    box-shadow: 0 18px 45px rgba(139, 32, 255, 0.25), inset 0 0 25px rgba(139, 32, 255, 0.08);
+}
+
+.ci-client-logo-box {
+    width: 100%;
+    height: 105px;
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    transition: transform 0.3s ease;
+}
+
+.ci-client-card:hover .ci-client-logo-box {
+    transform: scale(1.02);
+}
+
+.ci-client-logo-img {
+    max-height: 75px;
+    max-width: 92%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.ci-client-card-body {
+    margin-top: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.ci-client-card-body h3 {
+    font-size: 1.22rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 0.45rem;
+}
+
+.ci-client-category-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 4px 12px;
+    background: rgba(139, 32, 255, 0.15);
+    border: 1px solid rgba(139, 32, 255, 0.3);
+    border-radius: 50px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #c084fc;
+    margin-bottom: 0.75rem;
+}
+
+.ci-client-badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #22d3ee;
+    box-shadow: 0 0 6px #22d3ee;
+}
+
+.ci-client-card-body p {
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.55;
+    margin: 0;
+}
+
+/* Digital Forensics Page Clients Showcase */
+.cyber-clients-showcase {
+    margin-top: 2.8rem;
+    padding-top: 2.2rem;
+    border-top: 1px solid rgba(139, 32, 255, 0.18);
+    text-align: center;
+}
+
+.cyber-clients-showcase-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 1.5rem;
+}
+
+.cyber-clients-logos-deck {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.8rem;
+    flex-wrap: wrap;
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.cyber-client-card {
+    flex: 1 1 320px;
+    max-width: 380px;
+    background: rgba(13, 11, 26, 0.85);
+    border: 1px solid rgba(139, 32, 255, 0.28);
+    border-radius: 16px;
+    padding: 1.25rem 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cyber-client-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(196, 75, 255, 0.65);
+    box-shadow: 0 12px 32px rgba(139, 32, 255, 0.25);
+}
+
+.cyber-client-logo-box {
+    width: 140px;
+    height: 72px;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+}
+
+.cyber-client-logo-img {
+    max-height: 52px;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+.cyber-client-meta {
+    text-align: left;
+}
+
+.cyber-client-meta h4 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 0.25rem;
+}
+
+.cyber-client-meta .cyber-client-cat {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.65);
+    display: block;
+    line-height: 1.4;
+}
+
+@media (max-width: 680px) {
+    .cyber-client-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.8rem;
+    }
+    .cyber-client-meta {
+        text-align: center;
+    }
+    .cyber-client-logo-box {
+        width: 100%;
+        max-width: 240px;
+        height: 80px;
+    }
+}

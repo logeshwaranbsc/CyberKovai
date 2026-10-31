@@ -50,7 +50,7 @@ if ($reqSection === 'cyber') {
 
                     <!-- Collapsed Vertical Title & Outline 01 (Visible when Card 2 is active) -->
                     <div class="split-card-collapsed" aria-hidden="true">
-                        <div class="collapsed-track-title">Investigation Intelligence</div>
+                        <div class="collapsed-track-title">Forensic Intelligence</div>
                         <div class="collapsed-number">01</div>
                     </div>
 
@@ -58,15 +58,15 @@ if ($reqSection === 'cyber') {
                     <div class="split-card-content">
                         <div class="split-card-tag split-card-tag-warm">
                             <span class="tag-dash"></span>
-                            <span class="tag-text">INVESTIGATION INTELLIGENCE</span>
+                            <span class="tag-text">FORENSIC INTELLIGENCE</span>
                         </div>
 
                         <h2 class="split-card-title">
-                            Digital Investigation<br>&amp; Forensics
+                            Cybercrime Investigations<br>&amp;  Digital Forensics
                         </h2>
 
                         <p class="split-card-desc">
-                            Discreet digital evidence collection, OSINT investigations, cyber fraud tracing, victim account recovery, and executive digital protection.
+                           Uncover digital evidence, investigate cybercrime, and trace malicious activity with expert forensic analysis, OSINT investigations, cyber fraud detection, and digital evidence recovery.
                         </p>
 
                         <div class="split-card-action">
@@ -94,7 +94,7 @@ if ($reqSection === 'cyber') {
 
                     <!-- Collapsed Vertical Title & Outline 02 (Visible when Card 1 is active) -->
                     <div class="split-card-collapsed" aria-hidden="true">
-                        <div class="collapsed-track-title">Cyber Intelligence</div>
+                        <div class="collapsed-track-title">Offensive Security</div>
                         <div class="collapsed-number">02</div>
                     </div>
 
@@ -102,15 +102,15 @@ if ($reqSection === 'cyber') {
                     <div class="split-card-content">
                         <div class="split-card-tag">
                             <span class="tag-dash"></span>
-                            <span class="tag-text">CYBER INTELLIGENCE</span>
+                            <span class="tag-text">OFFENSIVE SECURITY</span>
                         </div>
 
                         <h2 class="split-card-title">
-                            Cyber Intelligence<br>&amp; Defense
+                            Offensive Security<br>&amp; Cyber Assurance
                         </h2>
 
                         <p class="split-card-desc">
-                            Enterprise threat detection, proactive vulnerability defense, incident response, network security, and continuous risk intelligence.
+                            Proactive penetration testing, vulnerability assessments, threat detection, and security validation to identify weaknesses, strengthen your defenses, and protect critical digital assets.
                         </p>
 
                         <div class="split-card-action">
