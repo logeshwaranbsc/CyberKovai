@@ -126,80 +126,34 @@ $contactUrl = $basePrefix . 'contact.php?section=' . $activeSection;
                         <!-- MEGA DROPDOWN (4 HIGHLIGHTED COLUMNS USING CYBER KOVAI PALETTE) -->
                         <div class="mega-dropdown" id="servicesMegaMenu">
                             <div class="mega-dropdown-inner">
-
-                                <!-- COLUMN 1: Application Security -->
+                                <?php 
+                                $cyberMegaCats = ['application-security', 'network-security', 'cloud-security', 'enterprise-security'];
+                                foreach ($cyberMegaCats as $cKey):
+                                    if (!isset($serviceCategories[$cKey])) continue;
+                                    $cData = $serviceCategories[$cKey];
+                                    $cServices = getServicesByCategory($cKey);
+                                ?>
                                 <div class="mega-col-group">
-                                    <div class="mega-category-block" data-category="application-security">
+                                    <div class="mega-category-block" data-category="<?= sanitize_out($cKey) ?>">
                                         <div class="mega-cat-header" tabindex="0" role="button" aria-expanded="false">
-                                            <h4 class="mega-col-title">Application Security</h4>
+                                            <h4 class="mega-col-title"><?= sanitize_out($cData['name']) ?></h4>
                                             <span class="mega-cat-arrow" aria-hidden="true">➔</span>
                                         </div>
                                         <ul class="mega-links-list">
-                                            <li class="submodule-item"><a href="<?= $basePrefix ?>services/vulnerability-assessment-penetration-testing.php">Comprehensive VAPT Assessment</a></li>
-                                            <li class="submodule-item"><a href="<?= $basePrefix ?>services/web-application-penetration-testing.php">Web Application Security Testing</a></li>
-                                            <li class="submodule-item"><a href="<?= $basePrefix ?>services/mobile-app-penetration-testing.php">Mobile Application Security (iOS &amp; Android)</a></li>
-                                            <li class="submodule-item"><a href="<?= $basePrefix ?>services/api-penetration-testing.php">REST &amp; GraphQL API Security Testing</a></li>
-                                            <li class="submodule-item submodule-extra"><a href="<?= $basePrefix ?>services/secure-source-code-review.php">Secure Code Audit &amp; SAST Review</a></li>
-                                            <li class="submodule-item submodule-extra"><a href="<?= $basePrefix ?>services/ecommerce-security.php">E-Commerce &amp; Payment Security Audit</a></li>
-                                            <li class="submodule-item submodule-extra"><a href="<?= $basePrefix ?>services/saas-security.php">SaaS Platform Security Assessment</a></li>
-                                            <li class="submodule-item submodule-extra"><a href="<?= $basePrefix ?>services/devsecops.php">DevSecOps &amp; CI/CD Pipeline Assurance</a></li>
+                                            <?php 
+                                            $svcCount = 0;
+                                            foreach ($cServices as $sSlug => $sItem): 
+                                                $isExtra = ($svcCount >= 4);
+                                                $svcCount++;
+                                            ?>
+                                            <li class="submodule-item <?= $isExtra ? 'submodule-extra' : '' ?>">
+                                                <a href="<?= $basePrefix ?>services/<?= sanitize_out($sSlug) ?>.php"><?= sanitize_out($sItem['nav_label'] ?? $sItem['title']) ?></a>
+                                            </li>
+                                            <?php endforeach; ?>
                                         </ul>
                                     </div>
                                 </div>
-
-                                <!-- COLUMN 2: Network Security -->
-                                <div class="mega-col-group">
-                                    <div class="mega-category-block" data-category="network-security">
-                                        <div class="mega-cat-header" tabindex="0" role="button" aria-expanded="false">
-                                            <h4 class="mega-col-title">Network Security</h4>
-                                            <span class="mega-cat-arrow" aria-hidden="true">➔</span>
-                                        </div>
-                                        <ul class="mega-links-list">
-                                            <li class="submodule-item"><a href="<?= $basePrefix ?>services/network-penetration-testing.php">External &amp; Internal Network Pen Testing</a></li>
-                                            <li class="submodule-item"><a href="<?= $basePrefix ?>services/wireless-penetration-testing.php">Wireless &amp; Wi-Fi Security Assessment</a></li>
-                                            <li class="submodule-item"><a href="<?= $basePrefix ?>services/firewall-security-audit.php">Firewall &amp; Perimeter Rulebase Audit</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <!-- COLUMN 3: Cloud Security -->
-                                <div class="mega-col-group">
-                                    <div class="mega-category-block" data-category="cloud-security">
-                                        <div class="mega-cat-header" tabindex="0" role="button" aria-expanded="false">
-                                            <h4 class="mega-col-title">Cloud Security</h4>
-                                            <span class="mega-cat-arrow" aria-hidden="true">➔</span>
-                                        </div>
-                                        <ul class="mega-links-list">
-                                            <li class="submodule-item"><a href="<?= $basePrefix ?>services/cloud-configuration-review.php">Cloud Security Posture Assessment (CSPM)</a></li>
-                                            <li class="submodule-item"><a href="<?= $basePrefix ?>services/cloud-application-security-assessment-casa.php">Cloud App Security Assessment (CASA Tier 2/3)</a></li>
-                                            <li class="submodule-item"><a href="<?= $basePrefix ?>services/cloud-container-security.php">Docker &amp; Kubernetes Container Security</a></li>
-                                            <li class="submodule-item"><a href="<?= $basePrefix ?>services/gcp-server-hardening.php">Google Cloud (GCP) Security Hardening</a></li>
-                                            <li class="submodule-item submodule-extra"><a href="<?= $basePrefix ?>services/aws-server-hardening.php">Amazon Web Services (AWS) Hardening</a></li>
-                                            <li class="submodule-item submodule-extra"><a href="<?= $basePrefix ?>services/azure-server-hardening.php">Microsoft Azure Cloud Hardening</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <!-- COLUMN 4: Enterprise Security -->
-                                <div class="mega-col-group">
-                                    <div class="mega-category-block" data-category="enterprise-security">
-                                        <div class="mega-cat-header" tabindex="0" role="button" aria-expanded="false">
-                                            <h4 class="mega-col-title">Enterprise Security</h4>
-                                            <span class="mega-cat-arrow" aria-hidden="true">➔</span>
-                                        </div>
-                                        <ul class="mega-links-list">
-                                            <li class="submodule-item"><a href="<?= $basePrefix ?>services/virtual-cISO-services.php">Virtual CISO (vCISO) Advisory</a></li>
-                                            <li class="submodule-item"><a href="<?= $basePrefix ?>services/black-box-testing.php">Zero-Knowledge Black Box Pen Testing</a></li>
-                                            <li class="submodule-item"><a href="<?= $basePrefix ?>services/email-security-audit.php">Email Security &amp; Anti-Phishing Audit</a></li>
-                                            <li class="submodule-item"><a href="<?= $basePrefix ?>services/server-hardening.php">Server &amp; Operating System Hardening</a></li>
-                                            <li class="submodule-item submodule-extra"><a href="<?= $basePrefix ?>services/microsoft-365-security.php">Microsoft 365 &amp; Entra ID Security Review</a></li>
-                                            <li class="submodule-item submodule-extra"><a href="<?= $basePrefix ?>services/erp-security-audit-assessment.php">Enterprise ERP &amp; SAP Security Audit</a></li>
-                                            <li class="submodule-item submodule-extra"><a href="<?= $basePrefix ?>services/security-architecture-review.php">Zero-Trust Security Architecture Review</a></li>
-                                            <li class="submodule-item submodule-extra"><a href="<?= $basePrefix ?>services/wordpress-security.php">CMS &amp; Web Platform Security Hardening</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-
+                                <?php endforeach; ?>
                             </div>
                         </div>
                     </div>
@@ -233,7 +187,13 @@ $contactUrl = $basePrefix . 'contact.php?section=' . $activeSection;
 
                 <?php endif; ?>
 
-                <!-- 3. ABOUT (ACCORDION IN MOBILE / DROPDOWN IN DESKTOP) -->
+                <!-- 3. ABOUT (ACCORDION IN MOBILE / DROPDOWN IN DESKTOP WHEN TEAM IS VISIBLE) -->
+                <?php 
+                $ckShowTeam = function_exists('ck_get_settings') 
+                    ? filter_var(ck_get_settings()['show_team'] ?? true, FILTER_VALIDATE_BOOLEAN)
+                    : (defined('SITE_SHOW_TEAM') ? SITE_SHOW_TEAM : true);
+                if ($ckShowTeam): 
+                ?>
                 <div class="nav-item has-dropdown about-nav-item <?= in_array($currentScript, ['about.php', 'team.php']) ? 'active' : '' ?>" id="aboutNavItem">
                     <a href="<?= $aboutUrl ?>" class="nav-link dropdown-toggle" id="aboutDropdownBtn" aria-expanded="false">
                         <span><?= ($activeSection === 'forensics') ? 'About Us' : 'About' ?></span>
@@ -257,6 +217,10 @@ $contactUrl = $basePrefix . 'contact.php?section=' . $activeSection;
                         </ul>
                     </div>
                 </div>
+                <?php else: ?>
+                <!-- 3. ABOUT (DIRECT LINK WHEN TEAM IS HIDDEN) -->
+                <a href="<?= $aboutUrl ?>" class="nav-main-link <?= ($currentScript === 'about.php') ? 'active' : '' ?>"><?= ($activeSection === 'forensics') ? 'About Us' : 'About' ?></a>
+                <?php endif; ?>
 
                 <!-- 4. CONTACT -->
                 <a href="<?= $contactUrl ?>" class="nav-main-link <?= ($currentScript === 'contact.php') ? 'active' : '' ?>"><?= ($activeSection === 'forensics') ? 'Contact Us' : 'Contact' ?></a>

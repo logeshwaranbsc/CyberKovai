@@ -1,0 +1,10 @@
+{
+    "Kovaicyber@gmail.com": {
+        "username": "Kovaicyber@gmail.com",
+        "name": "Cyber Kovai Administrator",
+        "email": "Kovaicyber@gmail.com",
+        "password_hash": "$2y$10$tCZ2um.byxPpwBdqseOVX.4E8zQQc.j8C5nm2axT0JNh3yq/T3bye",
+        "role": "superadmin",
+        "created_at": "2026-10-31 12:40:50"
+    }
+}

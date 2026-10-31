@@ -3721,6 +3721,67 @@ $allServicesData = array (
   ),
 );
 
+// Dynamically augment categories & services from File Storage
+require_once __DIR__ . '/includes/storage.php';
+
+$storedCyber = ck_get_cyber_services(false);
+$storedCats = ck_get_cyber_categories();
+$storedInv = ck_get_investigation_services(false);
+
+if (!empty($storedCyber)) {
+    foreach ($storedCyber as $ckSlug => $ckData) {
+        $allServicesData[$ckSlug] = array_merge($allServicesData[$ckSlug] ?? [], $ckData);
+    }
+}
+
+if (!empty($storedCats)) {
+    foreach ($storedCats as $ckCatKey => $ckCatData) {
+        if (!isset($serviceCategories[$ckCatKey])) {
+            $serviceCategories[$ckCatKey] = $ckCatData;
+        }
+        $catServices = [];
+        foreach ($allServicesData as $ckSSlug => $ckSData) {
+            if (($ckSData['category'] ?? '') === $ckCatKey && (!isset($ckSData['status']) || $ckSData['status'] === 'active')) {
+                $catServices[] = $ckSSlug;
+            }
+        }
+        $serviceCategories[$ckCatKey]['services'] = $catServices;
+    }
+}
+
+if (!empty($storedInv)) {
+    $invSlugs = [];
+    foreach ($storedInv as $ckInv) {
+        $ckSlug = $ckInv['slug'];
+        $invSlugs[] = $ckSlug;
+        if (!isset($allServicesData[$ckSlug])) {
+            $allServicesData[$ckSlug] = [
+                'title' => $ckInv['title'],
+                'nav_label' => $ckInv['short'] ?? $ckInv['title'],
+                'category' => 'digital-investigations',
+                'badge' => 'SPECIALIZED INVESTIGATION',
+                'tagline' => $ckInv['short'] ?? $ckInv['title'],
+                'short_desc' => $ckInv['description'] ?? '',
+                'overview' => $ckInv['overview'] ?? ($ckInv['description'] ?? ''),
+                'why_needed' => 'Professional investigative support is critical when confronting cyber threats or digital legal proceedings.',
+                'image' => $ckInv['image'] ?? 'assets/images/investigation_01_victim_recovery.jpg',
+                'key_features' => [],
+                'deliverables' => [],
+                'status' => $ckInv['status'] ?? 'active'
+            ];
+        } else {
+            $allServicesData[$ckSlug]['title'] = $ckInv['title'];
+            $allServicesData[$ckSlug]['short_desc'] = $ckInv['description'] ?? ($allServicesData[$ckSlug]['short_desc'] ?? '');
+            if (!empty($ckInv['image'])) {
+                $allServicesData[$ckSlug]['image'] = $ckInv['image'];
+            }
+        }
+    }
+    if (isset($serviceCategories['digital-investigations'])) {
+        $serviceCategories['digital-investigations']['services'] = $invSlugs;
+    }
+}
+
 /**
  * Helper function to retrieve all services by category
  */

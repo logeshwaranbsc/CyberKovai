@@ -416,7 +416,7 @@ include_once __DIR__ . '/includes/header.php';
                             </div>
                             <div class="form-group">
                                 <label for="client_phone">Phone / WhatsApp / Signal *</label>
-                                <input type="tel" id="client_phone" name="phone" required placeholder="+91 63820 19821">
+                                <input type="tel" id="client_phone" name="phone" required placeholder="<?= sanitize_out(SITE_PHONE) ?>">
                             </div>
                         </div>
 

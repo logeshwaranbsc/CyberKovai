@@ -3,6 +3,18 @@
  * Cyber Kovai - Our Team & Leadership Page
  */
 require_once __DIR__ . '/config.php';
+
+// If Our Team section is hidden in Admin Settings, redirect to About Us page
+$ckShowTeam = function_exists('ck_get_settings') 
+    ? filter_var(ck_get_settings()['show_team'] ?? true, FILTER_VALIDATE_BOOLEAN)
+    : (defined('SITE_SHOW_TEAM') ? SITE_SHOW_TEAM : true);
+
+if (!$ckShowTeam) {
+    $targetSection = $_GET['section'] ?? ($_COOKIE['ck_section'] ?? 'cyber');
+    header('Location: about.php?section=' . urlencode($targetSection));
+    exit;
+}
+
 $pageTitle = 'Our Team & Leadership | Cyber Kovai';
 $bodyClass = 'team-page-view';
 include_once __DIR__ . '/includes/header.php';
@@ -28,82 +40,85 @@ include_once __DIR__ . '/includes/header.php';
     <!-- ================= TEAM SHOWCASE SECTION ================= -->
     <section class="section team-section" id="team">
         <div class="container">
-            <div class="team-showcase-wrapper">
-                <div class="team-leader-card">
-                    <div class="leader-visual-wrap">
-                        <div class="leader-img-frame">
-                            <img src="<?= $basePrefix ?>assets/images/arun_s.png" alt="Arun S - Principal Security Architect" class="leader-photo">
-                            <div class="leader-exp-badge">
-                                <strong>12+</strong>
-                                <span>YEARS EXP</span>
+            <?php 
+            $teamMembers = function_exists('ck_get_team_members') ? ck_get_team_members(false) : [];
+            ?>
+            <div class="team-showcase-wrapper" style="display: flex; flex-direction: column; gap: 3rem;">
+                <?php if (!empty($teamMembers)): ?>
+                    <?php foreach ($teamMembers as $member): 
+                        $photoUrl = $member['photo'] ?? 'assets/images/arun_s.png';
+                        if (!preg_match('~^(https?://|/)~', $photoUrl)) {
+                            $photoUrl = $basePrefix . $photoUrl;
+                        }
+                    ?>
+                    <div class="team-leader-card">
+                        <div class="leader-visual-wrap">
+                            <div class="leader-img-frame">
+                                <img src="<?= sanitize_out($photoUrl) ?>" alt="<?= sanitize_out($member['name']) ?> - <?= sanitize_out($member['role']) ?>" class="leader-photo">
+                                <?php if (!empty($member['experience'])): ?>
+                                <div class="leader-exp-badge">
+                                    <strong><?= sanitize_out($member['experience']) ?></strong>
+                                    <span>YEARS EXP</span>
+                                </div>
+                                <?php endif; ?>
                             </div>
+                        </div>
+
+                        <div class="leader-info-wrap">
+                            <div class="leader-header-bar">
+                                <div>
+                                    <h3 class="leader-name"><?= sanitize_out($member['name']) ?></h3>
+                                    <div class="leader-primary-role">
+                                        <?php if (!empty($member['company'])): ?>
+                                            <span class="ibm-tag"><?= sanitize_out($member['company']) ?></span>
+                                        <?php endif; ?>
+                                        <span class="role-text"><?= sanitize_out($member['role']) ?></span>
+                                    </div>
+                                </div>
+                                <?php if (!empty($member['badge'])): ?>
+                                <div class="leader-badge-pill">
+                                    <span class="pulse-indicator"></span> <?= sanitize_out($member['badge']) ?>
+                                </div>
+                                <?php endif; ?>
+                            </div>
+
+                            <!-- Specializations Pills -->
+                            <?php if (!empty($member['specializations']) && is_array($member['specializations'])): ?>
+                            <div class="leader-tags-cloud">
+                                <?php foreach ($member['specializations'] as $spec): ?>
+                                    <span class="tag-pill"><?= sanitize_out($spec) ?></span>
+                                <?php endforeach; ?>
+                            </div>
+                            <?php endif; ?>
+
+                            <!-- Executive Bio -->
+                            <?php if (!empty($member['bio'])): ?>
+                            <div class="leader-bio-quote">
+                                <p><?= nl2br(sanitize_out($member['bio'])) ?></p>
+                            </div>
+                            <?php endif; ?>
+
+                            <!-- Domain Capabilities -->
+                            <?php if (!empty($member['domains']) && is_array($member['domains'])): ?>
+                            <div class="leader-domains-grid">
+                                <?php foreach ($member['domains'] as $dom): ?>
+                                <div class="domain-badge-item">
+                                    <div class="domain-icon"><?= sanitize_out($dom['icon'] ?? '🛡️') ?></div>
+                                    <div>
+                                        <strong><?= sanitize_out($dom['title'] ?? '') ?></strong>
+                                        <span><?= sanitize_out($dom['desc'] ?? '') ?></span>
+                                    </div>
+                                </div>
+                                <?php endforeach; ?>
+                            </div>
+                            <?php endif; ?>
+
                         </div>
                     </div>
-
-                    <div class="leader-info-wrap">
-                        <div class="leader-header-bar">
-                            <div>
-                                <h3 class="leader-name">Arun S</h3>
-                                <div class="leader-primary-role">
-                                    <span class="ibm-tag">IBM India</span>
-                                    <span class="role-text">Principal Security Architect</span>
-                                </div>
-                            </div>
-                            <div class="leader-badge-pill">
-                                <span class="pulse-indicator"></span> Verified Security Leader
-                            </div>
-                        </div>
-
-                        <!-- Specializations Pills -->
-                        <div class="leader-tags-cloud">
-                            <span class="tag-pill">Product Security Expert</span>
-                            <span class="tag-pill">Security Architect</span>
-                            <span class="tag-pill">Cyber Strategist</span>
-                            <span class="tag-pill">Cyber Crime Investigator</span>
-                            <span class="tag-pill">National Security Scholar</span>
-                        </div>
-
-                        <!-- Executive Bio -->
-                        <div class="leader-bio-quote">
-                            <p>
-                                Principal Security Architect at IBM India with 12+ years across cybersecurity leadership, application security, cloud security and cyber forensics.
-                            </p>
-                        </div>
-
-                        <!-- Domain Capabilities -->
-                        <div class="leader-domains-grid">
-                            <div class="domain-badge-item">
-                                <div class="domain-icon">🛡️</div>
-                                <div>
-                                    <strong>Application &amp; Product Security</strong>
-                                    <span>VAPT, Threat Modeling, DevSecOps</span>
-                                </div>
-                            </div>
-                            <div class="domain-badge-item">
-                                <div class="domain-icon">☁️</div>
-                                <div>
-                                    <strong>Cloud Security &amp; Architecture</strong>
-                                    <span>Zero Trust, Hybrid Cloud Resiliency</span>
-                                </div>
-                            </div>
-                            <div class="domain-badge-item">
-                                <div class="domain-icon">🔍</div>
-                                <div>
-                                    <strong>Cyber Crime &amp; Forensics</strong>
-                                    <span>Digital Evidence, Threat Intelligence</span>
-                                </div>
-                            </div>
-                            <div class="domain-badge-item">
-                                <div class="domain-icon">🏛️</div>
-                                <div>
-                                    <strong>National Security &amp; Strategy</strong>
-                                    <span>Defense-Grade Risk Frameworks</span>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p style="text-align: center; opacity: 0.7;">No team profiles published at this time.</p>
+                <?php endif; ?>
             </div>
         </div>
     </section>

@@ -1,0 +1,67 @@
+{
+    "application-security": {
+        "name": "Application Security",
+        "column": 1,
+        "order": 1,
+        "badge": "APPSEC & CODE ASSURANCE",
+        "icon": "🛡️",
+        "short_desc": "Comprehensive vulnerability assessments, penetration tests, and secure architecture for modern web, mobile, and API platforms.",
+        "services": [
+            "vulnerability-assessment-penetration-testing",
+            "web-application-penetration-testing",
+            "mobile-app-penetration-testing",
+            "api-penetration-testing",
+            "secure-source-code-review",
+            "ecommerce-security",
+            "saas-security",
+            "devsecops"
+        ]
+    },
+    "network-security": {
+        "name": "Network Security",
+        "column": 2,
+        "order": 1,
+        "badge": "INFRASTRUCTURE & PERIMETER",
+        "icon": "🌐",
+        "short_desc": "Securing corporate network perimeters, wireless topologies, firewall configs, and routing appliances.",
+        "services": [
+            "network-penetration-testing",
+            "wireless-penetration-testing",
+            "firewall-security-audit"
+        ]
+    },
+    "cloud-security": {
+        "name": "Cloud Security",
+        "column": 3,
+        "order": 1,
+        "badge": "CLOUD & CONTAINER SECURITY",
+        "icon": "☁️",
+        "short_desc": "Multi-cloud architecture auditing, CASA compliance, Kubernetes container security, and server hardening across AWS, GCP, and Azure.",
+        "services": [
+            "cloud-configuration-review",
+            "cloud-application-security-assessment-casa",
+            "cloud-container-security",
+            "gcp-server-hardening",
+            "aws-server-hardening",
+            "azure-server-hardening"
+        ]
+    },
+    "enterprise-security": {
+        "name": "Enterprise Security",
+        "column": 4,
+        "order": 1,
+        "badge": "ORGANIZATIONAL RESILIENCE",
+        "icon": "🏢",
+        "short_desc": "Virtual CISO advisory, black box simulations, Microsoft 365 hardening, ERP audits, and zero-trust security architecture.",
+        "services": [
+            "virtual-ciso-services",
+            "black-box-testing",
+            "email-security-audit",
+            "server-hardening",
+            "microsoft-365-security",
+            "erp-security-audit-assessment",
+            "security-architecture-review",
+            "wordpress-security"
+        ]
+    }
+}

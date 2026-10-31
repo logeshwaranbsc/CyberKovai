@@ -295,7 +295,8 @@ $investigationThreatsRow2 = [
 $cyberRisksRow1 = $investigationThreatsRow1;
 $cyberRisksRow2 = $investigationThreatsRow2;
 
-// Testimonials for Investigation
+// Testimonials for Investigation (Dynamically loaded from File Storage)
+$storedTestimonials = function_exists('ck_get_testimonials') ? ck_get_testimonials(false) : [];
 $investigationTestimonials = [
     [
         'quote'  => 'CyberKovai\'s digital forensics team recovered critical deleted evidence and provided an airtight forensic report that proved decisive in our corporate litigation. Exceptional discretion and technical precision.',
@@ -316,7 +317,7 @@ $investigationTestimonials = [
         'avatar' => 'assets/images/avatar_aravind.jpg',
     ],
 ];
-$testimonials = $investigationTestimonials;
+$testimonials = !empty($storedTestimonials) ? $storedTestimonials : $investigationTestimonials;
 
 // FAQs for Digital Investigations & Forensics
 $investigationFaqs = [
@@ -343,18 +344,20 @@ $investigationFaqs = [
 ];
 $cyberFaqs = $investigationFaqs;
 
-// Form Services Dropdown List
-$investigationFormServices = [
-    'Digital Evidence Preservation & Forensics',
-    'Digital Investigations & OSINT',
-    'Cyber Fraud Investigation Support',
-    'Social Media Investigations & Impersonation Removal',
-    'Cybercrime Victim Assistance & Account Recovery',
-    'Executive & Family Digital Protection',
-    'Child Digital Safety & Protection',
-    'Cybersecurity Awareness & LEA Training',
-    'Corporate & Background Investigation'
-];
+// Form Services Dropdown List (dynamically mapped from active investigation services)
+$investigationFormServices = !empty($investigationServices) 
+    ? array_column($investigationServices, 'title')
+    : [
+        'Digital Evidence Preservation & Forensics',
+        'Digital Investigations & OSINT',
+        'Cyber Fraud Investigation Support',
+        'Social Media Investigations & Impersonation Removal',
+        'Cybercrime Victim Assistance & Account Recovery',
+        'Executive & Family Digital Protection',
+        'Child Digital Safety & Protection',
+        'Cybersecurity Awareness & LEA Training',
+        'Corporate & Background Investigation'
+    ];
 
 include_once __DIR__ . '/includes/header.php';
 ?>
@@ -1116,7 +1119,7 @@ include_once __DIR__ . '/includes/header.php';
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; margin-bottom: 1.2rem;">
                     <div>
                         <label for="phone" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">Phone / WhatsApp / Signal *</label>
-                        <input type="tel" id="phone" name="phone" required placeholder="+91 63820 19821" style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.18); color: #fff;">
+                        <input type="tel" id="phone" name="phone" required placeholder="<?= sanitize_out(SITE_PHONE) ?>" style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.18); color: #fff;">
                     </div>
                     <div>
                         <label for="service" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">Service Required *</label>

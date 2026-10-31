@@ -76,27 +76,27 @@ include_once __DIR__ . '/includes/header.php';
                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; margin-bottom: 1.2rem;">
                             <div>
                                 <label for="phone" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">Phone / WhatsApp / Signal *</label>
-                                <input type="tel" id="phone" name="phone" required placeholder="+91 63820 19821" style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit;">
+                                <input type="tel" id="phone" name="phone" required placeholder="<?= sanitize_out(SITE_PHONE) ?>" style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit;">
                             </div>
                             <div>
                                 <label for="service" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">Service Required *</label>
                                 <select id="service" name="service" required style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit;">
                                     <?php if ($activeSection === 'cyber'): ?>
-                                        <option value="Cyber Threat Intelligence">Cyber Threat Intelligence</option>
-                                        <option value="Vulnerability Assessment & Pen Testing">Vulnerability Assessment &amp; Pen Testing (VAPT)</option>
-                                        <option value="Cloud Security Posture Assessment">Cloud Security Posture Assessment</option>
-                                        <option value="Network & Firewall Security">Network &amp; Firewall Security</option>
-                                        <option value="Data Protection & Risk Advisory">Data Protection &amp; Risk Advisory</option>
                                         <option value="General Cyber Security Consultation">General Cyber Security Consultation</option>
+                                        <?php 
+                                        $activeCyberServices = function_exists('ck_get_cyber_services') ? ck_get_cyber_services(false) : [];
+                                        foreach ($activeCyberServices as $cSvc): 
+                                        ?>
+                                            <option value="<?= sanitize_out($cSvc['title']) ?>"><?= sanitize_out($cSvc['title']) ?></option>
+                                        <?php endforeach; ?>
                                     <?php else: ?>
-                                        <option value="Cybercrime Victim Assistance">Cybercrime Victim Assistance &amp; Account Recovery</option>
-                                        <option value="Digital Investigations & OSINT">Digital Investigations &amp; OSINT</option>
-                                        <option value="Social Media Investigations">Social Media Investigations &amp; Impersonation Removal</option>
-                                        <option value="Cyber Fraud Support">Cyber Fraud Investigation Support</option>
-                                        <option value="Digital Evidence Forensics">Digital Evidence Preservation &amp; Forensics</option>
-                                        <option value="Executive & Family Protection">Executive &amp; Family Digital Protection</option>
-                                        <option value="LEA & Corporate Training">Cybersecurity Awareness &amp; LEA Training</option>
-                                        <option value="Child Digital Safety">Child Digital Safety &amp; Protection</option>
+                                        <option value="General Digital Investigation Consultation">General Digital Investigation Consultation</option>
+                                        <?php 
+                                        global $investigationServices;
+                                        foreach ($investigationServices as $iSvc): 
+                                        ?>
+                                            <option value="<?= sanitize_out($iSvc['title']) ?>"><?= sanitize_out($iSvc['title']) ?></option>
+                                        <?php endforeach; ?>
                                     <?php endif; ?>
                                 </select>
                             </div>

@@ -60,13 +60,19 @@ define('GOOGLE_SHEETS_SECRET', env('GOOGLE_SHEETS_SECRET', ''));
 define('GOOGLE_SPREADSHEET_ID', env('GOOGLE_SPREADSHEET_ID', '1L6CQ3_fQQymHvjt3jhyzvGVU3OK-jlYlxkkca_8gLKw'));
 define('GOOGLE_SHEET_TAB', env('GOOGLE_SHEET_TAB', 'Website Leads'));
 
-// Site Information
-define('SITE_NAME', 'Cyber Kovai');
-define('SITE_TAGLINE', 'Verified Facts, Confident Decisions.');
-define('SITE_EMAIL', 'info@cyberkovai.com');
-define('SITE_PHONE', '+91 63820 19821');
-define('SITE_PHONE_TEL', '+919876543210');
-define('SITE_LOCATION', 'Coimbatore, Tamil Nadu, India');
+// Load file storage engine
+require_once __DIR__ . '/includes/storage.php';
+$ckSiteSettings = ck_get_settings();
+
+// Site Information (dynamically managed via Admin Panel)
+if (!defined('SITE_NAME')) define('SITE_NAME', env('SITE_NAME', $ckSiteSettings['site_name'] ?? 'Cyber Kovai'));
+if (!defined('SITE_TAGLINE')) define('SITE_TAGLINE', env('SITE_TAGLINE', $ckSiteSettings['site_tagline'] ?? 'Verified Facts, Confident Decisions.'));
+if (!defined('SITE_EMAIL')) define('SITE_EMAIL', env('SITE_EMAIL', $ckSiteSettings['site_email'] ?? 'info@cyberkovai.com'));
+if (!defined('SITE_PHONE')) define('SITE_PHONE', env('SITE_PHONE', $ckSiteSettings['site_phone'] ?? '+91 63820 19821'));
+if (!defined('SITE_PHONE_TEL')) define('SITE_PHONE_TEL', env('SITE_PHONE_TEL', $ckSiteSettings['site_phone_tel'] ?? '+916382019821'));
+if (!defined('SITE_LOCATION')) define('SITE_LOCATION', env('SITE_LOCATION', $ckSiteSettings['site_location'] ?? 'Coimbatore, Tamil Nadu, India'));
+if (!defined('SITE_ADDRESS')) define('SITE_ADDRESS', env('SITE_ADDRESS', $ckSiteSettings['site_address'] ?? 'Coimbatore, Tamil Nadu, India'));
+if (!defined('SITE_SHOW_TEAM')) define('SITE_SHOW_TEAM', filter_var($ckSiteSettings['show_team'] ?? true, FILTER_VALIDATE_BOOLEAN));
 
 // Navigation Links
 $navLinks = [
@@ -94,8 +100,12 @@ $stats = [
     ['value' => '5',     'label' => 'COUNTRIES']
 ];
 
-// 8 Investigation Services Array (Image 3)
-$investigationServices = [
+// Investigation Services Array (Dynamically loaded from File Storage)
+$storedInvestigationServices = ck_get_investigation_services(false);
+if (!empty($storedInvestigationServices)) {
+    $investigationServices = $storedInvestigationServices;
+} else {
+    $investigationServices = [
     [
         'id'          => '1',
         'slug'        => 'cybercrime-victim-assistance-account-recovery',
@@ -169,6 +179,7 @@ $investigationServices = [
         'description' => 'We help safeguard children in the digital world through confidential investigations, online threat assessment, and digital evidence analysis. Our services focus on identifying cyberbullying, online harassment, suspicious digital interactions, and potential child exploitation risks, including the identification and reporting of Child Sexual Abuse Material (CSAM).'
     ]
 ];
+}
 
 // 7 Practices / Services Array (Image 1)
 $services = [

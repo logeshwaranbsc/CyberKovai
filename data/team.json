@@ -1,0 +1,43 @@
+[
+    {
+        "id": "team-1",
+        "name": "Arun S",
+        "role": "Principal Security Architect",
+        "company": "IBM India",
+        "experience": "12+",
+        "badge": "Verified Security Leader",
+        "photo": "assets/images/arun_s.png",
+        "specializations": [
+            "Product Security Expert",
+            "Security Architect",
+            "Cyber Strategist",
+            "Cyber Crime Investigator",
+            "National Security Scholar"
+        ],
+        "bio": "Principal Security Architect at IBM India with 12+ years across cybersecurity leadership, application security, cloud security and cyber forensics.",
+        "domains": [
+            {
+                "icon": "🛡️",
+                "title": "Application & Product Security",
+                "desc": "VAPT, Threat Modeling, DevSecOps"
+            },
+            {
+                "icon": "☁️",
+                "title": "Cloud Security & Architecture",
+                "desc": "Zero Trust, Hybrid Cloud Resiliency"
+            },
+            {
+                "icon": "🔍",
+                "title": "Cyber Crime & Forensics",
+                "desc": "Digital Evidence, Threat Intelligence"
+            },
+            {
+                "icon": "🏛️",
+                "title": "National Security & Strategy",
+                "desc": "Defense-Grade Risk Frameworks"
+            }
+        ],
+        "status": "active",
+        "order": 1
+    }
+]
