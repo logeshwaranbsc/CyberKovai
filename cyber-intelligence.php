@@ -29,6 +29,7 @@ $investigationPillars = [
         'coords'      => 'SEC-HASH: SHA256-VAULT-VERIFIED',
         'status'      => 'CHAIN-OF-CUSTODY READY',
         'status_color'=> '#8b20ff',
+        'image'       => 'assets/images/investigation_01_victim_recovery.jpg',
         'capabilities'=> ['Memory & Disk Imaging', 'Deleted File Carving', 'Cryptographic Hashing', 'Court-Ready Expert Reports'],
         'svg_icon'    => '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 0-7.07 17.07l.07.07"/><path d="M12 6a6 6 0 0 0-4.24 10.24"/><path d="M12 10a2 2 0 0 0-1.41 3.41"/><path d="M12 18v4"/><path d="M8 22h8"/><circle cx="12" cy="12" r="1"/></svg>'
     ],
@@ -51,7 +52,7 @@ $investigationPillars = [
         'coords'      => 'OSINT: MULTI-VECTOR TRACE ACTIVE',
         'status'      => 'RECONNAISSANCE ACTIVE',
         'status_color'=> '#00f0ff',
-        'image'       => 'assets/images/showcase_02_osint.jpg',
+        'image'       => 'assets/images/investigation_02_osint.jpg',
         'capabilities'=> ['Digital Footprint Tracing', 'Multi-Source Intelligence', 'Identity Verification', 'Actionable Risk Reports'],
         'svg_icon'    => '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><circle cx="11" cy="11" r="3"/></svg>'
     ],
@@ -74,7 +75,7 @@ $investigationPillars = [
         'coords'      => 'IDENTITY: PROFILE ANOMALY DETECTED',
         'status'      => 'TAKEDOWN STREAM ACTIVE',
         'status_color'=> '#10b981',
-        'image'       => 'assets/images/showcase_03_social_media.jpg',
+        'image'       => 'assets/images/investigation_03_social_media.jpg',
         'capabilities'=> ['Fake Profile & Botnet Tracing', 'Harassment & Defamation Evidence', 'Account Takeover Recovery', 'Platform Legal Reporting Support'],
         'svg_icon'    => '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>'
     ],
@@ -97,7 +98,7 @@ $investigationPillars = [
         'coords'      => 'TRACE: FINANCIAL TRAIL IDENTIFIED',
         'status'      => 'FRAUD INTEL ACTIVE',
         'status_color'=> '#f59e0b',
-        'image'       => 'assets/images/showcase_04_fraud_support.jpg',
+        'image'       => 'assets/images/investigation_04_fraud_support.jpg',
         'capabilities'=> ['Cryptocurrency Ledger Tracing', 'Phishing & Wire Scam Tracking', 'Mule Account Identification', 'LEA Complaint Dossier Prep'],
         'svg_icon'    => '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/><circle cx="7" cy="15" r="1"/></svg>'
     ],
@@ -120,7 +121,7 @@ $investigationPillars = [
         'coords'      => 'EVIDENCE: FORENSIC ACQUISITION SEALED',
         'status'      => 'EVIDENCE SEALED',
         'status_color'=> '#8b20ff',
-        'image'       => 'assets/images/showcase_05_evidence_forensic.jpg',
+        'image'       => 'assets/images/investigation_05_digital_forensics.jpg',
         'capabilities'=> ['Secure Device Imaging', 'Tamper-Proof Metadata Capture', 'Email & Cloud Acquisition', 'Court-Admissible Dossiers'],
         'svg_icon'    => '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>'
     ],
@@ -143,7 +144,7 @@ $investigationPillars = [
         'coords'      => 'VIP-SHIELD: SURVEILLANCE CLEARED',
         'status'      => 'VIP SHIELD ACTIVE',
         'status_color'=> '#00f0ff',
-        'image'       => 'assets/images/showcase_06_executive_defense.jpg',
+        'image'       => 'assets/images/investigation_06_executive_family.jpg',
         'capabilities'=> ['VIP Dark Web Exposure Audits', 'Personal Device Hardening', 'Anti-Doxxing & Privacy Controls', 'Family Home Network Defense'],
         'svg_icon'    => '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l7 4v6c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6l7-4z"/><circle cx="12" cy="9" r="2.5"/><path d="M8 16c0-2.2 1.8-4 4-4s4 1.8 4 4"/></svg>'
     ],
@@ -166,7 +167,7 @@ $investigationPillars = [
         'coords'      => 'ACADEMY: SESSIONS SCHEDULED',
         'status'      => 'ACCREDITED DRILLS',
         'status_color'=> '#eab308',
-        'image'       => 'assets/images/showcase_07_lea_training.jpg',
+        'image'       => 'assets/images/investigation_07_lea_training.jpg',
         'capabilities'=> ['Forensic Seizure Protocols', 'Chain-of-Custody Procedures', 'Fraud Awareness Training', 'Incident Response Readiness'],
         'svg_icon'    => '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>'
     ],
@@ -189,7 +190,7 @@ $investigationPillars = [
         'coords'      => 'SAFEGUARD: MONITORING ACTIVE',
         'status'      => 'ETHICAL DEFENSE ACTIVE',
         'status_color'=> '#ec4899',
-        'image'       => 'assets/images/showcase_08_child_safety.jpg',
+        'image'       => 'assets/images/investigation_08_child_safety.jpg',
         'capabilities'=> ['Cyberbullying Identification', 'Online Harassment Analysis', 'Suspicious Interaction Triage', 'CSAM Escalation & Reporting'],
         'svg_icon'    => '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><circle cx="12" cy="10" r="3"/><path d="M7 18a5 5 0 0 1 10 0"/></svg>'
     ],
@@ -198,11 +199,8 @@ $investigationPillars = [
 $cyberPillars = $investigationPillars;
 $cyberPanels  = $investigationPillars;
 
-// 8 Investigation Services with Rich Visuals
-global $investigationServices;
-if (empty($investigationServices)) {
-    require_once __DIR__ . '/config.php';
-}
+// 8 Investigation Services with Rich Visuals (Dynamically loaded from Storage)
+$investigationServices = function_exists('ck_get_investigation_services') ? ck_get_investigation_services(false) : ($investigationServices ?? []);
 $cyberServices = $investigationServices;
 
 // Forensic Investigation Lifecycle (5 Steps)
@@ -296,28 +294,13 @@ $cyberRisksRow1 = $investigationThreatsRow1;
 $cyberRisksRow2 = $investigationThreatsRow2;
 
 // Testimonials for Investigation (Dynamically loaded from File Storage)
-$storedTestimonials = function_exists('ck_get_testimonials') ? ck_get_testimonials(false) : [];
-$investigationTestimonials = [
-    [
-        'quote'  => 'CyberKovai\'s digital forensics team recovered critical deleted evidence and provided an airtight forensic report that proved decisive in our corporate litigation. Exceptional discretion and technical precision.',
-        'name'   => 'Rajesh M.',
-        'role'   => 'Managing Partner, Legal Advisory',
-        'avatar' => 'assets/images/avatar_karthik.jpg',
-    ],
-    [
-        'quote'  => 'Their cyber fraud tracing and blockchain analysis uncovered the illicit movement of funds after our firm suffered a major financial wire fraud. The dossier provided to law enforcement led directly to key recoveries.',
-        'name'   => 'Priya S.',
-        'role'   => 'Chief Financial Officer, Enterprise Logistics',
-        'avatar' => 'assets/images/avatar_priya.jpg',
-    ],
-    [
-        'quote'  => 'We faced an aggressive online harassment and executive impersonation campaign. CyberKovai identified the perpetrators through OSINT within 72 hours and facilitated swift platform takedowns.',
-        'name'   => 'Aravind K.',
-        'role'   => 'VP Operations & Corporate Affairs',
-        'avatar' => 'assets/images/avatar_aravind.jpg',
-    ],
-];
-$testimonials = !empty($storedTestimonials) ? $storedTestimonials : $investigationTestimonials;
+$siteSettings = function_exists('ck_get_settings') ? ck_get_settings() : [];
+$showTestimonialsMaster = filter_var($siteSettings['show_testimonials'] ?? (defined('SITE_SHOW_TESTIMONIALS') ? SITE_SHOW_TESTIMONIALS : true), FILTER_VALIDATE_BOOLEAN);
+
+$testimonials = [];
+if ($showTestimonialsMaster && function_exists('ck_get_testimonials')) {
+    $testimonials = ck_get_testimonials(false);
+}
 
 // FAQs for Digital Investigations & Forensics
 $investigationFaqs = [
@@ -653,9 +636,6 @@ include_once __DIR__ . '/includes/header.php';
                      aria-selected="<?= $i === 0 ? 'true' : 'false' ?>"
                      aria-label="<?= sanitize_out($panel['title']) ?>">
 
-                    <!-- Background Image Layer with Zoom Effect -->
-                    <?php if (!empty($panel['image'])): ?><div class="ci-panel-bg" style="background-image: url('<?= sanitize_out($panel['image']) ?>');"></div><?php endif; ?>
-
                     <!-- Cyber Overlay Gradient & Vignette -->
                     <div class="ci-panel-overlay"></div>
 
@@ -857,6 +837,10 @@ include_once __DIR__ . '/includes/header.php';
 </section>
 
 
+<?php
+$invAccreds = function_exists('ck_get_accreditations') ? ck_get_accreditations('investigation', false) : $accreds;
+if (!empty($invAccreds)):
+?>
 <!-- ================================================================
      MEMBERSHIPS, ASSOCIATIONS & ACCREDITATIONS
 ================================================================ -->
@@ -876,19 +860,26 @@ include_once __DIR__ . '/includes/header.php';
             </p>
         </div>
 
-        <!-- 4 Badges Display (Single Line) -->
+        <!-- Badges Display -->
         <div class="credentials-grid ci-reveal">
-            <?php foreach ($accreds as $badge): ?>
+            <?php foreach ($invAccreds as $badge): ?>
                 <div class="credentials-card">
-                    <div class="badge-card">
-                        <img src="<?= sanitize_out($badge['img']) ?>" alt="<?= sanitize_out($badge['alt']) ?>" class="badge-img">
-                    </div>
+                    <?php if (!empty($badge['website'])): ?>
+                        <a href="<?= sanitize_out($badge['website']) ?>" target="_blank" rel="noopener" class="badge-card" title="<?= sanitize_out($badge['name'] ?? $badge['alt'] ?? '') ?>">
+                            <img src="<?= sanitize_out($badge['img']) ?>" alt="<?= sanitize_out($badge['alt']) ?>" class="badge-img">
+                        </a>
+                    <?php else: ?>
+                        <div class="badge-card" title="<?= sanitize_out($badge['name'] ?? $badge['alt'] ?? '') ?>">
+                            <img src="<?= sanitize_out($badge['img']) ?>" alt="<?= sanitize_out($badge['alt']) ?>" class="badge-img">
+                        </div>
+                    <?php endif; ?>
                 </div>
             <?php endforeach; ?>
         </div>
 
     </div>
 </section>
+<?php endif; ?>
 
 
 <!-- ================================================================
@@ -958,8 +949,12 @@ include_once __DIR__ . '/includes/header.php';
 
 
 <!-- ================================================================
-     OUR CLIENTS & PARTNER ENGAGEMENTS
+     OUR CLIENTS & PARTNER ENGAGEMENTS (INVESTIGATION TRACK)
 ================================================================ -->
+<?php 
+$investigationClients = function_exists('ck_get_clients') ? ck_get_clients('investigation', false) : ($clientLogos ?? []);
+if (!empty($investigationClients)): 
+?>
 <section class="section ci-clients-section" id="ci-clients">
     <div class="container">
 
@@ -973,10 +968,10 @@ include_once __DIR__ . '/includes/header.php';
         </div>
 
         <div class="ci-clients-deck ci-reveal">
-            <?php foreach ($clientLogos as $client): ?>
+            <?php foreach ($investigationClients as $client): ?>
             <div class="ci-client-card">
                 <div class="ci-client-logo-box">
-                    <img src="<?= sanitize_out($client['img']) ?>" alt="<?= sanitize_out($client['alt']) ?>" class="ci-client-logo-img" loading="lazy">
+                    <img src="<?= sanitize_out($client['img']) ?>" alt="<?= sanitize_out($client['alt'] ?? ($client['name'] . ' - ' . ($client['category'] ?? ''))) ?>" class="ci-client-logo-img" loading="lazy">
                 </div>
                 <div class="ci-client-card-body">
                     <h3><?= sanitize_out($client['name']) ?></h3>
@@ -994,10 +989,12 @@ include_once __DIR__ . '/includes/header.php';
 
     </div>
 </section>
+<?php endif; ?>
 
 <!-- ================================================================
-     TESTIMONIALS (3 CARDS)
+     TESTIMONIALS (CASE REVIEWS)
 ================================================================ -->
+<?php if ($showTestimonialsMaster && !empty($testimonials)): ?>
 <section class="section ci-testimonials" id="ci-testimonials">
     <div class="container">
 
@@ -1027,6 +1024,7 @@ include_once __DIR__ . '/includes/header.php';
 
     </div>
 </section>
+<?php endif; ?>
 
 
 <!-- ================================================================

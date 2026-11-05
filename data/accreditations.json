@@ -1,0 +1,46 @@
+[
+    {
+        "id": "accred-1",
+        "name": "Association of Investigators and Detectives",
+        "short_name": "AID",
+        "img": "assets/images/aid.png",
+        "alt": "AID - Association of Investigators and Detectives",
+        "website": "",
+        "track": "both",
+        "order": 1,
+        "status": "active"
+    },
+    {
+        "id": "accred-2",
+        "name": "Tamilnadu Association of Professional Detectives and Investigators",
+        "short_name": "TAPDI",
+        "img": "assets/images/tapdi.png",
+        "alt": "TAPDI - Tamilnadu Association of Professional Detectives and Investigators",
+        "website": "",
+        "track": "both",
+        "order": 2,
+        "status": "active"
+    },
+    {
+        "id": "accred-3",
+        "name": "Association of Professional Detectives & Investigators",
+        "short_name": "APDI",
+        "img": "assets/images/apdi.png",
+        "alt": "APDI - Association of Professional Detectives & Investigators",
+        "website": "",
+        "track": "both",
+        "order": 3,
+        "status": "active"
+    },
+    {
+        "id": "accred-4",
+        "name": "Unified Network of Investigative Professionals",
+        "short_name": "UNIP",
+        "img": "assets/images/unip.svg",
+        "alt": "UNIP - Unified Network of Investigative Professionals",
+        "website": "",
+        "track": "both",
+        "order": 4,
+        "status": "active"
+    }
+]

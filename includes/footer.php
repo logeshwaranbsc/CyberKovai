@@ -9,6 +9,12 @@ $teamUrl = $teamUrl ?? ($basePrefix . 'team.php?section=' . ($activeSection ?? '
 $ckShowTeam = function_exists('ck_get_settings') 
     ? filter_var(ck_get_settings()['show_team'] ?? true, FILTER_VALIDATE_BOOLEAN)
     : (defined('SITE_SHOW_TEAM') ? SITE_SHOW_TEAM : true);
+$ckShowTestimonials = function_exists('ck_get_settings') 
+    ? filter_var(ck_get_settings()['show_testimonials'] ?? true, FILTER_VALIDATE_BOOLEAN)
+    : (defined('SITE_SHOW_TESTIMONIALS') ? SITE_SHOW_TESTIMONIALS : true);
+if ($ckShowTestimonials && function_exists('ck_get_testimonials')) {
+    $ckShowTestimonials = !empty(ck_get_testimonials(false));
+}
 ?>
     <!-- ================= LIVE CHAT / HELP WIDGET (MATCHING SCREENSHOT) ================= -->
     <div class="chat-widget-badge" id="chatWidgetBadge" role="complementary" aria-label="Customer Support">
@@ -72,7 +78,9 @@ $ckShowTeam = function_exists('ck_get_settings')
                 <a href="<?= $teamUrl ?>">Our Team</a>
                 <?php endif; ?>
                 <a href="<?= $basePrefix ?>cyber-intelligence.php?section=forensics#ci-services">Services</a>
+                <?php if ($ckShowTestimonials): ?>
                 <a href="<?= $basePrefix ?>cyber-intelligence.php?section=forensics#ci-testimonials">Testimonials</a>
+                <?php endif; ?>
                 <a href="<?= $contactUrl ?>">Contact Us</a>
             </div>
 

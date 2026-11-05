@@ -19,6 +19,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $postAction = $_POST['action'] ?? 'save';
 
+    if ($postAction === 'toggle_visibility') {
+        $curSettings = ck_get_settings();
+        $newVal = empty($curSettings['show_testimonials']);
+        ck_save_settings(['show_testimonials' => $newVal]);
+        ck_set_flash('success', $newVal ? 'Testimonials section is now VISIBLE on the website.' : 'Testimonials section is now HIDDEN from the website.');
+        header('Location: testimonials.php');
+        exit;
+    }
+
+    if ($postAction === 'toggle_status') {
+        $toggleId = $_POST['id'] ?? '';
+        if (!empty($toggleId)) {
+            $newStatus = ck_toggle_testimonial_status($toggleId);
+            if ($newStatus !== false) {
+                $testi = ck_get_testimonial($toggleId);
+                $name = $testi['name'] ?? 'Testimonial';
+                if ($newStatus === 'active') {
+                    ck_set_flash('success', "Testimonial by '{$name}' is now ACTIVE and visible on the website.");
+                } else {
+                    ck_set_flash('success', "Testimonial by '{$name}' is now HIDDEN from the website.");
+                }
+            } else {
+                ck_set_flash('error', "Could not toggle testimonial visibility status.");
+            }
+        }
+        header('Location: testimonials.php');
+        exit;
+    }
+
     if ($postAction === 'delete') {
         $deleteId = $_POST['id'] ?? '';
         if (!empty($deleteId)) {
@@ -90,6 +119,8 @@ if ($action === 'edit' && $editId) {
 }
 
 $testimonialsList = ck_get_testimonials(true);
+$siteSettings = ck_get_settings();
+$showTestimonialsMaster = !empty($siteSettings['show_testimonials']);
 
 $adminPageTitle = 'Client Testimonials';
 require_once __DIR__ . '/includes/header.php';
@@ -113,6 +144,46 @@ require_once __DIR__ . '/includes/header.php';
         </a>
     </div>
     <?php endif; ?>
+</div>
+
+<!-- ================= TESTIMONIALS VISIBILITY MASTER SWITCH BANNER ================= -->
+<div style="background: rgba(13,13,38,0.7); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 1rem 1.25rem; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+    <div style="display: flex; align-items: center; gap: 0.85rem;">
+        <span style="font-size: 1.4rem;">💬</span>
+        <div>
+            <div style="font-size: 0.92rem; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                Website Testimonials Visibility:
+                <?php if ($showTestimonialsMaster): ?>
+                    <span class="status-pill active">● Publicly Visible</span>
+                <?php else: ?>
+                    <span class="status-pill inactive" style="background: rgba(255,171,0,0.15); color: #ffab00; border-color: rgba(255,171,0,0.3);">○ Hidden from Website</span>
+                <?php endif; ?>
+            </div>
+            <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem;">
+                <?= $showTestimonialsMaster 
+                    ? 'Active testimonials are displayed on the website and linked in the footer.' 
+                    : 'The entire testimonials section is currently HIDDEN from the public website.' ?>
+            </div>
+        </div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+        <a href="../cyber-intelligence.php#ci-testimonials" target="_blank" class="btn btn-secondary btn-sm" title="View live on website">
+            Preview on Website ➔
+        </a>
+        <form method="POST" action="testimonials.php" style="margin: 0;">
+            <?= ck_csrf_field() ?>
+            <input type="hidden" name="action" value="toggle_visibility">
+            <?php if ($showTestimonialsMaster): ?>
+                <button type="submit" class="btn btn-secondary btn-sm" style="border-color: rgba(255,171,0,0.4); color: #ffab00;">
+                    Hide All from Website
+                </button>
+            <?php else: ?>
+                <button type="submit" class="btn btn-primary btn-sm">
+                    Make Visible on Website
+                </button>
+            <?php endif; ?>
+        </form>
+    </div>
 </div>
 
 <?php if ($action === 'add' || $action === 'edit'): ?>
@@ -161,10 +232,11 @@ require_once __DIR__ . '/includes/header.php';
 
                 <div class="form-group">
                     <label for="status" class="form-label">Publication Status</label>
-                    <select id="status" name="status" class="form-control">
+                    <select id="status" name="status" class="form-control" style="font-weight: 600;">
                         <option value="active" <?= (($editingItem['status'] ?? 'active') === 'active') ? 'selected' : '' ?>>Active (Visible on Website)</option>
-                        <option value="inactive" <?= (($editingItem['status'] ?? '') === 'inactive') ? 'selected' : '' ?>>Draft / Hidden</option>
+                        <option value="inactive" <?= (($editingItem['status'] ?? '') === 'inactive') ? 'selected' : '' ?>>Hidden (Hide from Website)</option>
                     </select>
+                    <span class="form-help">Choose whether this testimonial should appear on the public website.</span>
                 </div>
 
                 <div class="form-group col-full">
@@ -203,6 +275,7 @@ require_once __DIR__ . '/includes/header.php';
 <div class="admin-card">
     <div class="admin-card-header">
         <h3 class="admin-card-title">All Testimonials (<?= count($testimonialsList) ?>)</h3>
+        <a href="../cyber-intelligence.php#ci-testimonials" target="_blank" class="btn btn-secondary btn-sm" title="Preview testimonials section on live website">Preview on Website ➔</a>
     </div>
     <div class="table-responsive">
         <table class="admin-table">
@@ -240,12 +313,37 @@ require_once __DIR__ . '/includes/header.php';
                             <?= str_repeat('★', (int)($t['rating'] ?? 5)) ?>
                         </td>
                         <td>
-                            <span class="status-pill <?= (($t['status'] ?? 'active') === 'active') ? 'active' : 'inactive' ?>">
-                                <?= htmlspecialchars($t['status'] ?? 'active') ?>
-                            </span>
+                            <form method="POST" action="testimonials.php" style="display:inline; margin:0;">
+                                <?= ck_csrf_field() ?>
+                                <input type="hidden" name="action" value="toggle_status">
+                                <input type="hidden" name="id" value="<?= htmlspecialchars($t['id']) ?>">
+                                <?php if (($t['status'] ?? 'active') === 'active'): ?>
+                                    <button type="submit" class="status-pill active" style="cursor: pointer; border: 1px solid rgba(0, 230, 118, 0.3);" title="Click to hide from website">
+                                        ● ACTIVE
+                                    </button>
+                                <?php else: ?>
+                                    <button type="submit" class="status-pill inactive" style="cursor: pointer; background: rgba(255,171,0,0.15); color: #ffab00; border-color: rgba(255,171,0,0.3);" title="Click to show on website">
+                                        ○ HIDDEN
+                                    </button>
+                                <?php endif; ?>
+                            </form>
                         </td>
                         <td style="text-align: right;">
                             <div class="action-btns-group" style="justify-content: flex-end;">
+                                <form method="POST" action="testimonials.php" style="display:inline; margin:0;">
+                                    <?= ck_csrf_field() ?>
+                                    <input type="hidden" name="action" value="toggle_status">
+                                    <input type="hidden" name="id" value="<?= htmlspecialchars($t['id']) ?>">
+                                    <?php if (($t['status'] ?? 'active') === 'active'): ?>
+                                        <button type="submit" class="btn-action hide" title="Hide this testimonial from website">
+                                            Hide
+                                        </button>
+                                    <?php else: ?>
+                                        <button type="submit" class="btn-action show" title="Make this testimonial visible on website">
+                                            Show
+                                        </button>
+                                    <?php endif; ?>
+                                </form>
                                 <a href="testimonials.php?action=edit&id=<?= urlencode($t['id']) ?>" class="btn-action edit">Edit</a>
                                 <button type="button" class="btn-action delete" onclick="confirmDelete('testimonials.php', '<?= htmlspecialchars(addslashes($t['name'])) ?>', '<?= ck_csrf_token() ?>'); document.getElementById('deleteConfirmForm').innerHTML += '<input type=\'hidden\' name=\'id\' value=\'<?= htmlspecialchars($t['id']) ?>\'>';">
                                     Delete

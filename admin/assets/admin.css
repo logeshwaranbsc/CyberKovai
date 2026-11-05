@@ -745,6 +745,30 @@ body.admin-body {
     color: var(--text-primary);
 }
 
+.btn-action.hide {
+    background: rgba(255, 171, 0, 0.12);
+    color: #ffab00;
+    border: 1px solid rgba(255, 171, 0, 0.25);
+    cursor: pointer;
+}
+
+.btn-action.hide:hover {
+    background: #ffab00;
+    color: #0b0b1a;
+}
+
+.btn-action.show {
+    background: rgba(0, 230, 118, 0.12);
+    color: #00e676;
+    border: 1px solid rgba(0, 230, 118, 0.25);
+    cursor: pointer;
+}
+
+.btn-action.show:hover {
+    background: #00e676;
+    color: #0b0b1a;
+}
+
 /* ================= FORMS & INPUTS ================= */
 .form-grid {
     display: grid;

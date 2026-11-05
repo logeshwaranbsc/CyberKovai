@@ -16,6 +16,8 @@ $currentFile = basename($_SERVER['PHP_SELF']);
 $cyberServicesCount = count(ck_get_cyber_services(true));
 $invServicesCount   = count(ck_get_investigation_services(true));
 $testimonialsCount  = count(ck_get_testimonials(true));
+$clientsCount       = function_exists('ck_get_clients') ? count(ck_get_clients('all', true)) : 0;
+$accredsCount       = function_exists('ck_get_accreditations') ? count(ck_get_accreditations('all', true)) : 0;
 $teamCount          = count(ck_get_team_members(true));
 
 $pageTitle = $adminPageTitle ?? 'Admin Console';
@@ -69,6 +71,16 @@ $flash = ck_get_flash();
                 <span class="link-icon">⭐</span>
                 <span>Testimonials</span>
                 <span class="badge-count"><?= $testimonialsCount ?></span>
+            </a>
+            <a href="clients.php" class="sidebar-link <?= ($currentFile === 'clients.php') ? 'active' : '' ?>">
+                <span class="link-icon">🏢</span>
+                <span>Clients &amp; Logos</span>
+                <span class="badge-count"><?= $clientsCount ?></span>
+            </a>
+            <a href="accreditations.php" class="sidebar-link <?= ($currentFile === 'accreditations.php') ? 'active' : '' ?>">
+                <span class="link-icon">🏅</span>
+                <span>Accreditations &amp; Badges</span>
+                <span class="badge-count"><?= $accredsCount ?></span>
             </a>
             <a href="team.php" class="sidebar-link <?= ($currentFile === 'team.php') ? 'active' : '' ?>">
                 <span class="link-icon">👥</span>

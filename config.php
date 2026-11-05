@@ -73,6 +73,7 @@ if (!defined('SITE_PHONE_TEL')) define('SITE_PHONE_TEL', env('SITE_PHONE_TEL', $
 if (!defined('SITE_LOCATION')) define('SITE_LOCATION', env('SITE_LOCATION', $ckSiteSettings['site_location'] ?? 'Coimbatore, Tamil Nadu, India'));
 if (!defined('SITE_ADDRESS')) define('SITE_ADDRESS', env('SITE_ADDRESS', $ckSiteSettings['site_address'] ?? 'Coimbatore, Tamil Nadu, India'));
 if (!defined('SITE_SHOW_TEAM')) define('SITE_SHOW_TEAM', filter_var($ckSiteSettings['show_team'] ?? true, FILTER_VALIDATE_BOOLEAN));
+if (!defined('SITE_SHOW_TESTIMONIALS')) define('SITE_SHOW_TESTIMONIALS', filter_var($ckSiteSettings['show_testimonials'] ?? true, FILTER_VALIDATE_BOOLEAN));
 
 // Navigation Links
 $navLinks = [
@@ -306,8 +307,8 @@ $riskTools = [
     ['icon' => '📑', 'title' => 'Compliance Risk Review', 'desc' => 'Regulatory & compliance reviews']
 ];
 
-// Accreditation Badges (Approved Investigative Association Licenses)
-$accreds = [
+// Accreditation Badges (Approved Investigative Association Licenses - Dynamically managed via Admin)
+$accreds = function_exists('ck_get_accreditations') ? ck_get_accreditations('all', false) : [
     ['img' => 'assets/images/aid.png', 'alt' => 'AID - Association of Investigators and Detectives'],
     ['img' => 'assets/images/tapdi.png', 'alt' => 'TAPDI - Tamilnadu Association of Professional Detectives and Investigators'],
     ['img' => 'assets/images/apdi.png', 'alt' => 'APDI - Association of Professional Detectives & Investigators'],

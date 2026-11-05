@@ -1,0 +1,50 @@
+[
+    {
+        "id": "client-1",
+        "name": "CopConnect",
+        "category": "Information Sharing and Analysis Center",
+        "desc": "Strategic collaboration in cyber threat intelligence sharing, awareness, and digital incident advisory.",
+        "img": "assets/images/client_copconnect.jpg",
+        "alt": "CopConnect - Information Sharing and Analysis Center",
+        "website": "https://copconnect.org",
+        "track": "investigation",
+        "order": 1,
+        "status": "active"
+    },
+    {
+        "id": "client-3",
+        "name": "CopConnect",
+        "category": "Information Sharing and Analysis Center",
+        "desc": "Enterprise cyber threat intelligence sharing, automated incident indicators, and proactive defensive threat coordination.",
+        "img": "assets/images/client_copconnect.jpg",
+        "alt": "CopConnect - Threat Intelligence",
+        "website": "https://copconnect.org",
+        "track": "cyber",
+        "order": 1,
+        "status": "active"
+    },
+    {
+        "id": "client-2",
+        "name": "Gokarna Samudra",
+        "category": "Beach Resort & Hospitality",
+        "desc": "Digital infrastructure protection, cyber dispute resolution, and guest data privacy security.",
+        "img": "assets/images/client_gokarna_samudra.jpg",
+        "alt": "Gokarna Samudra Beach Resort",
+        "website": "",
+        "track": "investigation",
+        "order": 2,
+        "status": "active"
+    },
+    {
+        "id": "client-4",
+        "name": "Gokarna Samudra",
+        "category": "Beach Resort & Hospitality",
+        "desc": "Digital infrastructure protection, web/network penetration testing, and guest data privacy security audits.",
+        "img": "assets/images/client_gokarna_samudra.jpg",
+        "alt": "Gokarna Samudra Beach Resort",
+        "website": "",
+        "track": "cyber",
+        "order": 2,
+        "status": "active"
+    }
+]

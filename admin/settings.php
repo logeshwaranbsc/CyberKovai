@@ -179,19 +179,19 @@ require_once __DIR__ . '/includes/header.php';
                 </div>
             </div>
 
-            <!-- Website Features & Team Visibility Section -->
+            <!-- Website Features & Visibility Section -->
             <div style="margin-bottom: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color);">
                 <h4 style="font-size: 1rem; color: var(--accent-purple-light); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-                    <span>👥</span> Our Team Page &amp; Navigation Visibility
+                    <span>⚙️</span> Website Features &amp; Visibility Controls
                 </h4>
                 <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.25rem;">
-                    Choose whether the "Our Team" page and navigation links should be publicly visible or completely hidden across the website.
+                    Control the public display of major website sections such as the Our Team page and Client Testimonials.
                 </p>
 
                 <div class="form-grid">
-                    <div class="form-group col-full">
+                    <div class="form-group">
                         <label for="show_team" class="form-label">
-                            Our Team Section Visibility Status <span class="required">*</span>
+                            Our Team Page Visibility <span class="required">*</span>
                         </label>
                         <select id="show_team" name="show_team" class="form-control" style="font-weight: 600;">
                             <option value="1" <?= (!empty($settings['show_team'])) ? 'selected' : '' ?>>
@@ -202,7 +202,24 @@ require_once __DIR__ . '/includes/header.php';
                             </option>
                         </select>
                         <span class="form-help">
-                            When set to <strong>Hidden</strong>, "Our Team" is automatically hidden from all header dropdowns and footers, and any direct request to <code>team.php</code> is smoothly redirected to the About page.
+                            When set to <strong>Hidden</strong>, "Our Team" is hidden from menus and /team.php redirects to About.
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="show_testimonials" class="form-label">
+                            Client Testimonials Visibility <span class="required">*</span>
+                        </label>
+                        <select id="show_testimonials" name="show_testimonials" class="form-control" style="font-weight: 600;">
+                            <option value="1" <?= (!empty($settings['show_testimonials'])) ? 'selected' : '' ?>>
+                                Visible — Display testimonials section on website &amp; footer link
+                            </option>
+                            <option value="0" <?= (empty($settings['show_testimonials'])) ? 'selected' : '' ?>>
+                                Hidden — Completely hide testimonials section &amp; footer link from website
+                            </option>
+                        </select>
+                        <span class="form-help">
+                            When set to <strong>Hidden</strong>, the testimonials section is completely hidden from the public website.
                         </span>
                     </div>
                 </div>

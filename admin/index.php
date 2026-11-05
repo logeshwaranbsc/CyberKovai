@@ -10,6 +10,8 @@ $settings = ck_get_settings();
 $cyberServices = ck_get_cyber_services(true);
 $invServices = ck_get_investigation_services(true);
 $testimonials = ck_get_testimonials(true);
+$clients = ck_get_clients('all', true);
+$accreds = ck_get_accreditations('all', true);
 $teamMembers = ck_get_team_members(true);
 ?>
 
@@ -154,6 +156,8 @@ $teamMembers = ck_get_team_members(true);
             <div style="margin-top: 1.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
                 <a href="services-cyber.php" class="btn btn-secondary btn-sm">Manage Cyber Services ➔</a>
                 <a href="services-investigation.php" class="btn btn-secondary btn-sm">Manage Investigation ➔</a>
+                <a href="clients.php" class="btn btn-secondary btn-sm">Manage Clients &amp; Logos ➔</a>
+                <a href="accreditations.php" class="btn btn-secondary btn-sm">Manage Accreditations (<?= count($accreds) ?>) ➔</a>
                 <a href="testimonials.php" class="btn btn-secondary btn-sm">Manage Testimonials ➔</a>
                 <a href="team.php" class="btn btn-secondary btn-sm">Manage Team ➔</a>
             </div>

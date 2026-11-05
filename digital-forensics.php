@@ -123,8 +123,8 @@ $cyberClientTypes = [
     ['icon' => '🌐', 'title' => 'Global Multinationals', 'desc' => 'Distributed attack surface management, supply chain assessments, and executive vCISO advisory.']
 ];
 
-// 4 Credentials / Accreditations (Original)
-$accreds = [
+// Credentials / Accreditations (Dynamically managed via Admin Panel)
+$accreds = function_exists('ck_get_accreditations') ? ck_get_accreditations('cyber', false) : [
     ['img' => 'assets/images/aid.png',   'alt' => 'AID - Association of Investigators and Detectives'],
     ['img' => 'assets/images/tapdi.png', 'alt' => 'TAPDI - Tamilnadu Association of Professional Detectives and Investigators'],
     ['img' => 'assets/images/apdi.png',  'alt' => 'APDI - Association of Professional Detectives & Investigators'],
@@ -945,26 +945,34 @@ include_once __DIR__ . '/includes/header.php';
 
                 </div>
 
-                <!-- Featured Client Partnerships Showcase -->
+                <!-- Featured Client Partnerships Showcase (Cyber Security Track) -->
+                <?php 
+                $cyberClients = function_exists('ck_get_clients') ? ck_get_clients('cyber', false) : ($clientLogos ?? []);
+                if (!empty($cyberClients)): 
+                ?>
                 <div class="cyber-clients-showcase">
                     <div class="cyber-clients-showcase-label">
                         <span class="pulse-dot"></span>
                         <span>FEATURED CLIENT ENGAGEMENTS</span>
                     </div>
                     <div class="cyber-clients-logos-deck">
-                        <?php foreach ($clientLogos as $client): ?>
+                        <?php foreach ($cyberClients as $client): ?>
                         <div class="cyber-client-card">
                             <div class="cyber-client-logo-box">
-                                <img src="<?= sanitize_out($client['img']) ?>" alt="<?= sanitize_out($client['alt']) ?>" class="cyber-client-logo-img" loading="lazy">
+                                <img src="<?= sanitize_out($client['img']) ?>" alt="<?= sanitize_out($client['alt'] ?? ($client['name'] . ' - ' . ($client['category'] ?? ''))) ?>" class="cyber-client-logo-img" loading="lazy">
                             </div>
                             <div class="cyber-client-meta">
                                 <h4><?= sanitize_out($client['name']) ?></h4>
                                 <span class="cyber-client-cat"><?= sanitize_out($client['category']) ?></span>
+                                <?php if (!empty($client['desc'])): ?>
+                                <p style="font-size: 0.82rem; color: rgba(255, 255, 255, 0.7); margin-top: 0.35rem; line-height: 1.45;"><?= sanitize_out($client['desc']) ?></p>
+                                <?php endif; ?>
                             </div>
                         </div>
                         <?php endforeach; ?>
                     </div>
                 </div>
+                <?php endif; ?>
 
             </div>
 
@@ -1050,6 +1058,7 @@ include_once __DIR__ . '/includes/header.php';
 
         <!-- ================= ACCREDITATIONS & CREDENTIALS ================= -->
 
+        <?php if (!empty($accreds)): ?>
         <section class="section credentials-section" id="credentials">
 
             <div class="container">
@@ -1070,13 +1079,19 @@ include_once __DIR__ . '/includes/header.php';
 
                 </div>
 
-                <!-- 4 Badges Static Display -->
+                <!-- Badges Display -->
                 <div class="credentials-grid">
                     <?php foreach ($accreds as $badge): ?>
                         <div class="credentials-card">
-                            <div class="badge-card">
-                                <img src="<?= sanitize_out($badge['img']) ?>" alt="<?= sanitize_out($badge['alt']) ?>" class="badge-img">
-                            </div>
+                            <?php if (!empty($badge['website'])): ?>
+                                <a href="<?= sanitize_out($badge['website']) ?>" target="_blank" rel="noopener" class="badge-card" title="<?= sanitize_out($badge['name'] ?? $badge['alt'] ?? '') ?>">
+                                    <img src="<?= sanitize_out($badge['img']) ?>" alt="<?= sanitize_out($badge['alt']) ?>" class="badge-img">
+                                </a>
+                            <?php else: ?>
+                                <div class="badge-card" title="<?= sanitize_out($badge['name'] ?? $badge['alt'] ?? '') ?>">
+                                    <img src="<?= sanitize_out($badge['img']) ?>" alt="<?= sanitize_out($badge['alt']) ?>" class="badge-img">
+                                </div>
+                            <?php endif; ?>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -1084,6 +1099,7 @@ include_once __DIR__ . '/includes/header.php';
             </div>
 
         </section>
+        <?php endif; ?>
 
 
         <!-- ================= BUSINESS RISK SIMULATOR (TOOL) ================= -->

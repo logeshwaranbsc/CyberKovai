@@ -168,6 +168,7 @@ function ck_get_settings() {
         'social_linkedin'  => 'https://linkedin.com',
         'social_twitter'   => 'https://twitter.com',
         'show_team'        => true,
+        'show_testimonials'=> true,
         'updated_at'       => date('Y-m-d H:i:s')
     ];
     $saved = ck_read_json('settings.json', []);
@@ -179,11 +180,11 @@ function ck_save_settings($data) {
     $allowedKeys = [
         'site_name', 'site_tagline', 'site_email', 'site_phone',
         'site_phone_tel', 'site_phone_alt', 'site_location', 'site_address',
-        'working_hours', 'social_linkedin', 'social_twitter', 'show_team'
+        'working_hours', 'social_linkedin', 'social_twitter', 'show_team', 'show_testimonials'
     ];
     foreach ($allowedKeys as $k) {
         if (isset($data[$k])) {
-            if ($k === 'show_team') {
+            if ($k === 'show_team' || $k === 'show_testimonials') {
                 $current[$k] = filter_var($data[$k], FILTER_VALIDATE_BOOLEAN);
             } else {
                 $current[$k] = trim((string)$data[$k]);
@@ -213,6 +214,9 @@ function ck_get_investigation_services($includeInactive = true) {
             return !isset($s['status']) || $s['status'] === 'active';
         });
     }
+    usort($services, function($a, $b) {
+        return ((int)($a['order'] ?? 0)) <=> ((int)($b['order'] ?? 0));
+    });
     return array_values($services);
 }
 
@@ -238,6 +242,7 @@ function ck_save_investigation_service($data, $originalSlug = null) {
         'icon'        => trim($data['icon'] ?? '🛡️'),
         'image'       => trim($data['image'] ?? 'assets/images/investigation_01_victim_recovery.jpg'),
         'description' => trim($data['description'] ?? ''),
+        'order'       => isset($data['order']) ? (int)$data['order'] : (count($list) + 1),
         'status'      => $data['status'] ?? 'active',
         'overview'    => trim($data['overview'] ?? ''),
         'updated_at'  => date('Y-m-d H:i:s')
@@ -282,6 +287,24 @@ function ck_delete_investigation_service($slug) {
         ck_remove_service_file($slug);
     }
     return $saved;
+}
+
+function ck_toggle_investigation_service_status($slug) {
+    $list = ck_get_investigation_services(true);
+    $newStatus = false;
+    foreach ($list as $i => $item) {
+        if (($item['slug'] ?? '') === $slug || ($item['id'] ?? '') === $slug) {
+            $curStatus = $item['status'] ?? 'active';
+            $newStatus = ($curStatus === 'active') ? 'inactive' : 'active';
+            $list[$i]['status'] = $newStatus;
+            $list[$i]['updated_at'] = date('Y-m-d H:i:s');
+            break;
+        }
+    }
+    if ($newStatus !== false && ck_write_json('investigation_services.json', $list)) {
+        return $newStatus;
+    }
+    return false;
 }
 
 /* ==========================================================================
@@ -516,6 +539,237 @@ function ck_delete_testimonial($id) {
         $newList[] = $item;
     }
     return ck_write_json('testimonials.json', $newList);
+}
+
+function ck_toggle_testimonial_status($id) {
+    $list = ck_get_testimonials(true);
+    $newStatus = false;
+    foreach ($list as $i => $item) {
+        if (($item['id'] ?? '') === (string)$id) {
+            $curStatus = $item['status'] ?? 'active';
+            $newStatus = ($curStatus === 'active') ? 'inactive' : 'active';
+            $list[$i]['status'] = $newStatus;
+            $list[$i]['updated_at'] = date('Y-m-d H:i:s');
+            break;
+        }
+    }
+    if ($newStatus !== false && ck_write_json('testimonials.json', $list)) {
+        return $newStatus;
+    }
+    return false;
+}
+
+/* ==========================================================================
+   CLIENTS & PARTNER ENGAGEMENTS CRUD
+   ========================================================================== */
+
+function ck_get_clients($track = 'all', $includeInactive = true) {
+    $clients = ck_read_json('clients.json', []);
+    if (empty($clients)) {
+        ck_seed_storage();
+        $clients = ck_read_json('clients.json', []);
+    }
+
+    if ($track !== 'all') {
+        $clients = array_filter($clients, function($c) use ($track) {
+            $cTrack = $c['track'] ?? 'both';
+            return ($cTrack === $track || $cTrack === 'both');
+        });
+    }
+
+    if (!$includeInactive) {
+        $clients = array_filter($clients, function($c) {
+            return !isset($c['status']) || $c['status'] === 'active';
+        });
+    }
+
+    usort($clients, function($a, $b) {
+        return ((int)($a['order'] ?? 0)) <=> ((int)($b['order'] ?? 0));
+    });
+
+    return array_values($clients);
+}
+
+function ck_get_client($id) {
+    $all = ck_get_clients('all', true);
+    foreach ($all as $item) {
+        if (($item['id'] ?? '') === (string)$id) {
+            return $item;
+        }
+    }
+    return null;
+}
+
+function ck_save_client($data, $id = null) {
+    $list = ck_get_clients('all', true);
+    $id = !empty($id) ? (string)$id : (!empty($data['id']) ? (string)$data['id'] : 'client_' . time() . '_' . substr(md5(uniqid('', true)), 0, 4));
+
+    $record = [
+        'id'         => $id,
+        'name'       => trim($data['name'] ?? ''),
+        'category'   => trim($data['category'] ?? 'Enterprise Partner'),
+        'desc'       => trim($data['desc'] ?? ''),
+        'img'        => trim($data['img'] ?? 'assets/images/client_copconnect.jpg'),
+        'alt'        => trim($data['alt'] ?? (!empty($data['name']) ? $data['name'] : 'Client Logo')),
+        'website'    => trim($data['website'] ?? ''),
+        'track'      => in_array($data['track'] ?? '', ['investigation', 'cyber', 'both'], true) ? $data['track'] : 'both',
+        'order'      => isset($data['order']) ? (int)$data['order'] : 1,
+        'status'     => ($data['status'] ?? 'active') === 'inactive' ? 'inactive' : 'active',
+        'updated_at' => date('Y-m-d H:i:s')
+    ];
+
+    $foundIndex = -1;
+    foreach ($list as $i => $item) {
+        if (($item['id'] ?? '') === $id) {
+            $foundIndex = $i;
+            break;
+        }
+    }
+
+    if ($foundIndex >= 0) {
+        $list[$foundIndex] = array_merge($list[$foundIndex], $record);
+    } else {
+        $record['created_at'] = date('Y-m-d H:i:s');
+        $list[] = $record;
+    }
+
+    return ck_write_json('clients.json', $list);
+}
+
+function ck_delete_client($id) {
+    $list = ck_get_clients('all', true);
+    $newList = [];
+    foreach ($list as $item) {
+        if (($item['id'] ?? '') === (string)$id) {
+            continue;
+        }
+        $newList[] = $item;
+    }
+    return ck_write_json('clients.json', $newList);
+}
+
+function ck_toggle_client_status($id) {
+    $list = ck_get_clients('all', true);
+    $newStatus = false;
+    foreach ($list as $i => $item) {
+        if (($item['id'] ?? '') === (string)$id) {
+            $curStatus = $item['status'] ?? 'active';
+            $newStatus = ($curStatus === 'active') ? 'inactive' : 'active';
+            $list[$i]['status'] = $newStatus;
+            $list[$i]['updated_at'] = date('Y-m-d H:i:s');
+            break;
+        }
+    }
+    if ($newStatus !== false && ck_write_json('clients.json', $list)) {
+        return $newStatus;
+    }
+    return false;
+}
+
+/* ==========================================================================
+   ACCREDITATIONS, ASSOCIATIONS & MEMBERSHIPS CRUD
+   ========================================================================== */
+
+function ck_get_accreditations($track = 'all', $includeInactive = true) {
+    $accreds = ck_read_json('accreditations.json', []);
+    if (empty($accreds)) {
+        ck_seed_storage();
+        $accreds = ck_read_json('accreditations.json', []);
+    }
+
+    if ($track !== 'all') {
+        $accreds = array_filter($accreds, function($a) use ($track) {
+            $aTrack = $a['track'] ?? 'both';
+            return ($aTrack === $track || $aTrack === 'both');
+        });
+    }
+
+    if (!$includeInactive) {
+        $accreds = array_filter($accreds, function($a) {
+            return !isset($a['status']) || $a['status'] === 'active';
+        });
+    }
+
+    usort($accreds, function($a, $b) {
+        return ((int)($a['order'] ?? 0)) <=> ((int)($b['order'] ?? 0));
+    });
+
+    return array_values($accreds);
+}
+
+function ck_get_accreditation($id) {
+    $all = ck_get_accreditations('all', true);
+    foreach ($all as $item) {
+        if (($item['id'] ?? '') === (string)$id) {
+            return $item;
+        }
+    }
+    return null;
+}
+
+function ck_save_accreditation($data, $id = null) {
+    $list = ck_get_accreditations('all', true);
+    $id = !empty($id) ? (string)$id : (!empty($data['id']) ? (string)$data['id'] : 'accred_' . time() . '_' . substr(md5(uniqid('', true)), 0, 4));
+
+    $record = [
+        'id'         => $id,
+        'name'       => trim($data['name'] ?? ''),
+        'short_name' => trim($data['short_name'] ?? ''),
+        'img'        => trim($data['img'] ?? 'assets/images/aid.png'),
+        'alt'        => trim($data['alt'] ?? (!empty($data['short_name']) ? ($data['short_name'] . ' - ' . ($data['name'] ?? '')) : ($data['name'] ?? 'Accreditation Badge'))),
+        'website'    => trim($data['website'] ?? ''),
+        'track'      => in_array($data['track'] ?? '', ['investigation', 'cyber', 'both'], true) ? $data['track'] : 'both',
+        'order'      => isset($data['order']) ? (int)$data['order'] : 1,
+        'status'     => ($data['status'] ?? 'active') === 'inactive' ? 'inactive' : 'active',
+        'updated_at' => date('Y-m-d H:i:s')
+    ];
+
+    $foundIndex = -1;
+    foreach ($list as $i => $item) {
+        if (($item['id'] ?? '') === $id) {
+            $foundIndex = $i;
+            break;
+        }
+    }
+
+    if ($foundIndex >= 0) {
+        $list[$foundIndex] = array_merge($list[$foundIndex], $record);
+    } else {
+        $record['created_at'] = date('Y-m-d H:i:s');
+        $list[] = $record;
+    }
+
+    return ck_write_json('accreditations.json', $list);
+}
+
+function ck_delete_accreditation($id) {
+    $list = ck_get_accreditations('all', true);
+    $newList = [];
+    foreach ($list as $item) {
+        if (($item['id'] ?? '') === (string)$id) {
+            continue;
+        }
+        $newList[] = $item;
+    }
+    return ck_write_json('accreditations.json', $newList);
+}
+
+function ck_toggle_accreditation_status($id) {
+    $list = ck_get_accreditations('all', true);
+    $newStatus = false;
+    foreach ($list as $i => $item) {
+        if (($item['id'] ?? '') === (string)$id) {
+            $curStatus = $item['status'] ?? 'active';
+            $newStatus = ($curStatus === 'active') ? 'inactive' : 'active';
+            $list[$i]['status'] = $newStatus;
+            $list[$i]['updated_at'] = date('Y-m-d H:i:s');
+            break;
+        }
+    }
+    if ($newStatus !== false && ck_write_json('accreditations.json', $list)) {
+        return $newStatus;
+    }
+    return false;
 }
 
 /* ==========================================================================
@@ -952,6 +1206,112 @@ function ck_seed_storage() {
                 ck_write_json('cyber_categories.json', $categoriesOnly);
             }
         }
+    }
+
+    // 7. Clients & Partners Seeding
+    if (!file_exists(ck_data_path('clients.json'))) {
+        $clients = [
+            [
+                'id'       => 'client-1',
+                'name'     => 'CopConnect',
+                'category' => 'Information Sharing and Analysis Center',
+                'desc'     => 'Strategic collaboration in cyber threat intelligence sharing, awareness, and digital incident advisory.',
+                'img'      => 'assets/images/client_copconnect.jpg',
+                'alt'      => 'CopConnect - Information Sharing and Analysis Center',
+                'website'  => 'https://copconnect.org',
+                'track'    => 'investigation',
+                'order'    => 1,
+                'status'   => 'active'
+            ],
+            [
+                'id'       => 'client-2',
+                'name'     => 'Gokarna Samudra',
+                'category' => 'Beach Resort & Hospitality',
+                'desc'     => 'Digital infrastructure protection, cyber dispute resolution, and guest data privacy security.',
+                'img'      => 'assets/images/client_gokarna_samudra.jpg',
+                'alt'      => 'Gokarna Samudra Beach Resort',
+                'website'  => '',
+                'track'    => 'investigation',
+                'order'    => 2,
+                'status'   => 'active'
+            ],
+            [
+                'id'       => 'client-3',
+                'name'     => 'CopConnect',
+                'category' => 'Information Sharing and Analysis Center',
+                'desc'     => 'Enterprise cyber threat intelligence sharing, automated incident indicators, and proactive defensive threat coordination.',
+                'img'      => 'assets/images/client_copconnect.jpg',
+                'alt'      => 'CopConnect - Threat Intelligence',
+                'website'  => 'https://copconnect.org',
+                'track'    => 'cyber',
+                'order'    => 1,
+                'status'   => 'active'
+            ],
+            [
+                'id'       => 'client-4',
+                'name'     => 'Gokarna Samudra',
+                'category' => 'Beach Resort & Hospitality',
+                'desc'     => 'Digital infrastructure protection, web/network penetration testing, and guest data privacy security audits.',
+                'img'      => 'assets/images/client_gokarna_samudra.jpg',
+                'alt'      => 'Gokarna Samudra Beach Resort',
+                'website'  => '',
+                'track'    => 'cyber',
+                'order'    => 2,
+                'status'   => 'active'
+            ]
+        ];
+        ck_write_json('clients.json', $clients);
+    }
+
+    // 8. Accreditations, Memberships & Certifications Seeding
+    if (!file_exists(ck_data_path('accreditations.json'))) {
+        $accreds = [
+            [
+                'id'         => 'accred-1',
+                'name'       => 'Association of Investigators and Detectives',
+                'short_name' => 'AID',
+                'img'        => 'assets/images/aid.png',
+                'alt'        => 'AID - Association of Investigators and Detectives',
+                'website'    => '',
+                'track'      => 'both',
+                'order'      => 1,
+                'status'     => 'active'
+            ],
+            [
+                'id'         => 'accred-2',
+                'name'       => 'Tamilnadu Association of Professional Detectives and Investigators',
+                'short_name' => 'TAPDI',
+                'img'        => 'assets/images/tapdi.png',
+                'alt'        => 'TAPDI - Tamilnadu Association of Professional Detectives and Investigators',
+                'website'    => '',
+                'track'      => 'both',
+                'order'      => 2,
+                'status'     => 'active'
+            ],
+            [
+                'id'         => 'accred-3',
+                'name'       => 'Association of Professional Detectives & Investigators',
+                'short_name' => 'APDI',
+                'img'        => 'assets/images/apdi.png',
+                'alt'        => 'APDI - Association of Professional Detectives & Investigators',
+                'website'    => '',
+                'track'      => 'both',
+                'order'      => 3,
+                'status'     => 'active'
+            ],
+            [
+                'id'         => 'accred-4',
+                'name'       => 'Unified Network of Investigative Professionals',
+                'short_name' => 'UNIP',
+                'img'        => 'assets/images/unip.svg',
+                'alt'        => 'UNIP - Unified Network of Investigative Professionals',
+                'website'    => '',
+                'track'      => 'both',
+                'order'      => 4,
+                'status'     => 'active'
+            ]
+        ];
+        ck_write_json('accreditations.json', $accreds);
     }
 }
 

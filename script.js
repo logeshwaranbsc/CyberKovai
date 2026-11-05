@@ -921,7 +921,7 @@ allContactForms.forEach((currentForm) => {
         let targetCard = null;
         if (targetSlug) {
             targetCard = document.getElementById('svc-' + targetSlug) ||
-                         document.querySelector(`.ci-svc-card[data-slug="${targetSlug}"]`);
+                document.querySelector(`.ci-svc-card[data-slug="${targetSlug}"]`);
         }
         if (!targetCard && typeof targetIndex === 'number') {
             const cards = document.querySelectorAll('.ci-services-grid .ci-svc-card');
@@ -968,7 +968,7 @@ allContactForms.forEach((currentForm) => {
         try {
             targetCard.setAttribute('tabindex', '-1');
             targetCard.focus({ preventScroll: true });
-        } catch (err) {}
+        } catch (err) { }
 
         // Auto-remove highlight pulse after 3.8s
         targetCard._ciHighlightTimer = setTimeout(() => {
@@ -1228,11 +1228,11 @@ allContactForms.forEach((currentForm) => {
 
         const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        // Speed configurations (in milliseconds)
-        const TYPE_SPEED = 70;      // Base speed per letter while typing
-        const DELETE_SPEED = 35;    // Fast speed per letter while backspacing
-        const PAUSE_FULL = 2400;    // Time user reads the full completed word
-        const PAUSE_EMPTY = 420;    // Brief pause before typing the next word
+        // Speed configurations (in milliseconds) - optimized for brisk, modern pacing
+        const TYPE_SPEED = 30;      // Base speed per letter while typing
+        const DELETE_SPEED = 22;    // Fast speed per letter while backspacing
+        const PAUSE_FULL = 1400;    // Time user reads the full completed word
+        const PAUSE_EMPTY = 200;    // Brief pause before typing the next word
 
         let phraseIndex = 0;
         let charIndex = phrases[0].length;
@@ -1284,9 +1284,9 @@ allContactForms.forEach((currentForm) => {
                     return;
                 }
 
-                // Subtle natural cadence variation (jitter +/- 12ms)
-                const jitter = Math.floor(Math.random() * 24 - 12);
-                timeoutId = setTimeout(tick, Math.max(30, TYPE_SPEED + jitter));
+                // Subtle natural cadence variation (jitter +/- 7ms)
+                const jitter = Math.floor(Math.random() * 14 - 7);
+                timeoutId = setTimeout(tick, Math.max(20, TYPE_SPEED + jitter));
             }
         }
 
