@@ -401,7 +401,12 @@ include_once __DIR__ . '/includes/header.php';
                                         <?php endif; ?>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
+                                <option value="Other">Other (Please specify)</option>
                             </select>
+                            <div class="service-other-wrap" style="display: none; margin-top: 0.65rem;">
+                                <label for="service_other" style="display: block; margin-bottom: 0.35rem; font-size: 0.82rem; opacity: 0.9; color: var(--purple-light);">Specify Your Requirement *</label>
+                                <input type="text" id="service_other" name="service_other" placeholder="Type your custom security requirement...">
+                            </div>
                         </div>
                         
                         <div class="form-group">

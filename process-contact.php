@@ -27,6 +27,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $service = isset($_POST['service']) && trim((string)$_POST['service']) !== '' 
                ? trim(strip_tags((string)$_POST['service']))
                : (isset($_POST['service_interest']) ? trim(strip_tags((string)$_POST['service_interest'])) : '');
+    // Handle "Other" custom typed service requirement
+    if (strcasecmp($service, 'Other') === 0 || stripos($service, 'Other') === 0) {
+        $otherService = isset($_POST['service_other']) ? trim(strip_tags((string)$_POST['service_other'])) : '';
+        if ($otherService !== '') {
+            $service = 'Other: ' . $otherService;
+        } else {
+            $response['message'] = 'Please specify the service you require.';
+            echo json_encode($response);
+            exit;
+        }
+    }
+
     $message = isset($_POST['message']) ? trim(strip_tags((string)$_POST['message'])) : '';
     $recaptchaResponse = $_POST['g-recaptcha-response'] ?? '';
 

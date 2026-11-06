@@ -496,6 +496,54 @@ if (footerYear) {
 /* =========================================
    PHP CONTACT FORM AJAX SUBMISSION & RECAPTCHA
 ========================================= */
+// Contact Form "Other" Service Dropdown Toggle
+function setupOtherServiceToggles() {
+    const serviceSelects = document.querySelectorAll('select[name="service"], #service');
+    serviceSelects.forEach((selectElem) => {
+        const form = selectElem.closest('form');
+        if (!form) return;
+        const otherWrap = form.querySelector('.service-other-wrap');
+        const otherInput = otherWrap ? otherWrap.querySelector('input[name="service_other"], #service_other') : null;
+
+        if (!otherWrap || !otherInput) return;
+
+        function updateOtherVisibility() {
+            const val = (selectElem.value || '').trim().toLowerCase();
+            const isOther = (val === 'other' || val.indexOf('other') === 0);
+            if (isOther) {
+                otherWrap.style.display = 'block';
+                otherInput.required = true;
+                setTimeout(() => {
+                    otherInput.focus();
+                }, 50);
+            } else {
+                otherWrap.style.display = 'none';
+                otherInput.required = false;
+                otherInput.value = '';
+            }
+        }
+
+        selectElem.addEventListener('change', updateOtherVisibility);
+
+        form.addEventListener('reset', () => {
+            setTimeout(() => {
+                otherWrap.style.display = 'none';
+                otherInput.required = false;
+                otherInput.value = '';
+            }, 0);
+        });
+
+        // Initialize state on page load
+        updateOtherVisibility();
+    });
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupOtherServiceToggles);
+} else {
+    setupOtherServiceToggles();
+}
+
 const allContactForms = document.querySelectorAll("#contactForm, .svc-contact-form");
 
 allContactForms.forEach((currentForm) => {
@@ -1938,3 +1986,367 @@ allContactForms.forEach((currentForm) => {
 
 
 
+
+
+/* ================================================================
+   CYBER KOVAI – ATTACK SURFACE HONEYCOMB HERO ANIMATION
+================================================================ */
+(function(){
+  var box=document.getElementById('ck'),cv=document.getElementById('cv');
+  if(!box || !cv) return;
+  var ctx=cv.getContext('2d');
+  if(!ctx) return;
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var W,H,dpr,r,t=0,cells=[],byZone=[[],[],[],[]],vulns=0,active=0,actT=0;
+  var TINT=[[192,132,252],[129,140,248],[167,139,250],[232,121,249]];
+  var NAMES=['Application Security','Network Security','Cloud Security','Enterprise Security'];
+  var ISSUE=[['SQLi','XSS','IDOR','Weak auth'],['Open port','Rogue AP','DDoS','Sniffing'],['Open bucket','Weak IAM','Misconfig','Exposed key'],['Phishing','Unpatched','Shadow IT','Malware']];
+  var fixed=[128,96,74,51],chips=box.querySelectorAll('.chip');
+
+  function size(){
+    dpr=Math.min(devicePixelRatio||1,2);W=box.clientWidth;H=box.clientHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+    r=Math.max(10,W/33);cells=[];byZone=[[],[],[],[]];vulns=0;
+    var cx=W/2,cy=H/2,rx=W*.47,ry=H*.45,dx=1.5*r,dy=1.7321*r;
+    for(var c=0;c*dx<W;c++)for(var j=0;j*dy<H;j++){
+      var x=r+c*dx,y=r*.87+j*dy+(c%2?dy/2:0),d=Math.sqrt(Math.pow((x-cx)/rx,2)+Math.pow((y-cy)/ry,2));
+      if(d>1)continue;
+      var z=y<cy?(x<cx?0:1):(x<cx?2:3),cell={x:x,y:y,z:z,a:1-Math.pow(d,3)*.85,st:0,t:0,life:0,txt:''};
+      cells.push(cell);byZone[z].push(cell);
+    }
+    if(reduce){seedStatic()}
+  }
+  function hex(x,y,rr){ctx.beginPath();for(var i=0;i<6;i++){var a=Math.PI/3*i;ctx[i?'lineTo':'moveTo'](x+Math.cos(a)*rr,y+Math.sin(a)*rr)}ctx.closePath()}
+  function setActive(i){
+    active=i;chips.forEach(function(c,k){c.classList.toggle('on',k==i)});
+    window.dispatchEvent(new CustomEvent('ck:zone',{detail:{index:i,name:NAMES[i]}}));
+  }
+  function spawn(){
+    var z=Math.random()<.6?active:Math.random()*4|0,pool=byZone[z];
+    if(!pool||!pool.length) return;
+    var c=pool[Math.random()*pool.length|0];
+    if(!c||c.st||c.a<.5)return;
+    c.st=1;c.t=0;c.life=1.5+Math.random()*1.8;c.txt=ISSUE[z][Math.random()*4|0];vulns++;
+  }
+  function seedStatic(){
+    [[10,0],[60,1],[110,2],[160,1],[200,3]].forEach(function(p,i){var c=cells[p[0]*1+i*3];if(c){c.st=p[1]==1?1:0;c.t=.3;c.txt=ISSUE[c.z][i%4];c.life=99;if(i%2){c.st=2;c.t=.3}}});
+    cells.forEach(function(c){if(c.st==1)vulns++});setActive(0);
+    var expElem=document.getElementById('exp');
+    if(expElem&&cells.length) expElem.textContent=(vulns/cells.length*100).toFixed(1)+'%';
+  }
+
+  function draw(){
+    var dt=reduce?0:.016;t+=dt;
+    ctx.clearRect(0,0,W,H);
+    var s=(t*.16%1.5)-.25; // diagonal scan band position
+
+    cells.forEach(function(c){
+      var p=(c.x/W+c.y/H)/2,b=Math.exp(-Math.pow((p-s)/.055,2)),T=TINT[c.z],boost=c.z==active?.07:0;
+      if(c.st==1){c.t+=dt;if(c.t>c.life){c.st=2;c.t=0}}
+      else if(c.st==2){c.t+=dt;if(c.t>.8){c.st=0;vulns--;fixed[c.z]++;var nElem=document.getElementById('n'+c.z);if(nElem)nElem.textContent=fixed[c.z]}}
+      var fa=(.05+.1*b+boost),sa=(.2+.55*b+boost*2.2);
+      ctx.fillStyle='rgba('+T.join(',')+','+fa*c.a+')';ctx.strokeStyle='rgba('+T.join(',')+','+sa*c.a+')';ctx.lineWidth=1;
+      hex(c.x,c.y,r*.9);ctx.fill();ctx.stroke();
+      if(c.st==1){
+        var pu=.5+.5*Math.sin(t*9+c.x);
+        ctx.shadowColor='#ff4d6d';ctx.shadowBlur=14;ctx.fillStyle='rgba(255,77,109,'+(.28+.3*pu)+')';ctx.strokeStyle='rgba(255,100,130,.95)';ctx.lineWidth=1.5;
+        hex(c.x,c.y,r*.9);ctx.fill();ctx.stroke();ctx.shadowBlur=0;
+        var k=Math.min(1,c.t/.5);ctx.strokeStyle='rgba(255,77,109,'+(.6*(1-k))+')';hex(c.x,c.y,r*(.9+k*1.4));ctx.stroke();
+        ctx.font='500 9.5px "IBM Plex Mono",monospace';ctx.fillStyle='rgba(255,170,188,.95)';
+        if(c.x>W*.68){ctx.textAlign='right';ctx.fillText(c.txt.toUpperCase(),c.x-r-3,c.y+3)}else{ctx.textAlign='left';ctx.fillText(c.txt.toUpperCase(),c.x+r+3,c.y+3)}
+      }else if(c.st==2){
+        var k2=c.t/.8;ctx.shadowColor='#5eead4';ctx.shadowBlur=14;ctx.fillStyle='rgba(94,234,212,'+(.4*(1-k2)+.1)+')';ctx.strokeStyle='rgba(94,234,212,.95)';ctx.lineWidth=1.5;
+        hex(c.x,c.y,r*.9);ctx.fill();ctx.stroke();ctx.shadowBlur=0;
+        ctx.strokeStyle='rgba(94,234,212,'+(1-k2)+')';hex(c.x,c.y,r*(.9+k2*1.6));ctx.stroke();
+      }
+    });
+    ctx.textAlign='left';
+
+    // scan band line
+    var g=ctx.createLinearGradient(2*s*W,0,0,2*s*H);g.addColorStop(0,'rgba(94,234,212,0)');g.addColorStop(.5,'rgba(94,234,212,.55)');g.addColorStop(1,'rgba(94,234,212,0)');
+    ctx.strokeStyle=g;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(2*s*W,0);ctx.lineTo(0,2*s*H);ctx.stroke();
+
+    if(!reduce){
+      actT+=dt;if(actT>5){actT=0;setActive((active+1)%4)}
+      if(vulns<7&&Math.random()<.06)spawn();
+      var expElem=document.getElementById('exp');
+      if(expElem&&cells.length) expElem.textContent=(vulns/cells.length*100).toFixed(1)+'%';
+      requestAnimationFrame(draw);
+    }
+  }
+
+  // Interactive chip clicking
+  chips.forEach(function(c,k){
+    c.addEventListener('click',function(){
+      actT=0;
+      setActive(k);
+    });
+  });
+
+  // Sync with left side glitch rotator if present
+  window.addEventListener('ck:zone', function(e){
+    var glitchElem = document.querySelector('.cyber-glitch-text');
+    if (glitchElem && e.detail && e.detail.name) {
+      glitchElem.textContent = e.detail.name;
+      glitchElem.setAttribute('data-text', e.detail.name);
+    }
+  });
+
+  size();addEventListener('resize',function(){size();if(reduce)draw()});
+  if(!reduce)setActive(0);
+  draw();
+})();
+
+
+/* ================================================================
+   CYBER INVESTIGATION — LIVE TRACE HERO ANIMATION
+================================================================ */
+(function initLiveTraceHero() {
+  var root = document.getElementById('ciTrace');
+  if (!root) return;
+  var canvas = root.querySelector('canvas');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  if (!ctx) return;
+  var statusDot = root.querySelector('.ci-trace__status i');
+  var statusTxt = root.querySelector('.ci-trace__status b');
+  var cards = [].slice.call(root.querySelectorAll('.ci-svc'));
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var SERVICES = [
+    { color: '#a855f7', run: 'Digital Forensics: recovering deleted artifacts…', done: 'Artifacts recovered, chain of custody logged', tag: 'Device image' },
+    { color: '#22d3ee', run: 'OSINT Recon: linking public footprints…',          done: 'Identity linked across public sources',       tag: 'Profile matched' },
+    { color: '#e879f9', run: 'Evidence Vault: hashing and sealing files…',       done: 'Evidence sealed and tamper-proof',            tag: 'Hash verified' },
+    { color: '#34d399', run: 'Cyber Fraud Tracing: following the money…',        done: 'Beneficiary account identified',              tag: 'Account found' }
+  ];
+
+  var W = 0, H = 0, nodes = [], adj = [];
+  var current = -1, path = [], startT = 0, doneShown = false;
+  var SEG = 520, HOLD = 1700;
+
+  // deterministic pseudo-random so the graph looks the same on every load
+  var seed = 7;
+  function rnd() {
+    seed = (seed * 16807) % 2147483647;
+    return (seed - 1) / 2147483646;
+  }
+
+  function build() {
+    var r = canvas.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = r.width;
+    H = r.height;
+    if (W === 0 || H === 0) {
+      W = root.clientWidth || 540;
+      H = 270;
+    }
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    seed = 7;
+    nodes = [];
+    var cols = 9, rows = 5, i, j;
+    for (i = 0; i < cols; i++) {
+      for (j = 0; j < rows; j++) {
+        nodes.push({
+          bx: (i + 0.5 + (rnd() - 0.5) * 0.7) / cols * W,
+          by: (j + 0.5 + (rnd() - 0.5) * 0.7) / rows * H,
+          ph: rnd() * 6.28,
+          x: 0,
+          y: 0
+        });
+      }
+    }
+    adj = nodes.map(function () { return []; });
+    nodes.forEach(function (a, ai) {
+      nodes.map(function (b, bi) { return { bi: bi, d: Math.hypot(a.bx - b.bx, a.by - b.by) }; })
+        .sort(function (p, q) { return p.d - q.d; }).slice(1, 4)
+        .forEach(function (o) {
+          if (adj[ai].indexOf(o.bi) < 0) adj[ai].push(o.bi);
+          if (adj[o.bi].indexOf(ai) < 0) adj[o.bi].push(ai);
+        });
+    });
+  }
+
+  function makePath(k) {
+    if (k < 0) k = 0;
+    seed = 100 + k * 37;
+    var lefts = nodes.map(function (n, i) { return i; }).filter(function (i) { return nodes[i].bx < W * 0.25; });
+    if (!lefts.length) return [0];
+    var cur = lefts[Math.floor(rnd() * lefts.length)], p = [cur];
+    for (var s = 0; s < 7; s++) {
+      var opts = adj[cur].filter(function (n) { return p.indexOf(n) < 0 && nodes[n].bx > nodes[cur].bx - 8; });
+      if (!opts.length) break;
+      cur = opts[Math.floor(rnd() * opts.length)]; p.push(cur);
+    }
+    return p;
+  }
+
+  function select(k) {
+    if (k < 0 || k >= SERVICES.length) return;
+    current = k;
+    path = makePath(k);
+    startT = performance.now();
+    doneShown = false;
+    var s = SERVICES[k];
+    root.style.setProperty('--ci-accent', s.color);
+    if (statusDot) statusDot.style.background = s.color;
+    if (statusTxt) statusTxt.textContent = s.run;
+    cards.forEach(function (c, i) {
+      c.classList.toggle('is-active', i === k);
+      c.style.setProperty('--c', s.color);
+      var b = c.querySelector('.ci-svc__bar');
+      if (b) b.style.width = '0';
+    });
+  }
+
+  function glowLine(x1, y1, x2, y2, color, w) {
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = w;
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 12;
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function brackets(x, y, size, color) {
+    var a = size, l = size * 0.45;
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 1.6;
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 8;
+    [[-1, -1], [1, -1], [1, 1], [-1, 1]].forEach(function (c) {
+      ctx.beginPath();
+      ctx.moveTo(x + c[0] * a, y + c[1] * (a - l));
+      ctx.lineTo(x + c[0] * a, y + c[1] * a);
+      ctx.lineTo(x + c[0] * (a - l), y + c[1] * a);
+      ctx.stroke();
+    });
+    ctx.restore();
+  }
+
+  function frame(now) {
+    if (!ctx || W === 0 || H === 0) return;
+    ctx.clearRect(0, 0, W, H);
+    var t = reduce ? 0 : now;
+    nodes.forEach(function (n) {
+      n.x = n.bx + Math.sin(t * 0.0008 + n.ph) * 3;
+      n.y = n.by + Math.cos(t * 0.0006 + n.ph) * 3;
+    });
+
+    // base graph
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(168,85,247,0.16)';
+    ctx.beginPath();
+    adj.forEach(function (list, i) {
+      list.forEach(function (j) {
+        if (j > i) {
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+        }
+      });
+    });
+    ctx.stroke();
+    nodes.forEach(function (n) {
+      ctx.fillStyle = 'rgba(190,160,255,0.45)';
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, 2, 0, 6.28);
+      ctx.fill();
+    });
+
+    if (!SERVICES[current] || !path.length) return;
+    var s = SERVICES[current], el = now - startT, segs = path.length - 1, travel = segs * SEG;
+
+    // traced path
+    for (var i = 0; i < segs; i++) {
+      var a = nodes[path[i]], b = nodes[path[i + 1]];
+      if (!a || !b) break;
+      var p = Math.max(0, Math.min(1, (el - i * SEG) / SEG));
+      if (p <= 0) break;
+      glowLine(a.x, a.y, a.x + (b.x - a.x) * p, a.y + (b.y - a.y) * p, s.color, 2);
+      ctx.fillStyle = s.color;
+      ctx.beginPath();
+      ctx.arc(a.x, a.y, 4, 0, 6.28);
+      ctx.fill();
+      if (p < 1) {
+        var hx = a.x + (b.x - a.x) * p, hy = a.y + (b.y - a.y) * p;
+        ctx.save();
+        ctx.fillStyle = '#fff';
+        ctx.shadowColor = s.color;
+        ctx.shadowBlur = 16;
+        ctx.beginPath();
+        ctx.arc(hx, hy, 3.5, 0, 6.28);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    // target found
+    if (el >= travel && path.length) {
+      var tg = nodes[path[path.length - 1]];
+      if (tg) {
+        var pulse = 14 + Math.sin(now * 0.008) * 2;
+        ctx.fillStyle = s.color;
+        ctx.beginPath();
+        ctx.arc(tg.x, tg.y, 5, 0, 6.28);
+        ctx.fill();
+        brackets(tg.x, tg.y, pulse, s.color);
+        ctx.font = '600 12px "Segoe UI",system-ui,sans-serif';
+        var tw = ctx.measureText(s.tag).width + 16, tx = Math.min(W - tw - 6, Math.max(6, tg.x - tw / 2)), ty = tg.y < H / 2 ? tg.y + 24 : tg.y - 42;
+        ctx.fillStyle = 'rgba(11,7,22,0.92)';
+        ctx.strokeStyle = s.color;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.roundRect ? ctx.roundRect(tx, ty, tw, 22, 6) : ctx.rect(tx, ty, tw, 22);
+        ctx.fill();
+        ctx.stroke();
+        ctx.fillStyle = '#fff';
+        ctx.fillText(s.tag, tx + 8, ty + 15);
+        if (!doneShown) {
+          if (statusTxt) statusTxt.textContent = s.done;
+          doneShown = true;
+        }
+      }
+    }
+
+    // card progress + advance
+    var total = travel + HOLD;
+    if (cards[current]) {
+      var bar = cards[current].querySelector('.ci-svc__bar');
+      if (bar) bar.style.width = Math.min(100, el / total * 100) + '%';
+    }
+    if (!reduce && el > total) select((current + 1) % SERVICES.length);
+
+    if (!reduce) requestAnimationFrame(frame);
+  }
+
+  cards.forEach(function (c, i) {
+    c.addEventListener('click', function () {
+      select(i);
+      if (reduce) frame(performance.now() + 99999);
+    });
+  });
+
+  build();
+  select(0);
+  if (reduce) {
+    frame(performance.now() + 99999);
+  } else {
+    requestAnimationFrame(frame);
+  }
+  if (window.ResizeObserver) {
+    new ResizeObserver(function () {
+      build();
+      path = makePath(current >= 0 ? current : 0);
+    }).observe(canvas);
+  } else {
+    window.addEventListener('resize', function () {
+      build();
+      path = makePath(current >= 0 ? current : 0);
+    });
+  }
+})();

@@ -73,7 +73,7 @@ include_once __DIR__ . '/includes/header.php';
                             </div>
                         </div>
 
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; margin-bottom: 1.2rem;">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; margin-bottom: 1.2rem; align-items: start;">
                             <div>
                                 <label for="phone" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">Phone / WhatsApp / Signal *</label>
                                 <input type="tel" id="phone" name="phone" required placeholder="<?= sanitize_out(SITE_PHONE) ?>" style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit;">
@@ -98,7 +98,12 @@ include_once __DIR__ . '/includes/header.php';
                                             <option value="<?= sanitize_out($iSvc['title']) ?>"><?= sanitize_out($iSvc['title']) ?></option>
                                         <?php endforeach; ?>
                                     <?php endif; ?>
+                                    <option value="Other">Other (Please specify)</option>
                                 </select>
+                                <div class="service-other-wrap" style="display: none; margin-top: 0.75rem;">
+                                    <label for="service_other" style="display: block; margin-bottom: 0.35rem; font-size: 0.82rem; opacity: 0.9; color: var(--purple-light);">Specify Your Requirement *</label>
+                                    <input type="text" id="service_other" name="service_other" placeholder="Type your custom service requirement..." style="width: 100%; padding: 0.85rem 1.1rem; border-radius: 10px; font-family: inherit;">
+                                </div>
                             </div>
                         </div>
 

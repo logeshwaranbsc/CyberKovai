@@ -4810,6 +4810,30 @@ button {
     color: #f7f5ff;
 }
 
+.service-other-wrap {
+    animation: fadeInServiceOther 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-other-wrap label {
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.service-other-wrap input {
+    margin-top: 2px;
+}
+
+@keyframes fadeInServiceOther {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* 3D GLOBE CONTAINER & CANVAS */
 .globe-canvas-container {
     position: relative;
@@ -14913,5 +14937,473 @@ body.page-enter-from-left {
         width: 100%;
         max-width: 220px;
         height: 80px;
+    }
+}
+
+
+/* ================================================================
+   CYBER KOVAI – ATTACK SURFACE HONEYCOMB HERO ANIMATION
+================================================================ */
+.ck-visual-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 580px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    margin: 0 auto;
+    --bg: #0a0516;
+    --p3: #e9d5ff;
+    --threat: #ff4d6d;
+    --ok: #5eead4;
+    --card: rgba(18, 10, 38, .88);
+    --line: rgba(168, 85, 247, .4);
+}
+
+/* Honeycomb Canvas Stage */
+.ck-visual {
+    position: relative;
+    width: 100%;
+    max-width: 560px;
+    aspect-ratio: 1.18 / 1;
+    margin: 0 auto;
+}
+
+.ck-visual canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* 4 Practice Floating Chips */
+.chip {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--card);
+    backdrop-filter: blur(10px);
+    font-size: 12.5px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: border-color .4s, box-shadow .4s, transform .25s ease;
+    animation: bob 6s ease-in-out infinite;
+    z-index: 10;
+    color: var(--p3);
+    user-select: none;
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
+}
+
+.chip:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.chip i {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--c);
+    box-shadow: 0 0 10px var(--c);
+    flex: none;
+}
+
+.chip small {
+    display: block;
+    font: 400 10.5px 'IBM Plex Mono', monospace;
+    color: #b69be0;
+    margin-top: 2px;
+}
+
+.chip small b {
+    color: var(--ok);
+    font-weight: 500;
+}
+
+.chip.on {
+    border-color: var(--c);
+    box-shadow: 0 0 22px -4px var(--c);
+}
+
+/* Safe, Non-Overlapping Chip Placements */
+.z0 {
+    left: -10px;
+    top: 4%;
+    --c: #c084fc;
+}
+
+.z1 {
+    right: -10px;
+    top: 8%;
+    --c: #818cf8;
+    animation-delay: -1.5s;
+}
+
+.z2 {
+    left: -10px;
+    bottom: 12%;
+    --c: #a78bfa;
+    animation-delay: -3s;
+}
+
+.z3 {
+    right: -10px;
+    bottom: 8%;
+    --c: #e879f9;
+    animation-delay: -4.5s;
+}
+
+/* Header Live Exposure Capsule - Dedicated Top Row */
+.cap {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 7px 18px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: var(--card);
+    backdrop-filter: blur(8px);
+    font: 500 11px 'IBM Plex Mono', monospace;
+    letter-spacing: .12em;
+    color: #b69be0;
+    white-space: nowrap;
+    z-index: 10;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.cap::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--ok);
+    align-self: center;
+    animation: blink 1.2s infinite;
+}
+
+.cap b {
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Bottom Legend - Dedicated Bottom Row */
+.leg {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 4px 12px;
+    font: 400 11px 'IBM Plex Mono', monospace;
+    color: #9d86c9;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+.leg span {
+    display: inline-flex;
+    align-items: center;
+}
+
+.leg span::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-right: 6px;
+    clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+    background: var(--k);
+}
+
+@keyframes bob {
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes blink {
+    50% { opacity: .25; }
+}
+
+@media (max-width: 680px) {
+    .z0, .z2 {
+        left: 0;
+    }
+    .z1, .z3 {
+        right: 0;
+    }
+    .chip {
+        padding: 7px 11px;
+        font-size: 11.5px;
+    }
+}
+
+@media (max-width: 560px) {
+    .ck-visual-wrapper {
+        gap: 8px;
+    }
+    .chip {
+        padding: 6px 10px;
+        font-size: 11px;
+    }
+    .chip small {
+        display: none;
+    }
+    .leg {
+        font-size: 10px;
+        gap: 10px;
+    }
+    .cap {
+        font-size: 9.5px;
+        gap: 8px;
+        padding: 5px 12px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ck-visual *,
+    .ck-visual-wrapper * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+
+/* ================================================================
+   CYBER INVESTIGATION — LIVE TRACE HERO COMPONENT
+================================================================ */
+.ci-trace-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 560px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ci-trace {
+    --ci-bg: #0b0716;
+    --ci-line: rgba(168, 85, 247, 0.28);
+    --ci-text: #ece6fb;
+    --ci-muted: #9a8fb8;
+    --ci-accent: #a855f7;
+    width: 100%;
+    max-width: 560px;
+    margin: 0 auto;
+    color: var(--ci-text);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: radial-gradient(120% 90% at 50% 0%, #1a0f33 0%, var(--ci-bg) 60%);
+    border: 1px solid var(--ci-line);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(124, 58, 237, 0.18), 0 20px 45px rgba(0, 0, 0, 0.45);
+    position: relative;
+    z-index: 10;
+}
+
+.ci-trace__bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--ci-line);
+    font-size: 13px;
+    color: var(--ci-muted);
+    background: rgba(11, 7, 22, 0.4);
+}
+
+.ci-trace__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #34d399;
+    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.6);
+    animation: ci-ping 1.8s infinite;
+    flex-shrink: 0;
+}
+
+.ci-trace__case {
+    margin-left: auto;
+    font-variant-numeric: tabular-nums;
+    font-family: 'IBM Plex Mono', monospace, monospace;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: #a78bfa;
+}
+
+.ci-trace__stage {
+    position: relative;
+    height: 270px;
+    width: 100%;
+}
+
+.ci-trace__stage canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.ci-trace__status {
+    padding: 10px 18px;
+    font-size: 13.5px;
+    min-height: 44px;
+    border-top: 1px solid var(--ci-line);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(11, 7, 22, 0.55);
+}
+
+.ci-trace__status i {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background: var(--ci-accent);
+    flex: none;
+    transition: background 0.3s;
+    box-shadow: 0 0 8px var(--ci-accent);
+}
+
+.ci-trace__status b {
+    font-weight: 500;
+    color: var(--ci-text);
+}
+
+.ci-trace__services {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--ci-line);
+    border-top: 1px solid var(--ci-line);
+}
+
+.ci-svc {
+    all: unset;
+    box-sizing: border-box;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--ci-bg);
+    transition: background 0.25s, transform 0.15s ease;
+    user-select: none;
+    width: 100%;
+}
+
+.ci-svc:hover {
+    background: #130c24;
+}
+
+.ci-svc:focus-visible {
+    outline: 2px solid var(--ci-accent);
+    outline-offset: -2px;
+}
+
+.ci-svc svg {
+    width: 22px;
+    height: 22px;
+    flex: none;
+    stroke: var(--ci-muted);
+    fill: none;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: stroke 0.25s, transform 0.2s ease;
+}
+
+.ci-svc span {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--ci-muted);
+    transition: color 0.25s;
+    white-space: nowrap;
+}
+
+.ci-svc__bar {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0;
+    background: var(--c, #a855f7);
+    transition: width 0.1s linear;
+}
+
+.ci-svc.is-active {
+    background: #150d28;
+}
+
+.ci-svc.is-active span {
+    color: var(--ci-text);
+}
+
+.ci-svc.is-active svg {
+    stroke: var(--c);
+    transform: scale(1.08);
+}
+
+@keyframes ci-ping {
+    70% {
+        box-shadow: 0 0 0 8px rgba(52, 211, 153, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(52, 211, 153, 0);
+    }
+}
+
+@media (max-width: 560px) {
+    .ci-trace__stage {
+        height: 230px;
+    }
+    .ci-svc {
+        padding: 11px 12px;
+        gap: 8px;
+    }
+    .ci-svc svg {
+        width: 18px;
+        height: 18px;
+    }
+    .ci-svc span {
+        font-size: 12.5px;
+    }
+    .ci-trace__status {
+        font-size: 12.5px;
+        padding: 8px 14px;
+        min-height: 40px;
+    }
+    .ci-trace__bar {
+        font-size: 12px;
+        padding: 10px 14px;
+    }
+}
+
+@media (max-width: 420px) {
+    .ci-svc {
+        padding: 10px 8px;
+    }
+    .ci-svc span {
+        font-size: 11.5px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ci-trace__dot {
+        animation: none !important;
     }
 }

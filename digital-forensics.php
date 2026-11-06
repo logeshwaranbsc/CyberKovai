@@ -277,87 +277,27 @@ include_once __DIR__ . '/includes/header.php';
 
                 </div>
 
-                <!-- RIGHT SIDE: Hologram Shield Stage + Orbiting Services -->
-                <div class="hero-visual inv-hero-visual">
+                <!-- RIGHT SIDE: Attack Surface Honeycomb Visual -->
+                <div class="ck-visual-wrapper">
+                    <div class="cap">ATTACK SURFACE · LIVE <span>EXPOSURE <b id="exp">0.0%</b></span></div>
 
-                    <canvas id="fx" aria-hidden="true"></canvas>
-
-                    <!-- Arc label text around the ring -->
-                    <div class="ci-arc-labels" aria-hidden="true">
-                        <div class="ci-arc-label ci-arc-top">APPLICATION SECURITY</div>
-                        <div class="ci-arc-label ci-arc-right">NETWORK SECURITY</div>
-                        <div class="ci-arc-label ci-arc-bottom">ENTERPRISE SECURITY</div>
-                        <div class="ci-arc-label ci-arc-left">CLOUD SECURITY</div>
+                    <div class="ck-visual" id="ck">
+                        <canvas id="cv" aria-hidden="true"></canvas>
+                        <div class="chip z0"><i></i><div>Application Security<small><b id="n0">128</b> patched</small></div></div>
+                        <div class="chip z1"><i></i><div>Network Security<small><b id="n1">96</b> patched</small></div></div>
+                        <div class="chip z2"><i></i><div>Cloud Security<small><b id="n2">74</b> patched</small></div></div>
+                        <div class="chip z3"><i></i><div>Enterprise Security<small><b id="n3">51</b> patched</small></div></div>
                     </div>
 
-                    <!-- Floating service cards (4 corners) -->
-                    <div class="ci-float-card inv-fc-1">
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-                        <span>Application Security</span>
-                    </div>
-                    <div class="ci-float-card inv-fc-2">
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
-                        <span>Network Security</span>
-                    </div>
-                    <div class="ci-float-card inv-fc-3">
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-                        <span>Enterprise Security</span>
-                    </div>
-                    <div class="ci-float-card inv-fc-4">
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
-                        <span>Cloud Security</span>
-                    </div>
-
-                    <div class="stage" id="stage">
-                        <!-- Background HUD rings -->
-                        <svg class="hud" viewBox="0 0 800 800" fill="none" aria-hidden="true">
-                            <g class="c">
-                                <circle cx="400" cy="400" r="388" stroke="#e9dcff" stroke-opacity=".28" stroke-width="8" stroke-dasharray="1 14" />
-                            </g>
-                            <g class="a">
-                                <circle cx="400" cy="400" r="370" stroke="#c84bff" stroke-opacity=".25" />
-                                <circle cx="400" cy="400" r="340" stroke="#e9dcff" stroke-opacity=".4" stroke-dasharray="2 10" />
-                                <circle cx="400" cy="400" r="355" pathLength="100" stroke="#c84bff" stroke-width="3" stroke-linecap="round" stroke-dasharray="16 84" />
-                                <circle cx="400" cy="400" r="355" pathLength="100" stroke="#7b2ff7" stroke-width="3" stroke-linecap="round" stroke-dasharray="9 91" stroke-dashoffset="-50" />
-                            </g>
-                            <g class="b">
-                                <circle cx="400" cy="400" r="320" stroke="#c84bff" stroke-opacity=".2" />
-                                <g class="node">
-                                    <circle cx="677" cy="560" r="14" fill="var(--node-fill)" stroke="#c84bff" stroke-width="2" />
-                                    <circle cx="677" cy="560" r="4" fill="#c84bff" />
-                                </g>
-                                <g class="node">
-                                    <circle cx="123" cy="560" r="14" fill="var(--node-fill)" stroke="#c84bff" stroke-width="2" />
-                                    <circle cx="123" cy="560" r="4" fill="#c84bff" />
-                                </g>
-                                <g class="node">
-                                    <circle cx="400" cy="80" r="14" fill="var(--node-fill)" stroke="#c84bff" stroke-width="2" />
-                                    <circle cx="400" cy="80" r="4" fill="#c84bff" />
-                                </g>
-                            </g>
-                        </svg>
-
-                        <!-- Glowing platform -->
-                        <div class="platform" aria-hidden="true">
-                            <i class="ring pulse"></i><i class="ring pulse p2"></i><i class="ring pulse p3"></i>
-                            <i class="ring r1"></i><i class="ring r2"></i><i class="ring r3"></i><i class="ring r4"></i><i class="ring disc"></i>
-                        </div>
-
-                        <div class="beam" aria-hidden="true"></div>
-
-                        <!-- Shield -->
-                        <div class="shield-pos">
-                            <div class="shield">
-                                <img src="assets/images/logo.png" alt="Cyber Kovai Shield Logo" class="shield-logo-img">
-                            </div>
-                        </div>
-                    </div>
-
+                    <div class="leg"><span style="--k:#ff4d6d">Vulnerable</span><span style="--k:#5eead4">Patched</span><span style="--k:#a855f7">Secure</span></div>
                 </div>
 
             </div>
 
         </section>
+
+
+        
 
 
         <!-- ================= ABOUT SECTION ================= -->
@@ -549,7 +489,6 @@ include_once __DIR__ . '/includes/header.php';
 
                             <!-- Holographic Telemetry Strip at Bottom of Image -->
                             <div class="console-telemetry-bar">
-                                <span class="telemetry-item"><span class="telemetry-dot"></span> ENCRYPTION: AES-256-GCM</span>
                                 <span class="telemetry-item">SOC RADAR: ACTIVE</span>
                                 <span class="telemetry-item">STATUS: PERIMETER SECURED</span>
                             </div>
@@ -1309,7 +1248,7 @@ include_once __DIR__ . '/includes/header.php';
                                 </div>
                             </div>
 
-                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; margin-bottom: 1.2rem;">
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; margin-bottom: 1.2rem; align-items: start;">
                                 <div>
                                     <label for="phone" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">Phone / WhatsApp / Signal *</label>
                                     <input type="tel" id="phone" name="phone" required placeholder="<?= sanitize_out(SITE_PHONE) ?>" style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit;">
@@ -1321,7 +1260,12 @@ include_once __DIR__ . '/includes/header.php';
                                         <?php foreach ($cyberFormServices as $formService): ?>
                                             <option value="<?= sanitize_out($formService) ?>"><?= sanitize_out($formService) ?></option>
                                         <?php endforeach; ?>
+                                        <option value="Other">Other (Please specify)</option>
                                     </select>
+                                    <div class="service-other-wrap" style="display: none; margin-top: 0.75rem;">
+                                        <label for="service_other" style="display: block; margin-bottom: 0.35rem; font-size: 0.82rem; opacity: 0.9; color: var(--purple-light);">Specify Your Requirement *</label>
+                                        <input type="text" id="service_other" name="service_other" placeholder="Type your custom service or practice requirement..." style="width: 100%; padding: 0.85rem 1.1rem; border-radius: 10px; font-family: inherit;">
+                                    </div>
                                 </div>
                             </div>
 

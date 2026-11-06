@@ -405,200 +405,39 @@ include_once __DIR__ . '/includes/header.php';
 
         </div>
 
-        <!-- RIGHT: Animated Cyber Shield Stage -->
-        <div class="ci-hero-visual ci-reveal" aria-hidden="true">
+        <!-- RIGHT: Live Trace Hero Visual -->
+        <div class="ci-trace-wrapper ci-reveal">
+            <div class="ci-trace" id="ciTrace">
+                <div class="ci-trace__bar">
+                    <span class="ci-trace__dot"></span>
+                    <span>Live trace</span>
+                    <span class="ci-trace__case">Case CK-2047 · Confidential</span>
+                </div>
 
-            <!-- Outer rotating ring -->
-            <div class="ci-ring ci-ring-outer"></div>
-            <div class="ci-ring ci-ring-mid"></div>
+                <div class="ci-trace__stage"><canvas aria-hidden="true"></canvas></div>
 
-            <!-- HUD arc labels -->
-            <div class="ci-arc-labels">
-                <div class="ci-arc-label ci-arc-top">DIGITAL FORENSICS</div>
-                <div class="ci-arc-label ci-arc-right">OSINT INVESTIGATION</div>
-                <div class="ci-arc-label ci-arc-bottom">CYBER FRAUD TRACING</div>
-                <div class="ci-arc-label ci-arc-left">EVIDENCE PRESERVATION</div>
-            </div>
+                <div class="ci-trace__status" aria-live="polite"><i></i><b style="font-weight:500"></b></div>
 
-            <!-- Floating feature cards -->
-            <div class="ci-float-card ci-fc-1">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a10 10 0 0 0-7.07 17.07l.07.07"/><path d="M12 6a6 6 0 0 0-4.24 10.24"/><path d="M12 10a2 2 0 0 0-1.41 3.41"/><path d="M12 18v4"/><path d="M8 22h8"/><circle cx="12" cy="12" r="1"/></svg>
-                <span>Digital Forensics</span>
-            </div>
-            <div class="ci-float-card ci-fc-2">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><circle cx="11" cy="11" r="3"/></svg>
-                <span>OSINT Recon</span>
-            </div>
-            <div class="ci-float-card ci-fc-3">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/><circle cx="7" cy="15" r="1"/></svg>
-                <span>Cyber Fraud Tracing</span>
-            </div>
-            <div class="ci-float-card ci-fc-4">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-                <span>Evidence Vault</span>
-            </div>
-
-            <!-- Central Forensic Intelligence Matrix (Zero Logo) -->
-            <div class="ci-intel-stage ci-shield-wrap" id="ciIntelStage">
-                <!-- Multi-layer ambient radial glow -->
-                <div class="ci-intel-ambient-glow" aria-hidden="true"></div>
-
-                <!-- Tactical HUD Reticle with Dual Counter-Rotating Radar Rings -->
-                <svg class="ci-intel-reticle-svg" viewBox="0 0 160 160" fill="none" aria-hidden="true">
-                    <!-- Fixed Outer Dial & Angle Brackets -->
-                    <circle cx="80" cy="80" r="76" stroke="rgba(200, 75, 255, 0.22)" stroke-width="1" stroke-dasharray="2 6"/>
-                    <path d="M56 8 H48 A4 4 0 0 0 44 12 V20" stroke="rgba(0, 240, 255, 0.55)" stroke-width="1.4" stroke-linecap="round"/>
-                    <path d="M104 8 H112 A4 4 0 0 1 116 12 V20" stroke="rgba(0, 240, 255, 0.55)" stroke-width="1.4" stroke-linecap="round"/>
-                    <path d="M56 152 H48 A4 4 0 0 1 44 148 V140" stroke="rgba(0, 240, 255, 0.55)" stroke-width="1.4" stroke-linecap="round"/>
-                    <path d="M104 152 H112 A4 4 0 0 0 116 148 V140" stroke="rgba(0, 240, 255, 0.55)" stroke-width="1.4" stroke-linecap="round"/>
-
-                    <!-- CW Rotating Ring with Calibration Ticks -->
-                    <g class="ci-radar-spin-cw">
-                        <circle cx="80" cy="80" r="70" stroke="url(#reticleGradCW)" stroke-width="1.5" stroke-dasharray="14 18 36 12"/>
-                        <circle cx="80" cy="10" r="2.5" fill="#00f0ff"/>
-                        <circle cx="80" cy="150" r="2.5" fill="#c84bff"/>
-                    </g>
-
-                    <!-- CCW Rotating Precision Ring -->
-                    <g class="ci-radar-spin-ccw">
-                        <circle cx="80" cy="80" r="62" stroke="url(#reticleGradCCW)" stroke-width="1.2" stroke-dasharray="6 8 2 8 20 14"/>
-                        <line x1="80" y1="14" x2="80" y2="22" stroke="#c84bff" stroke-width="1.8"/>
-                        <line x1="80" y1="138" x2="80" y2="146" stroke="#c84bff" stroke-width="1.8"/>
-                        <line x1="14" y1="80" x2="22" y2="80" stroke="#00f0ff" stroke-width="1.8"/>
-                        <line x1="138" y1="80" x2="146" y2="80" stroke="#00f0ff" stroke-width="1.8"/>
-                    </g>
-
-                    <defs>
-                        <linearGradient id="reticleGradCW" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#00f0ff" stop-opacity="0.8"/>
-                            <stop offset="50%" stop-color="#c84bff" stop-opacity="0.3"/>
-                            <stop offset="100%" stop-color="#7b2ff7" stop-opacity="0.9"/>
-                        </linearGradient>
-                        <linearGradient id="reticleGradCCW" x1="100%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" stop-color="#c84bff" stop-opacity="0.9"/>
-                            <stop offset="50%" stop-color="#7b2ff7" stop-opacity="0.2"/>
-                            <stop offset="100%" stop-color="#00f0ff" stop-opacity="0.7"/>
-                        </linearGradient>
-                    </defs>
-                </svg>
-
-                <!-- Central Investigation Emblem Wrapper -->
-                <div class="ci-intel-emblem-wrap" title="Forensic Investigation Core">
-                    <svg class="ci-forensic-badge-svg" viewBox="0 0 130 146" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Digital Forensic Evidence Scanner">
-                        <defs>
-                            <radialGradient id="forensicBodyGrad" cx="50%" cy="30%" r="75%">
-                                <stop offset="0%" stop-color="#241447" stop-opacity="0.95"/>
-                                <stop offset="50%" stop-color="#130c2a" stop-opacity="0.98"/>
-                                <stop offset="100%" stop-color="#090514" stop-opacity="1"/>
-                            </radialGradient>
-                            <linearGradient id="forensicBorderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#00f0ff"/>
-                                <stop offset="30%" stop-color="#c84bff"/>
-                                <stop offset="70%" stop-color="#7b2ff7"/>
-                                <stop offset="100%" stop-color="#00f0ff"/>
-                            </linearGradient>
-                            <linearGradient id="forensicLaserGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" stop-color="#00f0ff" stop-opacity="0"/>
-                                <stop offset="25%" stop-color="#00f0ff" stop-opacity="0.85"/>
-                                <stop offset="50%" stop-color="#ffffff" stop-opacity="1"/>
-                                <stop offset="75%" stop-color="#c84bff" stop-opacity="0.85"/>
-                                <stop offset="100%" stop-color="#c84bff" stop-opacity="0"/>
-                            </linearGradient>
-                            <filter id="forensicLaserGlow" x="-30%" y="-150%" width="160%" height="400%">
-                                <feGaussianBlur stdDeviation="3.5" result="blur"/>
-                                <feMerge>
-                                    <feMergeNode in="blur"/>
-                                    <feMergeNode in="SourceGraphic"/>
-                                </feMerge>
-                            </filter>
-                        </defs>
-
-                        <!-- Outer Faceted Tactical Shield Shape -->
-                        <path d="M65 6 L118 24 L118 78 C118 112 65 140 65 140 C65 140 12 112 12 78 L12 24 Z" 
-                              fill="url(#forensicBodyGrad)" 
-                              stroke="url(#forensicBorderGrad)" 
-                              stroke-width="2.2" 
-                              stroke-linejoin="round"/>
-
-                        <!-- Inner Precision Border -->
-                        <path d="M65 14 L110 30 L110 76 C110 106 65 131 65 131 C65 131 20 106 20 76 L20 30 Z" 
-                              fill="none" 
-                              stroke="rgba(200, 75, 255, 0.42)" 
-                              stroke-width="1.2" 
-                              stroke-dasharray="4 3" 
-                              stroke-linejoin="round"/>
-
-                        <!-- Forensic Biometric / Fingerprint Evidence Ridge Arcs -->
-                        <g class="ci-biometric-group" opacity="0.85">
-                            <path d="M54 84 C54 70 76 70 76 84" stroke="rgba(200, 75, 255, 0.75)" stroke-width="1.8" stroke-linecap="round"/>
-                            <path d="M48 86 C48 64 82 64 82 86" stroke="rgba(0, 240, 255, 0.7)" stroke-width="1.8" stroke-linecap="round"/>
-                            <path d="M42 88 C42 58 88 58 88 88" stroke="rgba(200, 75, 255, 0.6)" stroke-width="1.8" stroke-linecap="round"/>
-                            <path d="M36 90 C36 52 94 52 94 90" stroke="rgba(123, 47, 247, 0.5)" stroke-width="1.8" stroke-linecap="round"/>
-                            <path d="M60 82 C60 75 70 75 70 82" stroke="#00f0ff" stroke-width="2" stroke-linecap="round"/>
-                        </g>
-
-                        <!-- Forensic Target Crosshairs & Calibration Nodes -->
-                        <g class="ci-reticle-nodes">
-                            <line x1="65" y1="46" x2="65" y2="56" stroke="#00f0ff" stroke-width="1.5" stroke-linecap="round"/>
-                            <line x1="65" y1="90" x2="65" y2="100" stroke="#00f0ff" stroke-width="1.5" stroke-linecap="round"/>
-                            <line x1="38" y1="73" x2="48" y2="73" stroke="#00f0ff" stroke-width="1.5" stroke-linecap="round"/>
-                            <line x1="82" y1="73" x2="92" y2="73" stroke="#00f0ff" stroke-width="1.5" stroke-linecap="round"/>
-                            <!-- Precision Target Ring -->
-                            <circle cx="65" cy="73" r="10" stroke="#00f0ff" stroke-width="1.4" stroke-dasharray="3 3"/>
-                            <!-- Central Core Node -->
-                            <circle cx="65" cy="73" r="3" fill="#ffffff" filter="url(#forensicLaserGlow)"/>
-                        </g>
-
-                        <!-- Active Laser Scanning Group -->
-                        <g class="ci-laser-scan-group">
-                            <line x1="22" y1="73" x2="108" y2="73" stroke="#00f0ff" stroke-width="5" opacity="0.35" filter="url(#forensicLaserGlow)"/>
-                            <line x1="24" y1="73" x2="106" y2="73" stroke="url(#forensicLaserGrad)" stroke-width="2" stroke-linecap="round"/>
-                            <circle cx="65" cy="73" r="3.5" fill="#ffffff" filter="url(#forensicLaserGlow)"/>
-                            <circle cx="65" cy="73" r="1.5" fill="#00f0ff"/>
-                        </g>
-
-                        <!-- Top & Bottom Hex Accent Ticks -->
-                        <circle cx="65" cy="22" r="2" fill="#00f0ff"/>
-                        <circle cx="65" cy="122" r="2" fill="#c84bff"/>
-                    </svg>
-
-                    <!-- Live Investigation Telemetry Status Pill -->
-                    <div class="ci-intel-core-status">
-                        <span class="ci-intel-core-dot"></span>
-                        <span class="ci-intel-core-txt">FORENSIC CORE</span>
-                    </div>
+                <div class="ci-trace__services">
+                    <button class="ci-svc" type="button">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4M7 9l2 2-2 2M12 13h4"/></svg>
+                        <span>Digital Forensics</span><div class="ci-svc__bar"></div>
+                    </button>
+                    <button class="ci-svc" type="button">
+                        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.3-4.3M11 8v6M8 11h6"/></svg>
+                        <span>OSINT Recon</span><div class="ci-svc__bar"></div>
+                    </button>
+                    <button class="ci-svc" type="button">
+                        <svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3M12 14v2"/></svg>
+                        <span>Evidence Vault</span><div class="ci-svc__bar"></div>
+                    </button>
+                    <button class="ci-svc" type="button">
+                        <svg viewBox="0 0 24 24"><path d="M3 17l5-5 4 3 8-8"/><path d="M15 7h5v5"/></svg>
+                        <span>Cyber Fraud Tracing</span><div class="ci-svc__bar"></div>
+                    </button>
                 </div>
             </div>
-
-            <!-- Data lines from center to 4 corner cards -->
-            <svg class="ci-data-lines" viewBox="0 0 400 400" fill="none" aria-hidden="true">
-                <line x1="200" y1="200" x2="85"  y2="85"  stroke="url(#lineGrad)" stroke-width="1.2" stroke-dasharray="4 6" opacity="0.6">
-                    <animate attributeName="stroke-dashoffset" values="0;-20" dur="2s" repeatCount="indefinite"/>
-                </line>
-                <line x1="200" y1="200" x2="315" y2="85"  stroke="url(#lineGrad)" stroke-width="1.2" stroke-dasharray="4 6" opacity="0.6">
-                    <animate attributeName="stroke-dashoffset" values="0;-20" dur="2.4s" repeatCount="indefinite"/>
-                </line>
-                <line x1="200" y1="200" x2="315" y2="315" stroke="url(#lineGrad)" stroke-width="1.2" stroke-dasharray="4 6" opacity="0.6">
-                    <animate attributeName="stroke-dashoffset" values="0;-20" dur="1.8s" repeatCount="indefinite"/>
-                </line>
-                <line x1="200" y1="200" x2="85"  y2="315" stroke="url(#lineGrad)" stroke-width="1.2" stroke-dasharray="4 6" opacity="0.6">
-                    <animate attributeName="stroke-dashoffset" values="0;-20" dur="2.2s" repeatCount="indefinite"/>
-                </line>
-                <defs>
-                    <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#c84bff"/>
-                        <stop offset="100%" stop-color="#7b2ff7"/>
-                    </linearGradient>
-                </defs>
-            </svg>
-
-            <!-- Intel monitoring badge -->
-            <div class="ci-monitoring-badge">
-                <span class="ci-monitoring-dot"></span>
-                CONFIDENTIAL INVESTIGATION ACTIVE
-            </div>
-
-        </div><!-- /ci-hero-visual -->
+        </div>
 
     </div><!-- /container -->
 
@@ -1400,7 +1239,7 @@ if (!empty($investigationClients)):
                     </div>
                 </div>
 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; margin-bottom: 1.2rem;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; margin-bottom: 1.2rem; align-items: start;">
                     <div>
                         <label for="phone" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.9;">Phone / WhatsApp / Signal *</label>
                         <input type="tel" id="phone" name="phone" required placeholder="<?= sanitize_out(SITE_PHONE) ?>" style="width: 100%; padding: 0.9rem 1.1rem; border-radius: 10px; font-family: inherit; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.18); color: #fff;">
@@ -1412,7 +1251,12 @@ if (!empty($investigationClients)):
                             <?php foreach ($investigationFormServices as $formService): ?>
                                 <option value="<?= sanitize_out($formService) ?>"><?= sanitize_out($formService) ?></option>
                             <?php endforeach; ?>
+                            <option value="Other">Other (Please specify)</option>
                         </select>
+                        <div class="service-other-wrap" style="display: none; margin-top: 0.75rem;">
+                            <label for="service_other" style="display: block; margin-bottom: 0.35rem; font-size: 0.82rem; opacity: 0.9; color: #c84bff;">Specify Your Requirement *</label>
+                            <input type="text" id="service_other" name="service_other" placeholder="Type your investigation requirement..." style="width: 100%; padding: 0.85rem 1.1rem; border-radius: 10px; font-family: inherit; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.18); color: #fff;">
+                        </div>
                     </div>
                 </div>
 
