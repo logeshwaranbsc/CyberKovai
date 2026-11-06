@@ -11,6 +11,12 @@
     RewriteRule ^digitalforensics/services/?$ digital-forensics.php?section=cyber#services [L,QSA]
     RewriteRule ^digitalforensics/?$ digital-forensics.php?section=cyber [L,QSA]
 
+    # Route service page requests made under section prefixes to root services directory
+    RewriteRule ^digital-forensics/services/(.+)$ services/$1 [L,QSA]
+    RewriteRule ^digitalforensics/services/(.+)$ services/$1 [L,QSA]
+    RewriteRule ^cyber-intelligence/services/(.+)$ services/$1 [L,QSA]
+    RewriteRule ^investigation/services/(.+)$ services/$1 [L,QSA]
+
     RewriteRule ^about/?$ about.php [L,QSA]
     RewriteRule ^contact/?$ contact.php [L,QSA]
     RewriteRule ^investigation/?$ cyber-intelligence.php?section=forensics [L,QSA]

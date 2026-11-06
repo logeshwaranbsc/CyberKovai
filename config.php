@@ -49,6 +49,29 @@ if (!function_exists('env')) {
     }
 }
 
+/**
+ * Universal Base URL Resolver for Clean Deployment
+ * Resolves root-relative URLs reliably whether installed in domain root or a subfolder,
+ * and prevents relative path breakage under rewritten paths like /digital-forensics/
+ */
+if (!function_exists('ck_base_url')) {
+    function ck_base_url($path = '') {
+        static $base = null;
+        if ($base === null) {
+            $script = $_SERVER['SCRIPT_NAME'] ?? $_SERVER['PHP_SELF'] ?? '';
+            $dir = str_replace('\\', '/', dirname($script));
+            // If inside /services/ or /admin/, normalize to application root
+            if (basename($dir) === 'services' || basename($dir) === 'admin') {
+                $dir = dirname($dir);
+            }
+            $dir = rtrim($dir, '/');
+            $base = ($dir === '' || $dir === '.') ? '' : $dir;
+        }
+        $path = ltrim($path, '/');
+        return ($base === '') ? '/' . $path : $base . '/' . $path;
+    }
+}
+
 // Google reCAPTCHA Configuration (set ENABLE_RECAPTCHA to false for testing)
 define('ENABLE_RECAPTCHA', filter_var(env('ENABLE_RECAPTCHA', false), FILTER_VALIDATE_BOOLEAN));
 define('RECAPTCHA_SITE_KEY', env('RECAPTCHA_SITE_KEY', '6LfIJwYuAAAAAGqRA8w9Y_gV0Dg13VyMmKtIB36q'));

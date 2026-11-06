@@ -19,70 +19,111 @@ $cyberStats = [
 ];
 
 // 7 Cyber Security Core Practices
-$cyberPractices = [
-    [
-        'id'          => '01',
-        'title'       => 'Vulnerability Assessment & Pen Testing (VAPT)',
-        'slug'        => 'vulnerability-assessment-penetration-testing',
-        'link'        => 'services/vulnerability-assessment-penetration-testing.php',
-        'tag'         => '// APPSEC-01',
-        'icon'        => '🛡️',
-        'description' => 'Simulate real-world attacks across web applications, APIs, mobile apps, and systems to uncover exploitable flaws before adversaries do.'
-    ],
-    [
-        'id'          => '02',
-        'title'       => 'Network & Wireless Penetration Testing',
-        'slug'        => 'network-penetration-testing',
-        'link'        => 'services/network-penetration-testing.php',
-        'tag'         => '// NETSEC-02',
-        'icon'        => '🌐',
-        'description' => 'Comprehensive perimeter and internal network auditing, firewall rulebase evaluations, and rogue wireless access point testing.'
-    ],
-    [
-        'id'          => '03',
-        'title'       => 'Cloud Security & Posture Management (CSPM)',
-        'slug'        => 'cloud-configuration-review',
-        'link'        => 'services/cloud-configuration-review.php',
-        'tag'         => '// CLOUD-03',
-        'icon'        => '☁️',
-        'description' => 'Audit AWS, Azure, and GCP architectures for misconfigurations, excessive IAM privileges, CASA compliance, and container vulnerabilities.'
-    ],
-    [
-        'id'          => '04',
-        'title'       => 'Virtual CISO (vCISO) & Executive Advisory',
-        'slug'        => 'virtual-cISO-services',
-        'link'        => 'services/virtual-cISO-services.php',
-        'tag'         => '// ENTPR-04',
-        'icon'        => '👔',
-        'description' => 'Strategic cybersecurity leadership, governance, vendor risk management, and regulatory alignment with ISO 27001, SOC 2, and NIST.'
-    ],
-    [
-        'id'          => '05',
-        'title'       => 'REST & GraphQL API Security Testing',
-        'slug'        => 'api-penetration-testing',
-        'link'        => 'services/api-penetration-testing.php',
-        'tag'         => '// APISEC-05',
-        'icon'        => '⚡',
-        'description' => 'Deep technical auditing for OWASP API Security Top 10 vulnerabilities, broken authentication, rate-limiting flaws, and mass assignment.'
-    ],
-    [
-        'id'          => '06',
-        'title'       => 'Secure Source Code Review (SAST/DAST)',
-        'slug'        => 'secure-source-code-review',
-        'link'        => 'services/secure-source-code-review.php',
-        'tag'         => '// DEVSEC-06',
-        'icon'        => '💻',
-        'description' => 'Automated and manual line-by-line static analysis to identify hidden backdoors, cryptographic bugs, and code injection vulnerabilities.'
-    ],
-    [
-        'id'          => '07',
-        'title'       => 'Zero-Trust Architecture & Threat Hardening',
-        'slug'        => 'security-architecture-review',
-        'link'        => 'services/security-architecture-review.php',
-        'tag'         => '// ZEROTRUST-07',
-        'icon'        => '🔒',
-        'description' => 'Enterprise identity defense, Microsoft 365 hardening, network segmentation, and micro-perimeter security to stop ransomware spread.'
-    ]
+$cyberPractices = function_exists('ck_get_cyber_practices') ? ck_get_cyber_practices(false) : [];
+if (empty($cyberPractices)) {
+    $cyberPractices = [
+        [
+            'id'          => '01',
+            'title'       => 'Vulnerability Assessment & Pen Testing (VAPT)',
+            'slug'        => 'vulnerability-assessment-penetration-testing',
+            'link'        => 'services/vulnerability-assessment-penetration-testing.php',
+            'tag'         => '// APPSEC-01',
+            'badge'       => 'PRIMARY PRACTICE',
+            'status_text' => 'ARMORED',
+            'icon'        => '🛡️',
+            'is_hero'     => true,
+            'description' => 'Simulate real-world attacks across web applications, APIs, mobile apps, and systems to uncover exploitable flaws before adversaries do.'
+        ],
+        [
+            'id'          => '02',
+            'title'       => 'Network & Wireless Penetration Testing',
+            'slug'        => 'network-penetration-testing',
+            'link'        => 'services/network-penetration-testing.php',
+            'tag'         => '// NETSEC-02',
+            'badge'       => '',
+            'status_text' => 'ARMORED',
+            'icon'        => '🌐',
+            'is_hero'     => false,
+            'description' => 'Comprehensive perimeter and internal network auditing, firewall rulebase evaluations, and rogue wireless access point testing.'
+        ],
+        [
+            'id'          => '03',
+            'title'       => 'Cloud Security & Posture Management (CSPM)',
+            'slug'        => 'cloud-configuration-review',
+            'link'        => 'services/cloud-configuration-review.php',
+            'tag'         => '// CLOUD-03',
+            'badge'       => '',
+            'status_text' => 'ARMORED',
+            'icon'        => '☁️',
+            'is_hero'     => false,
+            'description' => 'Audit AWS, Azure, and GCP architectures for misconfigurations, excessive IAM privileges, CASA compliance, and container vulnerabilities.'
+        ],
+        [
+            'id'          => '04',
+            'title'       => 'Virtual CISO (vCISO) & Executive Advisory',
+            'slug'        => 'virtual-ciso-services',
+            'link'        => 'services/virtual-ciso-services.php',
+            'tag'         => '// ENTPR-04',
+            'badge'       => 'PRIMARY PRACTICE',
+            'status_text' => 'ARMORED',
+            'icon'        => '👔',
+            'is_hero'     => true,
+            'description' => 'Strategic cybersecurity leadership, governance, vendor risk management, and regulatory alignment with ISO 27001, SOC 2, and NIST.'
+        ],
+        [
+            'id'          => '05',
+            'title'       => 'REST & GraphQL API Security Testing',
+            'slug'        => 'api-penetration-testing',
+            'link'        => 'services/api-penetration-testing.php',
+            'tag'         => '// APISEC-05',
+            'badge'       => '',
+            'status_text' => 'ARMORED',
+            'icon'        => '⚡',
+            'is_hero'     => false,
+            'description' => 'Deep technical auditing for OWASP API Security Top 10 vulnerabilities, broken authentication, rate-limiting flaws, and mass assignment.'
+        ],
+        [
+            'id'          => '06',
+            'title'       => 'Secure Source Code Review (SAST/DAST)',
+            'slug'        => 'secure-source-code-review',
+            'link'        => 'services/secure-source-code-review.php',
+            'tag'         => '// DEVSEC-06',
+            'badge'       => '',
+            'status_text' => 'ARMORED',
+            'icon'        => '💻',
+            'is_hero'     => false,
+            'description' => 'Automated and manual line-by-line static analysis to identify hidden backdoors, cryptographic bugs, and code injection vulnerabilities.'
+        ],
+        [
+            'id'          => '07',
+            'title'       => 'Zero-Trust Architecture & Threat Hardening',
+            'slug'        => 'security-architecture-review',
+            'link'        => 'services/security-architecture-review.php',
+            'tag'         => '// ZEROTRUST-07',
+            'badge'       => '',
+            'status_text' => 'ARMORED',
+            'icon'        => '🔒',
+            'is_hero'     => false,
+            'description' => 'Enterprise identity defense, Microsoft 365 hardening, network segmentation, and micro-perimeter security to stop ransomware spread.'
+        ],
+        [
+            'id'          => '08',
+            'title'       => 'AI Security & LLM Red Teaming',
+            'slug'        => 'ai-security',
+            'link'        => 'services/ai-security.php',
+            'tag'         => '// AISEC-08',
+            'badge'       => 'AI DEFENSE PRACTICE',
+            'status_text' => 'ARMORED',
+            'icon'        => '🤖',
+            'is_hero'     => true,
+            'description' => 'Adversarial prompt injection testing, RAG pipeline defense, model weight integrity, and LLM guardrail auditing to secure enterprise AI.'
+        ]
+    ];
+}
+$cyberPracticesSettings = function_exists('ck_get_cyber_practices_settings') ? ck_get_cyber_practices_settings() : [
+    'tag'      => 'OUR PRACTICES',
+    'title'    => 'Core Cyber Practices. One Standard: <span>Uncompromising Defense.</span>',
+    'subtitle' => 'Comprehensive offensive and defensive cybersecurity practices engineered for modern digital enterprises.'
 ];
 
 // Cyber Defense Lifecycle (5 Steps)
@@ -143,8 +184,8 @@ $cyberRiskTools = [
     ['icon' => '📋', 'title' => 'Regulatory & Compliance Check',    'desc' => 'Evaluate readiness for ISO 27001, SOC 2, HIPAA & NIST CSF']
 ];
 
-// Cybersecurity FAQs
-$cyberFaqs = [
+// Cybersecurity FAQs (Dynamically loaded from Storage)
+$cyberFaqs = function_exists('ck_get_faqs') ? ck_get_faqs('cyber', false) : [
     [
         'question' => 'What cybersecurity services does Cyber Kovai provide?',
         'answer'   => 'Cyber Kovai provides comprehensive offensive and defensive cybersecurity solutions, including Vulnerability Assessment and Penetration Testing (VAPT), Web & Mobile Application Security, Network Penetration Testing, Cloud Security Audits (AWS, GCP, Azure), API Security, Virtual CISO (vCISO) Advisory, Secure Code Review, and Zero-Trust Architecture Hardening.'
@@ -180,7 +221,8 @@ $cyberFormServices = !empty($activeCyberServicesList)
         'Cloud Security Posture & CASA Assessment',
         'Virtual CISO (vCISO) Advisory',
         'Secure Source Code Review (SAST/DAST)',
-        'Zero-Trust Architecture & Threat Hardening'
+        'Zero-Trust Architecture & Threat Hardening',
+        'AI Security & LLM Red Teaming'
     ];
 
 include_once __DIR__ . '/includes/header.php';
@@ -207,11 +249,11 @@ include_once __DIR__ . '/includes/header.php';
                     <h1>
                         Advanced Cyber Security<br>
                         <span class="hero-gradient-text">Solutions</span><br>
-                        <span class="hero-by-line">by <span class="cyber-glitch-wrapper" title="CyberKovai Cyber Systems"><span class="cyber-glitch-text" data-text="CyberKovai">CyberKovai</span><span class="cyber-cursor" aria-hidden="true">_</span><span class="cyber-scan-bar" aria-hidden="true"></span></span></span>
+                        <span class="hero-by-line"><span class="cyber-glitch-wrapper" title="Explore Cyber Security Services (Click to cycle)" data-phrases='["Application Security", "Network Security", "Cloud Security", "Enterprise Security"]'><span class="cyber-glitch-text" data-text="Application Security">Application Security</span><span class="cyber-cursor" aria-hidden="true">_</span><span class="cyber-scan-bar" aria-hidden="true"></span></span></span>
                     </h1>
 
                     <p>
-                        CyberKovai delivers proactive cybersecurity solutions, certified penetration testing, and enterprise defense for modern businesses. Our certified ethical hackers provide continuous vulnerability management, cloud hardening, application security, and 24/7 digital resilience.
+                        CyberKovai delivers proactive cybersecurity solutions, certified penetration testing, and enterprise defense for modern businesses. Our certified cyber security experts provide continuous vulnerability management, cloud hardening, application security, and 24/7 digital resilience.
                     </p>
 
                     <div class="hero-buttons">
@@ -337,16 +379,14 @@ include_once __DIR__ . '/includes/header.php';
 
                     <h2 class="about-headline">
                         Defend Your Digital Infrastructure with
-                        <span class="cyber-gradient-text">Elite Cyber Security</span>
+                        <span class="cyber-gradient-text">Elite Cyber Security Experts</span>
                     </h2>
 
                     <div class="about-lead-box">
                         <p class="about-lead-text">
                             At Cyber Kovai, we provide cutting-edge offensive security, continuous vulnerability assessment, and zero-trust engineering to help organizations safeguard digital assets and defend against complex cyber threats.
                         </p>
-                        <p class="about-sub-text">
-                            Combining <strong>certified cybersecurity mastery (OSCP, CEH, CISSP)</strong> with advanced adversary attack simulation to deliver actionable, enterprise-grade protection.
-                        </p>
+                        
                     </div>
 
                     <!-- Interactive Capability Cards -->
@@ -360,8 +400,8 @@ include_once __DIR__ . '/includes/header.php';
                             </div>
                             <div class="capability-body">
                                 <div class="capability-header">
-                                    <h4>Certified Ethical Hackers</h4>
-                                    <span class="capability-tag">CREST &amp; OSCP</span>
+                                    <h4>Certified Security Experts</h4>
+                                    <span class="capability-tag">CISM &amp; CISA</span>
                                 </div>
                                 <p>Elite red-team specialists simulating real-world adversary tactics to uncover critical vulnerabilities before malicious actors exploit them.</p>
                             </div>
@@ -447,14 +487,7 @@ include_once __DIR__ . '/includes/header.php';
                                 <span class="dot dot-yellow"></span>
                                 <span class="dot dot-green"></span>
                             </div>
-                            <div class="console-title">
-                                <span class="console-icon">◈</span>
-                                SOC COMMAND FEED // CAM-04
-                            </div>
-                            <div class="console-live-badge">
-                                <span class="rec-pulse"></span>
-                                LIVE FEED
-                            </div>
+               
                         </div>
 
                         <!-- Media Display Window -->
@@ -557,7 +590,7 @@ include_once __DIR__ . '/includes/header.php';
 
                 <div class="cyber-capabilities-grid">
 
-                    <!-- CARD 1: Realworld Attack Simulation -->
+                    <!-- CARD 1: Real-World Attack Simulation -->
                     <div class="cyber-cap-card cap-card-attack">
                         <div class="cap-card-icon-wrap">
                             <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
@@ -571,16 +604,16 @@ include_once __DIR__ . '/includes/header.php';
                                 <path d="M24 26V28.5" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/>
                             </svg>
                         </div>
-                        <h3 class="cap-card-title">Realworld Attack Simulation</h3>
+                        <h3 class="cap-card-title">Real-World Attack Simulation</h3>
                         <ul class="cap-card-list list-blue">
-                            <li><span class="cap-check">✓</span> Offensive approach to find vulnerabilities.</li>
-                            <li><span class="cap-check">✓</span> Mapping with OWASP, CREST &amp; NIST standards</li>
-                            <li><span class="cap-check">✓</span> Detailed Report with remediation steps</li>
-                            <li><span class="cap-check">✓</span> Re-evaluation and issuance of certificates.</li>
+                            <li><span class="cap-check">✓</span> Offensive red-team tactics simulating real-world adversary behavior.</li>
+                            <li><span class="cap-check">✓</span> Led by certified security experts holding CISM &amp; CISA credentials.</li>
+                            <li><span class="cap-check">✓</span> Deep exploit validation uncovering critical vulnerabilities before breach.</li>
+                            <li><span class="cap-check">✓</span> Post-assessment remediation re-testing and verified certification.</li>
                         </ul>
                     </div>
 
-                    <!-- CARD 2: Vulnerability Management -->
+                    <!-- CARD 2: Continuous Vulnerability Management -->
                     <div class="cyber-cap-card cap-card-vuln">
                         <div class="cap-card-icon-wrap">
                             <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
@@ -593,16 +626,16 @@ include_once __DIR__ . '/includes/header.php';
                                 <line x1="17" y1="20.5" x2="31" y2="20.5" stroke="#38bdf8" stroke-width="1.5"/>
                             </svg>
                         </div>
-                        <h3 class="cap-card-title">Vulnerability Management</h3>
+                        <h3 class="cap-card-title">Continuous Vulnerability Management</h3>
                         <ul class="cap-card-list list-amber">
-                            <li><span class="cap-check">✓</span> Vulnerabilities prioritization based on severity</li>
-                            <li><span class="cap-check">✓</span> Comprehensive scans to detect vulnerabilities</li>
-                            <li><span class="cap-check">✓</span> Detailed Report with remediation steps</li>
-                            <li><span class="cap-check">✓</span> Establishment of vulnerability disclosure process.</li>
+                            <li><span class="cap-check">✓</span> Systematic surface scanning across networks, web apps &amp; APIs.</li>
+                            <li><span class="cap-check">✓</span> Comprehensive auditing mapped to OWASP Top 10 &amp; NIST frameworks.</li>
+                            <li><span class="cap-check">✓</span> CVSS v3.1 dynamic scoring with severity-based risk prioritization.</li>
+                            <li><span class="cap-check">✓</span> Actionable remediation roadmaps to eliminate attack surfaces.</li>
                         </ul>
                     </div>
 
-                    <!-- CARD 3: Secure Architecture Design -->
+                    <!-- CARD 3: Multi-Cloud & Zero-Trust Hardening -->
                     <div class="cyber-cap-card cap-card-arch">
                         <div class="cap-card-icon-wrap">
                             <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
@@ -617,12 +650,12 @@ include_once __DIR__ . '/includes/header.php';
                                 <line x1="32" y1="34" x2="32" y2="37.8" stroke="#10b981" stroke-width="1.5"/>
                             </svg>
                         </div>
-                        <h3 class="cap-card-title">Secure Architecture Design</h3>
+                        <h3 class="cap-card-title">Multi-Cloud &amp; Zero-Trust Hardening</h3>
                         <ul class="cap-card-list list-green">
-                            <li><span class="cap-check">✓</span> Conducting thorough reviews of system architecture.</li>
-                            <li><span class="cap-check">✓</span> Assessment architecture against industry standards.</li>
-                            <li><span class="cap-check">✓</span> Recommendations for enhancing security posture</li>
-                            <li><span class="cap-check">✓</span> Check for potential points of entry for attackers.</li>
+                            <li><span class="cap-check">✓</span> Architecture hardening across AWS, Google Cloud (GCP) &amp; Azure.</li>
+                            <li><span class="cap-check">✓</span> Zero-Trust perimeter design enforcing strict least-privilege access.</li>
+                            <li><span class="cap-check">✓</span> Fortifying cloud APIs and endpoints against ransomware &amp; breaches.</li>
+                            <li><span class="cap-check">✓</span> Network micro-segmentation to halt adversary lateral movement.</li>
                         </ul>
                     </div>
 
@@ -641,7 +674,7 @@ include_once __DIR__ . '/includes/header.php';
                         <div class="stat-counter-card cyber-hud-stat-card">
                             <div class="stat-card-beam" aria-hidden="true"></div>
                             <div class="stat-hud-chip">VERIFIED METRIC</div>
-                            <strong class="stat-counter-val"><?= sanitize_out($stat['value']) ?></strong>
+                            <strong class="stat-counter-val" data-counter="true" data-final="<?= sanitize_out($stat['value']) ?>"><?= sanitize_out($stat['value']) ?></strong>
                             <span class="stat-counter-lbl"><?= sanitize_out($stat['label']) ?></span>
                         </div>
                     <?php endforeach; ?>
@@ -661,15 +694,15 @@ include_once __DIR__ . '/includes/header.php';
                 <div class="section-heading text-center">
 
                     <span class="section-tag">
-                        OUR PRACTICES
+                        <?= sanitize_out($cyberPracticesSettings['tag'] ?? 'OUR PRACTICES') ?>
                     </span>
 
                     <h2>
-                        Seven Practices. One Standard: <span>Uncompromising Defense.</span>
+                        <?= !empty($cyberPracticesSettings['title']) ? $cyberPracticesSettings['title'] : 'Core Cyber Practices. One Standard: <span>Uncompromising Defense.</span>' ?>
                     </h2>
 
                     <p>
-                        Comprehensive offensive and defensive cybersecurity practices engineered for modern digital enterprises.
+                        <?= sanitize_out($cyberPracticesSettings['subtitle'] ?? 'Comprehensive offensive and defensive cybersecurity practices engineered for modern digital enterprises.') ?>
                     </p>
 
                 </div>
@@ -678,28 +711,49 @@ include_once __DIR__ . '/includes/header.php';
                 <div class="practices-bento-grid">
 
                     <?php foreach ($cyberPractices as $index => $service): 
-                        $isHero = ($index === 0 || $index === 3);
+                        $isHero = !empty($service['is_hero']) || in_array($index, [0, 3, 7], true);
+                        $practiceSlug = $service['slug'] ?? '';
+                        $customLink = trim($service['link'] ?? '');
+                        
+                        if (!empty($customLink) && (strpos($customLink, 'http://') === 0 || strpos($customLink, 'https://') === 0)) {
+                            $practiceUrl = $customLink;
+                        } elseif (!empty($customLink) && $customLink !== '#' && $customLink !== 'services/' . $practiceSlug . '.php') {
+                            $practiceUrl = function_exists('ck_base_url') ? ck_base_url($customLink) : $basePrefix . $customLink;
+                        } elseif ($practiceSlug !== '') {
+                            $targetServiceFile = __DIR__ . '/services/' . $practiceSlug . '.php';
+                            if (file_exists($targetServiceFile)) {
+                                $practiceUrl = function_exists('ck_base_url') ? ck_base_url('services/' . $practiceSlug . '.php') : $basePrefix . 'services/' . $practiceSlug . '.php';
+                            } else {
+                                $practiceUrl = function_exists('ck_base_url') ? ck_base_url('service.php?slug=' . urlencode($practiceSlug)) : $basePrefix . 'service.php?slug=' . urlencode($practiceSlug);
+                            }
+                        } else {
+                            $practiceUrl = '#';
+                        }
+
+                        $bentoClassNum = ($index % 8) + 1;
+                        $badgeText = !empty($service['badge']) ? $service['badge'] : ($isHero ? (($index === 7 || $bentoClassNum === 8) ? 'AI DEFENSE PRACTICE' : 'PRIMARY PRACTICE') : '');
+                        $statusText = !empty($service['status_text']) ? $service['status_text'] : 'ARMORED';
                     ?>
-                        <article class="practice-bento-card <?= $isHero ? 'bento-hero-card' : '' ?> bento-item-<?= $index + 1 ?>">
+                        <article class="practice-bento-card <?= $isHero ? 'bento-hero-card' : '' ?> bento-item-<?= $bentoClassNum ?>">
                             <div class="bento-card-header">
                                 <div class="bento-icon-wrapper">
-                                    <?= get_forensic_icon($service['title'], 'bento-svg-icon', 24) ?>
+                                    <?= get_forensic_icon($service['title'] ?? '', 'bento-svg-icon', 24) ?>
                                 </div>
                                 <div class="bento-dossier-tag">
-                                    <span class="dossier-code"><?= sanitize_out($service['tag']) ?></span>
-                                    <?php if ($isHero): ?>
-                                        <span class="dossier-badge">PRIMARY PRACTICE</span>
+                                    <span class="dossier-code"><?= sanitize_out($service['tag'] ?? '') ?></span>
+                                    <?php if (!empty($badgeText)): ?>
+                                        <span class="dossier-badge"><?= sanitize_out($badgeText) ?></span>
                                     <?php endif; ?>
                                 </div>
                             </div>
 
                             <div class="bento-card-content">
-                                <h3><?= sanitize_out($service['title']) ?></h3>
-                                <p><?= sanitize_out($service['description']) ?></p>
+                                <h3><a href="<?= sanitize_out($practiceUrl) ?>" style="color: inherit; text-decoration: none;"><?= sanitize_out($service['title'] ?? '') ?></a></h3>
+                                <p><?= sanitize_out($service['description'] ?? '') ?></p>
                             </div>
 
                             <div class="bento-card-footer">
-                                <a href="<?= sanitize_out($service['link']) ?>" class="practice-cyber-link">
+                                <a href="<?= sanitize_out($practiceUrl) ?>" class="practice-cyber-link">
                                     <span>Explore Security Practice</span>
                                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                         <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -708,7 +762,7 @@ include_once __DIR__ . '/includes/header.php';
                                 </a>
                                 <div class="bento-status-indicator">
                                     <span class="status-pulse-dot"></span>
-                                    <span class="status-text">ARMORED</span>
+                                    <span class="status-text"><?= sanitize_out($statusText) ?></span>
                                 </div>
                             </div>
                         </article>
@@ -766,11 +820,6 @@ include_once __DIR__ . '/includes/header.php';
                                     </div>
                                     <h3><?= sanitize_out($step['title']) ?></h3>
                                     <p><?= sanitize_out($step['desc']) ?></p>
-                                </div>
-
-                                <div class="stage-hud-meta">
-                                    <span class="stage-meta-code">STATUS: SYNCHRONIZED</span>
-                                    <span class="stage-arrow">→</span>
                                 </div>
 
                             </div>

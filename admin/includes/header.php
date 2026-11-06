@@ -13,9 +13,12 @@ $currentUser = ck_admin_current_user();
 $currentFile = basename($_SERVER['PHP_SELF']);
 
 // Retrieve counts for sidebar badges
-$cyberServicesCount = count(ck_get_cyber_services(true));
-$invServicesCount   = count(ck_get_investigation_services(true));
+$cyberServicesCount  = count(ck_get_cyber_services(true));
+$cyberPracticesCount = function_exists('ck_get_cyber_practices') ? count(ck_get_cyber_practices(true)) : 0;
+$invServicesCount    = count(ck_get_investigation_services(true));
+$threatsCount       = function_exists('ck_get_investigation_threats') ? count(ck_get_investigation_threats(true)) : 0;
 $testimonialsCount  = count(ck_get_testimonials(true));
+$faqsCount          = function_exists('ck_get_faqs') ? count(ck_get_faqs('all', true)) : 0;
 $clientsCount       = function_exists('ck_get_clients') ? count(ck_get_clients('all', true)) : 0;
 $accredsCount       = function_exists('ck_get_accreditations') ? count(ck_get_accreditations('all', true)) : 0;
 $teamCount          = count(ck_get_team_members(true));
@@ -60,13 +63,28 @@ $flash = ck_get_flash();
                 <span>Cyber Services</span>
                 <span class="badge-count"><?= $cyberServicesCount ?></span>
             </a>
+            <a href="cyber-practices.php" class="sidebar-link <?= ($currentFile === 'cyber-practices.php') ? 'active' : '' ?>">
+                <span class="link-icon">⚡</span>
+                <span>Core Practices (Bento)</span>
+                <span class="badge-count"><?= $cyberPracticesCount ?></span>
+            </a>
             <a href="services-investigation.php" class="sidebar-link <?= ($currentFile === 'services-investigation.php') ? 'active' : '' ?>">
                 <span class="link-icon">🔍</span>
                 <span>Investigation Services</span>
                 <span class="badge-count"><?= $invServicesCount ?></span>
             </a>
+            <a href="investigation-threats.php" class="sidebar-link <?= ($currentFile === 'investigation-threats.php') ? 'active' : '' ?>">
+                <span class="link-icon">🎯</span>
+                <span>Threats &amp; Incidents</span>
+                <span class="badge-count"><?= $threatsCount ?></span>
+            </a>
 
             <div class="nav-section-title">Content &amp; Leadership</div>
+            <a href="faqs.php" class="sidebar-link <?= ($currentFile === 'faqs.php') ? 'active' : '' ?>">
+                <span class="link-icon">❓</span>
+                <span>FAQs (Cyber &amp; Inv)</span>
+                <span class="badge-count"><?= $faqsCount ?></span>
+            </a>
             <a href="testimonials.php" class="sidebar-link <?= ($currentFile === 'testimonials.php') ? 'active' : '' ?>">
                 <span class="link-icon">⭐</span>
                 <span>Testimonials</span>

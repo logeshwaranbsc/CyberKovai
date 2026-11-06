@@ -14,7 +14,8 @@
             "secure-source-code-review",
             "ecommerce-security",
             "saas-security",
-            "devsecops"
+            "devsecops",
+            "ai-security"
         ]
     },
     "network-security": {

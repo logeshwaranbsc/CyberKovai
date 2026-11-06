@@ -239,6 +239,7 @@ function ck_save_investigation_service($data, $originalSlug = null) {
         'slug'        => $slug,
         'title'       => trim($data['title'] ?? ''),
         'short'       => trim($data['short'] ?? ($data['title'] ?? '')),
+        'footer_name' => trim(!empty($data['footer_name']) ? $data['footer_name'] : ($data['short'] ?? ($data['title'] ?? ''))),
         'icon'        => trim($data['icon'] ?? '🛡️'),
         'image'       => trim($data['image'] ?? 'assets/images/investigation_01_victim_recovery.jpg'),
         'description' => trim($data['description'] ?? ''),
@@ -302,6 +303,275 @@ function ck_toggle_investigation_service_status($slug) {
         }
     }
     if ($newStatus !== false && ck_write_json('investigation_services.json', $list)) {
+        return $newStatus;
+    }
+    return false;
+}
+
+/* ==========================================================================
+   INVESTIGATION THREATS & INCIDENT TAGS (WORD CLOUD) CRUD
+   ========================================================================== */
+
+function ck_get_investigation_threats($includeInactive = true) {
+    $threats = ck_read_json('investigation_threats.json', []);
+    if (empty($threats)) {
+        ck_seed_storage();
+        $threats = ck_read_json('investigation_threats.json', []);
+    }
+    if (!$includeInactive) {
+        $threats = array_filter($threats, function($t) {
+            return !isset($t['status']) || $t['status'] === 'active';
+        });
+    }
+    usort($threats, function($a, $b) {
+        return ((int)($a['order'] ?? 0)) <=> ((int)($b['order'] ?? 0));
+    });
+    return array_values($threats);
+}
+
+function ck_get_investigation_threat($id) {
+    $list = ck_get_investigation_threats(true);
+    foreach ($list as $t) {
+        if (($t['id'] ?? '') === (string)$id) {
+            return $t;
+        }
+    }
+    return null;
+}
+
+function ck_save_investigation_threat($data, $id = null) {
+    $list = ck_get_investigation_threats(true);
+    $id = !empty($id) ? (string)$id : (!empty($data['id']) ? (string)$data['id'] : null);
+
+    if (!$id) {
+        $maxId = 0;
+        foreach ($list as $item) {
+            if (is_numeric($item['id'] ?? null)) {
+                $maxId = max($maxId, (int)$item['id']);
+            }
+        }
+        $id = (string)($maxId + 1);
+    }
+
+    $validSizes = ['xl', 'lg', 'md', 'sm'];
+    $validAccents = ['purple', 'cyan', 'emerald', 'amber', 'rose'];
+
+    $size   = in_array($data['size'] ?? '', $validSizes, true) ? $data['size'] : 'md';
+    $accent = in_array($data['accent'] ?? '', $validAccents, true) ? $data['accent'] : 'purple';
+    $status = in_array($data['status'] ?? '', ['active', 'inactive'], true) ? $data['status'] : 'active';
+    $order  = isset($data['order']) && $data['order'] !== '' ? (int)$data['order'] : (count($list) + 1);
+
+    $record = [
+        'id'         => (string)$id,
+        'text'       => trim($data['text'] ?? ''),
+        'size'       => $size,
+        'accent'     => $accent,
+        'order'      => $order,
+        'status'     => $status,
+        'updated_at' => date('Y-m-d H:i:s')
+    ];
+
+    $foundIndex = -1;
+    foreach ($list as $i => $item) {
+        if (($item['id'] ?? '') === (string)$id) {
+            $foundIndex = $i;
+            break;
+        }
+    }
+
+    if ($foundIndex >= 0) {
+        $record['created_at'] = $list[$foundIndex]['created_at'] ?? date('Y-m-d H:i:s');
+        $list[$foundIndex] = array_merge($list[$foundIndex], $record);
+    } else {
+        $record['created_at'] = date('Y-m-d H:i:s');
+        $list[] = $record;
+    }
+
+    return ck_write_json('investigation_threats.json', $list);
+}
+
+function ck_delete_investigation_threat($id) {
+    $list = ck_get_investigation_threats(true);
+    $newList = [];
+    foreach ($list as $item) {
+        if (($item['id'] ?? '') === (string)$id) {
+            continue;
+        }
+        $newList[] = $item;
+    }
+    return ck_write_json('investigation_threats.json', $newList);
+}
+
+function ck_toggle_investigation_threat_status($id) {
+    $list = ck_get_investigation_threats(true);
+    $newStatus = false;
+    foreach ($list as $i => $item) {
+        if (($item['id'] ?? '') === (string)$id) {
+            $curStatus = $item['status'] ?? 'active';
+            $newStatus = ($curStatus === 'active') ? 'inactive' : 'active';
+            $list[$i]['status'] = $newStatus;
+            $list[$i]['updated_at'] = date('Y-m-d H:i:s');
+            break;
+        }
+    }
+    if ($newStatus !== false && ck_write_json('investigation_threats.json', $list)) {
+        return $newStatus;
+    }
+    return false;
+}
+
+/* ==========================================================================
+   CORE CYBER PRACTICES CRUD (BENTO GRID)
+   ========================================================================== */
+
+function ck_get_cyber_practices_settings() {
+    $defaults = [
+        'tag'      => 'OUR PRACTICES',
+        'title'    => 'Core Cyber Practices. One Standard: <span>Uncompromising Defense.</span>',
+        'subtitle' => 'Comprehensive offensive and defensive cybersecurity practices engineered for modern digital enterprises.'
+    ];
+    $saved = ck_read_json('cyber_practices_settings.json', []);
+    return array_merge($defaults, $saved);
+}
+
+function ck_save_cyber_practices_settings($settings) {
+    $current = ck_get_cyber_practices_settings();
+    $updated = [
+        'tag'        => trim($settings['tag'] ?? $current['tag']),
+        'title'      => trim($settings['title'] ?? $current['title']),
+        'subtitle'   => trim($settings['subtitle'] ?? $current['subtitle']),
+        'updated_at' => date('Y-m-d H:i:s')
+    ];
+    return ck_write_json('cyber_practices_settings.json', $updated);
+}
+
+function ck_get_cyber_practices($includeInactive = true) {
+    $practices = ck_read_json('cyber_practices.json', []);
+    if (empty($practices)) {
+        $practices = [
+            ['id' => '1', 'code' => '01', 'title' => 'Vulnerability Assessment & Pen Testing (VAPT)', 'slug' => 'vulnerability-assessment-penetration-testing', 'link' => 'services/vulnerability-assessment-penetration-testing.php', 'tag' => '// APPSEC-01', 'badge' => 'PRIMARY PRACTICE', 'status_text' => 'ARMORED', 'icon' => '🛡️', 'is_hero' => true, 'order' => 1, 'status' => 'active', 'description' => 'Simulate real-world attacks across web applications, APIs, mobile apps, and systems to uncover exploitable flaws before adversaries do.'],
+            ['id' => '2', 'code' => '02', 'title' => 'Network & Wireless Penetration Testing', 'slug' => 'network-penetration-testing', 'link' => 'services/network-penetration-testing.php', 'tag' => '// NETSEC-02', 'badge' => '', 'status_text' => 'ARMORED', 'icon' => '🌐', 'is_hero' => false, 'order' => 2, 'status' => 'active', 'description' => 'Comprehensive perimeter and internal network auditing, firewall rulebase evaluations, and rogue wireless access point testing.'],
+            ['id' => '3', 'code' => '03', 'title' => 'Cloud Security & Posture Management (CSPM)', 'slug' => 'cloud-configuration-review', 'link' => 'services/cloud-configuration-review.php', 'tag' => '// CLOUD-03', 'badge' => '', 'status_text' => 'ARMORED', 'icon' => '☁️', 'is_hero' => false, 'order' => 3, 'status' => 'active', 'description' => 'Audit AWS, Azure, and GCP architectures for misconfigurations, excessive IAM privileges, CASA compliance, and container vulnerabilities.'],
+            ['id' => '4', 'code' => '04', 'title' => 'Virtual CISO (vCISO) & Executive Advisory', 'slug' => 'virtual-ciso-services', 'link' => 'services/virtual-ciso-services.php', 'tag' => '// ENTPR-04', 'badge' => 'PRIMARY PRACTICE', 'status_text' => 'ARMORED', 'icon' => '👔', 'is_hero' => true, 'order' => 4, 'status' => 'active', 'description' => 'Strategic cybersecurity leadership, governance, vendor risk management, and regulatory alignment with ISO 27001, SOC 2, and NIST.'],
+            ['id' => '5', 'code' => '05', 'title' => 'REST & GraphQL API Security Testing', 'slug' => 'api-penetration-testing', 'link' => 'services/api-penetration-testing.php', 'tag' => '// APISEC-05', 'badge' => '', 'status_text' => 'ARMORED', 'icon' => '⚡', 'is_hero' => false, 'order' => 5, 'status' => 'active', 'description' => 'Deep technical auditing for OWASP API Security Top 10 vulnerabilities, broken authentication, rate-limiting flaws, and mass assignment.'],
+            ['id' => '6', 'code' => '06', 'title' => 'Secure Source Code Review (SAST/DAST)', 'slug' => 'secure-source-code-review', 'link' => 'services/secure-source-code-review.php', 'tag' => '// DEVSEC-06', 'badge' => '', 'status_text' => 'ARMORED', 'icon' => '💻', 'is_hero' => false, 'order' => 6, 'status' => 'active', 'description' => 'Automated and manual line-by-line static analysis to identify hidden backdoors, cryptographic bugs, and code injection vulnerabilities.'],
+            ['id' => '7', 'code' => '07', 'title' => 'Zero-Trust Architecture & Threat Hardening', 'slug' => 'security-architecture-review', 'link' => 'services/security-architecture-review.php', 'tag' => '// ZEROTRUST-07', 'badge' => '', 'status_text' => 'ARMORED', 'icon' => '🔒', 'is_hero' => false, 'order' => 7, 'status' => 'active', 'description' => 'Enterprise identity defense, Microsoft 365 hardening, network segmentation, and micro-perimeter security to stop ransomware spread.'],
+            ['id' => '8', 'code' => '08', 'title' => 'AI Security & LLM Red Teaming', 'slug' => 'ai-security', 'link' => 'services/ai-security.php', 'tag' => '// AISEC-08', 'badge' => 'AI DEFENSE PRACTICE', 'status_text' => 'ARMORED', 'icon' => '🤖', 'is_hero' => true, 'order' => 8, 'status' => 'active', 'description' => 'Adversarial prompt injection testing, RAG pipeline defense, model weight integrity, and LLM guardrail auditing to secure enterprise AI.']
+        ];
+        ck_write_json('cyber_practices.json', $practices);
+    }
+
+    if (!$includeInactive) {
+        $practices = array_filter($practices, function($p) {
+            return !isset($p['status']) || $p['status'] === 'active';
+        });
+    }
+
+    usort($practices, function($a, $b) {
+        return ((int)($a['order'] ?? 0)) <=> ((int)($b['order'] ?? 0));
+    });
+
+    return array_values($practices);
+}
+
+function ck_get_cyber_practice($id) {
+    $list = ck_get_cyber_practices(true);
+    foreach ($list as $p) {
+        if (($p['id'] ?? '') === (string)$id) {
+            return $p;
+        }
+    }
+    return null;
+}
+
+function ck_save_cyber_practice($data, $id = null) {
+    $list = ck_get_cyber_practices(true);
+    $id = !empty($id) ? (string)$id : (!empty($data['id']) ? (string)$data['id'] : null);
+
+    if (!$id) {
+        $maxId = 0;
+        foreach ($list as $item) {
+            if (is_numeric($item['id'] ?? null)) {
+                $maxId = max($maxId, (int)$item['id']);
+            }
+        }
+        $id = (string)($maxId + 1);
+    }
+
+    $title = trim($data['title'] ?? '');
+    $slug  = !empty($data['slug']) ? ck_slugify($data['slug']) : ck_slugify($title);
+    $code  = !empty($data['code']) ? trim($data['code']) : sprintf('%02d', (int)$id);
+    $order = isset($data['order']) && $data['order'] !== '' ? (int)$data['order'] : (count($list) + 1);
+    $tag   = !empty($data['tag']) ? trim($data['tag']) : ('// ' . strtoupper(substr(preg_replace('/[^a-zA-Z]/', '', $slug), 0, 6)) . '-' . $code);
+    $link  = !empty($data['link']) ? trim($data['link']) : ('services/' . $slug . '.php');
+    $badge = trim($data['badge'] ?? '');
+    $statusText = !empty($data['status_text']) ? trim($data['status_text']) : 'ARMORED';
+    $icon  = trim($data['icon'] ?? '🛡️');
+    $isHero = filter_var($data['is_hero'] ?? false, FILTER_VALIDATE_BOOLEAN);
+    $status = in_array($data['status'] ?? '', ['active', 'inactive'], true) ? $data['status'] : 'active';
+    $desc  = trim($data['description'] ?? '');
+
+    $record = [
+        'id'          => (string)$id,
+        'code'        => $code,
+        'title'       => $title,
+        'slug'        => $slug,
+        'link'        => $link,
+        'tag'         => $tag,
+        'badge'       => $badge,
+        'status_text' => $statusText,
+        'icon'        => $icon,
+        'is_hero'     => $isHero,
+        'order'       => $order,
+        'status'      => $status,
+        'description' => $desc,
+        'updated_at'  => date('Y-m-d H:i:s')
+    ];
+
+    $foundIndex = -1;
+    foreach ($list as $i => $item) {
+        if (($item['id'] ?? '') === (string)$id) {
+            $foundIndex = $i;
+            break;
+        }
+    }
+
+    if ($foundIndex >= 0) {
+        $record['created_at'] = $list[$foundIndex]['created_at'] ?? date('Y-m-d H:i:s');
+        $list[$foundIndex] = array_merge($list[$foundIndex], $record);
+    } else {
+        $record['created_at'] = date('Y-m-d H:i:s');
+        $list[] = $record;
+    }
+
+    return ck_write_json('cyber_practices.json', $list);
+}
+
+function ck_delete_cyber_practice($id) {
+    $list = ck_get_cyber_practices(true);
+    $newList = [];
+    foreach ($list as $item) {
+        if (($item['id'] ?? '') === (string)$id) {
+            continue;
+        }
+        $newList[] = $item;
+    }
+    return ck_write_json('cyber_practices.json', $newList);
+}
+
+function ck_toggle_cyber_practice_status($id) {
+    $list = ck_get_cyber_practices(true);
+    $newStatus = false;
+    foreach ($list as $i => $item) {
+        if (($item['id'] ?? '') === (string)$id) {
+            $curStatus = $item['status'] ?? 'active';
+            $newStatus = ($curStatus === 'active') ? 'inactive' : 'active';
+            $list[$i]['status'] = $newStatus;
+            $list[$i]['updated_at'] = date('Y-m-d H:i:s');
+            break;
+        }
+    }
+    if ($newStatus !== false && ck_write_json('cyber_practices.json', $list)) {
         return $newStatus;
     }
     return false;
@@ -424,6 +694,7 @@ function ck_save_cyber_service($data, $originalSlug = null) {
     $serviceRecord = [
         'title'        => trim($data['title'] ?? ($existing['title'] ?? '')),
         'nav_label'    => trim($data['nav_label'] ?? ($existing['nav_label'] ?? ($data['title'] ?? ''))),
+        'footer_name'  => trim($data['footer_name'] ?? ($existing['footer_name'] ?? ($data['nav_label'] ?? ($data['title'] ?? '')))),
         'category'     => trim($data['category'] ?? ($existing['category'] ?? 'application-security')),
         'badge'        => trim($data['badge'] ?? ($existing['badge'] ?? '')),
         'tagline'      => trim($data['tagline'] ?? ($existing['tagline'] ?? '')),
@@ -876,6 +1147,150 @@ function ck_delete_team_member($id) {
 }
 
 /* ==========================================================================
+   FREQUENTLY ASKED QUESTIONS (FAQS) CRUD - CYBER & INVESTIGATION
+   ========================================================================== */
+
+function ck_get_faqs($track = 'all', $includeInactive = true) {
+    $faqs = ck_read_json('faqs.json', []);
+    if (empty($faqs)) {
+        ck_seed_storage();
+        $faqs = ck_read_json('faqs.json', []);
+    }
+
+    if ($track !== 'all') {
+        $faqs = array_filter($faqs, function($f) use ($track) {
+            $fTrack = $f['track'] ?? 'both';
+            return ($fTrack === $track || $fTrack === 'both');
+        });
+    }
+
+    if (!$includeInactive) {
+        $faqs = array_filter($faqs, function($f) {
+            return !isset($f['status']) || $f['status'] === 'active';
+        });
+    }
+
+    usort($faqs, function($a, $b) {
+        return ((int)($a['order'] ?? 0)) <=> ((int)($b['order'] ?? 0));
+    });
+
+    // Normalize keys so templates can use both $f['question'] / $f['answer'] and $f['q'] / $f['a']
+    $normalized = [];
+    foreach ($faqs as $f) {
+        $q = $f['question'] ?? ($f['q'] ?? '');
+        $a = $f['answer'] ?? ($f['a'] ?? '');
+        $f['question'] = $q;
+        $f['answer']   = $a;
+        $f['q']        = $q;
+        $f['a']        = $a;
+        $normalized[]  = $f;
+    }
+
+    return $normalized;
+}
+
+function ck_get_faq($id) {
+    $list = ck_get_faqs('all', true);
+    foreach ($list as $item) {
+        if (($item['id'] ?? '') === (string)$id) {
+            return $item;
+        }
+    }
+    return null;
+}
+
+function ck_save_faq($data, $id = null) {
+    $list = ck_get_faqs('all', true);
+    $id = !empty($id) ? (string)$id : (!empty($data['id']) ? (string)$data['id'] : null);
+
+    $track = in_array($data['track'] ?? '', ['investigation', 'cyber', 'both'], true) ? $data['track'] : 'investigation';
+
+    if (!$id) {
+        $prefix = $track === 'cyber' ? 'faq-cyb-' : ($track === 'both' ? 'faq-both-' : 'faq-inv-');
+        $id = $prefix . time() . '-' . substr(md5(uniqid('', true)), 0, 4);
+    }
+
+    $question = trim($data['question'] ?? ($data['q'] ?? ''));
+    $answer   = trim($data['answer'] ?? ($data['a'] ?? ''));
+    $category = trim($data['category'] ?? 'General');
+    $status   = ($data['status'] ?? 'active') === 'inactive' ? 'inactive' : 'active';
+    $order    = isset($data['order']) && $data['order'] !== '' ? (int)$data['order'] : (count($list) + 1);
+
+    $record = [
+        'id'         => (string)$id,
+        'track'      => $track,
+        'question'   => $question,
+        'answer'     => $answer,
+        'category'   => $category,
+        'order'      => $order,
+        'status'     => $status,
+        'updated_at' => date('Y-m-d H:i:s')
+    ];
+
+    $foundIndex = -1;
+    foreach ($list as $i => $item) {
+        if (($item['id'] ?? '') === (string)$id) {
+            $foundIndex = $i;
+            break;
+        }
+    }
+
+    if ($foundIndex >= 0) {
+        $record['created_at'] = $list[$foundIndex]['created_at'] ?? date('Y-m-d H:i:s');
+        $list[$foundIndex] = array_merge($list[$foundIndex], $record);
+    } else {
+        $record['created_at'] = date('Y-m-d H:i:s');
+        $list[] = $record;
+    }
+
+    $cleanList = [];
+    foreach ($list as $item) {
+        unset($item['q'], $item['a']);
+        $cleanList[] = $item;
+    }
+
+    return ck_write_json('faqs.json', $cleanList);
+}
+
+function ck_delete_faq($id) {
+    $list = ck_get_faqs('all', true);
+    $newList = [];
+    foreach ($list as $item) {
+        if (($item['id'] ?? '') === (string)$id) {
+            continue;
+        }
+        unset($item['q'], $item['a']);
+        $newList[] = $item;
+    }
+    return ck_write_json('faqs.json', $newList);
+}
+
+function ck_toggle_faq_status($id) {
+    $list = ck_get_faqs('all', true);
+    $newStatus = false;
+    foreach ($list as $i => $item) {
+        if (($item['id'] ?? '') === (string)$id) {
+            $curStatus = $item['status'] ?? 'active';
+            $newStatus = ($curStatus === 'active') ? 'inactive' : 'active';
+            $list[$i]['status'] = $newStatus;
+            $list[$i]['updated_at'] = date('Y-m-d H:i:s');
+            break;
+        }
+    }
+    if ($newStatus !== false) {
+        $cleanList = [];
+        foreach ($list as $item) {
+            unset($item['q'], $item['a']);
+            $cleanList[] = $item;
+        }
+        if (ck_write_json('faqs.json', $cleanList)) {
+            return $newStatus;
+        }
+    }
+    return false;
+}
+
+/* ==========================================================================
    ADMIN AUTHENTICATION & MANAGEMENT
    ========================================================================== */
 
@@ -1312,6 +1727,171 @@ function ck_seed_storage() {
             ]
         ];
         ck_write_json('accreditations.json', $accreds);
+    }
+
+    // 9. Investigation Threat & Incident Tags Seeding
+    if (!file_exists(ck_data_path('investigation_threats.json'))) {
+        $defaultThreats = [
+            ['id' => '1',  'text' => 'Cybercrime & Online Fraud',             'size' => 'xl', 'accent' => 'purple',  'order' => 1,  'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '2',  'text' => 'Volatile Memory Extraction',            'size' => 'sm', 'accent' => 'cyan',    'order' => 2,  'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '3',  'text' => 'Crypto & Blockchain Tracing',           'size' => 'lg', 'accent' => 'cyan',    'order' => 3,  'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '4',  'text' => 'SIM Swapping & OTP Fraud',              'size' => 'md', 'accent' => 'amber',   'order' => 4,  'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '5',  'text' => 'Digital Evidence Preservation',         'size' => 'lg', 'accent' => 'emerald', 'order' => 5,  'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '6',  'text' => 'Metadata & Timestamp Forensics',        'size' => 'sm', 'accent' => 'purple',  'order' => 6,  'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '7',  'text' => 'Ransomware Incident Triage',            'size' => 'xl', 'accent' => 'rose',    'order' => 7,  'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '8',  'text' => 'WhatsApp & Telegram Forensics',         'size' => 'sm', 'accent' => 'emerald', 'order' => 8,  'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '9',  'text' => 'Social Media Impersonation',            'size' => 'lg', 'accent' => 'purple',  'order' => 9,  'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '10', 'text' => 'Business Email Compromise (BEC)',       'size' => 'md', 'accent' => 'amber',   'order' => 10, 'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '11', 'text' => 'Device Bit-Stream Imaging',             'size' => 'sm', 'accent' => 'cyan',    'order' => 11, 'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '12', 'text' => 'Corporate Data Theft & Espionage',      'size' => 'xl', 'accent' => 'amber',   'order' => 12, 'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '13', 'text' => 'Fake Profile & Botnet Tracking',        'size' => 'sm', 'accent' => 'purple',  'order' => 13, 'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '14', 'text' => 'Deepfake & AI Media Abuse',             'size' => 'md', 'accent' => 'cyan',    'order' => 14, 'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '15', 'text' => 'Matrimonial & Personal Disputes',       'size' => 'md', 'accent' => 'purple',  'order' => 15, 'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '16', 'text' => 'Investment & Ponzi Scams',              'size' => 'sm', 'accent' => 'amber',   'order' => 16, 'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '17', 'text' => 'OSINT Threat Intelligence',             'size' => 'xl', 'accent' => 'cyan',    'order' => 17, 'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '18', 'text' => 'Malicious APK & Spyware Analysis',      'size' => 'sm', 'accent' => 'rose',    'order' => 18, 'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '19', 'text' => 'Cyberstalking & Harassment',            'size' => 'md', 'accent' => 'rose',    'order' => 19, 'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '20', 'text' => 'Chain of Custody Certification',        'size' => 'sm', 'accent' => 'emerald', 'order' => 20, 'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '21', 'text' => 'Extortion & Blackmail Tracing',         'size' => 'lg', 'accent' => 'rose',    'order' => 21, 'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '22', 'text' => 'UPI & Banking Scams',                   'size' => 'md', 'accent' => 'cyan',    'order' => 22, 'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '23', 'text' => 'Dark Web Data Leak Tracing',            'size' => 'md', 'accent' => 'purple',  'order' => 23, 'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '24', 'text' => 'E-Commerce Marketplace Fraud',          'size' => 'sm', 'accent' => 'amber',   'order' => 24, 'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '25', 'text' => 'Digital Forensics & Artifact Analysis',  'size' => 'xl', 'accent' => 'cyan',    'order' => 25, 'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '26', 'text' => 'Cryptographic SHA-256 Hashing',         'size' => 'sm', 'accent' => 'emerald', 'order' => 26, 'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '27', 'text' => 'Account Takeovers & Hacking',           'size' => 'md', 'accent' => 'purple',  'order' => 27, 'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '28', 'text' => 'Cloud & Email Forensics',               'size' => 'sm', 'accent' => 'purple',  'order' => 28, 'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '29', 'text' => 'Child Digital Safety Threats',          'size' => 'md', 'accent' => 'emerald', 'order' => 29, 'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '30', 'text' => 'Phishing & Credential Theft',           'size' => 'md', 'accent' => 'rose',    'order' => 30, 'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '31', 'text' => 'Defamation & Slander Evidence',         'size' => 'sm', 'accent' => 'purple',  'order' => 31, 'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '32', 'text' => 'Court-Admissible Evidence Dossiers',    'size' => 'lg', 'accent' => 'emerald', 'order' => 32, 'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '33', 'text' => 'Sextortion Emergency Takedowns',        'size' => 'sm', 'accent' => 'rose',    'order' => 33, 'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '34', 'text' => 'Insider Threat Investigation',          'size' => 'md', 'accent' => 'amber',   'order' => 34, 'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '35', 'text' => 'Deleted File & Artifact Carving',       'size' => 'md', 'accent' => 'cyan',    'order' => 35, 'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '36', 'text' => 'Cross-Border LEA Reporting',            'size' => 'sm', 'accent' => 'cyan',    'order' => 36, 'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '37', 'text' => 'Cell Tower & GPS Geolocation Tracing',  'size' => 'sm', 'accent' => 'cyan',    'order' => 37, 'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+            ['id' => '38', 'text' => 'Executive Anti-Doxxing & Privacy',      'size' => 'sm', 'accent' => 'emerald', 'order' => 38, 'status' => 'active', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')],
+        ];
+        ck_write_json('investigation_threats.json', $defaultThreats);
+    }
+
+    // 10. FAQs Seeding (Investigation & Cyber Security)
+    if (!file_exists(ck_data_path('faqs.json'))) {
+        $defaultFaqs = [
+            // Investigation Track FAQs
+            [
+                'id'         => 'faq-inv-1',
+                'track'      => 'investigation',
+                'question'   => 'What digital investigation and forensic services do you offer?',
+                'answer'     => 'We provide Digital Forensics & Artifact Extraction, OSINT & Background Intelligence, Cyber Fraud & Scam Tracing, Social Media Investigations & Impersonation Removal, Cybercrime Victim Assistance, Executive Digital Protection, and Child Digital Safety investigations.',
+                'category'   => 'Services & Scoping',
+                'order'      => 1,
+                'status'     => 'active',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ],
+            [
+                'id'         => 'faq-inv-2',
+                'track'      => 'investigation',
+                'question'   => 'Are your forensic reports admissible in court?',
+                'answer'     => 'Yes. All digital evidence is collected, preserved, and analyzed following ISO/IEC 27037 standards. We maintain a rigorous chain of custody and verify artifacts with cryptographic SHA-256 hashes, ensuring our comprehensive reports are fully admissible in legal proceedings.',
+                'category'   => 'Evidence & Legal',
+                'order'      => 2,
+                'status'     => 'active',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ],
+            [
+                'id'         => 'faq-inv-3',
+                'track'      => 'investigation',
+                'question'   => 'How do you guarantee the confidentiality of my case?',
+                'answer'     => '100% confidentiality is guaranteed from your very first consultation. All case files, client identities, and forensic findings are protected under legally binding Non-Disclosure Agreements (NDAs) and stored in encrypted offline forensic vaults.',
+                'category'   => 'Confidentiality & Privacy',
+                'order'      => 3,
+                'status'     => 'active',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ],
+            [
+                'id'         => 'faq-inv-4',
+                'track'      => 'investigation',
+                'question'   => 'How long does a digital investigation take?',
+                'answer'     => 'Investigation timelines vary depending on case complexity. Urgent inquiries such as active impersonation or account takeovers can produce actionable intelligence within 24 to 72 hours, while complex corporate forensic audits or financial fraud tracing typically range from 5 to 14 business days.',
+                'category'   => 'Timelines & Process',
+                'order'      => 4,
+                'status'     => 'active',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ],
+            [
+                'id'         => 'faq-inv-5',
+                'track'      => 'investigation',
+                'question'   => 'Do you assist with cross-border and international cases?',
+                'answer'     => 'Yes. CyberKovai handles digital investigations across India and internationally, working regularly on matters spanning the UAE, Singapore, Germany, Canada, the UK, Australia, and the US.',
+                'category'   => 'Jurisdiction & Reach',
+                'order'      => 5,
+                'status'     => 'active',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ],
+
+            // Cyber Security Track FAQs
+            [
+                'id'         => 'faq-cyb-1',
+                'track'      => 'cyber',
+                'question'   => 'What cybersecurity services does Cyber Kovai provide?',
+                'answer'     => 'Cyber Kovai provides comprehensive offensive and defensive cybersecurity solutions, including Vulnerability Assessment and Penetration Testing (VAPT), Web & Mobile Application Security, Network Penetration Testing, Cloud Security Audits (AWS, GCP, Azure), API Security, Virtual CISO (vCISO) Advisory, Secure Code Review, and Zero-Trust Architecture Hardening.',
+                'category'   => 'Offensive & Defensive Services',
+                'order'      => 1,
+                'status'     => 'active',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ],
+            [
+                'id'         => 'faq-cyb-2',
+                'track'      => 'cyber',
+                'question'   => 'What standards and frameworks do you follow during testing?',
+                'answer'     => 'Our security testing strictly adheres to industry-leading frameworks including OWASP Top 10, OWASP API Security Top 10, NIST SP 800-115, SANS/CWE 25, and PTES (Penetration Testing Execution Standard), ensuring thorough and standardized vulnerability discovery.',
+                'category'   => 'Compliance & Frameworks',
+                'order'      => 2,
+                'status'     => 'active',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ],
+            [
+                'id'         => 'faq-cyb-3',
+                'track'      => 'cyber',
+                'question'   => 'How long does a security assessment or penetration test take?',
+                'answer'     => 'Assessment timelines depend on scope and infrastructure size. A typical web application or network VAPT takes between 3 to 10 business days. We provide continuous interim alerts for any critical zero-day discoveries followed by a detailed formal report.',
+                'category'   => 'Execution & Reporting',
+                'order'      => 3,
+                'status'     => 'active',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ],
+            [
+                'id'         => 'faq-cyb-4',
+                'track'      => 'cyber',
+                'question'   => 'Do you provide re-testing after our engineering team fixes vulnerabilities?',
+                'answer'     => 'Yes. We include complimentary verification re-testing within 30 days to confirm that reported vulnerabilities are properly patched, followed by the issuance of a formal Certificate of Security Attestation.',
+                'category'   => 'Patch Verification & Certification',
+                'order'      => 4,
+                'status'     => 'active',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ],
+            [
+                'id'         => 'faq-cyb-5',
+                'track'      => 'cyber',
+                'question'   => 'How is our proprietary source code and sensitive infrastructure protected?',
+                'answer'     => 'All engagements are conducted under legally binding Non-Disclosure Agreements (NDAs). We utilize encrypted communication channels, secure isolated testing pods, and strict data-handling protocols aligned with ISO 27001.',
+                'category'   => 'Data Confidentiality & Security',
+                'order'      => 5,
+                'status'     => 'active',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ]
+        ];
+        ck_write_json('faqs.json', $defaultFaqs);
     }
 }
 

@@ -92,8 +92,9 @@ if ($ckShowTestimonials && function_exists('ck_get_testimonials')) {
                     require_once __DIR__ . '/../config.php';
                 }
                 foreach ($investigationServices as $svc): 
+                    $footerLabel = !empty($svc['footer_name']) ? $svc['footer_name'] : (!empty($svc['short']) ? $svc['short'] : $svc['title']);
                 ?>
-                    <a href="<?= $basePrefix ?>services/<?= sanitize_out($svc['slug']) ?>.php?section=forensics"><?= sanitize_out($svc['short'] ?? $svc['title']) ?></a>
+                    <a href="<?= $basePrefix ?>services/<?= sanitize_out($svc['slug']) ?>.php?section=forensics"><?= sanitize_out($footerLabel) ?></a>
                 <?php endforeach; ?>
             </div>
 
@@ -120,22 +121,40 @@ if ($ckShowTestimonials && function_exists('ck_get_testimonials')) {
                 <?php endif; ?>
                 <a href="<?= $basePrefix ?>cyber-intelligence.php?section=cyber">Cyber Intelligence</a>
                 <a href="<?= $basePrefix ?>digital-forensics.php?section=forensics">Digital Forensics</a>
-                <a href="<?= $activeServicesUrl ?>">Services</a>
+                <a href="<?= $activeServicesUrl ?? ($basePrefix . 'services.php') ?>">Services</a>
                 <a href="<?= $contactUrl ?>">Contact &amp; Consultation</a>
 
             </div>
 
+            <?php
+            $ckCyberVault = function_exists('ck_get_cyber_services') ? ck_get_cyber_services(true) : [];
+            $getCyberFooterLabel = function($slug, $fallback) use ($ckCyberVault) {
+                if (isset($ckCyberVault[$slug])) {
+                    if (!empty($ckCyberVault[$slug]['footer_name'])) {
+                        return $ckCyberVault[$slug]['footer_name'];
+                    }
+                    if (!empty($ckCyberVault[$slug]['nav_label'])) {
+                        return $ckCyberVault[$slug]['nav_label'];
+                    }
+                    if (!empty($ckCyberVault[$slug]['title'])) {
+                        return $ckCyberVault[$slug]['title'];
+                    }
+                }
+                return $fallback;
+            };
+            ?>
 
             <div class="footer-column">
 
                 <h4>APP &amp; NETWORK SEC</h4>
 
-                <a href="<?= $basePrefix ?>services/vulnerability-assessment-penetration-testing.php">Comprehensive VAPT</a>
-                <a href="<?= $basePrefix ?>services/web-application-penetration-testing.php">Web App Security Testing</a>
-                <a href="<?= $basePrefix ?>services/mobile-app-penetration-testing.php">Mobile App Security</a>
-                <a href="<?= $basePrefix ?>services/api-penetration-testing.php">REST &amp; GraphQL API Testing</a>
-                <a href="<?= $basePrefix ?>services/network-penetration-testing.php">Network Pen Testing</a>
-                <a href="<?= $basePrefix ?>services/firewall-security-audit.php">Firewall Perimeter Audit</a>
+                <a href="<?= $basePrefix ?>services/vulnerability-assessment-penetration-testing.php"><?= sanitize_out($getCyberFooterLabel('vulnerability-assessment-penetration-testing', 'Comprehensive VAPT')) ?></a>
+                <a href="<?= $basePrefix ?>services/web-application-penetration-testing.php"><?= sanitize_out($getCyberFooterLabel('web-application-penetration-testing', 'Web App Security Testing')) ?></a>
+                <a href="<?= $basePrefix ?>services/mobile-app-penetration-testing.php"><?= sanitize_out($getCyberFooterLabel('mobile-app-penetration-testing', 'Mobile App Security')) ?></a>
+                <a href="<?= $basePrefix ?>services/api-penetration-testing.php"><?= sanitize_out($getCyberFooterLabel('api-penetration-testing', 'REST & GraphQL API Testing')) ?></a>
+                <a href="<?= $basePrefix ?>services/network-penetration-testing.php"><?= sanitize_out($getCyberFooterLabel('network-penetration-testing', 'Network Pen Testing')) ?></a>
+                <a href="<?= $basePrefix ?>services/ai-security.php"><?= sanitize_out($getCyberFooterLabel('ai-security', 'AI Security & LLM Auditing')) ?></a>
+                <a href="<?= $basePrefix ?>services/firewall-security-audit.php"><?= sanitize_out($getCyberFooterLabel('firewall-security-audit', 'Firewall Perimeter Audit')) ?></a>
 
             </div>
 
@@ -144,12 +163,12 @@ if ($ckShowTestimonials && function_exists('ck_get_testimonials')) {
 
                 <h4>CLOUD &amp; ENTERPRISE</h4>
 
-                <a href="<?= $basePrefix ?>services/cloud-configuration-review.php">Cloud Security Posture (CSPM)</a>
-                <a href="<?= $basePrefix ?>services/cloud-application-security-assessment-casa.php">Cloud CASA Assessment</a>
-                <a href="<?= $basePrefix ?>services/cloud-container-security.php">Container &amp; K8s Security</a>
-                <a href="<?= $basePrefix ?>services/aws-server-hardening.php">AWS &amp; Azure Cloud Hardening</a>
-                <a href="<?= $basePrefix ?>services/virtual-ciso-services.php">Virtual CISO (vCISO) Advisory</a>
-                <a href="<?= $basePrefix ?>services/erp-security-audit-assessment.php">Enterprise ERP &amp; SAP Audit</a>
+                <a href="<?= $basePrefix ?>services/cloud-configuration-review.php"><?= sanitize_out($getCyberFooterLabel('cloud-configuration-review', 'Cloud Security Posture (CSPM)')) ?></a>
+                <a href="<?= $basePrefix ?>services/cloud-application-security-assessment-casa.php"><?= sanitize_out($getCyberFooterLabel('cloud-application-security-assessment-casa', 'Cloud CASA Assessment')) ?></a>
+                <a href="<?= $basePrefix ?>services/cloud-container-security.php"><?= sanitize_out($getCyberFooterLabel('cloud-container-security', 'Container & K8s Security')) ?></a>
+                <a href="<?= $basePrefix ?>services/aws-server-hardening.php"><?= sanitize_out($getCyberFooterLabel('aws-server-hardening', 'AWS & Azure Cloud Hardening')) ?></a>
+                <a href="<?= $basePrefix ?>services/virtual-ciso-services.php"><?= sanitize_out($getCyberFooterLabel('virtual-ciso-services', 'Virtual CISO (vCISO) Advisory')) ?></a>
+                <a href="<?= $basePrefix ?>services/erp-security-audit-assessment.php"><?= sanitize_out($getCyberFooterLabel('erp-security-audit-assessment', 'Enterprise ERP & SAP Audit')) ?></a>
 
             </div>
 

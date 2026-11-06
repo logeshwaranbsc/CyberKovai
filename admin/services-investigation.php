@@ -91,6 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'slug'        => $slug,
             'title'       => $title,
             'short'       => trim($_POST['short'] ?? $title),
+            'footer_name' => trim(!empty($_POST['footer_name']) ? $_POST['footer_name'] : ($_POST['short'] ?? $title)),
             'icon'        => trim($_POST['icon'] ?? '🛡️'),
             'image'       => $imagePath,
             'description' => trim($_POST['description'] ?? ''),
@@ -158,6 +159,12 @@ require_once __DIR__ . '/includes/header.php';
             <a href="services-investigation.php?action=add" class="btn btn-primary">
                 <span>+</span> Add Investigation Practice
             </a>
+            <a href="investigation-threats.php" class="btn btn-secondary btn-sm" title="Manage Threats & Incidents Word Cloud">
+                🎯 Incidents &amp; Threats Cloud
+            </a>
+            <a href="faqs.php?track=investigation" class="btn btn-secondary btn-sm" title="Manage Digital Investigation FAQs">
+                ❓ Investigation FAQs
+            </a>
             <a href="../cyber-intelligence.php#ci-services" target="_blank" class="btn btn-secondary btn-sm" title="Preview on Digital Investigation page">
                 Preview on Website ➔
             </a>
@@ -204,6 +211,12 @@ require_once __DIR__ . '/includes/header.php';
                     <label for="short" class="form-label">Short / Navigation Title <span class="required">*</span></label>
                     <input type="text" id="short" name="short" class="form-control" required placeholder="e.g. Victim & Account Recovery" value="<?= htmlspecialchars($editingItem['short'] ?? '') ?>">
                     <span class="form-help">Used for compact badges, header dropdowns, and pills</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="footer_name" class="form-label">Footer Name</label>
+                    <input type="text" id="footer_name" name="footer_name" class="form-control" placeholder="e.g. Victim & Account Recovery" value="<?= htmlspecialchars($editingItem['footer_name'] ?? ($editingItem['short'] ?? '')) ?>">
+                    <span class="form-help">Custom label reflected in the website footer links (falls back to Short Title if blank)</span>
                 </div>
 
                 <div class="form-group">
@@ -333,6 +346,11 @@ require_once __DIR__ . '/includes/header.php';
                         </td>
                         <td>
                             <span class="category-tag"><?= htmlspecialchars($svc['short'] ?? '') ?></span>
+                            <?php if (!empty($svc['footer_name'])): ?>
+                                <div style="font-size: 0.72rem; color: var(--accent-cyan); margin-top: 4px;">
+                                    Footer: <strong><?= htmlspecialchars($svc['footer_name']) ?></strong>
+                                </div>
+                            <?php endif; ?>
                         </td>
                         <td style="max-width: 320px;">
                             <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin: 0;">

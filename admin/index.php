@@ -8,11 +8,14 @@ require_once __DIR__ . '/includes/header.php';
 
 $settings = ck_get_settings();
 $cyberServices = ck_get_cyber_services(true);
+$cyberPractices = function_exists('ck_get_cyber_practices') ? ck_get_cyber_practices(true) : [];
 $invServices = ck_get_investigation_services(true);
 $testimonials = ck_get_testimonials(true);
 $clients = ck_get_clients('all', true);
 $accreds = ck_get_accreditations('all', true);
 $teamMembers = ck_get_team_members(true);
+$threats = function_exists('ck_get_investigation_threats') ? ck_get_investigation_threats(true) : [];
+$allFaqs = function_exists('ck_get_faqs') ? ck_get_faqs('all', true) : [];
 ?>
 
 <div class="page-header-row">
@@ -21,11 +24,20 @@ $teamMembers = ck_get_team_members(true);
         <p class="page-header-desc">Manage services, testimonials, leadership team, and site-wide contact info stored in secure file storage.</p>
     </div>
     <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-        <a href="services-cyber.php?action=add" class="btn btn-primary btn-sm">
+        <a href="cyber-practices.php?action=add" class="btn btn-primary btn-sm">
+            <span>+</span> Add Core Practice
+        </a>
+        <a href="services-cyber.php?action=add" class="btn btn-secondary btn-sm">
             <span>+</span> Add Cyber Service
         </a>
         <a href="services-investigation.php?action=add" class="btn btn-secondary btn-sm">
             <span>+</span> Add Investigation Service
+        </a>
+        <a href="investigation-threats.php?action=add" class="btn btn-secondary btn-sm">
+            <span>+</span> Add Threat Tag
+        </a>
+        <a href="faqs.php?action=add" class="btn btn-secondary btn-sm">
+            <span>+</span> Add FAQ
         </a>
     </div>
 </div>
@@ -154,8 +166,11 @@ $teamMembers = ck_get_team_members(true);
             </div>
 
             <div style="margin-top: 1.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                <a href="cyber-practices.php" class="btn btn-secondary btn-sm" style="border-color: rgba(158,62,255,0.4); background: rgba(158,62,255,0.12);">Manage Core Practices (<?= count($cyberPractices) ?>) ➔</a>
                 <a href="services-cyber.php" class="btn btn-secondary btn-sm">Manage Cyber Services ➔</a>
                 <a href="services-investigation.php" class="btn btn-secondary btn-sm">Manage Investigation ➔</a>
+                <a href="investigation-threats.php" class="btn btn-secondary btn-sm">Manage Threats Cloud (<?= count($threats) ?>) ➔</a>
+                <a href="faqs.php" class="btn btn-secondary btn-sm">Manage FAQs (<?= count($allFaqs) ?>) ➔</a>
                 <a href="clients.php" class="btn btn-secondary btn-sm">Manage Clients &amp; Logos ➔</a>
                 <a href="accreditations.php" class="btn btn-secondary btn-sm">Manage Accreditations (<?= count($accreds) ?>) ➔</a>
                 <a href="testimonials.php" class="btn btn-secondary btn-sm">Manage Testimonials ➔</a>

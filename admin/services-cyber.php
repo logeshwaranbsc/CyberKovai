@@ -51,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'slug'         => $slug,
             'title'        => $title,
             'nav_label'    => trim($_POST['nav_label'] ?? $title),
+            'footer_name'  => trim(!empty($_POST['footer_name']) ? $_POST['footer_name'] : ($_POST['nav_label'] ?? $title)),
             'category'     => trim($_POST['category'] ?? 'application-security'),
             'badge'        => trim($_POST['badge'] ?? ''),
             'tagline'      => trim($_POST['tagline'] ?? ''),
@@ -105,9 +106,15 @@ require_once __DIR__ . '/includes/header.php';
         <p class="page-header-desc">Manage penetration testing, cloud architecture, network hardening, and enterprise cybersecurity services.</p>
     </div>
     <?php if ($action === 'list'): ?>
-    <div>
+    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
         <a href="services-cyber.php?action=add" class="btn btn-primary">
             <span>+</span> Add Cyber Service
+        </a>
+        <a href="faqs.php?track=cyber" class="btn btn-secondary btn-sm" title="Manage Cyber Security FAQs">
+            ❓ Cyber Security FAQs
+        </a>
+        <a href="../digital-forensics.php#cyber-services" target="_blank" class="btn btn-secondary btn-sm" title="Preview on Cyber Security page">
+            Preview on Website ➔
         </a>
     </div>
     <?php else: ?>
@@ -160,6 +167,12 @@ require_once __DIR__ . '/includes/header.php';
                     <label for="nav_label" class="form-label">Menu / Navigation Label</label>
                     <input type="text" id="nav_label" name="nav_label" class="form-control" placeholder="e.g. API Security Testing" value="<?= htmlspecialchars($editingItem['nav_label'] ?? '') ?>">
                     <span class="form-help">Compact label for header dropdown &amp; mega menu lists</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="footer_name" class="form-label">Footer Name</label>
+                    <input type="text" id="footer_name" name="footer_name" class="form-control" placeholder="e.g. REST &amp; GraphQL API Testing" value="<?= htmlspecialchars($editingItem['footer_name'] ?? ($editingItem['nav_label'] ?? '')) ?>">
+                    <span class="form-help">Custom label reflected in the website footer links (falls back to Menu Label if blank)</span>
                 </div>
 
                 <div class="form-group">
@@ -278,7 +291,12 @@ require_once __DIR__ . '/includes/header.php';
                     <td><span style="font-weight: 700; color: var(--text-muted);"><?= $rowIdx ?></span></td>
                     <td>
                         <span class="cell-title"><?= htmlspecialchars($svc['title']) ?></span>
-                        <span class="cell-subtitle">Slug: <code style="color: var(--accent-purple-light);"><?= htmlspecialchars($sSlug) ?></code></span>
+                        <span class="cell-subtitle">
+                            Slug: <code style="color: var(--accent-purple-light);"><?= htmlspecialchars($sSlug) ?></code>
+                            <?php if (!empty($svc['footer_name'])): ?>
+                                &bull; Footer: <span style="color: var(--accent-cyan); font-weight: 500;"><?= htmlspecialchars($svc['footer_name']) ?></span>
+                            <?php endif; ?>
+                        </span>
                     </td>
                     <td>
                         <span class="category-tag"><?= htmlspecialchars($catName) ?></span>

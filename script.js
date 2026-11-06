@@ -250,9 +250,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 /* =========================================
    UNIVERSAL ANIMATED COUNTERS
 ========================================= */
-const counterElements = document.querySelectorAll(
-    ".stat-card strong, .stat-counter-card strong, .stat-number, .glass-badge strong, [data-counter]"
-);
+const counterSelector = ".stat-card strong, .stat-counter-card strong, .stat-counter-val, .stat-number, .glass-badge strong, [data-counter]";
+const counterElements = document.querySelectorAll(counterSelector);
 
 const counterObserver = new IntersectionObserver(
     (entries) => {
@@ -263,30 +262,83 @@ const counterObserver = new IntersectionObserver(
         });
     },
     {
-        threshold: 0.2
+        threshold: 0.1,
+        rootMargin: "0px 0px -30px 0px"
     }
 );
 
 counterElements.forEach(counter => {
+    // Save target text in data attribute for reliable animation
+    if (!counter.dataset.final) {
+        counter.dataset.final = counter.textContent.trim();
+    }
     counterObserver.observe(counter);
 });
 
-function animateCounterElement(element) {
-    const rawText = element.textContent.trim();
-    if (!rawText || rawText === "24/7") return;
+// Interactive hover re-trigger for HUD stat cards
+document.querySelectorAll(".cyber-hud-stat-card, .stat-counter-card").forEach(card => {
+    card.addEventListener("mouseenter", () => {
+        const val = card.querySelector(".stat-counter-val, strong");
+        if (val && val.dataset.animating !== "true") {
+            animateCounterElement(val);
+        }
+    });
+});
 
-    // Match numbers and prefix/suffix e.g. "10+", "99%", "500+", "15+", "2000+"
+function animateCounterElement(element) {
+    if (!element) return;
+    if (element.dataset.animating === "true") return;
+
+    const rawText = element.dataset.final || element.textContent.trim();
+    if (!rawText || rawText === "24/7") return;
+    element.dataset.final = rawText;
+    element.dataset.animating = "true";
+
+    // Special case for zero: rapid security countdown / calibration down to 0
+    if (rawText === "0") {
+        const startVal = 18;
+        const duration = 1200;
+        const startTime = performance.now();
+
+        function countZero(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const current = Math.max(0, Math.round(startVal * (1 - eased)));
+            element.textContent = current;
+
+            if (progress < 1) {
+                requestAnimationFrame(countZero);
+            } else {
+                element.textContent = "0";
+                element.dataset.animating = "false";
+            }
+        }
+        requestAnimationFrame(countZero);
+        return;
+    }
+
+    // Match numbers and prefix/suffix e.g. "10k+", "99.9%", "500+", "140+"
     const match = rawText.match(/^([^\d]*)([\d,.]+)([^\d]*)$/);
-    if (!match) return;
+    if (!match) {
+        element.dataset.animating = "false";
+        return;
+    }
 
     const prefix = match[1] || "";
-    const targetValue = parseFloat(match[2].replace(/,/g, ""));
+    const numStr = match[2].replace(/,/g, "");
+    const targetValue = parseFloat(numStr);
     const suffix = match[3] || "";
 
-    if (isNaN(targetValue)) return;
+    if (isNaN(targetValue)) {
+        element.dataset.animating = "false";
+        return;
+    }
 
-    const isDecimal = match[2].includes(".");
-    const duration = 1500; // milliseconds
+    // Check if suffix contains 'k' (e.g. 10k+) for high-precision 60fps increments
+    const hasK = /k/i.test(suffix);
+    const hasDecimal = numStr.includes(".");
+    const duration = 1600; // milliseconds
     const startTime = performance.now();
 
     function updateCounter(currentTime) {
@@ -295,16 +347,25 @@ function animateCounterElement(element) {
 
         // Smooth Cubic Ease-Out
         const eased = 1 - Math.pow(1 - progress, 3);
-        const current = isDecimal
-            ? (eased * targetValue).toFixed(1)
-            : Math.floor(eased * targetValue);
 
-        element.textContent = `${prefix}${current.toLocaleString()}${suffix}`;
+        let currentStr;
+        if (hasK) {
+            const val = (eased * targetValue).toFixed(1);
+            currentStr = progress >= 1 ? `${Math.round(targetValue)}${suffix}` : `${val}${suffix}`;
+        } else if (hasDecimal) {
+            const decimals = (numStr.split(".")[1] || "0").length;
+            currentStr = `${(eased * targetValue).toFixed(decimals)}${suffix}`;
+        } else {
+            currentStr = `${Math.floor(eased * targetValue).toLocaleString()}${suffix}`;
+        }
+
+        element.textContent = `${prefix}${currentStr}`;
 
         if (progress < 1) {
             requestAnimationFrame(updateCounter);
         } else {
             element.textContent = rawText; // Ensure exact final value text
+            element.dataset.animating = "false";
         }
     }
 
@@ -1524,6 +1585,7 @@ allContactForms.forEach((currentForm) => {
 
 /* =========================================
    CYBER THEME TEXT SCRAMBLER / HACKER DECODER
+   Supports rotating multiple cyber services with the same hacker decoding animation
 ========================================= */
 (function initCyberScrambler() {
     const cyberElements = document.querySelectorAll('.cyber-glitch-text');
@@ -1536,70 +1598,122 @@ allContactForms.forEach((currentForm) => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     cyberElements.forEach(element => {
-        const originalText = (element.getAttribute('data-text') || element.textContent).trim();
-        element.setAttribute('data-text', originalText);
+        const wrapper = element.closest('.cyber-glitch-wrapper') || element;
 
-        // Build individual character slots
-        element.innerHTML = '';
-        const slots = [];
-        for (let i = 0; i < originalText.length; i++) {
-            const char = originalText[i];
-            const span = document.createElement('span');
-            span.className = 'cyber-slot';
-            span.textContent = char;
-            element.appendChild(span);
-            slots.push({
-                el: span,
-                targetChar: char
-            });
+        // Parse rotating phrases from data-phrases (or fallback to data-text / textContent)
+        let phrases = [];
+        const rawPhrases = element.getAttribute('data-phrases') || wrapper.getAttribute('data-phrases');
+        if (rawPhrases) {
+            try {
+                phrases = JSON.parse(rawPhrases);
+            } catch (e) {
+                phrases = rawPhrases.split(',').map(s => s.trim()).filter(Boolean);
+            }
+        }
+        if (!Array.isArray(phrases) || phrases.length === 0) {
+            const initialText = (element.getAttribute('data-text') || element.textContent).trim();
+            phrases = [initialText || 'CyberKovai'];
         }
 
+        let currentPhraseIndex = 0;
         let isAnimating = false;
         let animationFrameId = null;
+        let autoRotateTimer = null;
+        let slots = [];
 
-        // Stabilize each slot's width so letters never jump or collide during scrambling
-        function stabilizeWidths() {
-            slots.forEach(slot => {
-                slot.el.style.width = '';
-                const rect = slot.el.getBoundingClientRect();
-                if (rect.width > 0) {
-                    slot.el.style.width = Math.ceil(rect.width) + 'px';
-                }
-            });
+        function renderSlotsForText(text) {
+            element.innerHTML = '';
+            slots = [];
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i];
+                const span = document.createElement('span');
+                span.className = 'cyber-slot';
+                span.textContent = char === ' ' ? '\u00A0' : char;
+                element.appendChild(span);
+                slots.push({
+                    el: span,
+                    targetChar: char
+                });
+            }
+            element.setAttribute('data-text', text);
         }
 
-        stabilizeWidths();
-        if (document.fonts && document.fonts.ready) {
-            document.fonts.ready.then(stabilizeWidths);
+        // Initialize with first phrase
+        renderSlotsForText(phrases[currentPhraseIndex]);
+
+        if (prefersReducedMotion) {
+            if (phrases.length > 1) {
+                setInterval(() => {
+                    currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
+                    renderSlotsForText(phrases[currentPhraseIndex]);
+                }, 3800);
+            }
+            return;
         }
-        window.addEventListener('resize', () => {
-            if (!isAnimating) stabilizeWidths();
-        }, { passive: true });
 
-        if (prefersReducedMotion) return;
-
-        function scrambleText(durationMs = 900) {
-            if (isAnimating) return;
+        /**
+         * Scramble & decode into target phrase with progressive cyber locking
+         */
+        function transitionToPhrase(targetPhrase, durationMs = 850, onComplete = null) {
+            if (isAnimating && animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+            }
             isAnimating = true;
 
+            const oldLength = slots.length;
+            const newLength = targetPhrase.length;
+            const maxLength = Math.max(oldLength, newLength);
+
+            // Ensure we have enough slot spans to cover the animation transition
+            while (slots.length < maxLength) {
+                const span = document.createElement('span');
+                span.className = 'cyber-slot is-cycling';
+                span.textContent = cyberGlyphs[Math.floor(Math.random() * cyberGlyphs.length)];
+                element.appendChild(span);
+                slots.push({
+                    el: span,
+                    targetChar: ''
+                });
+            }
+
+            for (let i = 0; i < maxLength; i++) {
+                slots[i].targetChar = i < newLength ? targetPhrase[i] : '';
+                slots[i].el.style.display = 'inline-block';
+                slots[i].el.style.opacity = '1';
+            }
+
             const startTime = performance.now();
-            const totalChars = slots.length;
 
             function updateFrame(now) {
                 const elapsed = now - startTime;
                 const progress = Math.min(elapsed / durationMs, 1);
-                const lockedCount = Math.floor(progress * totalChars);
+                const lockedCount = Math.floor(Math.pow(progress, 0.95) * newLength);
 
-                for (let i = 0; i < totalChars; i++) {
+                for (let i = 0; i < slots.length; i++) {
                     const slot = slots[i];
-                    if (slot.targetChar === ' ') {
-                        slot.el.textContent = ' ';
+                    const targetChar = slot.targetChar;
+
+                    // Extra slots from a previously longer phrase fade out and scramble
+                    if (i >= newLength) {
+                        if (progress > 0.45) {
+                            slot.el.style.opacity = Math.max(0, (1 - progress) * 1.8);
+                        }
+                        slot.el.classList.add('is-cycling');
+                        slot.el.classList.remove('is-locked');
+                        slot.el.textContent = cyberGlyphs[Math.floor(Math.random() * cyberGlyphs.length)];
+                        continue;
+                    }
+
+                    if (targetChar === ' ') {
+                        slot.el.textContent = '\u00A0';
+                        slot.el.classList.remove('is-cycling');
+                        slot.el.classList.remove('is-locked');
                         continue;
                     }
 
                     if (i < lockedCount) {
-                        if (slot.el.textContent !== slot.targetChar) {
-                            slot.el.textContent = slot.targetChar;
+                        if (slot.el.textContent !== targetChar) {
+                            slot.el.textContent = targetChar;
                             slot.el.classList.remove('is-cycling');
                             slot.el.classList.add('is-locked');
                         }
@@ -1613,39 +1727,71 @@ allContactForms.forEach((currentForm) => {
                 if (progress < 1) {
                     animationFrameId = requestAnimationFrame(updateFrame);
                 } else {
-                    slots.forEach(slot => {
-                        slot.el.textContent = slot.targetChar;
-                        slot.el.classList.remove('is-cycling');
-                        slot.el.classList.add('is-locked');
-                    });
+                    renderSlotsForText(targetPhrase);
                     isAnimating = false;
+                    if (typeof onComplete === 'function') {
+                        onComplete();
+                    }
                 }
             }
 
             animationFrameId = requestAnimationFrame(updateFrame);
         }
 
+        // Schedule auto-rotation between phrases
+        function startAutoRotation() {
+            if (phrases.length <= 1) return;
+            clearTimeout(autoRotateTimer);
+            autoRotateTimer = setTimeout(() => {
+                if (document.visibilityState === 'visible') {
+                    currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
+                    transitionToPhrase(phrases[currentPhraseIndex], 850, () => {
+                        startAutoRotation();
+                    });
+                } else {
+                    startAutoRotation();
+                }
+            }, 3000);
+        }
+
         // Trigger on initial page load after a slight delay
         setTimeout(() => {
-            scrambleText(950);
+            transitionToPhrase(phrases[currentPhraseIndex], 900, () => {
+                startAutoRotation();
+            });
         }, 400);
 
         // Trigger on hover / touch
-        const wrapper = element.closest('.cyber-glitch-wrapper') || element;
         wrapper.addEventListener('mouseenter', () => {
-            if (!isAnimating) scrambleText(750);
+            if (phrases.length > 1 && !isAnimating) {
+                clearTimeout(autoRotateTimer);
+                currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
+                transitionToPhrase(phrases[currentPhraseIndex], 750, () => {
+                    startAutoRotation();
+                });
+            } else if (!isAnimating) {
+                transitionToPhrase(phrases[currentPhraseIndex], 750);
+            }
         });
 
         wrapper.addEventListener('click', () => {
-            if (!isAnimating) scrambleText(850);
+            if (phrases.length > 1) {
+                clearTimeout(autoRotateTimer);
+                currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
+                transitionToPhrase(phrases[currentPhraseIndex], 700, () => {
+                    startAutoRotation();
+                });
+            }
         });
 
-        // Periodic subtle cyber hacker decode pulse (every 12 seconds if idle)
-        setInterval(() => {
-            if (!isAnimating && document.visibilityState === 'visible') {
-                scrambleText(700);
+        // Visibility change: pause/resume rotation cleanly to save battery/CPU
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') {
+                startAutoRotation();
+            } else {
+                clearTimeout(autoRotateTimer);
             }
-        }, 12000);
+        });
     });
 })();
 

@@ -1,0 +1,112 @@
+[
+    {
+        "id": "faq-inv-1",
+        "track": "investigation",
+        "question": "What digital investigation and forensic services do you offer?",
+        "answer": "We provide Digital Forensics & Artifact Extraction, OSINT & Background Intelligence, Cyber Fraud & Scam Tracing, Social Media Investigations & Impersonation Removal, Cybercrime Victim Assistance, Executive Digital Protection, and Child Digital Safety investigations.",
+        "category": "Services & Scoping",
+        "order": 1,
+        "status": "active",
+        "created_at": "2026-11-05 15:30:00",
+        "updated_at": "2026-11-05 15:30:00"
+    },
+    {
+        "id": "faq-cyb-1",
+        "track": "cyber",
+        "question": "What cybersecurity services does Cyber Kovai provide?",
+        "answer": "Cyber Kovai provides comprehensive offensive and defensive cybersecurity solutions, including Vulnerability Assessment and Penetration Testing (VAPT), Web & Mobile Application Security, Network Penetration Testing, Cloud Security Audits (AWS, GCP, Azure), API Security, Virtual CISO (vCISO) Advisory, Secure Code Review, and Zero-Trust Architecture Hardening.",
+        "category": "Offensive & Defensive Services",
+        "order": 1,
+        "status": "active",
+        "created_at": "2026-11-05 15:30:00",
+        "updated_at": "2026-11-05 15:30:00"
+    },
+    {
+        "id": "faq-inv-2",
+        "track": "investigation",
+        "question": "Are your forensic reports admissible in court?",
+        "answer": "Yes. All digital evidence is collected, preserved, and analyzed following ISO/IEC 27037 standards. We maintain a rigorous chain of custody and verify artifacts with cryptographic SHA-256 hashes, ensuring our comprehensive reports are fully admissible in legal proceedings.",
+        "category": "Evidence & Legal",
+        "order": 2,
+        "status": "active",
+        "created_at": "2026-11-05 15:30:00",
+        "updated_at": "2026-11-05 15:30:00"
+    },
+    {
+        "id": "faq-cyb-2",
+        "track": "cyber",
+        "question": "What standards and frameworks do you follow during testing?",
+        "answer": "Our security testing strictly adheres to industry-leading frameworks including OWASP Top 10, OWASP API Security Top 10, NIST SP 800-115, SANS/CWE 25, and PTES (Penetration Testing Execution Standard), ensuring thorough and standardized vulnerability discovery.",
+        "category": "Compliance & Frameworks",
+        "order": 2,
+        "status": "active",
+        "created_at": "2026-11-05 15:30:00",
+        "updated_at": "2026-11-05 15:30:00"
+    },
+    {
+        "id": "faq-inv-3",
+        "track": "investigation",
+        "question": "How do you guarantee the confidentiality of my case?",
+        "answer": "100% confidentiality is guaranteed from your very first consultation. All case files, client identities, and forensic findings are protected under legally binding Non-Disclosure Agreements (NDAs) and stored in encrypted offline forensic vaults.",
+        "category": "Confidentiality & Privacy",
+        "order": 3,
+        "status": "active",
+        "created_at": "2026-11-05 15:30:00",
+        "updated_at": "2026-11-05 15:30:00"
+    },
+    {
+        "id": "faq-cyb-3",
+        "track": "cyber",
+        "question": "How long does a security assessment or penetration test take?",
+        "answer": "Assessment timelines depend on scope and infrastructure size. A typical web application or network VAPT takes between 3 to 10 business days. We provide continuous interim alerts for any critical zero-day discoveries followed by a detailed formal report.",
+        "category": "Execution & Reporting",
+        "order": 3,
+        "status": "active",
+        "created_at": "2026-11-05 15:30:00",
+        "updated_at": "2026-11-05 15:30:00"
+    },
+    {
+        "id": "faq-inv-4",
+        "track": "investigation",
+        "question": "How long does a digital investigation take?",
+        "answer": "Investigation timelines vary depending on case complexity. Urgent inquiries such as active impersonation or account takeovers can produce actionable intelligence within 24 to 72 hours, while complex corporate forensic audits or financial fraud tracing typically range from 5 to 14 business days.",
+        "category": "Timelines & Process",
+        "order": 4,
+        "status": "active",
+        "created_at": "2026-11-05 15:30:00",
+        "updated_at": "2026-11-05 15:30:00"
+    },
+    {
+        "id": "faq-cyb-4",
+        "track": "cyber",
+        "question": "Do you provide re-testing after our engineering team fixes vulnerabilities?",
+        "answer": "Yes. We include complimentary verification re-testing within 30 days to confirm that reported vulnerabilities are properly patched, followed by the issuance of a formal Certificate of Security Attestation.",
+        "category": "Patch Verification & Certification",
+        "order": 4,
+        "status": "active",
+        "created_at": "2026-11-05 15:30:00",
+        "updated_at": "2026-11-05 15:30:00"
+    },
+    {
+        "id": "faq-inv-5",
+        "track": "investigation",
+        "question": "Do you assist with cross-border and international cases?",
+        "answer": "Yes. CyberKovai handles digital investigations across India and internationally, working regularly on matters spanning the UAE, Singapore, Germany, Canada, the UK, Australia, and the US.",
+        "category": "Jurisdiction & Reach",
+        "order": 5,
+        "status": "active",
+        "created_at": "2026-11-05 15:30:00",
+        "updated_at": "2026-11-05 15:30:00"
+    },
+    {
+        "id": "faq-cyb-5",
+        "track": "cyber",
+        "question": "How is our proprietary source code and sensitive infrastructure protected?",
+        "answer": "All engagements are conducted under legally binding Non-Disclosure Agreements (NDAs). We utilize encrypted communication channels, secure isolated testing pods, and strict data-handling protocols aligned with ISO 27001.",
+        "category": "Data Confidentiality & Security",
+        "order": 5,
+        "status": "active",
+        "created_at": "2026-11-05 15:30:00",
+        "updated_at": "2026-11-05 15:30:00"
+    }
+]

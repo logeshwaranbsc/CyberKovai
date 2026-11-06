@@ -1,0 +1,382 @@
+[
+    {
+        "id": "1",
+        "text": "Cybercrime & Online Fraud",
+        "size": "xl",
+        "accent": "purple",
+        "order": 1,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "2",
+        "text": "Volatile Memory Extraction",
+        "size": "sm",
+        "accent": "cyan",
+        "order": 2,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "3",
+        "text": "Crypto & Blockchain Tracing",
+        "size": "lg",
+        "accent": "cyan",
+        "order": 3,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "4",
+        "text": "SIM Swapping & OTP Fraud",
+        "size": "md",
+        "accent": "amber",
+        "order": 4,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "5",
+        "text": "Digital Evidence Preservation",
+        "size": "lg",
+        "accent": "emerald",
+        "order": 5,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "6",
+        "text": "Metadata & Timestamp Forensics",
+        "size": "sm",
+        "accent": "purple",
+        "order": 6,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "7",
+        "text": "Ransomware Incident Triage",
+        "size": "xl",
+        "accent": "rose",
+        "order": 7,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "8",
+        "text": "WhatsApp & Telegram Forensics",
+        "size": "sm",
+        "accent": "emerald",
+        "order": 8,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "9",
+        "text": "Social Media Impersonation",
+        "size": "lg",
+        "accent": "purple",
+        "order": 9,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "10",
+        "text": "Business Email Compromise (BEC)",
+        "size": "md",
+        "accent": "amber",
+        "order": 10,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "11",
+        "text": "Device Bit-Stream Imaging",
+        "size": "sm",
+        "accent": "cyan",
+        "order": 11,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "12",
+        "text": "Corporate Data Theft & Espionage",
+        "size": "xl",
+        "accent": "amber",
+        "order": 12,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "13",
+        "text": "Fake Profile & Botnet Tracking",
+        "size": "sm",
+        "accent": "purple",
+        "order": 13,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "14",
+        "text": "Deepfake & AI Media Abuse",
+        "size": "md",
+        "accent": "cyan",
+        "order": 14,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "15",
+        "text": "Matrimonial & Personal Disputes",
+        "size": "md",
+        "accent": "purple",
+        "order": 15,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "16",
+        "text": "Investment & Ponzi Scams",
+        "size": "sm",
+        "accent": "amber",
+        "order": 16,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "17",
+        "text": "OSINT Threat Intelligence",
+        "size": "xl",
+        "accent": "cyan",
+        "order": 17,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "18",
+        "text": "Malicious APK & Spyware Analysis",
+        "size": "sm",
+        "accent": "rose",
+        "order": 18,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "19",
+        "text": "Cyberstalking & Harassment",
+        "size": "md",
+        "accent": "rose",
+        "order": 19,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "20",
+        "text": "Chain of Custody Certification",
+        "size": "sm",
+        "accent": "emerald",
+        "order": 20,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "21",
+        "text": "Extortion & Blackmail Tracing",
+        "size": "lg",
+        "accent": "rose",
+        "order": 21,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "22",
+        "text": "UPI & Banking Scams",
+        "size": "md",
+        "accent": "cyan",
+        "order": 22,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "23",
+        "text": "Dark Web Data Leak Tracing",
+        "size": "md",
+        "accent": "purple",
+        "order": 23,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "24",
+        "text": "E-Commerce Marketplace Fraud",
+        "size": "sm",
+        "accent": "amber",
+        "order": 24,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "25",
+        "text": "Digital Forensics & Artifact Analysis",
+        "size": "xl",
+        "accent": "cyan",
+        "order": 25,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "26",
+        "text": "Cryptographic SHA-256 Hashing",
+        "size": "sm",
+        "accent": "emerald",
+        "order": 26,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "27",
+        "text": "Account Takeovers & Hacking",
+        "size": "md",
+        "accent": "purple",
+        "order": 27,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "28",
+        "text": "Cloud & Email Forensics",
+        "size": "sm",
+        "accent": "purple",
+        "order": 28,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "29",
+        "text": "Child Digital Safety Threats",
+        "size": "md",
+        "accent": "emerald",
+        "order": 29,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "30",
+        "text": "Phishing & Credential Theft",
+        "size": "md",
+        "accent": "rose",
+        "order": 30,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "31",
+        "text": "Defamation & Slander Evidence",
+        "size": "sm",
+        "accent": "purple",
+        "order": 31,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "32",
+        "text": "Court-Admissible Evidence Dossiers",
+        "size": "lg",
+        "accent": "emerald",
+        "order": 32,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "33",
+        "text": "Sextortion Emergency Takedowns",
+        "size": "sm",
+        "accent": "rose",
+        "order": 33,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "34",
+        "text": "Insider Threat Investigation",
+        "size": "md",
+        "accent": "amber",
+        "order": 34,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "35",
+        "text": "Deleted File & Artifact Carving",
+        "size": "md",
+        "accent": "cyan",
+        "order": 35,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "36",
+        "text": "Cross-Border LEA Reporting",
+        "size": "sm",
+        "accent": "cyan",
+        "order": 36,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "38",
+        "text": "Executive Anti-Doxxing & Privacy",
+        "size": "sm",
+        "accent": "emerald",
+        "order": 38,
+        "status": "active",
+        "created_at": "2026-11-05 13:50:00",
+        "updated_at": "2026-11-05 13:50:00"
+    },
+    {
+        "id": "39",
+        "text": "Cell Tower & GPS Geolocation Tracing",
+        "size": "md",
+        "accent": "emerald",
+        "order": 38,
+        "status": "active",
+        "updated_at": "2026-11-05 09:30:03",
+        "created_at": "2026-11-05 09:30:03"
+    }
+]

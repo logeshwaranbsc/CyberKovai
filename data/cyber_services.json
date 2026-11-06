@@ -88,7 +88,8 @@
                 "a": "Industry standards and compliance mandates recommend undergoing VAPT at least annually, or following any major architecture change, system upgrade, or feature rollout."
             }
         ],
-        "status": "active"
+        "status": "active",
+        "footer_name": "Comprehensive VAPT"
     },
     "web-application-penetration-testing": {
         "title": "Web Application Security Testing",
@@ -178,7 +179,8 @@
                 "a": "We test all web architectures including React, Next.js, Angular, Vue, PHP, ASP.NET, Python/Django, Ruby on Rails, Java Spring, and serverless architectures."
             }
         ],
-        "status": "active"
+        "status": "active",
+        "footer_name": "Web App Security Testing"
     },
     "mobile-app-penetration-testing": {
         "title": "Mobile Application Security (iOS & Android)",
@@ -268,7 +270,8 @@
                 "a": "Yes, our reports explicitly map findings to App Store and Play Store security standards."
             }
         ],
-        "status": "active"
+        "status": "active",
+        "footer_name": "Mobile App Security"
     },
     "api-penetration-testing": {
         "title": "REST & GraphQL API Security Testing",
@@ -358,7 +361,8 @@
                 "a": "Yes, we verify webhook signature validation, replay attack vulnerability, and mutual TLS (mTLS) enforcement."
             }
         ],
-        "status": "active"
+        "status": "active",
+        "footer_name": "REST & GraphQL API Testing"
     },
     "secure-source-code-review": {
         "title": "Secure Code Audit & SAST Review",
@@ -448,7 +452,8 @@
                 "a": "Timelines depend on lines of code (LoC) and complexity, typically ranging from 5 to 15 business days for standard codebases."
             }
         ],
-        "status": "active"
+        "status": "active",
+        "footer_name": "Secure Source Code Review"
     },
     "ecommerce-security": {
         "title": "E-Commerce & Payment Security Audit",
@@ -538,7 +543,8 @@
                 "a": "It directly addresses the new PCI DSS 4.0 requirements for monitoring scripts running in the consumer browser at checkout."
             }
         ],
-        "status": "active"
+        "status": "active",
+        "footer_name": "Ecommerce Security"
     },
     "saas-security": {
         "title": "SaaS Platform Security Assessment",
@@ -628,7 +634,8 @@
                 "a": "We can bundle Cloud Configuration Review with SaaS penetration testing for complete end-to-end assurance."
             }
         ],
-        "status": "active"
+        "status": "active",
+        "footer_name": "Saas Security"
     },
     "devsecops": {
         "title": "DevSecOps & CI/CD Pipeline Assurance",
@@ -718,7 +725,8 @@
                 "a": "Yes, we create custom Semgrep or CodeQL rules tailored to your internal APIs and architecture."
             }
         ],
-        "status": "active"
+        "status": "active",
+        "footer_name": "DevSecOps"
     },
     "network-penetration-testing": {
         "title": "External & Internal Network Pen Testing",
@@ -808,7 +816,8 @@
                 "a": "Yes, we regularly perform testing during designated low-traffic maintenance windows to ensure zero impact on day-to-day operations."
             }
         ],
-        "status": "active"
+        "status": "active",
+        "footer_name": "Network Pen Testing"
     },
     "wireless-penetration-testing": {
         "title": "Wireless & Wi-Fi Security Assessment",
@@ -898,7 +907,8 @@
                 "a": "Yes, we test centralized wireless architectures across multiple branches, warehouses, and campus facilities."
             }
         ],
-        "status": "active"
+        "status": "active",
+        "footer_name": "Wireless Penetration Testing"
     },
     "firewall-security-audit": {
         "title": "Firewall & Perimeter Rulebase Audit",
@@ -988,7 +998,8 @@
                 "a": "No changes are made during the audit. We provide prioritized recommendations so your network engineers can review and schedule changes safely during maintenance windows."
             }
         ],
-        "status": "active"
+        "status": "active",
+        "footer_name": "Firewall Perimeter Audit"
     },
     "cloud-configuration-review": {
         "title": "Cloud Security Posture Assessment (CSPM)",
@@ -1078,7 +1089,8 @@
                 "a": "Yes, we provide ready-to-merge Terraform or CloudFormation code snippets that fix misconfigurations permanently in code."
             }
         ],
-        "status": "active"
+        "status": "active",
+        "footer_name": "Cloud Security Posture (CSPM)"
     },
     "cloud-application-security-assessment-casa": {
         "title": "Cloud App Security Assessment (CASA Tier 2/3)",
@@ -1168,7 +1180,8 @@
                 "a": "We perform a preliminary assessment to identify and help your developers fix all issues before the official evidence submission, ensuring a smooth first-pass verification."
             }
         ],
-        "status": "active"
+        "status": "active",
+        "footer_name": "Cloud CASA Assessment"
     },
     "cloud-container-security": {
         "title": "Docker & Kubernetes Container Security",
@@ -1258,7 +1271,8 @@
                 "a": "We inspect both cluster configurations and container image registries, analyzing Dockerfiles, base images, and CI/CD promotion gates."
             }
         ],
-        "status": "active"
+        "status": "active",
+        "footer_name": "Container & K8s Security"
     },
     "gcp-server-hardening": {
         "title": "Google Cloud (GCP) Security Hardening",
@@ -1348,7 +1362,8 @@
                 "a": "No. Our hardening templates are specifically engineered for Google Cloud, preserving essential guest environment agent daemons while removing security risks."
             }
         ],
-        "status": "active"
+        "status": "active",
+        "footer_name": "GCP Server Hardening"
     },
     "aws-server-hardening": {
         "title": "Amazon Web Services (AWS) Hardening",
@@ -1438,7 +1453,8 @@
                 "a": "Yes, we deliver turnkey, production-tested Terraform and CloudFormation modules tailored to your AWS VPC architecture."
             }
         ],
-        "status": "active"
+        "status": "active",
+        "footer_name": "AWS & Azure Cloud Hardening"
     },
     "azure-server-hardening": {
         "title": "Microsoft Azure Cloud Hardening",
@@ -1528,7 +1544,8 @@
                 "a": "Yes! We extend our Azure hardening, Defender for Servers, and policy controls to on-premises servers managed via Azure Arc."
             }
         ],
-        "status": "active"
+        "status": "active",
+        "footer_name": "Azure Server Hardening"
     },
     "virtual-ciso-services": {
         "title": "Virtual CISO (vCISO) Advisory",
@@ -1618,7 +1635,8 @@
                 "a": "A full-time CISO command salary and benefits typically exceeding $250,000 to $400,000 annually. Our vCISO service delivers immediate executive leadership at a fraction of that investment."
             }
         ],
-        "status": "active"
+        "status": "active",
+        "footer_name": "Virtual CISO (vCISO) Advisory"
     },
     "black-box-testing": {
         "title": "Zero-Knowledge Black Box Pen Testing",
@@ -1708,7 +1726,8 @@
                 "a": "Yes. Our experienced ethical hackers follow strict rules of engagement to avoid denial-of-service conditions or data corruption during testing."
             }
         ],
-        "status": "active"
+        "status": "active",
+        "footer_name": "Black Box Testing"
     },
     "email-security-audit": {
         "title": "Email Security & Anti-Phishing Audit",
@@ -1798,7 +1817,8 @@
                 "a": "Yes! We perform deep configuration reviews of Exchange Online Protection, Defender for Office 365, and Google Workspace Gmail security controls."
             }
         ],
-        "status": "active"
+        "status": "active",
+        "footer_name": "Email Security Audit"
     },
     "server-hardening": {
         "title": "Server & Operating System Hardening",
@@ -1888,7 +1908,8 @@
                 "a": "We support Windows Server 2016/2019/2022/2025, Red Hat Enterprise Linux (RHEL), CentOS, Rocky Linux, AlmaLinux, Ubuntu Server, Debian, and SUSE."
             }
         ],
-        "status": "active"
+        "status": "active",
+        "footer_name": "Server Hardening"
     },
     "microsoft-365-security": {
         "title": "Microsoft 365 & Entra ID Security Review",
@@ -1978,7 +1999,8 @@
                 "a": "Yes, we regularly integrate Intune compliance policies with Conditional Access to ensure only managed, healthy devices can access corporate data."
             }
         ],
-        "status": "active"
+        "status": "active",
+        "footer_name": "Microsoft 365 Security"
     },
     "erp-security-audit-assessment": {
         "title": "Enterprise ERP & SAP Security Audit",
@@ -2068,7 +2090,8 @@
                 "a": "No. Our audit utilizes read-only administrative queries, configuration exports, and off-line analysis to guarantee zero business disruption."
             }
         ],
-        "status": "active"
+        "status": "active",
+        "footer_name": "Enterprise ERP & SAP Audit"
     },
     "security-architecture-review": {
         "title": "Zero-Trust Security Architecture Review",
@@ -2158,7 +2181,8 @@
                 "a": "Yes! We deliver detailed future-state architecture diagrams and reference blueprints formatted in Visio, Lucidchart, and draw.io."
             }
         ],
-        "status": "active"
+        "status": "active",
+        "footer_name": "Security Architecture Review"
     },
     "wordpress-security": {
         "title": "CMS & Web Platform Security Hardening",
@@ -2248,6 +2272,96 @@
                 "a": "Yes, we specialize in WooCommerce payment gateway security, cardholder data isolation, and anti-skimming script monitoring."
             }
         ],
-        "status": "active"
+        "status": "active",
+        "footer_name": "Wordpress Security"
+    },
+    "ai-security": {
+        "title": "AI Security & LLM Red Teaming",
+        "nav_label": "AI & LLM Security",
+        "footer_name": "AI Security & LLM Auditing",
+        "category": "application-security",
+        "badge": "OWASP Top 10 for LLM & GenAI",
+        "tagline": "Defend enterprise LLMs, neural models, and AI pipelines against adversarial prompt injection, model poisoning, and data exfiltration.",
+        "short_desc": "Comprehensive red-teaming, prompt injection defense, and security posture evaluations for enterprise LLMs, RAG pipelines, and autonomous AI systems.",
+        "overview": "As enterprises deploy generative AI, Retrieval-Augmented Generation (RAG), and autonomous agentic workflows, adversarial threats targeting artificial intelligence have escalated. Our certified offensive security specialists conduct rigorous adversarial LLM red-teaming, evaluate model weights and vector database security, and test against the OWASP Top 10 for Large Language Model Applications. We identify prompt injection vectors, training data poisoning, model denial of service, and sensitive corporate data leakage before malicious threat actors can manipulate your AI infrastructure.",
+        "why_needed": "Modern AI models introduce entirely new attack surfaces where traditional firewalls and scanners fail. Adversarial inputs can hijack model behavior, bypass system guardrails, extract proprietary intellectual property, or trick AI agents into executing unauthorized transactions and database commands. AI Security auditing ensures enterprise models are resilient, aligned, and compliant with EU AI Act, NIST AI RMF, and ISO 42001.",
+        "key_features": [
+            {
+                "title": "Prompt Injection & Jailbreak Simulation",
+                "desc": "Extensive black-box and white-box testing of direct/indirect prompt injection, guardrail bypasses, and multi-turn jailbreaks."
+            },
+            {
+                "title": "RAG & Vector Database Hardening",
+                "desc": "Auditing vector embeddings, knowledge base access control, and cross-tenant data leakage in retrieval pipelines."
+            },
+            {
+                "title": "Training Data Poisoning & Inversion",
+                "desc": "Testing model susceptibility to backdoored data, adversarial fine-tuning manipulation, and sensitive PII reconstruction."
+            },
+            {
+                "title": "Autonomous Agent & Tool-Use Security",
+                "desc": "Verifying tool-calling permissions, function execution boundaries, and sandbox isolation for autonomous AI agents."
+            },
+            {
+                "title": "Model Supply Chain Auditing",
+                "desc": "Scanning Hugging Face, PyTorch, and ONNX model artifacts for serialized arbitrary code execution and malicious payloads."
+            },
+            {
+                "title": "OWASP GenAI & Compliance Mapping",
+                "desc": "Complete audit reports mapped against OWASP Top 10 for LLM, NIST AI Risk Management Framework, and ISO 42001 standards."
+            }
+        ],
+        "deliverables": [
+            "Executive AI Risk & Governance Briefing",
+            "Technical LLM Exploitation & Jailbreak Report",
+            "Proof-of-Concept Prompt Injections & Payloads",
+            "Guardrail & System Prompt Remediation Guidelines",
+            "Post-Remediation Verification & Certificate of AI Security Attestation"
+        ],
+        "methodology": [
+            {
+                "step": "01",
+                "title": "Threat Modeling & AI Topology Mapping",
+                "desc": "Analyzing models (GPT, Claude, Llama, proprietary), embedding stores, plugins, and third-party API integration boundaries."
+            },
+            {
+                "step": "02",
+                "title": "Adversarial Red-Team Fuzzing",
+                "desc": "Executing automated and bespoke semantic jailbreaks, indirect prompt injection via ingested data, and token smuggling."
+            },
+            {
+                "step": "03",
+                "title": "Inference & Privacy Exploitation",
+                "desc": "Testing for membership inference, training data extraction, system prompt leakage, and unauthorized tool invocation."
+            },
+            {
+                "step": "04",
+                "title": "Technical Remediation & Defense Hardening",
+                "desc": "Assisting engineering teams in configuring input/output guardrails, prompt firewalls, and least-privilege tool execution."
+            },
+            {
+                "step": "05",
+                "title": "Attestation & Compliance Validation",
+                "desc": "Re-testing fortified models and issuing an official AI Security Attestation Certificate."
+            }
+        ],
+        "faqs": [
+            {
+                "question": "What is LLM Red Teaming and why does our business need it?",
+                "answer": "LLM Red Teaming simulates real-world adversarial attacks against Large Language Models to discover how prompts, training data, or external data sources can trick the model into revealing trade secrets, hallucinating dangerous advice, or executing unauthorized actions."
+            },
+            {
+                "question": "Can AI security testing damage our live models or vector databases?",
+                "answer": "No. Testing is conducted in isolated staging environments or through rate-limited sandbox endpoints according to agreed-upon Rules of Engagement to ensure zero impact on production workloads."
+            },
+            {
+                "question": "Which compliance frameworks apply to enterprise AI deployments?",
+                "answer": "We evaluate deployments against the OWASP Top 10 for LLM Applications, the NIST AI Risk Management Framework (AI RMF 100-1), ISO/IEC 42001, and EU AI Act high-risk classification criteria."
+            }
+        ],
+        "icon": "🤖",
+        "image": "assets/images/soc_command_center.jpg",
+        "status": "active",
+        "updated_at": "2026-11-06 06:45:31"
     }
 }
