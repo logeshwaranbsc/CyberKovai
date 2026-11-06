@@ -105,6 +105,10 @@ $flash = ck_get_flash();
                 <span>Our Team</span>
                 <span class="badge-count"><?= $teamCount ?></span>
             </a>
+            <a href="legal-pages.php" class="sidebar-link <?= ($currentFile === 'legal-pages.php') ? 'active' : '' ?>">
+                <span class="link-icon">📜</span>
+                <span>Legal &amp; Policies</span>
+            </a>
 
             <div class="nav-section-title">Configuration</div>
             <a href="settings.php" class="sidebar-link <?= ($currentFile === 'settings.php') ? 'active' : '' ?>">

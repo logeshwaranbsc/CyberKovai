@@ -951,7 +951,7 @@ include_once __DIR__ . '/includes/header.php';
                 <div class="section-heading text-center">
 
                     <span class="section-tag">
-                        OUR CLIENTS
+                        WHO WE SECURE
                     </span>
 
                     <h2>
@@ -959,7 +959,7 @@ include_once __DIR__ . '/includes/header.php';
                     </h2>
 
                     <p>
-                        Organizations across industries trust Cyber Kovai for accurate and reliable insights.
+                        Organizations across every tier trust Cyber Kovai for offensive security testing, multi-cloud hardening, and proactive cyber defense.
                     </p>
 
                 </div>
@@ -1011,11 +1011,17 @@ include_once __DIR__ . '/includes/header.php';
                                 <img src="<?= sanitize_out($client['img']) ?>" alt="<?= sanitize_out($client['alt'] ?? ($client['name'] . ' - ' . ($client['category'] ?? ''))) ?>" class="cyber-client-logo-img" loading="lazy">
                             </div>
                             <div class="cyber-client-meta">
-                                <h4><?= sanitize_out($client['name']) ?></h4>
+                                <div class="cyber-client-header">
+                                    <h4><?= sanitize_out($client['name']) ?></h4>
+                                </div>
                                 <span class="cyber-client-cat"><?= sanitize_out($client['category']) ?></span>
                                 <?php if (!empty($client['desc'])): ?>
-                                <p style="font-size: 0.82rem; color: rgba(255, 255, 255, 0.7); margin-top: 0.35rem; line-height: 1.45;"><?= sanitize_out($client['desc']) ?></p>
+                                    <p class="cyber-client-desc"><?= sanitize_out($client['desc']) ?></p>
                                 <?php endif; ?>
+                                <div class="cyber-client-footer">
+                                    <span class="pulse-dot"></span>
+                                    <span>ARMORED PARTNERSHIP</span>
+                                </div>
                             </div>
                         </div>
                         <?php endforeach; ?>
@@ -1073,7 +1079,7 @@ include_once __DIR__ . '/includes/header.php';
                             <div class="coverage-feature">
                                 <div class="coverage-feature-text">
                                     <h4>Certified Security Researchers &amp; Penetration Testers</h4>
-                                    <p>Direct access to OSCP, CEH, and CISSP certified ethical hackers with proven track records.</p>
+                                    <p>Direct access to CISA, CISM, OSCP, CEH, and CISSP certified ethical hackers with proven track records.</p>
                                 </div>
                             </div>
 
@@ -1084,16 +1090,6 @@ include_once __DIR__ . '/includes/header.php';
                                 </div>
                             </div>
 
-                        </div>
-
-                        <div class="coverage-locations-header">
-                            <span>Key Operational Hubs &amp; Coverage:</span>
-                        </div>
-
-                        <div class="locations-pill-bar">
-                            <?php foreach ($locations as $loc): ?>
-                                <span class="location-pill"><?= sanitize_out($loc) ?></span>
-                            <?php endforeach; ?>
                         </div>
 
                     </div>

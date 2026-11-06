@@ -5,7 +5,11 @@ if (!defined('SITE_NAME')) {
 $isServicesSubdir = (basename(dirname($_SERVER['PHP_SELF'])) === 'services');
 $basePrefix = $isServicesSubdir ? '../' : '';
 $currentScript = $currentScript ?? basename($_SERVER['SCRIPT_NAME'] ?? $_SERVER['PHP_SELF'] ?? '');
-$teamUrl = $teamUrl ?? ($basePrefix . 'team.php?section=' . ($activeSection ?? 'cyber'));
+$activeSection = $activeSection ?? 'cyber';
+$contactUrl = $contactUrl ?? ($basePrefix . 'contact.php');
+$activeHomeUrl = $activeHomeUrl ?? ($basePrefix . 'index.php');
+$aboutUrl = $aboutUrl ?? ($basePrefix . 'about.php');
+$teamUrl = $teamUrl ?? ($basePrefix . 'team.php?section=' . $activeSection);
 $ckShowTeam = function_exists('ck_get_settings') 
     ? filter_var(ck_get_settings()['show_team'] ?? true, FILTER_VALIDATE_BOOLEAN)
     : (defined('SITE_SHOW_TEAM') ? SITE_SHOW_TEAM : true);
@@ -192,7 +196,10 @@ if ($ckShowTestimonials && function_exists('ck_get_testimonials')) {
         </div>
 
 
-        <?php if ($currentScript !== 'cyber-intelligence.php'): ?>
+        <?php 
+        $isCyberSecurityPage = in_array($currentScript, ['digital-forensics.php', 'digitalforensics.php'], true) || (($activeSection ?? '') === 'cyber');
+        if ($currentScript !== 'cyber-intelligence.php' && !$isCyberSecurityPage): 
+        ?>
         <div class="container service-areas-bar">
             <h4>SERVICE COVERAGE</h4>
             <p><strong>India Hub:</strong> Coimbatore, Chennai, Bengaluru, Hyderabad, Mumbai, Delhi, Pune, and all major tech corridors.</p>
@@ -207,14 +214,12 @@ if ($ckShowTestimonials && function_exists('ck_get_testimonials')) {
                 © <?= date('Y') ?> <?= sanitize_out(SITE_NAME) ?>. All Rights Reserved.
             </p>
 
-            <div>
-                <a href="#">Privacy Policy</a>
+            <div class="footer-legal-links" role="navigation" aria-label="Legal policies">
+                <a href="<?= $basePrefix ?>privacy-policy.php" title="Privacy Policy">Privacy Policy</a>
                 <span>|</span>
-                <a href="#">Terms &amp; Conditions</a>
-                <?php if ($currentScript !== 'cyber-intelligence.php'): ?>
+                <a href="<?= $basePrefix ?>terms-conditions.php" title="Terms &amp; Conditions">Terms &amp; Conditions</a>
                 <span>|</span>
-                <a href="#">Security Disclosure</a>
-                <?php endif; ?>
+                <a href="<?= $basePrefix ?>security-disclosure.php" title="Security &amp; Vulnerability Disclosure">Security Disclosure</a>
             </div>
 
         </div>

@@ -272,7 +272,7 @@ $contactUrl = $basePrefix . 'contact.php?section=' . $activeSection;
 
 
                 <a href="<?= $contactUrl ?>" class="nav-button">
-                    <?= ($activeSection === 'forensics') ? 'Consult Our Experts' : 'Confidential Consultation' ?>
+                    <?= ($activeSection === 'forensics') ? 'Confidential Consultation' : 'Consult Our Experts' ?>
                 </a>
 
                 <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">

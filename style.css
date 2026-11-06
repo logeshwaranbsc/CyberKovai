@@ -1746,12 +1746,41 @@ button {
     letter-spacing: -1.5px;
 }
 
+.section-heading h1 span,
 .section-heading h2 span,
+.section-heading h3 span,
 .about-content h2 span,
 .feature-content h2 span,
 .coverage-content h2 span,
-.contact-box h2 span {
-    color: #a72eff;
+.contact-box h2 span,
+.svc-booking-info h2 span,
+.split-card h2 span,
+.ci-grad-text {
+    background: linear-gradient(135deg, #7b2ff7 0%, #c84bff 45%, #4a9eff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: #c84bff;
+    display: inline;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+}
+
+[data-theme="light"] .section-heading h1 span,
+[data-theme="light"] .section-heading h2 span,
+[data-theme="light"] .section-heading h3 span,
+[data-theme="light"] .about-content h2 span,
+[data-theme="light"] .feature-content h2 span,
+[data-theme="light"] .coverage-content h2 span,
+[data-theme="light"] .contact-box h2 span,
+[data-theme="light"] .svc-booking-info h2 span,
+[data-theme="light"] .split-card h2 span,
+[data-theme="light"] .ci-grad-text {
+    background: linear-gradient(135deg, #6d28d9 0%, #9333ea 45%, #0284c7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: #9333ea;
 }
 
 .section-heading p {
@@ -2618,28 +2647,79 @@ button {
 
 .footer-bottom {
     min-height: 65px;
-    padding: 18px max(20px, calc((100vw - 1180px) / 2));
+    padding-top: 18px;
+    padding-bottom: 18px;
+    padding-left: max(20px, calc((100vw - 1180px) / 2));
+    padding-right: max(180px, calc((100vw - 1180px) / 2));
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
     color: #7e7a92;
     font-size: 13px;
+    position: relative;
+    z-index: 5;
 }
 
 .footer-bottom a {
     color: #7e7a92;
     transition: color 0.2s ease;
+    position: relative;
+    z-index: 6;
+    cursor: pointer;
 }
 
 .footer-bottom a:hover {
-    color: #c84bff;
+    color: #00f0ff;
 }
 
-.footer-bottom div {
+.footer-bottom div,
+.footer-legal-links {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 16px;
+    position: relative;
+    z-index: 6;
+}
+
+.footer-legal-links a {
+    color: #8b8da1;
+    text-decoration: none;
+    transition: color 0.2s ease, text-shadow 0.2s ease;
+    cursor: pointer;
+    white-space: nowrap;
+    display: inline-block;
+    padding: 4px 2px;
+}
+
+.footer-legal-links a:hover {
+    color: #00f0ff;
+    text-decoration: underline;
+}
+
+.footer-legal-links span {
+    color: rgba(255, 255, 255, 0.2);
+    user-select: none;
+}
+
+@media (max-width: 880px) {
+    .footer-bottom {
+        flex-direction: column;
+        gap: 12px;
+        padding-top: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-bottom: 95px; /* Ample bottom buffer so fixed chat pill never covers footer content */
+        text-align: center;
+    }
+
+    .footer-bottom div,
+    .footer-legal-links {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding-right: 0;
+    }
 }
 
 
@@ -3589,11 +3669,8 @@ button {
 
     .footer-bottom {
         flex-direction: column;
-
-        gap: 10px;
-
-        padding: 20px;
-
+        gap: 12px;
+        padding: 20px 20px 95px 20px;
         text-align: center;
     }
 }
@@ -10332,7 +10409,11 @@ body.page-enter-from-left {
 }
 
 .svc-booking-info h2 span {
-    color: var(--orchid);
+    background: linear-gradient(135deg, #7b2ff7 0%, #c84bff 45%, #4a9eff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: inline;
 }
 
 .svc-booking-info p {
@@ -10442,9 +10523,11 @@ body.page-enter-from-left {
     flex-direction: column;
     align-items: flex-end;
     gap: 12px;
+    pointer-events: none; /* Transparent wrapper space will never block clicks to links beneath */
 }
 
 .chat-bubble-card {
+    pointer-events: auto;
     background: rgba(14, 16, 24, 0.96);
     border: 1px solid var(--border);
     border-radius: 14px;
@@ -10525,6 +10608,7 @@ body.page-enter-from-left {
 }
 
 .chat-toggle-pill {
+    pointer-events: auto;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -13306,6 +13390,23 @@ body.page-enter-from-left {
     padding: 42px 0 38px;
 }
 
+.cyber-blue-text {
+    color: #00f0ff !important;
+    background: linear-gradient(135deg, #00e5ff 0%, #00f0ff 50%, #38bdf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 16px rgba(0, 240, 255, 0.45));
+    display: inline-block;
+}
+
+[data-theme="light"] .cyber-blue-text {
+    color: #0284c7 !important;
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: none;
+}
+
 .cyber-pipeline-wrapper {
     position: relative;
     margin-top: 1.8rem;
@@ -14513,106 +14614,304 @@ body.page-enter-from-left {
 
 /* Digital Forensics Page Clients Showcase */
 .cyber-clients-showcase {
-    margin-top: 2.8rem;
-    padding-top: 2.2rem;
-    border-top: 1px solid rgba(139, 32, 255, 0.18);
+    margin-top: 3.5rem;
+    padding-top: 2.8rem;
+    border-top: 1px solid rgba(139, 32, 255, 0.2);
+    position: relative;
     text-align: center;
+}
+
+.cyber-clients-showcase::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 15%;
+    right: 15%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.7), rgba(0, 240, 255, 0.7), transparent);
 }
 
 .cyber-clients-showcase-label {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    color: rgba(255, 255, 255, 0.6);
-    margin-bottom: 1.5rem;
+    gap: 10px;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #00f0ff;
+    background: rgba(0, 240, 255, 0.06);
+    border: 1px solid rgba(0, 240, 255, 0.25);
+    padding: 7px 20px;
+    border-radius: 50px;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    margin-bottom: 2rem;
+}
+
+.cyber-clients-showcase-label .pulse-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #00f0ff;
+    box-shadow: 0 0 10px #00f0ff;
 }
 
 .cyber-clients-logos-deck {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1.8rem;
-    flex-wrap: wrap;
-    max-width: 850px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 24px;
+    max-width: 1060px;
     margin: 0 auto;
+    justify-content: center;
 }
 
 .cyber-client-card {
-    flex: 1 1 320px;
-    max-width: 380px;
-    background: rgba(13, 11, 26, 0.85);
-    border: 1px solid rgba(139, 32, 255, 0.28);
-    border-radius: 16px;
-    padding: 1.25rem 1.4rem;
+    position: relative;
+    background:
+        radial-gradient(120% 60% at 50% 0%, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.02) 60%, transparent 100%),
+        linear-gradient(145deg, rgba(24, 18, 52, 0.85) 0%, rgba(13, 11, 28, 0.92) 50%, rgba(8, 7, 20, 0.96) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 20px;
+    padding: 24px 26px;
     display: flex;
-    align-items: center;
-    gap: 1.2rem;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    align-items: flex-start;
+    gap: 22px;
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    box-shadow:
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.35),
+        inset 0 -1px 1px 0 rgba(0, 0, 0, 0.4),
+        inset 0 0 24px 0 rgba(184, 77, 255, 0.08),
+        0 20px 45px -12px rgba(0, 0, 0, 0.65),
+        0 4px 16px rgba(0, 0, 0, 0.35);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+    overflow: hidden;
+    isolation: isolate;
+    text-align: left;
+}
+
+/* Glossy top edge glass reflection bar */
+.cyber-client-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 15%;
+    right: 15%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), #00f0ff, transparent);
+    opacity: 0.85;
+    transition: all 0.4s ease;
+    z-index: 3;
+}
+
+/* Diagonal light sweep sheen on hover */
+.cyber-client-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg,
+            transparent 0%,
+            transparent 38%,
+            rgba(255, 255, 255, 0.04) 44%,
+            rgba(255, 255, 255, 0.22) 50%,
+            rgba(255, 255, 255, 0.04) 56%,
+            transparent 62%,
+            transparent 100%);
+    transform: translateX(-100%);
+    transition: transform 0.85s cubic-bezier(0.2, 0.8, 0.2, 1);
+    pointer-events: none;
+    z-index: 2;
 }
 
 .cyber-client-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(196, 75, 255, 0.65);
-    box-shadow: 0 12px 32px rgba(139, 32, 255, 0.25);
+    transform: translateY(-6px);
+    border-color: rgba(0, 240, 255, 0.45);
+    box-shadow:
+        inset 0 1px 2px 0 rgba(255, 255, 255, 0.6),
+        inset 0 0 28px 0 rgba(0, 240, 255, 0.15),
+        0 26px 50px -10px rgba(0, 0, 0, 0.75),
+        0 0 35px -5px rgba(0, 240, 255, 0.35);
+}
+
+.cyber-client-card:hover::before {
+    left: 5%;
+    right: 5%;
+    opacity: 1;
+    background: linear-gradient(90deg, transparent, #ffffff, #c84bff, #00f0ff, transparent);
+}
+
+.cyber-client-card:hover::after {
+    transform: translateX(100%);
 }
 
 .cyber-client-logo-box {
     width: 140px;
-    height: 72px;
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 8px 14px;
+    min-height: 86px;
+    background: linear-gradient(145deg, #ffffff 0%, #f1f5f9 100%);
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    border-radius: 14px;
+    padding: 10px 14px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+    box-shadow:
+        inset 0 1px 1px #ffffff,
+        inset 0 -1px 2px rgba(0, 0, 0, 0.06),
+        0 8px 24px -4px rgba(0, 0, 0, 0.5),
+        0 0 16px -2px rgba(184, 77, 255, 0.25);
+    position: relative;
+    z-index: 2;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.cyber-client-card:hover .cyber-client-logo-box {
+    transform: scale(1.04);
+    border-color: #00f0ff;
+    box-shadow:
+        inset 0 1px 2px #ffffff,
+        0 12px 28px -4px rgba(0, 0, 0, 0.6),
+        0 0 22px rgba(0, 240, 255, 0.45);
 }
 
 .cyber-client-logo-img {
-    max-height: 52px;
+    max-height: 58px;
     max-width: 100%;
     width: auto;
     height: auto;
     object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12));
+    transition: filter 0.3s ease;
 }
 
 .cyber-client-meta {
+    flex: 1;
+    min-width: 0;
+    position: relative;
+    z-index: 2;
     text-align: left;
 }
 
-.cyber-client-meta h4 {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin: 0 0 0.25rem;
+.cyber-client-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 0.35rem;
 }
 
-.cyber-client-meta .cyber-client-cat {
-    font-size: 0.78rem;
-    color: rgba(255, 255, 255, 0.65);
-    display: block;
-    line-height: 1.4;
+.cyber-client-meta h4 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    transition: color 0.3s ease;
+}
+
+.cyber-client-card:hover .cyber-client-meta h4 {
+    color: #00f0ff;
+}
+
+.cyber-client-cat {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #c084fc;
+    background: rgba(168, 85, 247, 0.12);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    border-radius: 6px;
+    padding: 3px 10px;
+    margin-bottom: 0.65rem;
+}
+
+.cyber-client-desc {
+    font-size: 0.86rem;
+    color: rgba(255, 255, 255, 0.78);
+    line-height: 1.55;
+    margin: 0 0 0.85rem;
+}
+
+.cyber-client-footer {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #34d399;
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    padding: 3px 10px;
+    border-radius: 4px;
+}
+
+.cyber-client-footer .pulse-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #34d399;
+    box-shadow: 0 0 8px #34d399;
+    display: inline-block;
+}
+
+[data-theme="light"] .cyber-client-card {
+    background:
+        radial-gradient(120% 60% at 50% 0%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.4) 60%, transparent 100%),
+        linear-gradient(145deg, #ffffff 0%, #f8faff 50%, #eef2fb 100%);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    box-shadow:
+        inset 0 1px 2px 0 #ffffff,
+        0 16px 36px rgba(15, 23, 42, 0.08);
+}
+
+[data-theme="light"] .cyber-client-card:hover {
+    border-color: rgba(184, 77, 255, 0.45);
+    box-shadow:
+        inset 0 1px 2px 0 #ffffff,
+        0 22px 48px rgba(139, 32, 255, 0.16);
+}
+
+[data-theme="light"] .cyber-client-meta h4 {
+    color: #0f172a;
+}
+
+[data-theme="light"] .cyber-client-card:hover .cyber-client-meta h4 {
+    color: #7c3aed;
+}
+
+[data-theme="light"] .cyber-client-desc {
+    color: #475569;
 }
 
 @media (max-width: 680px) {
     .cyber-client-card {
         flex-direction: column;
+        align-items: center;
         text-align: center;
-        gap: 0.8rem;
+        gap: 1.1rem;
+        padding: 20px 18px;
     }
 
     .cyber-client-meta {
         text-align: center;
     }
 
+    .cyber-client-header {
+        justify-content: center;
+    }
+
     .cyber-client-logo-box {
         width: 100%;
-        max-width: 240px;
+        max-width: 220px;
         height: 80px;
     }
 }

@@ -175,6 +175,7 @@ $allFaqs = function_exists('ck_get_faqs') ? ck_get_faqs('all', true) : [];
                 <a href="accreditations.php" class="btn btn-secondary btn-sm">Manage Accreditations (<?= count($accreds) ?>) ➔</a>
                 <a href="testimonials.php" class="btn btn-secondary btn-sm">Manage Testimonials ➔</a>
                 <a href="team.php" class="btn btn-secondary btn-sm">Manage Team ➔</a>
+                <a href="legal-pages.php" class="btn btn-secondary btn-sm" style="border-color: rgba(0,240,255,0.4); background: rgba(0,240,255,0.08); color: #00f0ff;">Manage Legal &amp; Policies ➔</a>
             </div>
         </div>
     </div>

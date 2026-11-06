@@ -1895,6 +1895,66 @@ function ck_seed_storage() {
     }
 }
 
+/* ==========================================================================
+   LEGAL POLICIES & TERMS MANAGEMENT (CRUD)
+   ========================================================================== */
+
+function ck_get_legal_policies() {
+    $policies = ck_read_json('legal_policies.json', []);
+    if (empty($policies) || !isset($policies['privacy'])) {
+        return [
+            'privacy' => [
+                'key'          => 'privacy',
+                'title'        => 'Privacy Policy',
+                'badge'        => 'DATA PRIVACY & INTEGRITY',
+                'last_updated' => 'November 2026',
+                'lead_summary' => 'Cyber Kovai is committed to safeguarding client confidentiality, digital forensics evidence, and enterprise privacy.',
+                'content'      => '<p>Privacy policy content...</p>'
+            ],
+            'terms' => [
+                'key'          => 'terms',
+                'title'        => 'Terms & Conditions',
+                'badge'        => 'LEGAL & ENGAGEMENT FRAMEWORK',
+                'last_updated' => 'November 2026',
+                'lead_summary' => 'Terms of engagement, client authorization, and service agreements.',
+                'content'      => '<p>Terms and conditions content...</p>'
+            ],
+            'disclosure' => [
+                'key'          => 'disclosure',
+                'title'        => 'Security & Vulnerability Disclosure',
+                'badge'        => 'RESPONSIBLE DISCLOSURE & SAFE HARBOR',
+                'last_updated' => 'November 2026',
+                'lead_summary' => 'Guidelines for reporting vulnerabilities responsibly and safe harbor protections.',
+                'content'      => '<p>Security disclosure guidelines...</p>'
+            ]
+        ];
+    }
+    return $policies;
+}
+
+function ck_get_legal_policy($type = 'privacy') {
+    $policies = ck_get_legal_policies();
+    return $policies[$type] ?? ($policies['privacy'] ?? null);
+}
+
+function ck_save_legal_policy($type, $data) {
+    $type = in_array($type, ['privacy', 'terms', 'disclosure'], true) ? $type : 'privacy';
+    $policies = ck_get_legal_policies();
+    $current = $policies[$type] ?? [];
+
+    $policies[$type] = [
+        'key'          => $type,
+        'title'        => trim($data['title'] ?? ($current['title'] ?? ucfirst($type))),
+        'badge'        => trim($data['badge'] ?? ($current['badge'] ?? 'LEGAL')),
+        'last_updated' => trim($data['last_updated'] ?? date('F Y')),
+        'lead_summary' => trim($data['lead_summary'] ?? ($current['lead_summary'] ?? '')),
+        'content'      => trim($data['content'] ?? ($current['content'] ?? '')),
+        'updated_at'   => date('Y-m-d H:i:s')
+    ];
+
+    return ck_write_json('legal_policies.json', $policies);
+}
+
 // Ensure auto-seeding runs if files do not exist
 ck_seed_storage();
 
