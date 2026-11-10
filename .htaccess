@@ -2,6 +2,10 @@
     RewriteEngine On
     RewriteBase /
 
+    # Deny direct web access to environment, composer, tests, includes, and secure storage
+    RewriteRule ^(\.env|\.env\..*|composer\.(json|lock)|phpunit\.xml)$ - [F,L,NC]
+    RewriteRule ^(vendor|tests|storage|includes|admin/includes)/ - [F,L,NC]
+
     # Handle Section Routing
     RewriteRule ^cyber-intelligence/services/?$ cyber-intelligence.php?section=forensics#ci-services [L,QSA]
     RewriteRule ^cyber-intelligence/?$ cyber-intelligence.php?section=forensics [L,QSA]

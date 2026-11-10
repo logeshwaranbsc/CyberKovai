@@ -16,7 +16,20 @@ $accreds = ck_get_accreditations('all', true);
 $teamMembers = ck_get_team_members(true);
 $threats = function_exists('ck_get_investigation_threats') ? ck_get_investigation_threats(true) : [];
 $allFaqs = function_exists('ck_get_faqs') ? ck_get_faqs('all', true) : [];
+$dash2faStatus = ($currentUser && !empty($currentUser['username']))
+    ? ck_two_factor_service()->getStatus((string) $currentUser['username'])
+    : ['enabled' => false, 'pending_setup' => false];
 ?>
+
+<?php if (empty($dash2faStatus['enabled'])): ?>
+<div style="padding: 1rem 1.25rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; background: rgba(255, 171, 0, 0.12); border: 1px solid rgba(255, 171, 0, 0.35); color: #ffe082;">
+    <span>
+        <strong>🔐 Admin Two-Factor Authentication (2FA) is Disabled:</strong>
+        Enable TOTP authenticator verification (Google / Microsoft Authenticator) to protect admin logins.
+    </span>
+    <a href="profile.php#two-factor-security" class="btn btn-primary btn-sm">Setup 2FA Now ➔</a>
+</div>
+<?php endif; ?>
 
 <div class="page-header-row">
     <div>
@@ -38,6 +51,12 @@ $allFaqs = function_exists('ck_get_faqs') ? ck_get_faqs('all', true) : [];
         </a>
         <a href="faqs.php?action=add" class="btn btn-secondary btn-sm">
             <span>+</span> Add FAQ
+        </a>
+        <a href="section-visibility.php" class="btn btn-secondary btn-sm">
+            <span>👁️</span> Section Visibility
+        </a>
+        <a href="profile.php#two-factor-security" class="btn btn-secondary btn-sm">
+            <span>🔐</span> Two-Factor Auth (2FA)
         </a>
     </div>
 </div>
@@ -157,6 +176,15 @@ $allFaqs = function_exists('ck_get_faqs') ? ck_get_faqs('all', true) : [];
                 <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(158,62,255,0.1);">
                     <span style="font-size: 0.82rem; color: var(--text-muted);">Direct Web Access</span>
                     <span class="status-pill active">Blocked via .htaccess</span>
+                </div>
+
+                <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(158,62,255,0.1);">
+                    <span style="font-size: 0.82rem; color: var(--text-muted);">Admin 2FA Protection</span>
+                    <?php if (!empty($dash2faStatus['enabled'])): ?>
+                        <a href="profile.php#two-factor-security" class="status-pill active" style="text-decoration: none;">Enabled (TOTP)</a>
+                    <?php else: ?>
+                        <a href="profile.php#two-factor-security" class="status-pill inactive" style="text-decoration: none; background: rgba(255,171,0,0.15); color: #ffab00; border-color: rgba(255,171,0,0.35);">Disabled — Setup 2FA ➔</a>
+                    <?php endif; ?>
                 </div>
 
                 <div style="display: flex; align-items: center; justify-content: space-between;">

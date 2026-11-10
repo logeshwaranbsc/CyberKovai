@@ -64,13 +64,7 @@ function get_forensic_icon($name, $class = 'cyber-svg-icon', $size = 24) {
         </svg>';
     }
 
-    // Cyber Security Practices
-    if (strpos($norm, 'vapt') !== false || strpos($norm, 'penetration testing') !== false || strpos($norm, 'vulnerability') !== false) {
-        return '<svg class="' . $class . '" width="' . $size . '" height="' . $size . '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            <path d="m9 12 2 2 4-4"/>
-        </svg>';
-    }
+    // Cyber Security Practices (specific tracks before generic VAPT/vulnerability fallback)
     if (strpos($norm, 'network') !== false || strpos($norm, 'wireless') !== false) {
         return '<svg class="' . $class . '" width="' . $size . '" height="' . $size . '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <rect x="2" y="2" width="20" height="8" rx="2"/>
@@ -101,7 +95,13 @@ function get_forensic_icon($name, $class = 'cyber-svg-icon', $size = 24) {
             <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
         </svg>';
     }
-    if (strpos($norm, 'ai') !== false || strpos($norm, 'llm') !== false || strpos($norm, 'artificial intelligence') !== false) {
+    if (strpos($norm, 'vapt') !== false || strpos($norm, 'penetration testing') !== false || strpos($norm, 'vulnerability') !== false) {
+        return '<svg class="' . $class . '" width="' . $size . '" height="' . $size . '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="m9 12 2 2 4-4"/>
+        </svg>';
+    }
+    if (preg_match('/\bai\b/', $norm) || strpos($norm, 'llm') !== false || strpos($norm, 'artificial intelligence') !== false) {
         return '<svg class="' . $class . '" width="' . $size . '" height="' . $size . '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <rect x="4" y="4" width="16" height="16" rx="3"/>
             <circle cx="9" cy="9" r="1.5" fill="currentColor"/>
@@ -275,7 +275,7 @@ function get_forensic_icon($name, $class = 'cyber-svg-icon', $size = 24) {
             <circle cx="15" cy="11" r="1"/>
         </svg>';
     }
-    if (strpos($norm, 'government') !== false) {
+    if (strpos($norm, 'government') !== false || strpos($norm, 'institutional') !== false || strpos($norm, 'public sector') !== false) {
         return '<svg class="' . $class . '" width="' . $size . '" height="' . $size . '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <line x1="2" y1="20" x2="22" y2="20"/>
             <path d="M12 2 2 7h20L12 2z"/>
@@ -313,16 +313,23 @@ function get_forensic_icon($name, $class = 'cyber-svg-icon', $size = 24) {
             <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
         </svg>';
     }
+    if (strpos($norm, 'saas') !== false || strpos($norm, 'mid-market') !== false) {
+        return '<svg class="' . $class . '" width="' . $size . '" height="' . $size . '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+            <polyline points="2 12 12 17 22 12"/>
+            <polyline points="2 17 12 22 22 17"/>
+        </svg>';
+    }
     if (strpos($norm, 'smes') !== false) {
         return '<svg class="' . $class . '" width="' . $size . '" height="' . $size . '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
             <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
         </svg>';
     }
-    if (strpos($norm, 'large enterprises') !== false) {
+    if (strpos($norm, 'large enterprises') !== false || strpos($norm, 'high-capacity enterprises') !== false || strpos($norm, 'enterprises') !== false) {
         return '<svg class="' . $class . '" width="' . $size . '" height="' . $size . '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="3" width="18" height="18" rx="2"/>
-            <path d="M3 9h18M9 21V9"/>
+            <rect x="4" y="2" width="16" height="20" rx="2"/>
+            <path d="M9 22v-4h6v4M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01"/>
         </svg>';
     }
     if (strpos($norm, 'multinationals') !== false || strpos($norm, 'other industries') !== false) {
@@ -367,7 +374,7 @@ function get_forensic_icon($name, $class = 'cyber-svg-icon', $size = 24) {
             <path d="m13 7.6-2-2a1 1 0 0 0-1.4 0L5.3 9.9a1 1 0 0 0 0 1.4l2.6 2.6a1 1 0 0 0 1.4 0L13 10.2"/>
         </svg>';
     }
-    if (strpos($norm, 'vendor risk') !== false) {
+    if (strpos($norm, 'vendor risk') !== false || strpos($norm, 'supply chain') !== false || strpos($norm, 'third-party') !== false) {
         return '<svg class="' . $class . '" width="' . $size . '" height="' . $size . '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
             <path d="m3.3 7 8.7 5 8.7-5M12 22V12"/>
@@ -380,7 +387,7 @@ function get_forensic_icon($name, $class = 'cyber-svg-icon', $size = 24) {
             <circle cx="12" cy="16" r="1.5"/>
         </svg>';
     }
-    if (strpos($norm, 'compliance risk') !== false) {
+    if (strpos($norm, 'compliance risk') !== false || strpos($norm, 'regulatory') !== false) {
         return '<svg class="' . $class . '" width="' . $size . '" height="' . $size . '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
             <path d="m9 12 2 2 4-4"/>

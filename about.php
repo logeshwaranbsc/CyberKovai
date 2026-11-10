@@ -11,6 +11,7 @@ include_once __DIR__ . '/includes/header.php';
 <main class="about-page">
 
     <!-- ================= PAGE HERO / BREADCRUMB ================= -->
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('about_hero')): ?>
     <section class="about-hero-header">
         <div class="container">
             <div class="breadcrumb">
@@ -21,9 +22,11 @@ include_once __DIR__ . '/includes/header.php';
             </h1>
         </div>
     </section>
+<?php endif; ?>
 
 
     <!-- ================= SECTION 1: WHO WE ARE ================= -->
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('about_who_we_are')): ?>
     <section class="section who-we-are-section">
         <div class="container">
             
@@ -95,9 +98,11 @@ include_once __DIR__ . '/includes/header.php';
 
         </div>
     </section>
+<?php endif; ?>
 
 
     <!-- ================= SECTION 2: PRINCIPLES THAT DEFINE OUR INVESTIGATIONS ================= -->
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('about_principles')): ?>
     <section class="section principles-section" id="principles">
         <div class="principles-ambient-glow" aria-hidden="true"></div>
         <div class="container">
@@ -217,8 +222,10 @@ include_once __DIR__ . '/includes/header.php';
 
         </div>
     </section>
+<?php endif; ?>
 
 <!-- ================= SECTION 4: CALL TO ACTION ================= -->
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('about_cta')): ?>
     <section class="section about-cta-section">
         <div class="container">
             <div class="about-cta-banner">
@@ -232,6 +239,7 @@ include_once __DIR__ . '/includes/header.php';
             </div>
         </div>
     </section>
+<?php endif; ?>
 
 </main>
 

@@ -92,14 +92,15 @@ $serviceCategories = array (
     'short_desc' => 'Court-admissible forensic preservation, OSINT intelligence, financial fraud tracing, and executive protection.',
     'services' => 
     array (
-      0 => 'cybercrime-victim-assistance-account-recovery',
-      1 => 'digital-investigations-osint',
-      2 => 'social-media-investigations-impersonation-removal',
-      3 => 'cyber-fraud-investigation-support',
-      4 => 'digital-evidence-preservation-forensics',
-      5 => 'executive-family-digital-protection',
-      6 => 'cybersecurity-awareness-lea-training',
-      7 => 'child-digital-safety-protection',
+      0 => 'corporate-background-verification-bgv',
+      1 => 'cybercrime-victim-assistance-account-recovery',
+      2 => 'digital-investigations-osint',
+      3 => 'social-media-investigations-impersonation-removal',
+      4 => 'cyber-fraud-investigation-support',
+      5 => 'digital-evidence-preservation-forensics',
+      6 => 'executive-family-digital-protection',
+      7 => 'cybersecurity-awareness-lea-training',
+      8 => 'child-digital-safety-protection',
     ),
   ),
 );
@@ -2831,6 +2832,122 @@ $allServicesData = array (
       ),
     ),
   ),
+  'corporate-background-verification-bgv' => 
+  array (
+    'title' => 'Corporate Background Verification (BGV)',
+    'nav_label' => 'Corporate Background Verification (BGV)',
+    'category' => 'digital-investigations',
+    'badge' => 'CORPORATE DUE DILIGENCE & BGV',
+    'tagline' => 'Comprehensive employee background verification, executive screening, and corporate entity due diligence.',
+    'short_desc' => 'Comprehensive corporate background verification (BGV), pre-employment screening, executive due diligence, criminal & court record checks, academic/employment validation, and vendor risk verification for enterprises.',
+    'overview' => 'Hiring high-trust personnel, onboarding C-suite executives, or partnering with third-party vendors exposes organizations to insider fraud, credential misrepresentation, undisclosed regulatory conflicts, and reputational liability. Our Corporate Background Verification (BGV) practice combines accredited corporate investigative methodologies with OSINT intelligence and primary-source verification. We validate government identity credentials, academic degrees, UAN/past employment records, district/high court litigation histories, global sanctions/PEP lists, and MCA corporate directorship overlaps—delivering fast, consent-compliant, audit-ready risk intelligence reports.',
+    'why_needed' => 'Resume inflation, forged relieving letters, dual-employment conflicts, and hidden criminal litigation create severe legal, financial, and insider security threats. Automated database lookups frequently miss regional court records, shell directorships, or adverse digital footprints that seasoned corporate investigators reliably uncover.',
+    'key_features' => 
+    array (
+      0 => 
+      array (
+        'title' => 'Identity & Address Verification',
+        'desc' => 'Authentic verification of government-issued identity documents, digital KYC trails, and physical/permanent residential addresses.',
+      ),
+      1 => 
+      array (
+        'title' => 'Employment & UAN History Checks',
+        'desc' => 'Primary HR verification of past tenures, designations, relieving status, and EPFO/UAN service consistency to expose resume gaps or dual employment.',
+      ),
+      2 => 
+      array (
+        'title' => 'Education & Credential Authentication',
+        'desc' => 'Direct university registry validation and verification of academic degrees, diplomas, and professional certifications against degree-mill fraud.',
+      ),
+      3 => 
+      array (
+        'title' => 'Criminal, Court & Litigation Screening',
+        'desc' => 'Comprehensive searches across e-Courts, District Courts, High Courts, police verification channels, and civil/criminal litigation registries.',
+      ),
+      4 => 
+      array (
+        'title' => 'Corporate Directorship & Vendor Due Diligence',
+        'desc' => 'MCA/CIN and DIN cross-referencing to detect undisclosed executive directorships, conflict-of-interest entities, and shell vendor relationships.',
+      ),
+      5 => 
+      array (
+        'title' => 'OSINT & Sanctions / Adverse Media Audit',
+        'desc' => 'Open-source intelligence screening covering regulatory watchlists, PEP databases, breach exposure, and adverse media reporting.',
+      ),
+    ),
+    'methodology' => 
+    array (
+      0 => 
+      array (
+        'step' => '01',
+        'title' => 'Consent Capture & Risk Scoping',
+        'desc' => 'Collecting DPDP-compliant candidate/vendor consent and tailoring verification depth to role seniority and risk tier.',
+      ),
+      1 => 
+      array (
+        'step' => '02',
+        'title' => 'Identity & Credential Authentication',
+        'desc' => 'Validating identity tokens, university registries, and previous employer HR records through verified institutional channels.',
+      ),
+      2 => 
+      array (
+        'step' => '03',
+        'title' => 'Judicial, Criminal & Regulatory Checks',
+        'desc' => 'Screening District/High Court dockets, criminal records, MCA corporate filings, and global sanctions watchlists.',
+      ),
+      3 => 
+      array (
+        'step' => '04',
+        'title' => 'OSINT & Conflict-of-Interest Analysis',
+        'desc' => 'Cross-mapping digital footprints, adverse media, and undisclosed related-party affiliations using intelligence graph tools.',
+      ),
+      4 => 
+      array (
+        'step' => '05',
+        'title' => 'Risk-Graded BGV Report Delivery',
+        'desc' => 'Issuing structured Green/Amber/Red verification dossiers with primary documentary proofs and audit trails.',
+      ),
+    ),
+    'deliverables' => 
+    array (
+      0 => 'Executive & Pre-Employment BGV Intelligence Dossier (Green / Amber / Red Risk Grading)',
+      1 => 'Verified Employment, UAN & Educational Credential Validation Summary',
+      2 => 'Judicial, Civil & Criminal Litigation Screening Abstract',
+      3 => 'Corporate Directorship (MCA/DIN), Conflict-of-Interest & Adverse Media Brief',
+      4 => 'Audit-Ready Compliance Evidence Pack & Discrepancy Escalation Log',
+    ),
+    'compliance' => 
+    array (
+      0 => 'Digital Personal Data Protection (DPDP) Act Privacy Compliance',
+      1 => 'ISO/IEC 27001 Information Security Management',
+      2 => 'ISO 27701 Privacy Information Management',
+      3 => 'MCA & Corporate Governance Due Diligence',
+      4 => 'GDPR / Cross-Border Screening Standards',
+    ),
+    'faqs' => 
+    array (
+      0 => 
+      array (
+        'q' => 'What checks are included in Corporate Background Verification (BGV)?',
+        'a' => 'Packages are customizable by role criticality and include identity verification, physical/digital address checks, education authentication, past employment and UAN verification, criminal & court litigation screening, MCA directorship checks, global sanctions screening, and OSINT adverse media analysis.',
+      ),
+      1 => 
+      array (
+        'q' => 'What is the typical turnaround time for BGV reports?',
+        'a' => 'Digital identity, court litigation, MCA directorship, and OSINT checks typically complete within 24–72 hours. Comprehensive primary-source university and international past-employer verifications generally conclude within 5–10 business days depending on institution response times.',
+      ),
+      2 => 
+      array (
+        'q' => 'Is your Corporate BGV process compliant with Indian data privacy laws?',
+        'a' => 'Yes. All verifications operate strictly on explicit candidate or vendor authorization in alignment with the Digital Personal Data Protection (DPDP) Act, ISO 27001 security controls, and encrypted data-retention policies.',
+      ),
+      3 => 
+      array (
+        'q' => 'Do you also conduct vendor and executive C-suite due diligence?',
+        'a' => 'Yes. Beyond standard pre-employment screening, we perform deep executive leadership vetting, M&A counterparty due diligence, shell company detection, and third-party vendor risk background investigations.',
+      ),
+    ),
+  ),
   'cybercrime-victim-assistance-account-recovery' => 
   array (
     'title' => 'Cybercrime Victim Assistance & Account Recovery',
@@ -3785,6 +3902,7 @@ if (!empty($storedInv)) {
 /**
  * Helper function to retrieve all services by category
  */
+if (!function_exists('getServicesByCategory')) {
 function getServicesByCategory($categorySlug) {
     global $allServicesData, $serviceCategories;
     if (!isset($serviceCategories[$categorySlug])) {
@@ -3798,11 +3916,14 @@ function getServicesByCategory($categorySlug) {
     }
     return $list;
 }
+}
 
 /**
  * Helper function to get service by slug
  */
+if (!function_exists('getServiceBySlug')) {
 function getServiceBySlug($slug) {
     global $allServicesData;
     return $allServicesData[$slug] ?? null;
+}
 }

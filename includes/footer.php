@@ -21,6 +21,7 @@ if ($ckShowTestimonials && function_exists('ck_get_testimonials')) {
 }
 ?>
     <!-- ================= LIVE CHAT / HELP WIDGET (MATCHING SCREENSHOT) ================= -->
+    <?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('global_chat_widget')): ?>
     <div class="chat-widget-badge" id="chatWidgetBadge" role="complementary" aria-label="Customer Support">
         <div class="chat-bubble-card">
             <button class="chat-close-btn" id="chatCloseBtn" aria-label="Close message">×</button>
@@ -43,6 +44,7 @@ if ($ckShowTestimonials && function_exists('ck_get_testimonials')) {
             <span class="chat-online-label">Online</span>
         </button>
     </div>
+    <?php endif; ?>
 
     <!-- ================= FOOTER ================= -->
     <?php if (empty($hideFooter)): ?>
@@ -198,7 +200,7 @@ if ($ckShowTestimonials && function_exists('ck_get_testimonials')) {
 
         <?php 
         $isCyberSecurityPage = in_array($currentScript, ['digital-forensics.php', 'digitalforensics.php'], true) || (($activeSection ?? '') === 'cyber');
-        if ($currentScript !== 'cyber-intelligence.php' && !$isCyberSecurityPage): 
+        if ($currentScript !== 'cyber-intelligence.php' && !$isCyberSecurityPage && (!function_exists('ck_is_section_visible') || ck_is_section_visible('global_service_areas'))): 
         ?>
         <div class="container service-areas-bar">
             <h4>SERVICE COVERAGE</h4>

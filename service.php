@@ -55,6 +55,7 @@ include_once __DIR__ . '/includes/header.php';
 <main class="service-detail-page">
 
     <!-- ================= HERO & BREADCRUMB ================= -->
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('svc_hero')): ?>
     <section class="svc-hero">
         <div class="svc-hero-hud" aria-hidden="true">
             <div class="svc-hud-grid"></div>
@@ -179,9 +180,11 @@ include_once __DIR__ . '/includes/header.php';
             </div>
         </div>
     </section>
+<?php endif; ?>
 
 
     <!-- ================= OVERVIEW & BUSINESS CONTEXT ================= -->
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('svc_overview')): ?>
     <section class="section svc-overview-section" id="overview">
         <div class="container">
             <div class="svc-split-grid">
@@ -227,9 +230,11 @@ include_once __DIR__ . '/includes/header.php';
             </div>
         </div>
     </section>
+<?php endif; ?>
 
 
     <!-- ================= CORE CAPABILITIES / WHAT WE ASSESS ================= -->
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('svc_capabilities')): ?>
     <section class="section svc-capabilities-section" id="capabilities">
         <div class="container">
             <div class="section-heading text-center">
@@ -249,9 +254,11 @@ include_once __DIR__ . '/includes/header.php';
             </div>
         </div>
     </section>
+<?php endif; ?>
 
 
     <!-- ================= METHODOLOGY & TESTING PHASES ================= -->
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('svc_methodology')): ?>
     <section class="section svc-methodology-section" id="methodology">
         <div class="container">
             <div class="section-heading text-center">
@@ -273,9 +280,11 @@ include_once __DIR__ . '/includes/header.php';
             </div>
         </div>
     </section>
+<?php endif; ?>
 
 
     <!-- ================= DELIVERABLES ================= -->
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('svc_deliverables')): ?>
     <section class="section svc-deliverables-section">
         <div class="container">
             <div class="svc-deliverables-wrapper">
@@ -298,10 +307,12 @@ include_once __DIR__ . '/includes/header.php';
             </div>
         </div>
     </section>
+<?php endif; ?>
 
 
     <!-- ================= FAQS ================= -->
     <?php if (!empty($service['faqs'])): ?>
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('svc_faqs')): ?>
     <section class="section svc-faq-section" id="faqs">
         <div class="container" style="max-width: 900px;">
             <div class="section-heading text-center">
@@ -329,11 +340,13 @@ include_once __DIR__ . '/includes/header.php';
             </div>
         </div>
     </section>
+<?php endif; ?>
     <?php endif; ?>
 
 
     <!-- ================= RELATED SERVICES ================= -->
     <?php if (!empty($relatedSlice)): ?>
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('svc_related')): ?>
     <section class="section svc-related-section">
         <div class="container">
             <div class="section-heading">
@@ -357,10 +370,12 @@ include_once __DIR__ . '/includes/header.php';
             </div>
         </div>
     </section>
+<?php endif; ?>
     <?php endif; ?>
 
 
     <!-- ================= BOOKING & CONSULTATION CTA ================= -->
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('svc_booking')): ?>
     <section class="section svc-booking-section" id="book-assessment">
         <div class="container">
             <div class="svc-booking-card">
@@ -382,7 +397,7 @@ include_once __DIR__ . '/includes/header.php';
                         </div>
                         <div class="svc-b-trust-item">
                             <strong>Certified</strong>
-                            <span>OSCP, CEH, CISSP Specialists</span>
+                            <span><?= ($activeSection === 'forensics' || $categorySlug === 'digital-investigations') ? 'CBCO, CAISA, CCMP, CPAML, CCLP, CFI Specialists , National Cyber Security Scholars' : 'OSCP, CEH, CISSP Specialists' ?></span>
                         </div>
                     </div>
                 </div>
@@ -445,6 +460,7 @@ include_once __DIR__ . '/includes/header.php';
             </div>
         </div>
     </section>
+<?php endif; ?>
 
 </main>
 

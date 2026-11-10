@@ -4,8 +4,11 @@
  * Handles JSON file storage, auto-seeding, file locks, atomic writes, uploads, and data sync.
  */
 
+require_once __DIR__ . '/env.php';
+
 if (!defined('CK_DATA_DIR')) {
-    define('CK_DATA_DIR', dirname(__DIR__) . '/data');
+    $envDataDir = function_exists('env') ? env('CK_DATA_DIR') : null;
+    define('CK_DATA_DIR', ($envDataDir && trim((string) $envDataDir) !== '') ? rtrim((string) $envDataDir, '/\\') : dirname(__DIR__) . '/data');
 }
 if (!defined('CK_UPLOADS_DIR')) {
     define('CK_UPLOADS_DIR', CK_DATA_DIR . '/uploads');
@@ -35,7 +38,7 @@ function ck_read_json($filename, $default = []) {
 }
 
 /**
- * Write JSON file safely with exclusive file lock.
+ * Write JSON file safely with exclusive file lock and atomic rename.
  */
 function ck_write_json($filename, $data) {
     if (!is_dir(CK_DATA_DIR)) {
@@ -46,6 +49,34 @@ function ck_write_json($filename, $data) {
     if ($json === false) {
         return false;
     }
+
+    $tmpPath = $path . '.tmp.' . getmypid() . '.' . bin2hex(random_bytes(4));
+    $fp = @fopen($tmpPath, 'wb');
+    if ($fp === false) {
+        return @file_put_contents($path, $json, LOCK_EX) !== false;
+    }
+
+    try {
+        $written = fwrite($fp, $json);
+        if ($written !== strlen($json)) {
+            return false;
+        }
+        fflush($fp);
+    } finally {
+        fclose($fp);
+    }
+
+    for ($i = 0; $i < 5; $i++) {
+        if (@rename($tmpPath, $path)) {
+            if (basename($path) === 'admins.json') {
+                @chmod($path, 0600);
+            }
+            return true;
+        }
+        usleep(5000);
+    }
+
+    @unlink($tmpPath);
     return @file_put_contents($path, $json, LOCK_EX) !== false;
 }
 
@@ -196,7 +227,363 @@ function ck_save_settings($data) {
         $current['site_phone_tel'] = preg_replace('/[^\d+]/', '', $data['site_phone']);
     }
     $current['updated_at'] = date('Y-m-d H:i:s');
-    return ck_write_json('settings.json', $current);
+    $savedSettings = ck_write_json('settings.json', $current);
+    if ($savedSettings && file_exists(ck_data_path('sections.json'))) {
+        $secMap = ck_read_json('sections.json', []);
+        $secChanged = false;
+        if (isset($data['show_team'])) {
+            $secMap['show_team'] = (bool)$current['show_team'];
+            $secChanged = true;
+        }
+        if (isset($data['show_testimonials'])) {
+            $secMap['show_testimonials'] = (bool)$current['show_testimonials'];
+            $secChanged = true;
+        }
+        if ($secChanged) {
+            ck_write_json('sections.json', $secMap);
+            ck_get_section_visibility(true);
+        }
+    }
+    return $savedSettings;
+}
+
+/* ==========================================================================
+   PAGE SECTION VISIBILITY CONTROLS (HIDE / UNHIDE EVERY WEBSITE SECTION)
+   ========================================================================== */
+
+function ck_get_section_registry() {
+    return [
+        'cyber' => [
+            'group_title' => 'Cyber Security Page',
+            'group_file'  => 'digital-forensics.php',
+            'group_icon'  => '🛡️',
+            'group_desc'  => 'Show or hide individual sections on the main Cyber Security landing page.',
+            'sections'    => [
+                'cyber_hero' => [
+                    'label'   => 'Hero Banner & Honeycomb Visual',
+                    'desc'    => 'Top headline banner, CTAs, and live attack surface honeycomb animation.',
+                    'default' => true,
+                ],
+                'cyber_about' => [
+                    'label'   => 'About Cyber Kovai Section',
+                    'desc'    => 'Overview of offensive threat defense and interactive 3D SOC command visual.',
+                    'default' => true,
+                ],
+                'cyber_capabilities' => [
+                    'label'   => 'Core Cyber Security Capabilities',
+                    'desc'    => '3-pillar capability cards (Offensive VAPT, Cloud Defense, Zero-Trust Architecture).',
+                    'default' => true,
+                ],
+                'cyber_stats' => [
+                    'label'   => 'Security Audit Stats Strip',
+                    'desc'    => 'Key metrics strip (500+ Audits, 10k+ Vulnerabilities, Zero-False-Positives, etc.).',
+                    'default' => true,
+                ],
+                'cyber_practices' => [
+                    'label'   => 'Core Cyber Practices (Bento Grid)',
+                    'desc'    => '8 interactive practice cards linking into detailed security services.',
+                    'default' => true,
+                ],
+                'cyber_process' => [
+                    'label'   => 'Methodology / Defense Lifecycle',
+                    'desc'    => 'Structured step-by-step cyber defense assessment process.',
+                    'default' => true,
+                ],
+                'cyber_industries' => [
+                    'label'   => 'Industries We Protect',
+                    'desc'    => 'Interactive industry sector selector (Healthcare, Finance, SaaS, Govt, etc.).',
+                    'default' => true,
+                ],
+                'cyber_clients' => [
+                    'label'   => 'Clients & Partner Engagements',
+                    'desc'    => 'From Startups to Multinationals scale cards and featured partner logos.',
+                    'default' => true,
+                ],
+                'cyber_coverage' => [
+                    'label'   => 'Global Reach & Coimbatore Hub',
+                    'desc'    => 'Interactive world reach map and global security audit coverage details.',
+                    'default' => true,
+                ],
+                'cyber_credentials' => [
+                    'label'   => 'Memberships, Associations & Certifications',
+                    'desc'    => 'Accreditation badges and verified industry credential logos.',
+                    'default' => true,
+                ],
+                'cyber_simulator' => [
+                    'label'   => 'Cyber Attack Surface Simulator',
+                    'desc'    => 'Interactive diagnostic assessment simulator section.',
+                    'default' => true,
+                ],
+                'cyber_faq' => [
+                    'label'   => 'Cyber Security FAQs',
+                    'desc'    => 'Frequently asked questions accordion for cybersecurity engagements.',
+                    'default' => true,
+                ],
+                'cyber_contact' => [
+                    'label'   => 'Consultation CTA & Contact Form',
+                    'desc'    => 'Bottom encrypted security audit booking form and direct inquiry section.',
+                    'default' => true,
+                ],
+            ],
+        ],
+        'investigation' => [
+            'group_title' => 'Digital Investigation & Forensics Page',
+            'group_file'  => 'cyber-intelligence.php',
+            'group_icon'  => '🔍',
+            'group_desc'  => 'Show or hide individual sections on the Digital Investigation & Forensics landing page.',
+            'sections'    => [
+                'inv_hero' => [
+                    'label'   => 'Hero Banner & Live Trace Animation',
+                    'desc'    => 'Hero headline with typewriter rotator and interactive Live Trace network visual.',
+                    'default' => true,
+                ],
+                'inv_showcase' => [
+                    'label'   => 'Core Investigation Pillars Showcase',
+                    'desc'    => 'Expandable multi-pillar investigation & forensic matrix panels.',
+                    'default' => true,
+                ],
+                'inv_services' => [
+                    'label'   => 'Digital Investigation Practices Grid',
+                    'desc'    => 'Service cards grid (BGV, Victim Recovery, OSINT, Fraud Tracing, etc.).',
+                    'default' => true,
+                ],
+                'inv_process' => [
+                    'label'   => 'Evidentiary Process Timeline',
+                    'desc'    => '5-step chain-of-custody investigation workflow timeline.',
+                    'default' => true,
+                ],
+                'inv_risks' => [
+                    'label'   => 'Incidents & Threats 3D Globe',
+                    'desc'    => 'Interactive 3D rotating sphere of investigation threat tags.',
+                    'default' => true,
+                ],
+                'inv_credentials' => [
+                    'label'   => 'Memberships, Associations & Accreditations',
+                    'desc'    => 'Investigative accreditation logos and certified body badges.',
+                    'default' => true,
+                ],
+                'inv_coverage' => [
+                    'label'   => 'Global Investigation Footprint Map',
+                    'desc'    => 'Interactive dotted world map with regional filters and investigation stats.',
+                    'default' => true,
+                ],
+                'inv_clients' => [
+                    'label'   => 'Organizations That Trust CyberKovai (Clients)',
+                    'desc'    => 'Partner organizations and institutional investigation engagements deck.',
+                    'default' => true,
+                ],
+                'show_testimonials' => [
+                    'label'   => 'Client Case Testimonials',
+                    'desc'    => 'Client reviews section on the investigation page and testimonial links in footer.',
+                    'default' => true,
+                ],
+                'inv_faq' => [
+                    'label'   => 'Investigation FAQs',
+                    'desc'    => 'Frequently asked questions accordion for digital investigations.',
+                    'default' => true,
+                ],
+                'inv_contact' => [
+                    'label'   => 'Confidential Investigation CTA & Form',
+                    'desc'    => 'Bottom discreet inquiry form and direct investigator contact section.',
+                    'default' => true,
+                ],
+            ],
+        ],
+        'about' => [
+            'group_title' => 'About Us & Leadership Pages',
+            'group_file'  => 'about.php / team.php',
+            'group_icon'  => '👥',
+            'group_desc'  => 'Control visibility of sections on the About Us page and Leadership Team page.',
+            'sections'    => [
+                'about_hero' => [
+                    'label'   => 'About Page Header & Breadcrumb',
+                    'desc'    => 'Top page title banner and breadcrumb navigation on about.php.',
+                    'default' => true,
+                ],
+                'about_who_we_are' => [
+                    'label'   => 'Who We Are & Overview',
+                    'desc'    => 'Company story, mission highlights, and visual card on about.php.',
+                    'default' => true,
+                ],
+                'about_principles' => [
+                    'label'   => 'Guiding Principles Section',
+                    'desc'    => 'Confidentiality, legal rigor, and ethical investigation principles grid.',
+                    'default' => true,
+                ],
+                'about_cta' => [
+                    'label'   => 'About Page Call-to-Action Banner',
+                    'desc'    => 'Bottom consultation invitation banner on about.php.',
+                    'default' => true,
+                ],
+                'show_team' => [
+                    'label'   => 'Our Team Page & Menu Links',
+                    'desc'    => 'Controls /team.php page access plus "Our Team" links in header dropdown and footer.',
+                    'default' => true,
+                ],
+            ],
+        ],
+        'service_detail' => [
+            'group_title' => 'Service Detail Pages',
+            'group_file'  => 'service.php / services/*.php',
+            'group_icon'  => '📄',
+            'group_desc'  => 'Show or hide sections across all individual Cyber Security & Investigation service detail pages.',
+            'sections'    => [
+                'svc_hero' => [
+                    'label'   => 'Service Hero & Summary HUD Card',
+                    'desc'    => 'Service headline, trust highlights, preview visual, and audit specs card.',
+                    'default' => true,
+                ],
+                'svc_overview' => [
+                    'label'   => 'Executive Summary & Regulatory Compliance',
+                    'desc'    => 'Detailed overview, business context box, and compliance standard tags.',
+                    'default' => true,
+                ],
+                'svc_capabilities' => [
+                    'label'   => 'Core Capabilities / What We Assess',
+                    'desc'    => 'Numbered capability cards detailing what is covered in the engagement.',
+                    'default' => true,
+                ],
+                'svc_methodology' => [
+                    'label'   => 'Engagement Methodology Timeline',
+                    'desc'    => 'Phased execution timeline for the selected service.',
+                    'default' => true,
+                ],
+                'svc_deliverables' => [
+                    'label'   => 'Tangible Deliverables Checklist',
+                    'desc'    => 'List of reports, certificates, and evidence packs delivered.',
+                    'default' => true,
+                ],
+                'svc_faqs' => [
+                    'label'   => 'Service-Specific FAQs',
+                    'desc'    => 'Accordion of common questions specific to the viewed service.',
+                    'default' => true,
+                ],
+                'svc_related' => [
+                    'label'   => 'Related Services Grid',
+                    'desc'    => 'Cross-linked sibling services from the same practice category.',
+                    'default' => true,
+                ],
+                'svc_booking' => [
+                    'label'   => 'Confidential Engagement & Booking Form',
+                    'desc'    => 'Bottom proposal request form with trust badges and certification summary.',
+                    'default' => true,
+                ],
+            ],
+        ],
+        'contact_global' => [
+            'group_title' => 'Contact Page & Global Elements',
+            'group_file'  => 'contact.php / footer.php',
+            'group_icon'  => '🌐',
+            'group_desc'  => 'Control sections on the Contact page and global widgets shown across the entire site.',
+            'sections'    => [
+                'contact_hero' => [
+                    'label'   => 'Contact Page Header Banner',
+                    'desc'    => 'Top headline banner and breadcrumb on contact.php.',
+                    'default' => true,
+                ],
+                'contact_form_section' => [
+                    'label'   => 'Contact Form & Consultation Block',
+                    'desc'    => 'Main NDA consultation card and encrypted inquiry form on contact.php.',
+                    'default' => true,
+                ],
+                'global_service_areas' => [
+                    'label'   => 'Footer Service Coverage Bar',
+                    'desc'    => 'India Hub & Global Delivery location strip shown above the footer bottom bar.',
+                    'default' => true,
+                ],
+                'global_chat_widget' => [
+                    'label'   => 'Floating Online Chat Widget',
+                    'desc'    => 'Persistent floating Online support pill and welcome popup across all pages.',
+                    'default' => true,
+                ],
+            ],
+        ],
+    ];
+}
+
+function ck_get_section_visibility($forceReload = false) {
+    static $cached = null;
+    if ($cached !== null && !$forceReload) {
+        return $cached;
+    }
+
+    $registry = ck_get_section_registry();
+    $saved    = ck_read_json('sections.json', []);
+    $settings = ck_get_settings();
+    $result   = [];
+
+    foreach ($registry as $group) {
+        foreach ($group['sections'] as $key => $meta) {
+            if ($key === 'show_team' || $key === 'show_testimonials') {
+                $val = $settings[$key] ?? ($saved[$key] ?? ($meta['default'] ?? true));
+            } else {
+                $val = array_key_exists($key, $saved) ? $saved[$key] : ($meta['default'] ?? true);
+            }
+            $result[$key] = filter_var($val, FILTER_VALIDATE_BOOLEAN);
+        }
+    }
+
+    $cached = $result;
+    return $result;
+}
+
+function ck_is_section_visible($key) {
+    $visibility = ck_get_section_visibility();
+    return array_key_exists($key, $visibility) ? (bool)$visibility[$key] : true;
+}
+
+function ck_save_section_visibility($submittedMap) {
+    $registry = ck_get_section_registry();
+    $current  = ck_get_section_visibility(true);
+    $toSave   = [];
+    $settingsSync = [];
+
+    foreach ($registry as $group) {
+        foreach ($group['sections'] as $key => $meta) {
+            if (array_key_exists($key, $submittedMap)) {
+                $val = filter_var($submittedMap[$key], FILTER_VALIDATE_BOOLEAN);
+            } else {
+                $val = $current[$key] ?? ($meta['default'] ?? true);
+            }
+            $toSave[$key] = (bool)$val;
+            if ($key === 'show_team' || $key === 'show_testimonials') {
+                $settingsSync[$key] = (bool)$val;
+            }
+        }
+    }
+
+    $toSave['updated_at'] = date('Y-m-d H:i:s');
+    $ok = ck_write_json('sections.json', $toSave);
+
+    if ($ok && !empty($settingsSync)) {
+        $settingsCurrent = ck_get_settings();
+        foreach ($settingsSync as $sk => $sv) {
+            $settingsCurrent[$sk] = $sv;
+        }
+        $settingsCurrent['updated_at'] = date('Y-m-d H:i:s');
+        ck_write_json('settings.json', $settingsCurrent);
+    }
+
+    ck_get_section_visibility(true);
+    return $ok;
+}
+
+function ck_set_single_section_visibility($key, $visible) {
+    $registry = ck_get_section_registry();
+    $valid = false;
+    foreach ($registry as $group) {
+        if (isset($group['sections'][$key])) {
+            $valid = true;
+            break;
+        }
+    }
+    if (!$valid) {
+        return false;
+    }
+
+    $current = ck_get_section_visibility(true);
+    $current[$key] = filter_var($visible, FILTER_VALIDATE_BOOLEAN);
+    return ck_save_section_visibility($current);
 }
 
 /* ==========================================================================
@@ -1341,6 +1728,20 @@ function ck_update_admin_profile($currentUsername, $newUsername, $email, $newPas
         return ['success' => false, 'error' => 'Username already taken.'];
     }
 
+    // Create backup of admins.json before modifying credentials
+    $adminsPath = ck_data_path('admins.json');
+    if (file_exists($adminsPath) && class_exists('\\CyberKovai\\Security\\TwoFactorStorage')) {
+        $backupDir = \CyberKovai\Security\TwoFactorStorage::resolveStorageDirectory() . DIRECTORY_SEPARATOR . 'backups';
+        \CyberKovai\Security\TwoFactorStorage::ensureDirectory($backupDir);
+        $rawAdmins = @file_get_contents($adminsPath);
+        if ($rawAdmins !== false) {
+            \CyberKovai\Security\TwoFactorStorage::atomicWriteFile(
+                $backupDir . DIRECTORY_SEPARATOR . 'admins_' . gmdate('Ymd_His') . '_' . bin2hex(random_bytes(3)) . '.json',
+                $rawAdmins
+            );
+        }
+    }
+
     $admin['username'] = $newUsername;
     $admin['email'] = $email;
     if (!empty($newPassword)) {
@@ -1357,6 +1758,19 @@ function ck_update_admin_profile($currentUsername, $newUsername, $email, $newPas
     $admins[$newUsername] = $admin;
 
     $saved = ck_write_json('admins.json', $admins);
+
+    if ($saved && $newUsername !== $currentUsername && class_exists('\\CyberKovai\\Security\\TwoFactorStorage')) {
+        $twoFaStorage = new \CyberKovai\Security\TwoFactorStorage();
+        $existing2fa = $twoFaStorage->getRecord($currentUsername);
+        if ($existing2fa !== null) {
+            $twoFaStorage->migrateAdminIdentifier(
+                $currentUsername,
+                $newUsername,
+                new \CyberKovai\Security\CryptoService()
+            );
+        }
+    }
+
     return ['success' => $saved, 'user' => $admin];
 }
 
@@ -1366,6 +1780,12 @@ function ck_update_admin_profile($currentUsername, $newUsername, $email, $newPas
    ========================================================================== */
 
 function ck_seed_storage() {
+    static $seeding = false;
+    if ($seeding) {
+        return;
+    }
+    $seeding = true;
+    try {
     if (!is_dir(CK_DATA_DIR)) {
         @mkdir(CK_DATA_DIR, 0755, true);
     }
@@ -1506,8 +1926,19 @@ function ck_seed_storage() {
                 // If regex matches array syntax, or use fallback list
             }
         }
-        // Direct seed of the 8 canonical investigation services
+        // Direct seed of the 9 canonical investigation services
         $investigationServices = [
+            [
+                'id'          => '9',
+                'slug'        => 'corporate-background-verification-bgv',
+                'title'       => 'Corporate Background Verification (BGV)',
+                'short'       => 'Corporate BGV Verification',
+                'footer_name' => 'Corporate BGV Verification',
+                'icon'        => '📋',
+                'image'       => 'assets/images/corporate_background_verification_bgv.jpg',
+                'description' => 'Comprehensive corporate background verification (BGV), pre-employment screening, executive due diligence, criminal & court record checks, academic/employment validation, and vendor risk verification for enterprises.',
+                'status'      => 'active'
+            ],
             [
                 'id'          => '1',
                 'slug'        => 'cybercrime-victim-assistance-account-recovery',
@@ -1892,6 +2323,9 @@ function ck_seed_storage() {
             ]
         ];
         ck_write_json('faqs.json', $defaultFaqs);
+    }
+    } finally {
+        $seeding = false;
     }
 }
 

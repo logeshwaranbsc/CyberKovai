@@ -181,11 +181,16 @@ require_once __DIR__ . '/includes/header.php';
 
             <!-- Website Features & Visibility Section -->
             <div style="margin-bottom: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color);">
-                <h4 style="font-size: 1rem; color: var(--accent-purple-light); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-                    <span>⚙️</span> Website Features &amp; Visibility Controls
-                </h4>
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.5rem;">
+                    <h4 style="font-size: 1rem; color: var(--accent-purple-light); display: flex; align-items: center; gap: 0.5rem; margin: 0;">
+                        <span>⚙️</span> Website Features &amp; Visibility Controls
+                    </h4>
+                    <a href="section-visibility.php" class="btn btn-secondary btn-sm">
+                        <span>👁️</span> Manage Every Page Section Visibility ➔
+                    </a>
+                </div>
                 <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.25rem;">
-                    Control the public display of major website sections such as the Our Team page and Client Testimonials.
+                    Control the public display of major website sections, or use <a href="section-visibility.php" style="color: var(--accent-cyan);">Section Visibility</a> to hide/unhide every individual section across all pages.
                 </p>
 
                 <div class="form-grid">

@@ -14,6 +14,7 @@ include_once __DIR__ . '/includes/header.php';
 <main class="contact-page">
 
     <!-- ================= BREADCRUMB / HERO ================= -->
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('contact_hero')): ?>
     <section class="about-hero-header">
         <div class="container">
             <div class="breadcrumb">
@@ -29,8 +30,10 @@ include_once __DIR__ . '/includes/header.php';
             </p>
         </div>
     </section>
+<?php endif; ?>
 
     <!-- ================= CONTACT SECTION & FORM ================= -->
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('contact_form_section')): ?>
     <section class="contact-section" style="padding-top: 40px;">
         <div class="container">
 
@@ -129,6 +132,7 @@ include_once __DIR__ . '/includes/header.php';
 
         </div>
     </section>
+<?php endif; ?>
 
 </main>
 

@@ -25,3 +25,13 @@ desktop.ini
 # Logs and runtime files
 *.log
 error_log
+.phpunit.result.cache
+
+# Composer dependencies
+vendor/
+
+# Sensitive 2FA runtime state & backups (never commit secrets or runtime logs)
+storage/security/*.json
+storage/security/*.lock
+storage/security/*.log
+storage/security/backups/

@@ -1,0 +1,31 @@
+{
+    "name": "cyberkovai/website",
+    "description": "Cyber Kovai website and admin console",
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": ">=8.0",
+        "chillerlan/php-qrcode": "^4.4",
+        "pragmarx/google2fa": "^9.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "CyberKovai\\Security\\": "includes/Security/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CyberKovai\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "platform": {
+            "php": "8.0.30"
+        },
+        "sort-packages": true
+    }
+}
+

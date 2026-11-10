@@ -11,6 +11,9 @@ if (empty($allowGuest)) {
 
 $currentUser = ck_admin_current_user();
 $currentFile = basename($_SERVER['PHP_SELF']);
+$header2faStatus = ($currentUser && !empty($currentUser['username']))
+    ? ck_two_factor_service()->getStatus((string) $currentUser['username'])
+    : ['enabled' => false, 'pending_setup' => false];
 
 // Retrieve counts for sidebar badges
 $cyberServicesCount  = count(ck_get_cyber_services(true));
@@ -111,6 +114,10 @@ $flash = ck_get_flash();
             </a>
 
             <div class="nav-section-title">Configuration</div>
+            <a href="section-visibility.php" class="sidebar-link <?= ($currentFile === 'section-visibility.php') ? 'active' : '' ?>">
+                <span class="link-icon">👁️</span>
+                <span>Section Visibility</span>
+            </a>
             <a href="settings.php" class="sidebar-link <?= ($currentFile === 'settings.php') ? 'active' : '' ?>">
                 <span class="link-icon">⚙️</span>
                 <span>Site &amp; Contact Info</span>
@@ -118,6 +125,13 @@ $flash = ck_get_flash();
             <a href="profile.php" class="sidebar-link <?= ($currentFile === 'profile.php') ? 'active' : '' ?>">
                 <span class="link-icon">👤</span>
                 <span>Admin Profile</span>
+            </a>
+            <a href="profile.php#two-factor-security" class="sidebar-link">
+                <span class="link-icon">🔐</span>
+                <span>Two-Factor Auth (2FA)</span>
+                <span class="badge-count" style="<?= !empty($header2faStatus['enabled']) ? 'background: rgba(0,230,118,0.18); color: #00e676;' : 'background: rgba(255,171,0,0.18); color: #ffab00;' ?>">
+                    <?= !empty($header2faStatus['enabled']) ? 'ON' : 'OFF' ?>
+                </span>
             </a>
 
             <div class="nav-section-title">Session</div>

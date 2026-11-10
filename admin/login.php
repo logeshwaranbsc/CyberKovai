@@ -1,10 +1,12 @@
 <?php
 /**
- * Cyber Kovai - Admin Login Screen
+ * Cyber Kovai - Admin Login Screen (Stage 1: Password Verification)
  */
 
 $allowGuest = true;
 require_once __DIR__ . '/includes/auth.php';
+
+use CyberKovai\Security\CorruptedStorageException;
 
 if (ck_admin_is_logged_in()) {
     header('Location: index.php');
@@ -12,25 +14,69 @@ if (ck_admin_is_logged_in()) {
 }
 
 $error = '';
+$flash = ck_get_flash();
+$pendingChallenge = ck_admin_get_pending_2fa_challenge();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!ck_csrf_verify()) {
         $error = 'Security session expired. Please refresh the page and try again.';
     } else {
-        $username = trim($_POST['username'] ?? '');
-        $password = (string)($_POST['password'] ?? '');
+        $username = trim((string) ($_POST['username'] ?? ''));
+        $password = (string) ($_POST['password'] ?? '');
 
         if ($username === '' || $password === '') {
             $error = 'Please enter both username and password.';
         } else {
-            $admin = ck_verify_admin($username, $password);
-            if ($admin) {
-                ck_admin_login_user($admin);
-                ck_set_flash('success', 'Welcome back, ' . ($admin['name'] ?? $admin['username']) . '!');
-                header('Location: index.php');
-                exit;
+            $limiter = ck_rate_limiter();
+            $ip = ck_client_ip();
+            $ipBucket = 'login_ip:' . $ip;
+            $acctBucket = 'login_acct:' . strtolower($username) . ':' . $ip;
+
+            $ipStatus = $limiter->check($ipBucket, 15, 300);
+            $acctStatus = $limiter->check($acctBucket, 5, 300);
+
+            if ($ipStatus['limited'] || $acctStatus['limited']) {
+                $retryAfter = max($ipStatus['retry_after'], $acctStatus['retry_after'], 1);
+                http_response_code(429);
+                header('Retry-After: ' . $retryAfter);
+                ck_audit_logger()->log('login_rate_limited', $username, ['retry_after' => $retryAfter]);
+                $error = "Too many sign-in attempts. Please wait {$retryAfter} seconds and try again.";
             } else {
-                $error = 'Invalid administrative credentials. Access denied.';
+                $admin = ck_verify_admin($username, $password);
+                if (!$admin || !ck_admin_has_admin_role((string) ($admin['role'] ?? ''))) {
+                    $limiter->hit($ipBucket, 15, 300);
+                    $limiter->hit($acctBucket, 5, 300);
+                    ck_audit_logger()->log('login_password_failed', $username);
+                    $error = 'Invalid credentials. Access denied.';
+                } else {
+                    $limiter->clear($acctBucket);
+                    $limiter->clear($ipBucket);
+
+                    try {
+                        $requires2fa = ck_two_factor_service()->requiresTwoFactor($admin);
+                    } catch (CorruptedStorageException $e) {
+                        ck_audit_logger()->log('2fa_storage_error', (string) $admin['username'], [
+                            'stage' => 'login',
+                            'reason' => $e->getMessage(),
+                        ]);
+                        http_response_code(500);
+                        $error = 'Authentication cannot be completed at this time. Please contact a system administrator.';
+                        $requires2fa = null;
+                    }
+
+                    if ($requires2fa === true) {
+                        ck_admin_start_2fa_challenge($admin);
+                        ck_audit_logger()->log('login_2fa_challenge_issued', (string) $admin['username']);
+                        header('Location: verify-2fa.php');
+                        exit;
+                    } elseif ($requires2fa === false) {
+                        ck_admin_complete_login($admin, false);
+                        ck_audit_logger()->log('login_password_success_no_2fa', (string) $admin['username']);
+                        ck_set_flash('success', 'Welcome back, ' . ($admin['name'] ?? $admin['username']) . '!');
+                        header('Location: index.php');
+                        exit;
+                    }
+                }
             }
         }
     }
@@ -58,13 +104,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <p>Security Operations &amp; Administration Portal</p>
             </div>
 
+            <?php if (!empty($flash)): ?>
+            <div class="flash-alert <?= htmlspecialchars($flash['type']) ?>" role="status" style="margin-bottom: 1.5rem;">
+                <span><?= htmlspecialchars($flash['message']) ?></span>
+            </div>
+            <?php endif; ?>
+
             <?php if (!empty($error)): ?>
-            <div class="flash-alert error" style="margin-bottom: 1.5rem;">
+            <div class="flash-alert error" role="alert" style="margin-bottom: 1.5rem;">
                 <span><strong>⚠ Authentication Failed:</strong> <?= htmlspecialchars($error) ?></span>
             </div>
             <?php endif; ?>
 
-            <form method="POST" action="login.php">
+            <?php if ($pendingChallenge !== null && empty($error)): ?>
+            <div class="flash-alert warning" style="margin-bottom: 1.5rem; flex-direction: column; align-items: flex-start; gap: 0.65rem;">
+                <span>A two-factor verification challenge is currently awaiting completion.</span>
+                <a href="verify-2fa.php" class="btn btn-secondary btn-sm">Resume 2FA Verification ➔</a>
+            </div>
+            <?php endif; ?>
+
+            <form method="POST" action="login.php" id="adminLoginForm">
                 <?= ck_csrf_field() ?>
 
                 <div class="form-group">
@@ -78,8 +137,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
 
                 <div style="margin-top: 1.75rem;">
-                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.85rem; font-size: 0.95rem;">
-                        Authenticate &amp; Enter SOC ➔
+                    <button type="submit" class="btn btn-primary" id="loginSubmitBtn" style="width: 100%; padding: 0.85rem; font-size: 0.95rem;">
+                        <span class="btn-label">Authenticate &amp; Enter SOC ➔</span>
                     </button>
                 </div>
             </form>
@@ -90,6 +149,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 
+    <script>
+    (function () {
+        const form = document.getElementById('adminLoginForm');
+        const btn = document.getElementById('loginSubmitBtn');
+        if (form && btn) {
+            form.addEventListener('submit', function () {
+                btn.disabled = true;
+                btn.style.opacity = '0.8';
+                const label = btn.querySelector('.btn-label');
+                if (label) label.textContent = 'Verifying Credentials...';
+            });
+        }
+    })();
+    </script>
 </body>
 </html>
-

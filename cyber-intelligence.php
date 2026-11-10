@@ -9,13 +9,36 @@ $activeSection   = 'forensics';
 $pageTitle       = 'Digital Investigation & Forensics Services';
 $pageDescription = 'Confidential digital investigations, accredited forensic evidence recovery, OSINT threat intelligence, and cyber fraud tracing by CyberKovai, Coimbatore.';
 
-// Interactive Investigation Console 8-Pillar Data
+// Interactive Investigation Console 9-Pillar Data
 $investigationPillars = [
+    [
+        'id'          => 'pillar-bgv',
+        'target_slug' => 'corporate-background-verification-bgv',
+        'num'         => '01',
+        'code'        => 'INV-01 // CORPORATE_BGV',
+        'badge'       => 'CORPORATE DUE DILIGENCE',
+        'title'       => 'Corporate Background Verification (BGV)',
+        'short'       => 'Corporate BGV',
+        'metric'      => '99.8% Credential Verification',
+        'metric_sub'  => 'Pre-Employment, Executive & Vendor Checks',
+        'meter'       => '100',
+        'encryption'  => 'DPDP & ISO 27001 COMPLIANT',
+        'standard'    => 'CORPORATE SCREENING PROTOCOLS',
+        'log'         => 'BGV Audit: Identity, UAN employment history, judicial & MCA directorship checks verified.',
+        'desc'        => 'Comprehensive corporate background verification (BGV), pre-employment screening, executive due diligence, criminal & court record checks, academic/employment validation, and vendor risk verification for enterprises.',
+        'target_id'   => 'target-bgv',
+        'coords'      => 'BGV-CHECK: CREDENTIALS VERIFIED',
+        'status'      => 'DUE DILIGENCE READY',
+        'status_color'=> '#10b981',
+        'image'       => 'assets/images/corporate_background_verification_bgv.jpg',
+        'capabilities'=> ['Employment & UAN Checks', 'Education Authentication', 'Criminal & Court Records', 'MCA Directorship Screening'],
+        'svg_icon'    => '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>'
+    ],
     [
         'id'          => 'pillar-forensics',
         'target_slug' => 'cybercrime-victim-assistance-account-recovery',
-        'num'         => '01',
-        'code'        => 'INV-01 // DIGITAL_FORENSICS',
+        'num'         => '02',
+        'code'        => 'INV-02 // DIGITAL_FORENSICS',
         'badge'       => 'COURT ADMISSIBLE',
         'title'       => 'Digital Forensics & Artifact Analysis',
         'short'       => 'Digital Forensics',
@@ -36,8 +59,8 @@ $investigationPillars = [
     [
         'id'          => 'pillar-osint',
         'target_slug' => 'digital-investigations-osint',
-        'num'         => '02',
-        'code'        => 'INV-02 // OSINT_INTEL',
+        'num'         => '03',
+        'code'        => 'INV-03 // OSINT_INTEL',
         'badge'       => 'DEEP INTELLIGENCE',
         'title'       => 'Digital Investigations & OSINT',
         'short'       => 'OSINT & Tracing',
@@ -59,8 +82,8 @@ $investigationPillars = [
     [
         'id'          => 'pillar-social',
         'target_slug' => 'social-media-investigations-impersonation-removal',
-        'num'         => '03',
-        'code'        => 'INV-03 // SOCIAL_INTEL',
+        'num'         => '04',
+        'code'        => 'INV-04 // SOCIAL_INTEL',
         'badge'       => 'IDENTITY DEFENSE',
         'title'       => 'Social Media Investigations & Impersonation Removal',
         'short'       => 'Social Media Intel',
@@ -82,8 +105,8 @@ $investigationPillars = [
     [
         'id'          => 'pillar-fraud',
         'target_slug' => 'cyber-fraud-investigation-support',
-        'num'         => '04',
-        'code'        => 'INV-04 // FRAUD_TRACE',
+        'num'         => '05',
+        'code'        => 'INV-05 // FRAUD_TRACE',
         'badge'       => 'FINANCIAL FORENSICS',
         'title'       => 'Cyber Fraud Investigation Support',
         'short'       => 'Cyber Fraud Tracing',
@@ -105,8 +128,8 @@ $investigationPillars = [
     [
         'id'          => 'pillar-evidence',
         'target_slug' => 'digital-evidence-preservation-forensics',
-        'num'         => '05',
-        'code'        => 'INV-05 // EVIDENCE_PRESERVATION',
+        'num'         => '06',
+        'code'        => 'INV-06 // EVIDENCE_PRESERVATION',
         'badge'       => 'CHAIN OF CUSTODY',
         'title'       => 'Digital Evidence Preservation & Forensics',
         'short'       => 'Evidence Forensics',
@@ -128,8 +151,8 @@ $investigationPillars = [
     [
         'id'          => 'pillar-executive',
         'target_slug' => 'executive-family-digital-protection',
-        'num'         => '06',
-        'code'        => 'INV-06 // VIP_DEFENSE',
+        'num'         => '07',
+        'code'        => 'INV-07 // VIP_DEFENSE',
         'badge'       => 'VIP PROTECTION',
         'title'       => 'Executive & Family Digital Protection',
         'short'       => 'Executive Defense',
@@ -151,8 +174,8 @@ $investigationPillars = [
     [
         'id'          => 'pillar-lea',
         'target_slug' => 'cybersecurity-awareness-lea-training',
-        'num'         => '07',
-        'code'        => 'INV-07 // LEA_ACADEMY',
+        'num'         => '08',
+        'code'        => 'INV-08 // LEA_ACADEMY',
         'badge'       => 'ACCREDITED TRAINING',
         'title'       => 'Cybersecurity Awareness & LEA Training',
         'short'       => 'LEA Training',
@@ -174,8 +197,8 @@ $investigationPillars = [
     [
         'id'          => 'pillar-child',
         'target_slug' => 'child-digital-safety-protection',
-        'num'         => '08',
-        'code'        => 'INV-08 // CHILD_SAFETY',
+        'num'         => '09',
+        'code'        => 'INV-09 // CHILD_SAFETY',
         'badge'       => 'ETHICAL SAFEGUARDING',
         'title'       => 'Child Digital Safety & Protection',
         'short'       => 'Child Protection',
@@ -199,7 +222,7 @@ $investigationPillars = [
 $cyberPillars = $investigationPillars;
 $cyberPanels  = $investigationPillars;
 
-// 8 Investigation Services with Rich Visuals (Dynamically loaded from Storage)
+// 9 Investigation Services with Rich Visuals (Dynamically loaded from Storage)
 $investigationServices = function_exists('ck_get_investigation_services') ? ck_get_investigation_services(false) : ($investigationServices ?? []);
 $cyberServices = $investigationServices;
 
@@ -333,6 +356,7 @@ $cyberFaqs = $investigationFaqs;
 $investigationFormServices = !empty($investigationServices) 
     ? array_column($investigationServices, 'title')
     : [
+        'Corporate Background Verification (BGV)',
         'Digital Evidence Preservation & Forensics',
         'Digital Investigations & OSINT',
         'Cyber Fraud Investigation Support',
@@ -352,6 +376,7 @@ include_once __DIR__ . '/includes/header.php';
 <!-- ================================================================
      HERO SECTION
 ================================================================ -->
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('inv_hero')): ?>
 <section class="ci-hero" id="ci-home">
 
     <!-- Particle canvas background -->
@@ -441,12 +466,14 @@ include_once __DIR__ . '/includes/header.php';
 
     </div><!-- /container -->
 
-</section><!-- /ci-hero -->
+</section>
+<?php endif; ?><!-- /ci-hero -->
 
 
 <!-- ================================================================
      4-PILLAR ANIMATED HORIZONTAL EXPANDING SHOWCASE
 ================================================================ -->
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('inv_showcase')): ?>
 <section class="section ci-showcase-section" id="ci-showcase" aria-label="Digital Investigation Pillars">
     <div class="ci-showcase-ambient-glow" aria-hidden="true"></div>
 
@@ -560,7 +587,8 @@ include_once __DIR__ . '/includes/header.php';
         </div><!-- /ci-showcase-wrapper -->
 
     </div><!-- /container -->
-</section><!-- /ci-showcase-section -->
+</section>
+<?php endif; ?><!-- /ci-showcase-section -->
 
 
 <!-- ================================================================
@@ -570,8 +598,9 @@ include_once __DIR__ . '/includes/header.php';
 
 
 <!-- ================================================================
-     DIGITAL INVESTIGATION SERVICES (8 CORE PRACTICES)
+     DIGITAL INVESTIGATION SERVICES (9 CORE PRACTICES)
 ================================================================ -->
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('inv_services')): ?>
 <section class="section ci-services-section" id="ci-services">
     <div class="container">
 
@@ -613,11 +642,13 @@ include_once __DIR__ . '/includes/header.php';
 
     </div>
 </section>
+<?php endif; ?>
 
 
 <!-- ================================================================
      EVIDENTIARY PROCESS (5 FORENSIC TIMELINE NODES)
 ================================================================ -->
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('inv_process')): ?>
 <section class="section ci-process-section" id="ci-process">
     <div class="container">
 
@@ -656,6 +687,7 @@ include_once __DIR__ . '/includes/header.php';
 
     </div>
 </section>
+<?php endif; ?>
 
 
 <!-- ================================================================
@@ -702,6 +734,7 @@ if (empty($globeItems)) {
     ];
 }
 ?>
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('inv_risks')): ?>
 <section class="section ci-risks-section" id="ci-risks">
     <div class="container">
 
@@ -960,6 +993,7 @@ if (empty($globeItems)) {
     requestAnimationFrame(frame);
 })();
 </script>
+<?php endif; ?>
 
 
 <?php
@@ -969,6 +1003,7 @@ if (!empty($invAccreds)):
 <!-- ================================================================
      MEMBERSHIPS, ASSOCIATIONS & ACCREDITATIONS
 ================================================================ -->
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('inv_credentials')): ?>
 <section class="section credentials-section" id="credentials" style="text-align: center; padding: 3.5rem 0; background: rgba(5, 5, 17, 0.7);">
     <div class="container">
 
@@ -1005,11 +1040,13 @@ if (!empty($invAccreds)):
     </div>
 </section>
 <?php endif; ?>
+<?php endif; ?>
 
 
 <!-- ================================================================
      GLOBAL FOOTPRINT
 ================================================================ -->
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('inv_coverage')): ?>
 <section class="section ci-coverage-section" id="ci-coverage">
     <div class="container">
         <div class="ci-coverage-grid">
@@ -1070,6 +1107,7 @@ if (!empty($invAccreds)):
         </div>
     </div>
 </section>
+<?php endif; ?>
 
 
 
@@ -1080,6 +1118,7 @@ if (!empty($invAccreds)):
 $investigationClients = function_exists('ck_get_clients') ? ck_get_clients('investigation', false) : ($clientLogos ?? []);
 if (!empty($investigationClients)): 
 ?>
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('inv_clients')): ?>
 <section class="section ci-clients-section" id="ci-clients">
     <div class="container">
 
@@ -1114,6 +1153,7 @@ if (!empty($investigationClients)):
 
     </div>
 </section>
+<?php endif; ?>
 <?php endif; ?>
 
 <!-- ================================================================
@@ -1155,6 +1195,7 @@ if (!empty($investigationClients)):
 <!-- ================================================================
      FAQ (HELP CENTER)
 ================================================================ -->
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('inv_faq')): ?>
 <section class="section ci-faq-section" id="ci-faq">
     <div class="container">
 
@@ -1195,11 +1236,13 @@ if (!empty($investigationClients)):
 
     </div>
 </section>
+<?php endif; ?>
 
 
 <!-- ================================================================
      FINAL CTA & CONFIDENTIAL INQUIRY FORM
 ================================================================ -->
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('inv_contact')): ?>
 <section class="ci-final-cta" id="contact" style="padding: 4.5rem 0;">
     <!-- Background digital network canvas -->
     <canvas id="ciCtaCanvas" class="ci-cta-canvas" aria-hidden="true"></canvas>
@@ -1280,9 +1323,11 @@ if (!empty($investigationClients)):
 
     </div>
 </section>
+<?php endif; ?>
 
 
 
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('inv_coverage')): ?>
 <script>
 (() => {
   const W=1014,H=665,NS='http://www.w3.org/2000/svg';
@@ -1384,6 +1429,7 @@ if (!empty($investigationClients)):
   document.querySelectorAll('.ci-stat-item strong[data-count]').forEach(s=>io.observe(s));
 })();
 </script>
+<?php endif; ?>
 
 </main>
 

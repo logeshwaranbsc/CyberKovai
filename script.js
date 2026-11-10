@@ -1639,11 +1639,10 @@ allContactForms.forEach((currentForm) => {
     const cyberElements = document.querySelectorAll('.cyber-glitch-text');
     if (!cyberElements.length) return;
 
-    // High-tech cyber character pool (curated uniform proportions, no collision)
-    const cyberGlyphs = '01XYZKV7*+<>?/';
-
-    // Respect reduced motion preferences
+    // Compact glyphs prevent erratic horizontal width vibration while decoding
+    const cyberGlyphs = '01+<>*/';
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const hasHoneycomb = !!document.getElementById('ck');
 
     cyberElements.forEach(element => {
         const wrapper = element.closest('.cyber-glitch-wrapper') || element;
@@ -1664,6 +1663,7 @@ allContactForms.forEach((currentForm) => {
         }
 
         let currentPhraseIndex = 0;
+        let activePhrase = phrases[0];
         let isAnimating = false;
         let animationFrameId = null;
         let autoRotateTimer = null;
@@ -1684,73 +1684,107 @@ allContactForms.forEach((currentForm) => {
                 });
             }
             element.setAttribute('data-text', text);
+            activePhrase = text;
         }
 
-        // Initialize with first phrase
+        // Initialize immediately on load with the first phrase (no startup jump)
         renderSlotsForText(phrases[currentPhraseIndex]);
 
-        if (prefersReducedMotion) {
-            if (phrases.length > 1) {
-                setInterval(() => {
-                    currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
-                    renderSlotsForText(phrases[currentPhraseIndex]);
-                }, 3800);
-            }
-            return;
-        }
-
         /**
-         * Scramble & decode into target phrase with progressive cyber locking
+         * Scramble & decode into target phrase cleanly with locked slot widths
+         * so cursor & scan-bar never vibrate or jump horizontally/vertically.
          */
-        function transitionToPhrase(targetPhrase, durationMs = 850, onComplete = null) {
+        function transitionToPhrase(targetPhrase, durationMs = 650, onComplete = null) {
             if (isAnimating && animationFrameId) {
                 cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
             }
+            activePhrase = targetPhrase;
+            element.setAttribute('data-text', targetPhrase);
+
+            if (prefersReducedMotion) {
+                renderSlotsForText(targetPhrase);
+                isAnimating = false;
+                if (typeof onComplete === 'function') onComplete();
+                return;
+            }
+
             isAnimating = true;
 
             const oldLength = slots.length;
             const newLength = targetPhrase.length;
             const maxLength = Math.max(oldLength, newLength);
 
-            // Ensure we have enough slot spans to cover the animation transition
+            // Ensure sufficient slot spans exist
             while (slots.length < maxLength) {
                 const span = document.createElement('span');
-                span.className = 'cyber-slot is-cycling';
-                span.textContent = cyberGlyphs[Math.floor(Math.random() * cyberGlyphs.length)];
+                span.className = 'cyber-slot';
+                span.textContent = '\u00A0';
                 element.appendChild(span);
-                slots.push({
-                    el: span,
-                    targetChar: ''
-                });
+                slots.push({ el: span, targetChar: '' });
             }
 
-            for (let i = 0; i < maxLength; i++) {
-                slots[i].targetChar = i < newLength ? targetPhrase[i] : '';
+            // Pass 1: Stage target characters cleanly
+            const targetWidths = [];
+            for (let i = 0; i < newLength; i++) {
+                const ch = targetPhrase[i];
+                slots[i].el.style.width = '';
                 slots[i].el.style.display = 'inline-block';
                 slots[i].el.style.opacity = '1';
+                slots[i].el.textContent = ch === ' ' ? '\u00A0' : ch;
+                slots[i].targetChar = ch;
+            }
+            // Pass 2: Batch-measure exact widths in one read pass
+            for (let i = 0; i < newLength; i++) {
+                targetWidths[i] = slots[i].el.getBoundingClientRect().width;
+            }
+            for (let i = newLength; i < maxLength; i++) {
+                slots[i].targetChar = '';
+            }
+
+            // Pass 3: Lock each slot's target width during decode to eliminate horizontal jitter
+            const narrowGlyphs = '1!|:';
+            for (let i = 0; i < newLength; i++) {
+                slots[i].lockedWidth = targetWidths[i] || 0;
+                if (targetWidths[i] > 0) {
+                    slots[i].el.style.width = targetWidths[i].toFixed(2) + 'px';
+                }
             }
 
             const startTime = performance.now();
+            let lastScrambleTick = -1;
 
             function updateFrame(now) {
                 const elapsed = now - startTime;
                 const progress = Math.min(elapsed / durationMs, 1);
-                const lockedCount = Math.floor(Math.pow(progress, 0.95) * newLength);
+                const lockedCount = Math.floor(Math.pow(progress, 0.9) * newLength);
+                const visibleLength = Math.round(oldLength + (newLength - oldLength) * progress);
+                const scrambleTick = Math.floor(elapsed / 45);
+                const shouldFlipGlyph = scrambleTick !== lastScrambleTick;
+                lastScrambleTick = scrambleTick;
 
                 for (let i = 0; i < slots.length; i++) {
                     const slot = slots[i];
                     const targetChar = slot.targetChar;
 
-                    // Extra slots from a previously longer phrase fade out and scramble
+                    // Progressively collapse excess trailing spans so container length glides smoothly
                     if (i >= newLength) {
-                        if (progress > 0.45) {
-                            slot.el.style.opacity = Math.max(0, (1 - progress) * 1.8);
+                        if (i >= visibleLength) {
+                            slot.el.style.display = 'none';
+                        } else {
+                            slot.el.style.display = 'inline-block';
+                            slot.el.style.opacity = Math.max(0.15, 1 - progress).toFixed(2);
+                            slot.el.classList.add('is-cycling');
+                            slot.el.classList.remove('is-locked');
+                            if (shouldFlipGlyph) {
+                                slot.el.textContent = cyberGlyphs[Math.floor(Math.random() * cyberGlyphs.length)];
+                            }
                         }
-                        slot.el.classList.add('is-cycling');
-                        slot.el.classList.remove('is-locked');
-                        slot.el.textContent = cyberGlyphs[Math.floor(Math.random() * cyberGlyphs.length)];
                         continue;
                     }
+
+                    slot.el.style.display = 'inline-block';
+                    slot.el.style.opacity = '1';
 
                     if (targetChar === ' ') {
                         slot.el.textContent = '\u00A0';
@@ -1768,7 +1802,10 @@ allContactForms.forEach((currentForm) => {
                     } else {
                         slot.el.classList.add('is-cycling');
                         slot.el.classList.remove('is-locked');
-                        slot.el.textContent = cyberGlyphs[Math.floor(Math.random() * cyberGlyphs.length)];
+                        if (shouldFlipGlyph || slot.el.textContent === targetChar || slot.el.textContent === '\u00A0') {
+                            const pool = (slot.lockedWidth && slot.lockedWidth < 14) ? narrowGlyphs : cyberGlyphs;
+                            slot.el.textContent = pool[Math.floor(Math.random() * pool.length)];
+                        }
                     }
                 }
 
@@ -1777,6 +1814,7 @@ allContactForms.forEach((currentForm) => {
                 } else {
                     renderSlotsForText(targetPhrase);
                     isAnimating = false;
+                    animationFrameId = null;
                     if (typeof onComplete === 'function') {
                         onComplete();
                     }
@@ -1786,53 +1824,52 @@ allContactForms.forEach((currentForm) => {
             animationFrameId = requestAnimationFrame(updateFrame);
         }
 
-        // Schedule auto-rotation between phrases
+        if (hasHoneycomb) {
+            // Synchronized mode: Honeycomb (#ck) is the sole master clock.
+            window.addEventListener('ck:zone', (e) => {
+                if (!e.detail || !e.detail.name) return;
+                const targetName = String(e.detail.name);
+                if (targetName === activePhrase) return;
+                const matchIdx = phrases.indexOf(targetName);
+                if (matchIdx !== -1) currentPhraseIndex = matchIdx;
+                transitionToPhrase(targetName, 650);
+            });
+
+            // Clicking the headline advances Honeycomb & headline together in lockstep
+            wrapper.addEventListener('click', () => {
+                window.dispatchEvent(new CustomEvent('ck:next'));
+            });
+            return;
+        }
+
+        // Standalone mode (only used if #ck honeycomb is not present)
         function startAutoRotation() {
             if (phrases.length <= 1) return;
             clearTimeout(autoRotateTimer);
             autoRotateTimer = setTimeout(() => {
                 if (document.visibilityState === 'visible') {
                     currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
-                    transitionToPhrase(phrases[currentPhraseIndex], 850, () => {
+                    transitionToPhrase(phrases[currentPhraseIndex], 700, () => {
                         startAutoRotation();
                     });
                 } else {
                     startAutoRotation();
                 }
-            }, 3000);
+            }, 4500);
         }
 
-        // Trigger on initial page load after a slight delay
-        setTimeout(() => {
-            transitionToPhrase(phrases[currentPhraseIndex], 900, () => {
-                startAutoRotation();
-            });
-        }, 400);
-
-        // Trigger on hover / touch
-        wrapper.addEventListener('mouseenter', () => {
-            if (phrases.length > 1 && !isAnimating) {
-                clearTimeout(autoRotateTimer);
-                currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
-                transitionToPhrase(phrases[currentPhraseIndex], 750, () => {
-                    startAutoRotation();
-                });
-            } else if (!isAnimating) {
-                transitionToPhrase(phrases[currentPhraseIndex], 750);
-            }
-        });
+        startAutoRotation();
 
         wrapper.addEventListener('click', () => {
             if (phrases.length > 1) {
                 clearTimeout(autoRotateTimer);
                 currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
-                transitionToPhrase(phrases[currentPhraseIndex], 700, () => {
+                transitionToPhrase(phrases[currentPhraseIndex], 650, () => {
                     startAutoRotation();
                 });
             }
         });
 
-        // Visibility change: pause/resume rotation cleanly to save battery/CPU
         document.addEventListener('visibilitychange', () => {
             if (document.visibilityState === 'visible') {
                 startAutoRotation();
@@ -1997,14 +2034,16 @@ allContactForms.forEach((currentForm) => {
   var ctx=cv.getContext('2d');
   if(!ctx) return;
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var W,H,dpr,r,t=0,cells=[],byZone=[[],[],[],[]],vulns=0,active=0,actT=0;
+  var W,H,dpr,r,t=0,cells=[],byZone=[[],[],[],[]],vulns=0,active=0,actT=0,lastNow=0;
   var TINT=[[192,132,252],[129,140,248],[167,139,250],[232,121,249]];
   var NAMES=['Application Security','Network Security','Cloud Security','Enterprise Security'];
   var ISSUE=[['SQLi','XSS','IDOR','Weak auth'],['Open port','Rogue AP','DDoS','Sniffing'],['Open bucket','Weak IAM','Misconfig','Exposed key'],['Phishing','Unpatched','Shadow IT','Malware']];
   var fixed=[128,96,74,51],chips=box.querySelectorAll('.chip');
 
   function size(){
-    dpr=Math.min(devicePixelRatio||1,2);W=box.clientWidth;H=box.clientHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+    dpr=Math.min(devicePixelRatio||1,2);W=box.clientWidth;H=box.clientHeight;
+    if(W<=0||H<=0) return;
+    cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
     r=Math.max(10,W/33);cells=[];byZone=[[],[],[],[]];vulns=0;
     var cx=W/2,cy=H/2,rx=W*.47,ry=H*.45,dx=1.5*r,dy=1.7321*r;
     for(var c=0;c*dx<W;c++)for(var j=0;j*dy<H;j++){
@@ -2016,9 +2055,11 @@ allContactForms.forEach((currentForm) => {
     if(reduce){seedStatic()}
   }
   function hex(x,y,rr){ctx.beginPath();for(var i=0;i<6;i++){var a=Math.PI/3*i;ctx[i?'lineTo':'moveTo'](x+Math.cos(a)*rr,y+Math.sin(a)*rr)}ctx.closePath()}
-  function setActive(i){
+  function setActive(i,silent){
     active=i;chips.forEach(function(c,k){c.classList.toggle('on',k==i)});
-    window.dispatchEvent(new CustomEvent('ck:zone',{detail:{index:i,name:NAMES[i]}}));
+    if(!silent){
+      window.dispatchEvent(new CustomEvent('ck:zone',{detail:{index:i,name:NAMES[i]}}));
+    }
   }
   function spawn(){
     var z=Math.random()<.6?active:Math.random()*4|0,pool=byZone[z];
@@ -2034,8 +2075,14 @@ allContactForms.forEach((currentForm) => {
     if(expElem&&cells.length) expElem.textContent=(vulns/cells.length*100).toFixed(1)+'%';
   }
 
-  function draw(){
-    var dt=reduce?0:.016;t+=dt;
+  function draw(now){
+    if(!now) now=performance.now();
+    var dt=0;
+    if(!reduce){
+      dt=lastNow?Math.min(0.05,Math.max(0,(now-lastNow)/1000)):0.016;
+      lastNow=now;
+      if(!document.hidden) t+=dt;
+    }
     ctx.clearRect(0,0,W,H);
     var s=(t*.16%1.5)-.25; // diagonal scan band position
 
@@ -2066,10 +2113,13 @@ allContactForms.forEach((currentForm) => {
     ctx.strokeStyle=g;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(2*s*W,0);ctx.lineTo(0,2*s*H);ctx.stroke();
 
     if(!reduce){
-      actT+=dt;if(actT>5){actT=0;setActive((active+1)%4)}
-      if(vulns<7&&Math.random()<.06)spawn();
-      var expElem=document.getElementById('exp');
-      if(expElem&&cells.length) expElem.textContent=(vulns/cells.length*100).toFixed(1)+'%';
+      if(!document.hidden){
+        actT+=dt;
+        if(actT>=5){actT=0;setActive((active+1)%4)}
+        if(vulns<7&&Math.random()<.06)spawn();
+        var expElem=document.getElementById('exp');
+        if(expElem&&cells.length) expElem.textContent=(vulns/cells.length*100).toFixed(1)+'%';
+      }
       requestAnimationFrame(draw);
     }
   }
@@ -2082,20 +2132,22 @@ allContactForms.forEach((currentForm) => {
     });
   });
 
-  // Sync with left side glitch rotator if present
-  window.addEventListener('ck:zone', function(e){
-    var glitchElem = document.querySelector('.cyber-glitch-text');
-    if (glitchElem && e.detail && e.detail.name) {
-      glitchElem.textContent = e.detail.name;
-      glitchElem.setAttribute('data-text', e.detail.name);
-    }
+  // Allow clicking the left hero headline to advance in sync with Honeycomb
+  window.addEventListener('ck:next', function(){
+    actT=0;
+    setActive((active+1)%4);
+  });
+
+  // Prevent stale dt jump when returning to tab
+  document.addEventListener('visibilitychange', function(){
+    lastNow=performance.now();
   });
 
   size();addEventListener('resize',function(){size();if(reduce)draw()});
-  if(!reduce)setActive(0);
-  draw();
+  if(!reduce)setActive(0,true);
+  lastNow=performance.now();
+  draw(lastNow);
 })();
-
 
 /* ================================================================
    CYBER INVESTIGATION — LIVE TRACE HERO ANIMATION

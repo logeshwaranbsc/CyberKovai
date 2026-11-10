@@ -1123,10 +1123,18 @@ button {
     letter-spacing: -1.2px;
 }
 
+@media (max-width: 560px) {
+    .df-page .hero h1 {
+        font-size: clamp(22px, 5.8vw, 32px);
+        letter-spacing: -0.6px;
+    }
+}
+
 .hero-by-line {
-    display: inline-block;
+    display: block;
     white-space: nowrap;
     max-width: 100%;
+    min-height: 1.2em;
     margin-top: 4px;
 }
 
@@ -6859,7 +6867,7 @@ button {
 .ci-panel {
     position: relative;
     flex: 1;
-    min-width: 64px;
+    min-width: 56px;
     max-width: 105px;
     border-radius: 12px;
     overflow: hidden;
@@ -6886,7 +6894,7 @@ button {
 /* Active Expanded Panel */
 .ci-panel.ci-panel-active {
     flex: 5.2;
-    min-width: 440px;
+    min-width: 410px;
     max-width: 100%;
     background: linear-gradient(135deg, rgba(18, 14, 40, 0.98) 0%, rgba(9, 8, 24, 0.99) 100%);
     border-color: rgba(196, 75, 255, 0.6);

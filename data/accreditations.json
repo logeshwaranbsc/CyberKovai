@@ -3,23 +3,25 @@
         "id": "accred-1",
         "name": "Association of Investigators and Detectives",
         "short_name": "AID",
-        "img": "assets/images/aid.png",
+        "img": "data/uploads/accred_1794298501_1bca47.svg",
         "alt": "AID - Association of Investigators and Detectives",
         "website": "",
         "track": "both",
         "order": 1,
-        "status": "active"
+        "status": "active",
+        "updated_at": "2026-11-10 08:15:01"
     },
     {
         "id": "accred-2",
         "name": "Tamilnadu Association of Professional Detectives and Investigators",
         "short_name": "TAPDI",
-        "img": "assets/images/tapdi.png",
+        "img": "data/uploads/accred_1794298552_96db9e.png",
         "alt": "TAPDI - Tamilnadu Association of Professional Detectives and Investigators",
         "website": "",
         "track": "both",
         "order": 2,
-        "status": "active"
+        "status": "active",
+        "updated_at": "2026-11-10 08:15:52"
     },
     {
         "id": "accred-3",

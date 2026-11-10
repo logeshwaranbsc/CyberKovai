@@ -232,6 +232,7 @@ include_once __DIR__ . '/includes/header.php';
 
         <!-- ================= HERO ================= -->
 
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('cyber_hero')): ?>
         <section class="hero" id="home">
 
             <div class="hero-bg"></div>
@@ -295,6 +296,7 @@ include_once __DIR__ . '/includes/header.php';
             </div>
 
         </section>
+<?php endif; ?>
 
 
         
@@ -302,6 +304,7 @@ include_once __DIR__ . '/includes/header.php';
 
         <!-- ================= ABOUT SECTION ================= -->
 
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('cyber_about')): ?>
         <section class="section about-section cyber-about-section" id="about">
             <!-- Ambient Glow Accents -->
             <div class="about-ambient-glow about-glow-left" aria-hidden="true"></div>
@@ -500,6 +503,7 @@ include_once __DIR__ . '/includes/header.php';
             </div>
 
         </section>
+<?php endif; ?>
 
 
 
@@ -507,6 +511,7 @@ include_once __DIR__ . '/includes/header.php';
 
         <!-- ================= CYBER CAPABILITIES (3 CORE PILLARS) ================= -->
 
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('cyber_capabilities')): ?>
         <section class="section cyber-capabilities-section" id="capabilities">
 
             <div class="container">
@@ -603,7 +608,9 @@ include_once __DIR__ . '/includes/header.php';
             </div>
 
         </section>
+<?php endif; ?>
 
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('cyber_stats')): ?>
         <section class="stats-section cyber-stats-section">
 
             <div class="container">
@@ -622,10 +629,12 @@ include_once __DIR__ . '/includes/header.php';
             </div>
 
         </section>
+<?php endif; ?>
 
 
         <!-- ================= PRACTICES / SERVICES ================= -->
 
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('cyber_practices')): ?>
         <section class="section services-section cyber-practices-section" id="services">
 
             <div class="container">
@@ -712,10 +721,12 @@ include_once __DIR__ . '/includes/header.php';
             </div>
 
         </section>
+<?php endif; ?>
 
 
         <!-- ================= PROCESS (STRUCTURED LIFECYCLE) ================= -->
 
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('cyber_process')): ?>
         <section class="section process-section cyber-process-section" id="process">
 
             <div class="container">
@@ -769,10 +780,12 @@ include_once __DIR__ . '/includes/header.php';
             </div>
 
         </section>
+<?php endif; ?>
 
 
         <!-- ================= INDUSTRIES (CYBER INTELLIGENCE FOR EVERY INDUSTRY) ================= -->
 
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('cyber_industries')): ?>
         <section class="section industries-section cyber-industries-section" id="industries">
 
             <div class="container industries-container">
@@ -879,10 +892,12 @@ include_once __DIR__ . '/includes/header.php';
             </div>
 
         </section>
+<?php endif; ?>
 
 
         <!-- ================= CLIENT SCALES ================= -->
 
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('cyber_clients')): ?>
         <section class="section clients-section cyber-clients-section">
 
             <div class="container">
@@ -971,10 +986,12 @@ include_once __DIR__ . '/includes/header.php';
             </div>
 
         </section>
+<?php endif; ?>
 
 
         <!-- ================= REACH / COVERAGE ================= -->
 
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('cyber_coverage')): ?>
         <section class="section coverage-section" id="coverage">
 
             <div class="container">
@@ -1038,11 +1055,13 @@ include_once __DIR__ . '/includes/header.php';
             </div>
 
         </section>
+<?php endif; ?>
 
 
         <!-- ================= ACCREDITATIONS & CREDENTIALS ================= -->
 
         <?php if (!empty($accreds)): ?>
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('cyber_credentials')): ?>
         <section class="section credentials-section" id="credentials">
 
             <div class="container">
@@ -1083,11 +1102,13 @@ include_once __DIR__ . '/includes/header.php';
             </div>
 
         </section>
+<?php endif; ?>
         <?php endif; ?>
 
 
         <!-- ================= BUSINESS RISK SIMULATOR (TOOL) ================= -->
 
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('cyber_simulator')): ?>
         <section class="section tools-section cyber-tools-section" id="company">
 
             <div class="container">
@@ -1147,10 +1168,12 @@ include_once __DIR__ . '/includes/header.php';
             </div>
 
         </section>
+<?php endif; ?>
 
 
         <!-- ================= FAQ SECTION ================= -->
 
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('cyber_faq')): ?>
         <section class="section faq-section cyber-faq-section" id="faq">
 
             <div class="container" style="max-width: 860px;">
@@ -1198,10 +1221,12 @@ include_once __DIR__ . '/includes/header.php';
             </div>
 
         </section>
+<?php endif; ?>
 
 
         <!-- ================= CTA BANNER & CONTACT FORM ================= -->
 
+<?php if (!function_exists('ck_is_section_visible') || ck_is_section_visible('cyber_contact')): ?>
         <section class="contact-section" id="contact">
 
             <div class="container">
@@ -1292,6 +1317,7 @@ include_once __DIR__ . '/includes/header.php';
             </div>
 
         </section>
+<?php endif; ?>
 
     </main>
 
