@@ -23,7 +23,6 @@ class TwoFactorStorage
     public function __construct(?string $storageDir = null)
     {
         $this->storageDir = self::resolveStorageDirectory($storageDir);
-        self::ensureDirectory($this->storageDir);
 
         $this->storePath = $this->storageDir . DIRECTORY_SEPARATOR . 'admin_2fa.json';
         $this->lockPath  = $this->storageDir . DIRECTORY_SEPARATOR . 'admin_2fa.lock';
@@ -229,7 +228,11 @@ class TwoFactorStorage
      */
     private function openLockFile()
     {
-        self::ensureDirectory($this->storageDir);
+        try {
+            self::ensureDirectory($this->storageDir);
+        } catch (RuntimeException $e) {
+            throw new CorruptedStorageException('Unable to initialize 2FA storage directory.', 0, $e);
+        }
         $fp = @fopen($this->lockPath, 'c+b');
         if ($fp === false) {
             throw new CorruptedStorageException('Unable to open 2FA storage lock file.');

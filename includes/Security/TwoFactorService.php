@@ -19,7 +19,7 @@ class TwoFactorService
     private TwoFactorStorage $storage;
     private ?CryptoService $crypto;
     private AuditLogger $logger;
-    private Google2FA $google2fa;
+    private ?Google2FA $google2fa = null;
     private string $issuer;
     private int $window;
 
@@ -34,7 +34,6 @@ class TwoFactorService
         $this->storage = $storage ?? new TwoFactorStorage();
         $this->crypto = $crypto;
         $this->logger = $logger ?? new AuditLogger($this->storage->getStorageDir());
-        $this->google2fa = $google2fa ?? new Google2FA();
 
         $envIssuer = function_exists('env') ? (string) (env('CK_2FA_ISSUER') ?: 'Cyber Kovai') : 'Cyber Kovai';
         $this->issuer = trim($issuer ?? $envIssuer) ?: 'Cyber Kovai';
@@ -42,7 +41,11 @@ class TwoFactorService
         $envWindow = function_exists('env') ? (int) (env('CK_2FA_WINDOW') ?? 1) : 1;
         $resolvedWindow = $window ?? $envWindow;
         $this->window = max(0, min(2, $resolvedWindow));
-        $this->google2fa->setWindow($this->window);
+
+        if ($google2fa !== null) {
+            $this->google2fa = $google2fa;
+            $this->google2fa->setWindow($this->window);
+        }
     }
 
     /**
@@ -150,7 +153,7 @@ class TwoFactorService
         $adminId = $this->assertAdminAccount($admin);
         $crypto = $this->getCrypto();
 
-        $secret = $this->google2fa->generateSecretKey(32);
+        $secret = $this->generateTotpSecret(32);
         $encryptedSecret = $crypto->encrypt($secret, $adminId);
         $nowIso = gmdate('c');
 
@@ -174,7 +177,7 @@ class TwoFactorService
         });
 
         $label = trim((string) ($admin['email'] ?? '')) ?: $adminId;
-        $uri = $this->google2fa->getQRCodeUrl($this->issuer, $label, $secret);
+        $uri = $this->buildProvisioningUri($label, $secret);
 
         $this->logger->log('2fa_setup_initiated', $adminId, ['role' => $admin['role'] ?? 'admin']);
 
@@ -208,7 +211,7 @@ class TwoFactorService
 
         return [
             'secret_manual'    => $secret,
-            'provisioning_uri' => $this->google2fa->getQRCodeUrl($this->issuer, $label, $secret),
+            'provisioning_uri' => $this->buildProvisioningUri($label, $secret),
         ];
     }
 
@@ -217,6 +220,10 @@ class TwoFactorService
      */
     public function renderQrSvg(string $provisioningUri): string
     {
+        if (!class_exists(QRCode::class) || !class_exists(QROptions::class)) {
+            throw new RuntimeException('QR code generator library is not installed. Use the manual setup key or run composer install.');
+        }
+
         $options = new QROptions([
             'version'       => QRCode::VERSION_AUTO,
             'outputType'    => QRCode::OUTPUT_MARKUP_SVG,
@@ -293,7 +300,7 @@ class TwoFactorService
                 ? $record['last_totp_timeslice']
                 : -1;
 
-            $matchedSlice = $this->google2fa->verifyKeyNewer($secret, $otp, $oldSlice, $this->window, $slice);
+            $matchedSlice = $this->verifyTotpNewer($secret, $otp, $oldSlice, $slice);
             if ($matchedSlice === false || !is_int($matchedSlice)) {
                 return [
                     'write' => false,
@@ -362,9 +369,9 @@ class TwoFactorService
                 ? $record['last_totp_timeslice']
                 : -1;
 
-            $matchedSlice = $this->google2fa->verifyKeyNewer($secret, $otp, $oldSlice, $this->window, $slice);
+            $matchedSlice = $this->verifyTotpNewer($secret, $otp, $oldSlice, $slice);
             if ($matchedSlice === false || !is_int($matchedSlice)) {
-                $matchesUsedSlice = (bool) $this->google2fa->verifyKey($secret, $otp, $this->window, $slice);
+                $matchesUsedSlice = $this->verifyTotpAnyWindow($secret, $otp, $slice);
                 $reason = $matchesUsedSlice ? 'replay' : 'invalid';
                 return [
                     'write'  => false,
@@ -431,7 +438,7 @@ class TwoFactorService
                 ? $record['last_totp_timeslice']
                 : -1;
 
-            $matchedSlice = $this->google2fa->verifyKeyNewer($secret, $otp, $oldSlice, $this->window, $slice);
+            $matchedSlice = $this->verifyTotpNewer($secret, $otp, $oldSlice, $slice);
             if (!is_int($matchedSlice)) {
                 return [
                     'write'  => false,
@@ -504,5 +511,124 @@ class TwoFactorService
     private function timeSlice(int $unixTimestamp): int
     {
         return (int) floor($unixTimestamp / self::TIME_STEP_SECONDS);
+    }
+
+    private function resolveGoogle2fa(): ?Google2FA
+    {
+        if ($this->google2fa !== null) {
+            return $this->google2fa;
+        }
+        if (class_exists(Google2FA::class)) {
+            $this->google2fa = new Google2FA();
+            $this->google2fa->setWindow($this->window);
+            return $this->google2fa;
+        }
+        return null;
+    }
+
+    private function generateTotpSecret(int $length = 32): string
+    {
+        $g2fa = $this->resolveGoogle2fa();
+        if ($g2fa !== null) {
+            return $g2fa->generateSecretKey($length);
+        }
+
+        $alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
+        $secret = '';
+        for ($i = 0; $i < $length; $i++) {
+            $secret .= $alphabet[random_int(0, 31)];
+        }
+        return $secret;
+    }
+
+    private function buildProvisioningUri(string $label, string $secret): string
+    {
+        $g2fa = $this->resolveGoogle2fa();
+        if ($g2fa !== null) {
+            return $g2fa->getQRCodeUrl($this->issuer, $label, $secret);
+        }
+
+        return 'otpauth://totp/'
+            . rawurlencode($this->issuer) . ':' . rawurlencode($label)
+            . '?secret=' . $secret
+            . '&issuer=' . rawurlencode($this->issuer)
+            . '&algorithm=SHA1&digits=6&period=' . self::TIME_STEP_SECONDS;
+    }
+
+    /**
+     * @return int|false
+     */
+    private function verifyTotpNewer(string $secret, string $otp, int $oldSlice, int $slice)
+    {
+        $g2fa = $this->resolveGoogle2fa();
+        if ($g2fa !== null) {
+            return $g2fa->verifyKeyNewer($secret, $otp, $oldSlice, $this->window, $slice);
+        }
+
+        return $this->fallbackVerifyWindow($secret, $otp, max($slice - $this->window, $oldSlice + 1), $slice + $this->window, true);
+    }
+
+    private function verifyTotpAnyWindow(string $secret, string $otp, int $slice): bool
+    {
+        $g2fa = $this->resolveGoogle2fa();
+        if ($g2fa !== null) {
+            return (bool) $g2fa->verifyKey($secret, $otp, $this->window, $slice);
+        }
+
+        return $this->fallbackVerifyWindow($secret, $otp, $slice - $this->window, $slice + $this->window, false) !== false;
+    }
+
+    /**
+     * @return int|bool
+     */
+    private function fallbackVerifyWindow(string $secret, string $otp, int $startSlice, int $endSlice, bool $returnSlice)
+    {
+        for ($ts = $startSlice; $ts <= $endSlice; $ts++) {
+            if (hash_equals($this->fallbackOathTotp($secret, $ts), $otp)) {
+                return $returnSlice ? $ts : true;
+            }
+        }
+        return false;
+    }
+
+    private function fallbackOathTotp(string $base32Secret, int $counter): string
+    {
+        $binaryKey = $this->fallbackBase32Decode($base32Secret);
+        $counterBytes = pack('N*', ($counter >> 32) & 0xFFFFFFFF, $counter & 0xFFFFFFFF);
+        $hash = hash_hmac('sha1', $counterBytes, $binaryKey, true);
+        $offset = ord($hash[strlen($hash) - 1]) & 0x0F;
+        $unpacked = unpack('N', substr($hash, $offset, 4));
+        $code = ($unpacked[1] & 0x7FFFFFFF) % 1000000;
+        return str_pad((string) $code, 6, '0', STR_PAD_LEFT);
+    }
+
+    private function fallbackBase32Decode(string $b32): string
+    {
+        $b32 = strtoupper(rtrim(trim($b32), '='));
+        if ($b32 === '') {
+            throw new RuntimeException('TOTP secret key cannot be empty.');
+        }
+
+        $alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
+        $buffer = 0;
+        $bitsLeft = 0;
+        $output = '';
+        $len = strlen($b32);
+
+        for ($i = 0; $i < $len; $i++) {
+            $pos = strpos($alphabet, $b32[$i]);
+            if ($pos === false) {
+                throw new RuntimeException('Invalid character in Base32 TOTP secret.');
+            }
+            $buffer = ($buffer << 5) | $pos;
+            $bitsLeft += 5;
+            if ($bitsLeft >= 8) {
+                $bitsLeft -= 8;
+                $output .= chr(($buffer >> $bitsLeft) & 0xFF);
+                $buffer &= (1 << $bitsLeft) - 1;
+            }
+        }
+
+        return $output;
     }
 }

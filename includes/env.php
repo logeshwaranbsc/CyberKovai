@@ -58,3 +58,19 @@ if (file_exists($ckAutoloader)) {
     require_once $ckAutoloader;
 }
 
+if (!defined('CK_SECURITY_AUTOLOADER_REGISTERED')) {
+    define('CK_SECURITY_AUTOLOADER_REGISTERED', true);
+    spl_autoload_register(static function ($class) {
+        $prefix = 'CyberKovai\\Security\\';
+        $prefixLen = strlen($prefix);
+        if (strncmp($class, $prefix, $prefixLen) !== 0) {
+            return;
+        }
+        $relative = substr($class, $prefixLen);
+        $file = __DIR__ . '/Security/' . str_replace('\\', '/', $relative) . '.php';
+        if (is_file($file)) {
+            require_once $file;
+        }
+    });
+}
+

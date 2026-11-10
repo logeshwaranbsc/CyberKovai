@@ -54,9 +54,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     try {
                         $requires2fa = ck_two_factor_service()->requiresTwoFactor($admin);
-                    } catch (CorruptedStorageException $e) {
+                    } catch (\Throwable $e) {
+                        if (!($e instanceof CorruptedStorageException)) {
+                            error_log('CyberKovai login 2FA check error: ' . $e->getMessage());
+                        }
                         ck_audit_logger()->log('2fa_storage_error', (string) $admin['username'], [
-                            'stage' => 'login',
+                            'stage'  => 'login',
                             'reason' => $e->getMessage(),
                         ]);
                         http_response_code(500);

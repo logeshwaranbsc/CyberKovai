@@ -407,10 +407,18 @@ require_once __DIR__ . '/includes/header.php';
 
             <div class="tfa-setup-grid">
                 <div>
+                    <?php if (class_exists(\chillerlan\QRCode\QRCode::class)): ?>
                     <div class="tfa-qr-frame">
                         <img src="two-factor-qr.php?v=<?= time() ?>" alt="Authenticator QR Code">
                     </div>
                     <span class="form-help" style="text-align: center; margin-top: 0.5rem;">Scan with Google or Microsoft Authenticator</span>
+                    <?php else: ?>
+                    <div class="tfa-action-panel" style="padding: 1rem; text-align: center;">
+                        <p style="font-size: 0.8rem; color: var(--text-secondary); margin: 0;">
+                            QR image rendering requires <code>composer install</code>. Use the manual setup key on the right in your authenticator app.
+                        </p>
+                    </div>
+                    <?php endif; ?>
                 </div>
 
                 <div>

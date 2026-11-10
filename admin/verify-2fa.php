@@ -86,7 +86,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $limiter->hit($acctBucket, 5, 300);
                 $limiter->hit($ipBucket, 15, 300);
                 $error = $result['error'] ?? 'Invalid verification code. Please try again.';
-            } catch (CorruptedStorageException $e) {
+            } catch (\Throwable $e) {
+                if (!($e instanceof CorruptedStorageException)) {
+                    error_log('CyberKovai verify-2fa error: ' . $e->getMessage());
+                }
                 ck_audit_logger()->log('2fa_storage_error', $adminId, ['stage' => 'verify_otp', 'reason' => $e->getMessage()]);
                 http_response_code(500);
                 $error = 'Unable to verify authentication code due to a security configuration issue.';

@@ -22,7 +22,14 @@ if ($pendingData === null || empty($pendingData['provisioning_uri'])) {
     exit('No active pending 2FA setup found.');
 }
 
-$svg = ck_two_factor_service()->renderQrSvg($pendingData['provisioning_uri']);
+try {
+    $svg = ck_two_factor_service()->renderQrSvg($pendingData['provisioning_uri']);
+} catch (\Throwable $e) {
+    error_log('CyberKovai 2FA QR render error: ' . $e->getMessage());
+    http_response_code(503);
+    header('Content-Type: text/plain; charset=utf-8');
+    exit('QR code rendering unavailable. Please enter the manual setup key.');
+}
 
 header('Content-Type: image/svg+xml; charset=utf-8');
 header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0, private');

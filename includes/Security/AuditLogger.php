@@ -14,8 +14,13 @@ class AuditLogger
     public function __construct(?string $storageDir = null)
     {
         $dir = TwoFactorStorage::resolveStorageDirectory($storageDir);
-        TwoFactorStorage::ensureDirectory($dir);
-        $this->logPath = $dir . DIRECTORY_SEPARATOR . 'security_audit.log';
+        try {
+            TwoFactorStorage::ensureDirectory($dir);
+            $this->logPath = $dir . DIRECTORY_SEPARATOR . 'security_audit.log';
+        } catch (\RuntimeException $e) {
+            error_log('CyberKovai AuditLogger storage init warning: ' . $e->getMessage());
+            $this->logPath = '';
+        }
     }
 
     /**
@@ -25,6 +30,9 @@ class AuditLogger
      */
     public function log(string $event, ?string $adminId = null, array $context = []): bool
     {
+        if ($this->logPath === '') {
+            return false;
+        }
         $entry = [
             'timestamp' => gmdate('c'),
             'event'     => $event,
